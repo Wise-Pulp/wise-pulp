@@ -11,8 +11,7 @@ export default class Profile extends Component {
     const { representatives } = this.props
     return (
       <div>
-        {representatives.length ? <ReprentativeList representatives={representatives} /> : <div>Loading...</div>
-        }
+        {representatives.length ? <ReprentativeList representatives={representatives} /> : <div>Loading...</div>}
       </div>
     );
   }
