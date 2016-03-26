@@ -2,15 +2,29 @@ var express = require('express');
 var path = require('path');
 var httpProxy = require('http-proxy');
 var mongoose = require('mongoose');
+var fs = require('file-system');
+var Converter = require("csvtojson").Converter;
+var converter = new Converter({});
 
 
-
-var db = 'mongodb://codeblackwell:Database21@ds035310.mlab.com:35310/heroku_hkr86p3z';
-
+var db = 'mongodb://localhost/Contributors';
 mongoose.connect(db)
 
+////////////////////////////Models
+var Contributor = require('./data/db/Contributor.model.js');
 
 
+////////////////////////////
+
+//Converter Class
+var Converter = require("csvtojson").Converter;
+var converter = new Converter({});
+
+converter.fromFile("./data/independent-expenditure.csv", function(err, result) {
+    console.log(result)
+});
+
+////////////////////////////
 
 var publicPath = path.resolve(__dirname, 'public');
 // We need to add a configuration to our proxy server,
@@ -23,6 +37,7 @@ var proxy = httpProxy.createProxyServer({
 });
 
 var app = express();
+var router = express.Router()
 
 app.use(express.static(publicPath));
 
@@ -51,7 +66,13 @@ app.listen(port, function () {
 
 ////////////////////////////////////////////////////////////
 
-app.post('/', function(req, res) {
-  
-  res.send('Successfully posted to Database')
-})
+app.get('/NASDAQ', function(req, res) {
+    var data = NASDAQ_week.find({})
+    .exec(function(err, data) {
+      if(err){
+        res.send('an error has occured with NASDAQ json');
+      } else {
+        res.json(data);
+      }
+    })
+  })

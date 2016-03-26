@@ -28,6 +28,6 @@ var Contributor = new Schema({
   });
 
 // MongoDB adds an 's' to Model name to create the database name.
-// "CollectionNames" is the name of the entire Collection
-// "CollectionName" is the name of the Model
+// "Contributors" is the name of the entire Collection
+// "Contributor" is the name of the Model
 module.exports = mongoose.model('Contributor', Contributor, 'Contributors');
