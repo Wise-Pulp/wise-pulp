@@ -14,6 +14,6 @@ export function getRepresentatives (zipcode) {
   return dispatch => {
   	return fetch('/api/representative/' + zipcode)
   		.then(response => response.json())
-  		.then(json => dispatch(receiveRepresentatives(json.objects))) 
+  		.then(json => dispatch(receiveRepresentatives(json))) 
   }
 }
