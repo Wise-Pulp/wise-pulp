@@ -3,9 +3,9 @@ import ProgressLabel from 'react-progress-label'
 
 export default class Spinner extends Component {
   render() {
-      var progress = 50;
+      var progress = 80;
       var textStyle = {
-        'fill': '#ffffff',
+        'fill': 'black',
         'textAnchor': 'middle'
       };
     return (
@@ -16,9 +16,9 @@ export default class Spinner extends Component {
         trackWidth={20}
         cornersWidth={4}
         size={400}
-        fillColor="black"
+        fillColor="white"
         trackColor="red"
-        progressColor="green">
+        progressColor="blue">
 
         <text x="200" y="200" style={textStyle}>{`${progress}%`}</text>
 

@@ -1,10 +1,8 @@
 // import FrontPage from './reducerFrontPage'
 
-const initialState = 0;
-
-const FrontPage = (state = initialState)=> {
+const reducerFrontPage = (state)=> {
   // FrontPage
-  return state++;
+  return state;
 }
 
-export default FrontPage
+export default reducerFrontPage
