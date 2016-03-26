@@ -19,6 +19,7 @@
     "express": "^4.13.3",
     "http-proxy": "^1.13.2",
     "jquery": "^2.2.2",
+    "mongoose": "4.4.10",
     "react": "^0.14.7",
     "react-dom": "^0.14.7",
     "react-redux": "^4.4.1",
