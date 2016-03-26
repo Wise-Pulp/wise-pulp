@@ -2,13 +2,8 @@ import fetch from 'isomorphic-fetch'
 
 export const RECEIVE_REPRESENTATIVES = 'RECEIVE_REPRESENTATIVES'
 
-function receiveRepresentatives(representatives, state) {
-	var storage = []
-	for (var i = 0; i < representatives.objects.length; i++) {
-		if(representatives.objects[i].state === state) {
-			storage.push(representatives.objects[i])
-		}
-	}
+function receiveRepresentatives(json) {
+  console.log(json)
   return {
     type: RECEIVE_REPRESENTATIVES,
     representatives: storage
@@ -17,8 +12,8 @@ function receiveRepresentatives(representatives, state) {
 
 export function getRepresentatives (zipcode) {
   return dispatch => {
-  	return fetch('/api/representative/:zipcode')
+  	return fetch('/api/representative/' + zipcode)
   		.then(response => response.json())
-  		.then(json => dispatch(receiveRepresentatives(json)))	
+  		.then(json => dispatch(receiveRepresentatives(json.objects))) 
   }
 }

@@ -15,19 +15,16 @@ app.listen(port, function () {
 
 //****************UNCOMMENT FOR DISTRICT / ZIPCODE RELATION DATA**********************//
 fs.readFile('./natl_zccd_delim.txt', 'utf-8', function(err, data) {
-	var hello = data.replace('\r', '')
+	var hello = data.replace(/[\r]*/g, '')
 	var goodbye = hello.split('\n')
-	var storage = [];
+	var obj = {};
 	for (var i = 0; i < goodbye.length; i++) {
 		var temp = goodbye[i].split(',')
-		var obj = {
-			district: temp[0],
-			zipcode: temp[1]
-		}
-		storage.push(obj)
+		obj[temp[1]] = temp[2]
 	}
-	fs.writeFile('./districts.js', storage, (err) => {
-  if (err) throw err;
-  console.log('It\'s saved!');
+	var stringed = JSON.stringify(obj)
+	fs.writeFile('./districts.js', stringed, (err) => {
+  	if (err) throw err;
+  	console.log('It\'s saved!');
 	});
 })

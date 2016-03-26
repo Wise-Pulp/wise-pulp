@@ -3,11 +3,12 @@ var path = require('path');
 var httpProxy = require('http-proxy');
 var mongoose = require('mongoose');
 var publicPath = path.resolve(__dirname, 'public');
+var fs = require('fs');
 var Xray = require('x-ray');
 var x = Xray();
 var publicPath = path.resolve(__dirname, 'public');
 var districts = require(__dirname, '/districts.js')
-
+var fetch = require('isomorphic-fetch')
 // We need to add a configuration to our proxy server,
 // as we are now proxying outside localhost
 var isProduction = process.env.NODE_ENV === 'production';
@@ -28,9 +29,24 @@ app.use(express.static(publicPath));
 
 // If you only want this for development, you would of course
 // put it in the "if" block below
+var obj;
+fs.readFile('./districts.js', 'utf-8', function(err, data) {
+  if (err) throw err;
+  obj = data
+})
 
 app.get('/api/representative/:zipcode', function(req, res) {
+  var zipcode = req.params.zipcode
+  var hello = JSON.parse(obj)
+  var district = hello[zipcode]
 
+  fetch('https://www.govtrack.us/api/v2/role?current=true&district=' + district)
+    .then(function(representative) {
+      return representative.json()
+    })
+    .then(function(json) {
+      return res.send(json)
+    })
 })
 
 if (!isProduction) {

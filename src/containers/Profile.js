@@ -5,7 +5,7 @@ import ReprentativeList from '../components/RepresentativeList'
 
 export default class Profile extends Component {
   componentDidMount() {
-  	this.props.dispatch(getRepresentatives('CA'))
+  	this.props.dispatch(getRepresentatives(94611))
   }
   render() {
     const { representatives } = this.props
