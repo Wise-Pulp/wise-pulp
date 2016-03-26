@@ -6,6 +6,8 @@ var publicPath = path.resolve(__dirname, 'public');
 var Xray = require('x-ray');
 var x = Xray();
 var publicPath = path.resolve(__dirname, 'public');
+var districts = require(__dirname, '/districts.js')
+
 // We need to add a configuration to our proxy server,
 // as we are now proxying outside localhost
 var isProduction = process.env.NODE_ENV === 'production';
@@ -28,7 +30,7 @@ app.use(express.static(publicPath));
 // put it in the "if" block below
 
 app.get('/api/representative/:zipcode', function(req, res) {
-  x('https://www.census.gov/geo/maps-data/data/cd_state.html', 'select').write().pipe(res)
+
 })
 
 if (!isProduction) {
