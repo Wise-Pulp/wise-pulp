@@ -1,15 +1,20 @@
-import React, { PropTypes } from 'react'
+import React, { Component } from 'react'
 import Representative from './Representative'
 
-const RepresentativeList = ({representatives}) => (
-	<ul>
-		{representatives.map(representative => 
-			<Representative
-				key={representative.id}
-				representative={representative}
-			/>
-	)}
-	</ul>
-)
-
-export default RepresentativeList
+export default class RepresentativeList extends Component {
+	render() {
+		const { representatives } = this.props
+		return (
+			<ul>
+				{representatives.map(function(representative) {
+					let image = 'https://www.govtrack.us/data/photos/' + representative.person.id + '-200px.jpeg'
+					return <Representative
+						key={representative.id}
+						representative={representative}
+						image={image}
+					/>
+			})}
+			</ul>
+		)
+	}
+}

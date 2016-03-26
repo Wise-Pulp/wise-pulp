@@ -2,22 +2,19 @@ var express = require('express');
 var path = require('path');
 var httpProxy = require('http-proxy');
 var mongoose = require('mongoose');
-var publicPath = path.resolve(__dirname, 'public');
 var fs = require('fs');
 var Xray = require('x-ray');
 var x = Xray();
 var publicPath = path.resolve(__dirname, 'public');
 var districts = require(__dirname, '/districts.js')
 var fetch = require('isomorphic-fetch')
-// We need to add a configuration to our proxy server,
-// as we are now proxying outside localhost
+var polyfill = require('babel-polyfill')
 var isProduction = process.env.NODE_ENV === 'production';
-var port = isProduction ? process.env.PORT : 3000;
+var port = isProduction ? process.env.PORT : 3500;
 
 var db = 'mongodb://codeblackwell:Database21@ds035310.mlab.com:35310/heroku_hkr86p3z';
 
 mongoose.connect(db)
-
 
 var proxy = httpProxy.createProxyServer({
   changeOrigin: true
@@ -40,30 +37,26 @@ app.get('/api/representative/:zipcode', function(req, res) {
   var hello = JSON.parse(obj)
   var district = hello[zipcode]['district']
   var state = hello[zipcode]['state']
-  var myObject = {}
   var image;
 
-  //fuck this, just create a table with all of their img URLs, title, district, name, party, birthday(?wish your congressperson a happy birthday?)
-
-  fetch('https://www.govtrack.us/api/v2/role?district=' + district + '&state=' + state)
+  fetch('https://www.govtrack.us/api/v2/role?current=true&district=' + district + '&state=' + state)
     .then(function(rep) {
-      //console.log(rep)
-      myObject = {
-        representative: rep
-      }
-    return fetch('https://www.govtrack.us/api/v2/role?current=true&role_type=senator&state=CA')
-      .then(function(img) {
-        image = img.json();
-      })
-    })
-    .then(function() {
-      console.log(image)
-      console.log(myObject)
-    })
-
+       return rep.json()
+      }).then(function(val) {
+        return val
+       }).then(function(congressperson) {
+          fetch('https://www.govtrack.us/api/v2/role?current=true&role_type=senator&state=CA')
+              .then(function(img) {
+                return img.json()
+              })
+              .then(function(senator) {
+                senator.objects.push(congressperson.objects[0])
+                res.send(senator)
+              })
+        })
 })
 
-if (isProduction) {
+if (!isProduction) {
   var bundle = require('./server/compiler.js');
   bundle();
   app.all('/build/*', function (req, res) {

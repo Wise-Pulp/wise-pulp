@@ -3,10 +3,9 @@ import fetch from 'isomorphic-fetch'
 export const RECEIVE_REPRESENTATIVES = 'RECEIVE_REPRESENTATIVES'
 
 function receiveRepresentatives(json) {
-  console.log(json)
   return {
     type: RECEIVE_REPRESENTATIVES,
-    representatives: storage
+    representatives: json.objects
   }
 }
 
