@@ -14,10 +14,7 @@ export default class FrontPage extends Component {
         <HeatMap />
         <Tutorial />
         <GettingStarted />
-<<<<<<< 91ecd3eedcd7222ef53af1f70ffb600f3f85106c:src/containers/FrontPage.js
-=======
         <Spinner />
->>>>>>> Added progress spinner using react-progress-label:containers/FrontPage.js
       </div>
     );
   }
