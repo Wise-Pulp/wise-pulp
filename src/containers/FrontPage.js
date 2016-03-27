@@ -3,7 +3,7 @@ import Header from '../components/Header'
 import HeatMap from '../components/HeatMap'
 import Tutorial from '../components/Tutorial'
 import GettingStarted from '../components/GettingStarted'
-
+import Spinner from '../components/ProgressLabel'
 
 
 export default class FrontPage extends Component {
@@ -14,6 +14,7 @@ export default class FrontPage extends Component {
         <HeatMap />
         <Tutorial />
         <GettingStarted />
+        <Spinner />
       </div>
     );
   }
