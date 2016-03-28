@@ -7,7 +7,7 @@ import Spinner from '../components/ProgressLabel'
 
 export default class Profile extends Component {
   componentDidMount() {
-  	this.props.dispatch(getRepresentatives(94611))
+  	this.props.dispatch(getRepresentatives(92139))
   }
   isVisible() {
     console.log(!!this.props.representatives.length, this.props.representatives.length)
