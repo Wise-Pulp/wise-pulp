@@ -29,9 +29,11 @@ export default class Profile extends Component {
 
 function mapStateToProps(state, ownProps) {
   const representatives = state.Profile.representatives
+  const isFetching = state.Profile.isFetching;
   console.log(representatives)
   return {
-    representatives
+    representatives,
+    isFetching
   }
 }
 
