@@ -1,12 +1,18 @@
 import { RECEIVE_REPRESENTATIVES } from '../actions/index'
 
 export default function representativesList(state = {
-	representatives: []
+	representatives: [],
+  isFetching: false
 }, action) {
   switch (action.type) {
+    case IS_FETCHING: 
+      return {
+        isFetching: true
+      }
     case RECEIVE_REPRESENTATIVES:
       return {
-        representatives: action.representatives
+        representatives: action.representatives,
+        isFetching: false
       }
     default:
       return state
