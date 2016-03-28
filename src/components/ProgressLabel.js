@@ -9,7 +9,6 @@ export default class Spinner extends Component {
         'textAnchor': 'middle'
       };
     return (
-      <div style={{display: this.props.connected ? 'block' : 'none'}} >
         <ProgressLabel
           progress={progress}
           startDegree={60}
@@ -21,7 +20,6 @@ export default class Spinner extends Component {
           trackColor="red"
           progressColor="blue"
            />
-      </div>
     );
   }
 }

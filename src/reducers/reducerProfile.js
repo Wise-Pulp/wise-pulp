@@ -1,4 +1,4 @@
-import { RECEIVE_REPRESENTATIVES } from '../actions/index'
+import { RECEIVE_REPRESENTATIVES, IS_FETCHING } from '../actions/index'
 
 export default function representativesList(state = {
 	representatives: [],
