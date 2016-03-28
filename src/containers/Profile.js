@@ -1,17 +1,22 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { getRepresentatives } from '../actions/index'
-import ReprentativeList from '../components/RepresentativeList'
+import RepresentativeList from '../components/RepresentativeList'
+import Spinner from '../components/ProgressLabel'
+
 
 export default class Profile extends Component {
   componentDidMount() {
-  	this.props.dispatch(getRepresentatives(94611))
+  	this.props.dispatch(getRepresentatives(92139))
   }
+
   render() {
-    const { representatives } = this.props
+    const { representatives, isFetching } = this.props
     return (
       <div>
-        {representatives.length ? <ReprentativeList representatives={representatives} /> : <div>Loading...</div>}
+        {isFetching ? <Spinner representatives={representatives} /> :
+        <RepresentativeList representatives={representatives}/> }
+        
       </div>
     );
   }
@@ -19,9 +24,11 @@ export default class Profile extends Component {
 
 function mapStateToProps(state, ownProps) {
   const representatives = state.Profile.representatives
-  console.log(representatives)
+  const isFetching = state.Profile.isFetching;
+  console.log(state)
   return {
-    representatives
+    representatives,
+    isFetching
   }
 }
 
