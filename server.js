@@ -3,56 +3,65 @@ var path = require('path');
 var httpProxy = require('http-proxy');
 var mongoose = require('mongoose');
 var fs = require('fs');
-var Promise = require("bluebird");
+var Promise = require('bluebird');
 var pFs = Promise.promisifyAll(require('fs'));
 
 //connect to local host
 //var db = 'mongodb://localhost/Contributors';
 
 //connect to heroku
-var db = 'mongodb://codeblackwell:Database21@ds035310.mlab.com:35310/heroku_hkr86p3z';
+// var db = 'mongodb://localhost';
 
-mongoose.connect(db)
+// mongoose.connect(db);
 
-////////////////////////////Models
-var Contributor = require('./data/db/Contributor.model.js');
+// var connection = mongoose.connection;
 
-//THIS IS THE DATA CONVERSION MACHINE!!!!!!!!!
-////////////////////////////
+// connection.on('error', function(err) {
+//   console.log('Error', err)
+// })
 
-//INSERT YOUR CSV DATA HERE!
-var csvFile = "./data/independent-expenditure.csv";
-//DESIRED OUTPUT DIRECTORY!
-var output = "./data/Contributors.json";
-//START SERVER AND WAIT FOR MAGIC!
+//connection.once('connected', function(success) {
+  ////////////////////////////Models
+//   var Contributor = require('./data/db/Contributor.model.js');
 
-//Converter Class
-var Converter  = require('csvtojson').Converter;
-var converter  = new Converter({});
-converter.fromFile(csvFile, function(err, result) {
-  // console.log(result);
-  pFs.writeFile(output, JSON.stringify(result), function(err) {
-     if(err) throw err;
-   })
-});
+//   //THIS IS THE DATA CONVERSION MACHINE!!!!!!!!!
+//   ////////////////////////////
 
-var JSONdata = pFs.readFileSync(output);
-    JSONdata = JSON.parse(JSONdata.toString())
-    //console.log(JSONdata) => csv in JSON.
+//   //INSERT YOUR CSV DATA HERE!
+//   var csvFile = "./data/independent-expenditure.csv";
+//   //DESIRED OUTPUT DIRECTORY!
+//   var output = "./data/Contributors.json";
+//   //START SERVER AND WAIT FOR MAGIC!
 
-////////////////////////////
-//Time To Upload data to Mongolab
-///////////////////////////
+//   //Converter Class
+//   var Converter  = require('csvtojson').Converter;
+//   var converter  = new Converter({});
+//   converter.fromFile(csvFile, function(err, result) {
+//     // console.log(result);
+//     pFs.writeFile(output, JSON.stringify(result), function(err) {
+//        if(err) throw err;
+//      })
+//   });
 
-var contributorController = require('./data/db/controllers/contributorController.js');
+//   var JSONdata = pFs.readFileSync(output);
+//       JSONdata = JSON.parse(JSONdata.toString())
+//       //console.log(JSONdata) => csv in JSON.
+
+//   ////////////////////////////
+//   //Time To Upload data to Mongolab
+//   ///////////////////////////
+
+//   var contributorController = require('./data/db/controllers/contributorController.js');
 
 
-contributorController.createContributor(JSONdata[0]);
-  // for(var i = 0; i < JSONdata.length; i++) {
-  //   contributorController.createContributor(JSONdata[i]);
-  // }
+//   contributorController.createContributor(JSONdata[0]);
+//     // for(var i = 0; i < JSONdata.length; i++) {
+//     //   contributorController.createContributor(JSONdata[i]);
+//     // }
 
-////////////////////////////
+//   ////////////////////////////
+ //})
+
 
 
 var publicPath = path.resolve(__dirname, 'public');
@@ -92,16 +101,7 @@ app.get('/api/representative/:zipcode', function(req, res) {
 
   fetch('https://www.govtrack.us/api/v2/role?current=true&district=' + district + '&state=' + state)
     .then(function(rep) {
-      //console.log(rep)
-      myObject = {
-        representative: rep
-      }
-    return fetch('https://www.govtrack.us/api/v2/role?current=true&role_type=senator&state=CA')
-      .then(function(img) {
-        image = img.json();
-      })
-    })
-     return rep.json()
+       return rep.json()
       }).then(function(val) {
         return val
        }).then(function(congressperson) {
@@ -114,6 +114,7 @@ app.get('/api/representative/:zipcode', function(req, res) {
                 res.send(senator)
               })
         })
+})
 
 if (!isProduction) {
   var bundle = require('./server/compiler.js');

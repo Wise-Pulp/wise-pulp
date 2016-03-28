@@ -6,7 +6,7 @@ import Profile from '../src/containers/Profile'
 
 export default (store) => (
     <Route path='/' component={App}>
-    	<Route path='home' component={FrontPage} />
+    	<IndexRoute component={FrontPage} />
     	<Route path='profile' component={Profile} >
   		</Route>
     </Route>
