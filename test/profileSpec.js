@@ -12,7 +12,40 @@ import { RECEIVE_REPRESENTATIVES,
           receiveRepresentatives,
           getRepresentatives } from '../src/actions/index'
 import {RepresentativeList} from '../src/components/RepresentativeList'
+import configureMockStore from 'redux-mock-store'
+import thunk from 'redux-thunk'
+import * as actions from '../actions/index'
+import nock from 'nock'
 
+const middlewares = [ thunk ]
+const mockStore = configureMockStore(middlewares)
+
+describe('async actions', () => {
+  afterEach(() => {
+    nock.cleanAll()
+  })
+
+  it('creates FETCH_TODOS_SUCCESS when fetching todos has been done', (done) => {
+    nock('http://example.com/')
+      .get('/todos')
+      .reply(200, { body: { todos: ['do something'] }})
+
+    const expectedActions = [
+      { type: types.FETCH_TODOS_REQUEST },
+      { type: types.FETCH_TODOS_SUCCESS, body: { todos: ['do something']  } }
+    ]
+    const store = mockStore({ todos: [] })
+
+    store.dispatch(actions.fetchTodos())
+      .then(() => {
+        const actions = store.getActions()
+
+        expect(actions[0].type).toEqual(types.FETCH_TODOS_REQUEST)
+
+        done()
+      })
+  })
+})
 
 const middlewares = [ thunk ]
 const mockStore = configureMockStore(middlewares)
