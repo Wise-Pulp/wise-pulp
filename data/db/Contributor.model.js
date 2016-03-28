@@ -16,17 +16,23 @@ var Contributor = new Schema({
 can_off_sta: { type: String,
             required: false }, // State of Candidate
 can_off_district: {type: Number,
-          required: false}, // Candidate District
+          required: false,
+          min: 0,
+          max: 1000000}, // Candidate District
   can_off:   { type: String,
             required: false }, //Candidate office
   can_par_aff: { type: String,
             required: false }, //Party affiliation of Candidate
   exp_amo: {type: Number,
-          required: false}, // $ amount of specific expenditure
+          required: false,
+          min: 0,
+          max: 1000000}, // $ amount of specific expenditure
   exp_dat: {type: Date,
             required: false}, //dat of expenditure
   agg_amo: {type: Number,
-          required: false}, //aggregate amount of contribution in $
+          required: false,
+          min: 0,
+          max: 1000000}, //aggregate amount of contribution in $
   sup_opp: { type: String,
             required: false }, //in Support or Opposition
   pur:     { type: String,
@@ -34,17 +40,23 @@ can_off_district: {type: Number,
   pay:     { type: String,
             required: false }, // name of payee
   file_num: {type: Number,
-          required:false}, //filing number
+          required: false,
+          min: 0,
+          max: 1000000}, //filing number
   amn_ind: { type: String,
             required: false }, //amendment indicator
   tra_id:  { type: String,
             required: false }, // Transaction ID
   ima_num: {type: Number,
-          required:false}, // image number
+          required: false,
+          min: 0,
+          max: 1000000}, // image number
   rec_dt: {type: Date,
             required: false}, // Filing Receipt date
   prev_file_num: {type: Number,
-          required:false}, //previous filing number
+          required: false,
+          min: 0,
+          max: 1000000}, //previous filing number
   dissem_dt: {type: Date,
             required: false} //Date of Public Dissemenation
   });

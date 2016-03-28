@@ -10,6 +10,35 @@ var pFs = Promise.promisifyAll(require('fs'));
 //var db = 'mongodb://localhost/Contributors';
 
 //connect to heroku
+var db = 'mongodb://codeblackwell:Database21@ds035310.mlab.com:35310/heroku_hkr86p3z';
+
+mongoose.connect(db)
+
+////////////////////////////Models
+var Contributor = require('./data/db/Contributor.model.js');
+
+//THIS IS THE DATA CONVERSION MACHINE!!!!!!!!!
+////////////////////////////
+
+//INSERT YOUR CSV DATA HERE!
+var csvFile = "./data/voter_Turnout/primary/2000+2004_PEVT.csv";
+//DESIRED OUTPUT DIRECTORY!
+var output = "./data/2000+2004_PEVT.json";
+//START SERVER AND WAIT FOR MAGIC!
+
+//Converter Class
+var Converter  = require('csvtojson').Converter;
+var converter  = new Converter({});
+converter.fromFile(csvFile, function(err, result) {
+   console.log(result);
+  pFs.writeFile(output, JSON.stringify(result), function(err) {
+     if(err) throw err;
+   })
+});
+
+//var JSONdata = pFs.readFileSync(output);
+//    JSONdata = JSON.parse(JSONdata.toString())
+    //console.log(JSONdata) => csv in JSON.
 // var db = 'mongodb://localhost';
 
 // mongoose.connect(db);
@@ -33,6 +62,7 @@ var pFs = Promise.promisifyAll(require('fs'));
 //   var output = "./data/Contributors.json";
 //   //START SERVER AND WAIT FOR MAGIC!
 
+
 //   //Converter Class
 //   var Converter  = require('csvtojson').Converter;
 //   var converter  = new Converter({});
@@ -42,6 +72,14 @@ var pFs = Promise.promisifyAll(require('fs'));
 //        if(err) throw err;
 //      })
 //   });
+
+// var contributorController = require('./data/db/controllers/contributorController.js');
+//
+//
+// contributorController.createContributor(JSONdata[0]);
+//   // for(var i = 0; i < JSONdata.length; i++) {
+//   //   contributorController.createContributor(JSONdata[i]);
+//   // }
 
 //   var JSONdata = pFs.readFileSync(output);
 //       JSONdata = JSON.parse(JSONdata.toString())
@@ -61,6 +99,7 @@ var pFs = Promise.promisifyAll(require('fs'));
 
 //   ////////////////////////////
  //})
+
 
 
 
@@ -98,7 +137,7 @@ app.get('/api/representative/:zipcode', function(req, res) {
   var district = hello[zipcode]['district']
   var state = hello[zipcode]['state']
   var image;
-  
+
   fetch('https://www.govtrack.us/api/v2/role?current=true&district=' + district + '&state=' + state)
     .then(function(rep) {
        return rep.json()
@@ -114,7 +153,7 @@ app.get('/api/representative/:zipcode', function(req, res) {
                 res.send(senator)
               })
         })
-})
+  });
 
 if (!isProduction) {
   var bundle = require('./server/compiler.js');
