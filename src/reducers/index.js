@@ -1,11 +1,13 @@
 import { combineReducers } from 'redux'
-import { routerReducer as router } from 'react-router-redux'
 import FrontPage from './reducerFrontPage'
 import Profile from './reducerProfile'
+import { routerReducer as routing } from 'react-router-redux'
 
-export default combineReducers({
+
+const rootReducer = combineReducers({
   FrontPage,
   Profile,
-  router
+  routing
 })
 
+export default rootReducer
