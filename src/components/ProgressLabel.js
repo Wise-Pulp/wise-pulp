@@ -19,6 +19,7 @@ export default class Spinner extends Component {
           fillColor="white"
           trackColor="red"
           progressColor="blue"
+           
            />
     );
   }
