@@ -18,7 +18,8 @@ export default class Spinner extends Component {
         size={400}
         fillColor="white"
         trackColor="red"
-        progressColor="blue">
+        progressColor="blue"
+        style={{display: this.props.representatives ? 'block' : 'none'}} >
 
         <text x="200" y="200" style={textStyle}>{`${progress}%`}</text>
 
