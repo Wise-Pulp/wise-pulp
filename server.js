@@ -21,36 +21,36 @@ var Contributor = require('./data/db/Contributor.model.js');
 ////////////////////////////
 
 //INSERT YOUR CSV DATA HERE!
-var csvFile = "./data/independent-expenditure.csv";
+var csvFile = "./data/voter_Turnout/primary/2000+2004_PEVT.csv";
 //DESIRED OUTPUT DIRECTORY!
-var output = "./data/Contributors.json";
+var output = "./data/2000+2004_PEVT.json";
 //START SERVER AND WAIT FOR MAGIC!
 
 //Converter Class
 var Converter  = require('csvtojson').Converter;
 var converter  = new Converter({});
 converter.fromFile(csvFile, function(err, result) {
-  // console.log(result);
+   console.log(result);
   pFs.writeFile(output, JSON.stringify(result), function(err) {
      if(err) throw err;
    })
 });
 
-var JSONdata = pFs.readFileSync(output);
-    JSONdata = JSON.parse(JSONdata.toString())
+//var JSONdata = pFs.readFileSync(output);
+//    JSONdata = JSON.parse(JSONdata.toString())
     //console.log(JSONdata) => csv in JSON.
 
 ////////////////////////////
 //Time To Upload data to Mongolab
 ///////////////////////////
 
-var contributorController = require('./data/db/controllers/contributorController.js');
-
-
-contributorController.createContributor(JSONdata[0]);
-  // for(var i = 0; i < JSONdata.length; i++) {
-  //   contributorController.createContributor(JSONdata[i]);
-  // }
+// var contributorController = require('./data/db/controllers/contributorController.js');
+//
+//
+// contributorController.createContributor(JSONdata[0]);
+//   // for(var i = 0; i < JSONdata.length; i++) {
+//   //   contributorController.createContributor(JSONdata[i]);
+//   // }
 
 ////////////////////////////
 
@@ -89,19 +89,9 @@ app.get('/api/representative/:zipcode', function(req, res) {
   var district = hello[zipcode]['district']
   var state = hello[zipcode]['state']
   var image;
-
   fetch('https://www.govtrack.us/api/v2/role?current=true&district=' + district + '&state=' + state)
     .then(function(rep) {
-      //console.log(rep)
-      myObject = {
-        representative: rep
-      }
-    return fetch('https://www.govtrack.us/api/v2/role?current=true&role_type=senator&state=CA')
-      .then(function(img) {
-        image = img.json();
-      })
-    })
-     return rep.json()
+       return rep.json()
       }).then(function(val) {
         return val
        }).then(function(congressperson) {
@@ -114,6 +104,7 @@ app.get('/api/representative/:zipcode', function(req, res) {
                 res.send(senator)
               })
         })
+});
 
 if (!isProduction) {
   var bundle = require('./server/compiler.js');
