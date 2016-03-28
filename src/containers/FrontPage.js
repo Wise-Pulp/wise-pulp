@@ -14,7 +14,7 @@ export default class FrontPage extends Component {
         <HeatMap />
         <Tutorial />
         <GettingStarted />
-        <Spinner />
+
       </div>
     );
   }
