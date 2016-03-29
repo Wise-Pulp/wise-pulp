@@ -131,7 +131,7 @@ fs.readFile('./reps.js', 'utf-8', function(err, data) {
   obj = data
 })
 
-app.get('/api/representative/:zipcode', function(req, res) {
+app.get('/api/representatives/:zipcode', function(req, res) {
   var zipcode = req.params.zipcode
   var hello = JSON.parse(obj)
   var district = hello[zipcode]['district']
@@ -154,6 +154,10 @@ app.get('/api/representative/:zipcode', function(req, res) {
               })
         })
   });
+
+app.get('/profile', function(req, res) {
+  res.sendFile(publicPath + '/index.html');
+})
 
 if (!isProduction) {
   var bundle = require('./server/compiler.js');

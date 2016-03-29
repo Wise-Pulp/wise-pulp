@@ -6,9 +6,6 @@ import Spinner from '../components/ProgressLabel'
 
 
 export default class Profile extends Component {
-  componentDidMount() {
-  	this.props.dispatch(getRepresentatives(92139))
-  }
 
   render() {
     const { representatives, isFetching } = this.props
@@ -22,10 +19,9 @@ export default class Profile extends Component {
   }
 }
 
-function mapStateToProps(state, ownProps) {
+function mapStateToProps(state) {
   const representatives = state.Profile.representatives
-  const isFetching = state.Profile.isFetching;
-  console.log(state)
+  const isFetching = state.Profile.isFetching
   return {
     representatives,
     isFetching
