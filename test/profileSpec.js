@@ -11,18 +11,19 @@ import {expect} from 'chai';
 
 import { RECEIVE_REPRESENTATIVES,
           receiveRepresentatives,
-          getRepresentatives } from '../src/actions/index'
+          getRepresentatives,
+          getZipCode } from '../src/actions/index'
 import {RepresentativeList} from '../src/components/RepresentativeList'
 
 const middlewares = [ thunk ]
 const mockStore = configureMockStore(middlewares)
 
-describe('async actions', () => {
+describe('API Calls', () => {
   afterEach(() => {
     nock.cleanAll()
   })
 
-  it('creates RECEIVE_REPRESENTATIVES when fetching representatives has been done', (done) => {
+  xit('creates RECEIVE_REPRESENTATIVES when fetching representatives has been done', (done) => {
     nock('http://localhost')
       .get('/api/representatives')
       .reply('200', { objects: { name: 'Barbara Lee'} } )
