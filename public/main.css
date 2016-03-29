@@ -16,3 +16,12 @@ body {
   width: 800%;
   max-height: 200px;
 }
+
+
+/********************************
+      Representative Page
+*********************************/
+
+.rep-img {
+	border-radius: 100%;
+}
