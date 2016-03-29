@@ -156,7 +156,6 @@ app.get('/api/representative/:zipcode', function(req, res) {
   });
 
 app.get('/profile', function(req, res) {
-  console.log('hello')
   res.sendFile(publicPath + '/index.html');
 })
 
