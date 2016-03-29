@@ -25,3 +25,9 @@ export function getRepresentatives (zipcode) {
   		.then(json => dispatch(receiveRepresentatives(json))) 
   }
 }
+
+export function increaseProgress () {
+  return setInterval(()=> {
+    return this.props.progress += 10
+  }, 400)
+}

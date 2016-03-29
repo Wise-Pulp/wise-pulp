@@ -7,12 +7,12 @@ export default class Header extends Component {
     return (
       <div className="container">
         <header className="header">
-          <div className="col-sm-12">
-            <div className="row col-sm-offset-3">
+          <div className="col-md-12">
+            <div className="row col-md-offset-5">
               <h1>Polis</h1>
             </div>
           </div>
-          <div className="col-sm-6">
+          <div className="col-md-1 col-md-offset-9">
             <div className="row">
               <input type="text" placeholder="User Name" />
               <input type="password" placeholder="Password" />
