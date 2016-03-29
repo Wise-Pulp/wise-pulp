@@ -33,4 +33,10 @@ xdescribe('Loading spinner', () => {
     expect(progressLabel.style.display).to.equal('block');
   });
 
+  // it('Should begin with an initial state of 0', () => {
+  //   let progress = Spinner.getInitialState()
+
+  //   expect(progress).to.equal(0);
+  // });
+
 });
