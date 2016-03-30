@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { setRepresentative, getRepresentatives, increaseProgress } from '../actions/index'
 import RepresentativeList from '../components/RepresentativeList'
-import Spinner from '../components/ProgressLabel'
+import Spinner from '../components/Spinner'
 
 
 export default class Profile extends Component {
@@ -15,7 +15,18 @@ export default class Profile extends Component {
     this.props.dispatch(setRepresentative(rep))
   }
 
+  beginSpinner() {
+    while(this.props.isFetching) {
+      this.props.dispatch(increaseProgress())
+    }
+  }
+
+  componentDidMount() {
+    this.interval = setInterval(this.beginSpinner.bind(this), 400)
+  }    
+
   render() {
+<<<<<<< 02447e2b4075506aeadf0ca328a86403b184af3e
     const { representative, representatives, isFetching } = this.props
     return (
       <div>
@@ -25,21 +36,37 @@ export default class Profile extends Component {
                             representative={representative}
                             selectRep={this.selectRep} 
                             /> }
+=======
+    const { representatives, isFetching, progress } = this.props
+    if (!isFetching) { clearInterval(this.interval);}
+    return (
+      <div>
+        {isFetching ? <Spinner representatives={representatives} 
+                               progress = {progress} 
+                                /> :
+        <RepresentativeList representatives={representatives}/> }
+        
+>>>>>>> Rebasing for beginning of the day
       </div>
     );
   }
 }
 
+
+
+
 function mapStateToProps(state) {
   const representatives = state.Profile.representatives
   const isFetching = state.Profile.isFetching
+  const progress = state.Spinner.progress
   const representative = state.Profile.representative
   console.log(state)
 
   return {
     representatives,
     isFetching,
-    representative
+    representative,
+    progress
   }
 }
 

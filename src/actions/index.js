@@ -4,6 +4,8 @@ import nock from 'nock'
 export const RECEIVE_REPRESENTATIVES = 'RECEIVE_REPRESENTATIVES'
 export const IS_FETCHING = 'IS_FETCHING'
 export const SELECT_REPRESENTATIVE = 'SELECT_REPRESENTATIVE'
+export const INCREASE_PROGRESS = 'INCREASE_PROGRESS'
+
 
 function changeFetching () {
   return {
@@ -35,7 +37,7 @@ export function getRepresentatives (zipcode) {
 }
 
 export function increaseProgress () {
-  return setInterval(()=> {
-    return this.props.progress += 10
-  }, 400)
+  return {
+    type: INCREASE_PROGRESS
+  }
 }
