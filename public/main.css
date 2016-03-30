@@ -1,0 +1,18 @@
+body {
+  background-color: rgb(168, 210, 210);
+}
+
+.tutorial_pic {
+  display: inline-block;
+  max-width: 250px;
+}
+
+.tutorial_text {
+  display: block;
+}
+
+.heat_map {
+  display: inline-block;
+  width: 800%;
+  max-height: 200px;
+}
