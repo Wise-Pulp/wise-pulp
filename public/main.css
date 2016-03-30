@@ -2,6 +2,12 @@ body {
   background-color: rgb(168, 210, 210);
 }
 
+header {
+	margin-bottom: 5px;
+	border-bottom: 3px;
+	background-color: red;
+}
+
 .tutorial_pic {
   display: inline-block;
   max-width: 250px;
@@ -13,7 +19,7 @@ body {
 
 .heat_map {
   display: inline-block;
-  width: 800%;
+  width: 100%;
   max-height: 200px;
 }
 
@@ -23,5 +29,14 @@ body {
 *********************************/
 
 .rep-img {
-	border-radius: 100%;
+	border-radius: 50%;
+}
+
+.rep-header {
+	margin: center;
+}
+
+.rep-container {
+	width: 75%;
+	background-color: red;
 }

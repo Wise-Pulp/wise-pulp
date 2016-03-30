@@ -1,12 +1,10 @@
 import React, { Component } from 'react'
 
 const Representative = ({representative, image}) => (
-	<div>
-		<div className='col-md-4'>
+		<div className='col-md-3 col-md-offset-1'>
 			<img src={image} className='img-responsive rep-img'/>
-		{representative.person.name}
+			{representative.person.name}
 		</div>
-	</div>
 )
 
 export default Representative
