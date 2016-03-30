@@ -7,19 +7,19 @@ export default function representativesList(state = {
 }, action) {
   switch (action.type) {
     case IS_FETCHING: 
-      return {
+      return Object.assign({}, state, {
         isFetching: true
-      }
+      })
     case RECEIVE_REPRESENTATIVES:
-      return {
+      return Object.assign({}, state, {
         representatives: action.representatives,
         isFetching: false,
         representative: action.representatives[0]
-      }
+      })
     case SELECT_REPRESENTATIVE:
-      return {
+      return Object.assign({}, state, {
         representative: action.rep
-      }
+      })
     default:
       return state
   }
