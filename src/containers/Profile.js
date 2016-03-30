@@ -21,15 +21,15 @@ export default class Profile extends Component {
   }
 
   beginSpinner() {
-    while(this.props.isFetching) {
-      this.props.dispatch(increaseProgress())
-    }
+    this.props.dispatch(increaseProgress())
+  }
+
+  stopSpinner() {
+    clearInterval(this.interval)
   }
 
   tick() {
-    console.log('hello');
     this.props.dispatch(increaseProgress())
-    // while isFetching keep ticking on setInterval
   }
 
   componentDidMount() {
@@ -37,13 +37,21 @@ export default class Profile extends Component {
     this.interval = setInterval(() => {
       this.tick()
       this.props.dispatch({ type: 'INCREASE_PROGRESS' })
+      // TODO: Without the below lines, interval never stops. With the below
+      // lines, spinner isn't animated.
+      // FIX!!!!!
+      // ALSO: Why does the spinner take so damn long to load?
+      // if (!this.props.isFetching) {
+      //   console.log(this.props.isFetching)
+      //   this.stopSpinner()
+      // }
     }, 50)
-
-    // if (!isFetching) { clearInterval(this.interval) }
   }    
 
   render() {
-    const { representative, representatives, isFetching } = this.props
+
+    const { representative, representatives, isFetching, progress } = this.props
+
     return (
       <div>
         <h1 className='text-center'>Polis</h1>

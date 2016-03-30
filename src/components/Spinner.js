@@ -6,8 +6,6 @@ export default class Spinner extends Component {
 
   render() {
 
-    console.log('progress', this.props.progress)
-
       var textStyle = {
         'fill': 'black',
         'textAnchor': 'middle',
