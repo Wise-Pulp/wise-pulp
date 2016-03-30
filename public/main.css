@@ -1,6 +1,4 @@
-body {
-  background-color: rgb(168, 210, 210);
-}
+
 
 header {
 	margin-bottom: 5px;
@@ -37,6 +35,26 @@ header {
 }
 
 .rep-container {
-	width: 75%;
-	background-color: red;
+	width: 60%;
+  height: 250px;
+  text-align: center;
+  margin-top: 5vh;
+  padding: 20px;
+  margin: 0 auto;
+  border-radius: 10px;
+  position: relative;
+}
+
+.rep-info-container {
+  text-align: center;
+  width: 100%;
+  height: 35px;
+  border: 1px solid;
+  padding: 5px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.rep-info:hover {
+  background-color: rgba(0, 0, 0, .3);
 }

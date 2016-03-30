@@ -1,8 +1,9 @@
-import { RECEIVE_REPRESENTATIVES, IS_FETCHING } from '../actions/index'
+import { SELECT_REPRESENTATIVE, RECEIVE_REPRESENTATIVES, IS_FETCHING } from '../actions/index'
 
 export default function representativesList(state = {
 	representatives: [],
-  isFetching: false
+  isFetching: false,
+  representative: null
 }, action) {
   switch (action.type) {
     case IS_FETCHING: 
@@ -12,7 +13,12 @@ export default function representativesList(state = {
     case RECEIVE_REPRESENTATIVES:
       return {
         representatives: action.representatives,
-        isFetching: false
+        isFetching: false,
+        representative: action.representatives[0]
+      }
+    case SELECT_REPRESENTATIVE:
+      return {
+        representative: action.rep
       }
     default:
       return state

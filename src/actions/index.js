@@ -3,10 +3,18 @@ import nock from 'nock'
 
 export const RECEIVE_REPRESENTATIVES = 'RECEIVE_REPRESENTATIVES'
 export const IS_FETCHING = 'IS_FETCHING'
+export const SELECT_REPRESENTATIVE = 'SELECT_REPRESENTATIVE'
 
 function changeFetching () {
   return {
     type: IS_FETCHING
+  }
+}
+
+export function setRepresentative(rep) {
+  return {
+    type: SELECT_REPRESENTATIVE,
+    rep
   }
 }
 

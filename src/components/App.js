@@ -21,7 +21,7 @@ export default class App extends Component {
   render() {
 	const { store, children } = this.props
     return (
-      <div className="main col-md-12">
+      <div>
       	{children}
       </div>
     );
