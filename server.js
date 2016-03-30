@@ -15,75 +15,78 @@ var db = 'mongodb://codeblackwell:Database21@ds035310.mlab.com:35310/heroku_hkr8
 mongoose.connect(db)
 
 ////////////////////////////Models
-var Contributor = require('./data/db/Contributor.model.js');
+// var Contributor = require('./data/db/Contributor.model.js');
 
 //THIS IS THE DATA CONVERSION MACHINE!!!!!!!!!
 ////////////////////////////
 
-//INSERT YOUR CSV DATA HERE!
-var csvFile = "./data/voter_Turnout/primary/2000+2004_PEVT.csv";
-//DESIRED OUTPUT DIRECTORY!
-var output = "./data/2000+2004_PEVT.json";
-//START SERVER AND WAIT FOR MAGIC!
+// //INSERT YOUR CSV DATA HERE!
+// var csvFile = "./data/voter_Turnout/candidate_Summary.csv";
+// //DESIRED OUTPUT DIRECTORY!
+// var output = "./data/candidate_Summary";
+// //START SERVER AND WAIT FOR MAGIC!
 
 //Converter Class
 var Converter  = require('csvtojson').Converter;
 var converter  = new Converter({});
-converter.fromFile(csvFile, function(err, result) {
-   console.log(result);
-  pFs.writeFile(output, JSON.stringify(result), function(err) {
-     if(err) throw err;
-   })
-});
+// converter.fromFile(csvFile, function(err, result) {
+//    console.log(result);
+//   pFs.writeFile(output, JSON.stringify(result), function(err) {
+//      if(err) throw err;
+//    })
+// });
 
 //var JSONdata = pFs.readFileSync(output);
 //    JSONdata = JSON.parse(JSONdata.toString())
     //console.log(JSONdata) => csv in JSON.
-// var db = 'mongodb://localhost';
 
-// mongoose.connect(db);
-
-// var connection = mongoose.connection;
-
-// connection.on('error', function(err) {
-//   console.log('Error', err)
-// })
-
-//connection.once('connected', function(success) {
-  ////////////////////////////Models
-//   var Contributor = require('./data/db/Contributor.model.js');
-
-//   //THIS IS THE DATA CONVERSION MACHINE!!!!!!!!!
-//   ////////////////////////////
-
-//   //INSERT YOUR CSV DATA HERE!
-//   var csvFile = "./data/independent-expenditure.csv";
-//   //DESIRED OUTPUT DIRECTORY!
-//   var output = "./data/Contributors.json";
-//   //START SERVER AND WAIT FOR MAGIC!
+var JSONdata = fs.readFileSync("./data/candidate_Summary.js");
+    JSONdata = JSONdata.toString()
+    JSONdata = JSON.parse(JSONdata);
+    console.log(JSONdata[53])
+    
 
 
-//   //Converter Class
-//   var Converter  = require('csvtojson').Converter;
-//   var converter  = new Converter({});
-//   converter.fromFile(csvFile, function(err, result) {
-//     // console.log(result);
-//     pFs.writeFile(output, JSON.stringify(result), function(err) {
-//        if(err) throw err;
-//      })
-//   });
+    var dataArray = [];
+    for(var i = 0; i < JSONdata.length; i++){
+      var temp = [];
+      temp.push(JSONdata[i].can_nam)
+      temp.push(JSONdata[i].ind_con)
+      temp.push(JSONdata[i].tot_con)
+    }
 
-// var contributorController = require('./data/db/controllers/contributorController.js');
-//
-//
-// contributorController.createContributor(JSONdata[0]);
-//   // for(var i = 0; i < JSONdata.length; i++) {
-//   //   contributorController.createContributor(JSONdata[i]);
-//   // }
+// var refinedData = [];
 
-//   var JSONdata = pFs.readFileSync(output);
-//       JSONdata = JSON.parse(JSONdata.toString())
-//       //console.log(JSONdata) => csv in JSON.
+// var life = function (JSONdata) {
+//   for(var i = 0; i < JSONdata.length; i++) {
+//     if(JSONdata[i].net_con) {
+//       var temp = {};
+//       temp.can_nam = JSONdata[i].can_nam;
+//       temp.can_off = JSONdata[i].can_off;
+//       temp.can_off_sta = JSONdata[i].can_off_sta;
+//       temp.can_par_aff = JSONdata[i].can_par_aff;
+//       temp.can_cit = JSONdata[i].can_cit;
+//       temp.can_sta = JSONdata[i].can_sta;
+//       temp.ind_ite_con = JSONdata[i].ind_ite_con;
+//       temp.ind_uni_con = JSONdata[i].ind_uni_con;
+//       temp.par_com_con = JSONdata[i].par_com_con;
+//       temp.oth_com_con = JSONdata[i].oth_com_con;
+//       temp.net_con = JSONdata[i].net_con;
+//       temp.cas_on_han_beg_of_per = JSONdata[i].cas_on_han_beg_of_per;
+//       temp.cas_on_han_clo_of_per = JSONdata[i].cas_on_han_clo_of_per;
+//       refinedData.push(temp);
+//     }
+//   }
+// }
+// life(JSONdata);
+// console.log(refinedData);
+
+
+
+
+
+
+
 
 //   ////////////////////////////
 //   //Time To Upload data to Mongolab
