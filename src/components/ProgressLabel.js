@@ -10,7 +10,7 @@ export default class Spinner extends Component {
       var textStyle = {
         'fill': 'black',
         'textAnchor': 'middle',
-        "fontSize": 40
+        'fontSize': 40
       };
     return (
       <div>
@@ -31,50 +31,3 @@ export default class Spinner extends Component {
     );
   }
 }
-
-
-
-// var Spinner  = React.createClass({
-//   getInitialState: function() {
-//     return {progress : 0}
-//   },
-
-//   tick: function() {
-//     this.setState({progress: this.state.progress + 1})
-//   },
-
-//   componentDidMount: function() {
-//     this.interval = setInterval(this.tick, 400)
-//   },
-
-//     render() {
-//       var progress = {progress};
-
-//       var textStyle = {
-//         'fill': 'black',
-//         'textAnchor': 'middle',
-//         "fontSize": 40
-//       };
-//     return (
-//       <div>
-//         <ProgressLabel
-//           progress={progress}
-//           startDegree={60}
-//           progressWidth={8}
-//           trackWidth={20}
-//           cornersWidth={4}
-//           size={400}
-//           fillColor="white"
-//           trackColor="red"
-//           progressColor="blue" 
-//           >
-//           <text x="200" y="200" style={textStyle}>{`${progress}%`}</text>          
-//           </ProgressLabel>
-//       </div>
-//     );
-//   }
-
-// })
-
-
-
