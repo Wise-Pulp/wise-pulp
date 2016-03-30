@@ -15,38 +15,45 @@ export default class Profile extends Component {
     this.props.dispatch(setRepresentative(rep))
   }
 
+  constructor(props) {
+    super(props)
+    this.tick = this.tick.bind(this)
+  }
+
   beginSpinner() {
     while(this.props.isFetching) {
       this.props.dispatch(increaseProgress())
     }
   }
 
+  tick() {
+    console.log('hello');
+    this.props.dispatch(increaseProgress())
+    // while isFetching keep ticking on setInterval
+  }
+
   componentDidMount() {
-    this.interval = setInterval(this.beginSpinner.bind(this), 400)
+    console.log('this from componentDidMount', this.props)
+    this.interval = setInterval(() => {
+      this.tick()
+      this.props.dispatch({ type: 'INCREASE_PROGRESS' })
+    }, 50)
+
+    // if (!isFetching) { clearInterval(this.interval) }
   }    
 
   render() {
-<<<<<<< 02447e2b4075506aeadf0ca328a86403b184af3e
     const { representative, representatives, isFetching } = this.props
     return (
       <div>
         <h1 className='text-center'>Polis</h1>
-        {isFetching ? <Spinner representatives={representatives} /> :
+        {isFetching ? <Spinner representatives={representatives} 
+                               progress = {progress} 
+                                /> :
         <RepresentativeList representatives={representatives}
                             representative={representative}
                             selectRep={this.selectRep} 
                             /> }
-=======
-    const { representatives, isFetching, progress } = this.props
-    if (!isFetching) { clearInterval(this.interval);}
-    return (
-      <div>
-        {isFetching ? <Spinner representatives={representatives} 
-                               progress = {progress} 
-                                /> :
-        <RepresentativeList representatives={representatives}/> }
-        
->>>>>>> Rebasing for beginning of the day
       </div>
     );
   }
