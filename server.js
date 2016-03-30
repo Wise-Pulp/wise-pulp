@@ -40,20 +40,55 @@ var converter  = new Converter({});
 //    JSONdata = JSON.parse(JSONdata.toString())
     //console.log(JSONdata) => csv in JSON.
 
-var JSONdata = fs.readFileSync("./data/candidate_Summary.js");
+var JSONdata = fs.readFileSync("./data/candidate_Summary2016.js");
     JSONdata = JSONdata.toString()
     JSONdata = JSON.parse(JSONdata);
-    console.log(JSONdata[53])
+    //console.log(JSONdata[53])
     
 
 
-    var dataArray = [];
+var dataArray = [];
     for(var i = 0; i < JSONdata.length; i++){
-      var temp = [];
-      temp.push(JSONdata[i].can_nam)
-      temp.push(JSONdata[i].ind_con)
-      temp.push(JSONdata[i].tot_con)
+      if(JSONdata[i].net_con){
+        var temp = [];
+        temp.push(JSONdata[i].can_nam);
+        temp.push(JSONdata[i].ind_uni_con);
+        temp.push(JSONdata[i].ind_ite_con);
+        temp.push(JSONdata[i].par_com_con);
+        temp.push(JSONdata[i].oth_com_con);
+        temp.push(JSONdata[i].tot_con);
+        dataArray.push(temp);        
+      }
     }
+console.log(dataArray);
+
+
+/*
+* Parses array data for integers by removing '$' and ',' then using
+* the Number() method to parse the integers. 
+**/
+function cleanUpData (arrayOfArrays) {
+  
+  function parseCurrency(aString){
+    var monk = aString.replace(/\$/g, ''),
+        kungfu = monk.replace(/\,/g, '');
+        master = Number(kungfu)
+        return master;
+  }
+  
+  for(var i = 0; i < arrayOfArrays.length; i++) {
+    for(var q = 1; q < arrayOfArrays[i].length; q++){
+      if(arrayOfArrays[i][q]){
+        arrayOfArrays[i][q] = parseCurrency(arrayOfArrays[i][q])        
+      }
+    }
+  }
+  return arrayOfArrays;
+}
+
+console.log(cleanUpData(dataArray));
+
+
 
 // var refinedData = [];
 
@@ -80,6 +115,7 @@ var JSONdata = fs.readFileSync("./data/candidate_Summary.js");
 // }
 // life(JSONdata);
 // console.log(refinedData);
+
 
 
 
