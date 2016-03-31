@@ -49,18 +49,20 @@ var JSONdata = fs.readFileSync("./data/candidate_Summary2016.js");
 
 var dataArray = [];
     for(var i = 0; i < JSONdata.length; i++){
-      if(JSONdata[i].net_con){
+      if(JSONdata[i].net_con !== 0){
         var temp = [];
-        temp.push(JSONdata[i].can_nam);
+       // temp.push(JSONdata[i].can_nam);
         temp.push(JSONdata[i].ind_uni_con);
         temp.push(JSONdata[i].ind_ite_con);
         temp.push(JSONdata[i].par_com_con);
         temp.push(JSONdata[i].oth_com_con);
+        temp.push(JSONdata[i].can_con);
         temp.push(JSONdata[i].tot_con);
+        //temp.push(JSONdata[i].net_con);
         dataArray.push(temp);        
       }
     }
-console.log(dataArray);
+//console.log(dataArray);
 
 
 /*
@@ -71,25 +73,41 @@ function cleanUpData (arrayOfArrays) {
   
   function parseCurrency(aString){
     var monk = aString.replace(/\$/g, ''),
-        kungfu = monk.replace(/\,/g, '');
-        master = Number(kungfu)
+        kungfu = monk.replace(/\,/g, ''),
+        master = Number(kungfu);
         return master;
   }
   
   for(var i = 0; i < arrayOfArrays.length; i++) {
-    for(var q = 1; q < arrayOfArrays[i].length; q++){
+    for(var q = 0; q < arrayOfArrays[i].length; q++){
       if(arrayOfArrays[i][q]){
-        arrayOfArrays[i][q] = parseCurrency(arrayOfArrays[i][q])        
+        arrayOfArrays[i][q] = parseCurrency(arrayOfArrays[i][q]);       
       }
     }
   }
   return arrayOfArrays;
 }
 
-console.log(cleanUpData(dataArray));
+var cleanData = cleanUpData(dataArray);
 
+//console.log(cleanData);
 
+function generateLayers(arrayOfArrays) {
+  var layers = [];
+  for(var i = 0; i < arrayOfArrays.length; i++) {
+    var candidate = [];
+    for(var q = 0; q < arrayOfArrays[i].length; q++) {
+      candidate.push({ x: q, y: arrayOfArrays[i][q] })
+    }
+    layers.push(candidate);
+  }
+  return layers;
+}
 
+var generatedLayers = generateLayers(cleanData);
+
+console.log(generatedLayers);
+module.exports.generatedLayers = generatedLayers;
 // var refinedData = [];
 
 // var life = function (JSONdata) {
@@ -115,12 +133,6 @@ console.log(cleanUpData(dataArray));
 // }
 // life(JSONdata);
 // console.log(refinedData);
-
-
-
-
-
-
 
 
 
