@@ -21,6 +21,15 @@ header {
   max-height: 200px;
 }
 
+/********************************
+      Spinner
+********************************/
+
+.spinner {
+  position: absolute;
+  left: 40%;
+  top: 25%;
+}
 
 /********************************
       Representative Page
