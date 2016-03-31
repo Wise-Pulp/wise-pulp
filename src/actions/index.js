@@ -7,6 +7,7 @@ export const IS_FETCHING = 'IS_FETCHING'
 export const SELECT_REPRESENTATIVE = 'SELECT_REPRESENTATIVE'
 export const INCREASE_PROGRESS = 'INCREASE_PROGRESS'
 export const GET_REP_INFO = 'GET_REP_INFO'
+export const STOP_PROGRESS = 'STOP_PROGRESS'
 
 function changeFetching () {
   return {
@@ -56,5 +57,11 @@ export function getRepresentatives (zipcode) {
 export function increaseProgress () {
   return {
     type: INCREASE_PROGRESS
+  }
+}
+
+export function stopProgress() {
+  return {
+    type: STOP_PROGRESS
   }
 }

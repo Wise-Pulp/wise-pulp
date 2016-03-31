@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { setRepresentative, getRepresentatives, increaseProgress, getRepInfo } from '../actions/index'
+import { setRepresentative, getRepresentatives, increaseProgress, stopProgress, getRepInfo } from '../actions/index'
 import RepresentativeList from '../components/RepresentativeList'
 import Spinner from '../components/Spinner'
 
@@ -21,7 +21,10 @@ export default class Profile extends Component {
   }
 
   stopSpinner() {
-    clearInterval(this.interval)
+    this.props.dispatch(stopProgress())
+    setTimeout(()=>{
+      clearInterval(this.interval);
+    }, 5000)
   }
 
   tick() {
@@ -29,18 +32,14 @@ export default class Profile extends Component {
   }
 
   componentDidMount() {
-    console.log('this from componentDidMount', this.props)
     this.interval = setInterval(() => {
       this.tick()
-      this.props.dispatch({ type: 'INCREASE_PROGRESS' })
-      // TODO: Without the below lines, interval never stops. With the below
-      // lines, spinner isn't animated.
-      // FIX!!!!!
-      // ALSO: Why does the spinner take so damn long to load?
-      // if (!this.props.isFetching) {
-      //   console.log(this.props.isFetching)
-      //   this.stopSpinner()
-      // }
+      if (this.props.isFetching) {
+        this.props.dispatch({ type: 'INCREASE_PROGRESS' })
+      } else {
+        this.props.dispatch({type: 'STOP_PROGRESS'})
+        this.stopSpinner()
+      }
     }, 50)
   }    
 
@@ -58,7 +57,7 @@ export default class Profile extends Component {
       <div>
         <h1 className='text-center'>Polis</h1>
         {isFetching ? <Spinner representatives={representatives} 
-                               progress = {progress} 
+                               progress={progress} 
                                 /> :
         <RepresentativeList representatives={representatives}
                             representative={representative}
