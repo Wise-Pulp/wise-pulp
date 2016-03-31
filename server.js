@@ -106,7 +106,7 @@ function generateLayers(arrayOfArrays) {
 
 var generatedLayers = generateLayers(cleanData);
 
-console.log(generatedLayers);
+//console.log(generatedLayers);
 module.exports.generatedLayers = generatedLayers;
 // var refinedData = [];
 
