@@ -1,5 +1,4 @@
 import fetch from 'isomorphic-fetch'
-import nock from 'nock'
 import axios from 'axios'
 
 export const RECEIVE_REPRESENTATIVES = 'RECEIVE_REPRESENTATIVES'
