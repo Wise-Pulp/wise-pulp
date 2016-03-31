@@ -5,8 +5,8 @@ import React, { Component } from 'react'
 export default class Header extends Component {
   render() {
     return (
-      <div className="container">
-        <header className="header">
+      <div className="container header">
+        <header>
           <div className="col-md-12">
             <div className="row col-md-offset-5">
               <h1>Polis</h1>

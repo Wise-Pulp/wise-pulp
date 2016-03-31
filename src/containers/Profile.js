@@ -18,6 +18,10 @@ export default class Profile extends Component {
 
   beginSpinner() {
     this.props.dispatch(increaseProgress())
+    if (!this.props.isFetching) {
+      console.log(this.props.isFetching)
+      this.stopSpinner()
+    }
   }
 
   stopSpinner() {
