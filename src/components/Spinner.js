@@ -12,7 +12,7 @@ export default class Spinner extends Component {
         "fontSize": 20
       };
     return (
-      <div>
+      <div className="spinner">
         <ProgressLabel
           progress={this.props.progress}
           startDegree={0}
