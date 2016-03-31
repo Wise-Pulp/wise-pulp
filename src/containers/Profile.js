@@ -9,15 +9,11 @@ export default class Profile extends Component {
   constructor(props) {
     super(props)
     this.selectRep = this.selectRep.bind(this)
+    this.tick = this.tick.bind(this)
   }
 
   selectRep(rep) {
     this.props.dispatch(setRepresentative(rep))
-  }
-
-  constructor(props) {
-    super(props)
-    this.tick = this.tick.bind(this)
   }
 
   beginSpinner() {
