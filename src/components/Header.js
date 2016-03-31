@@ -12,7 +12,7 @@ export default class Header extends Component {
               <h1>Polis</h1>
             </div>
           </div>
-          <div className="col-md-1 col-md-offset-9">
+          <div className="col-md-2 col-md-offset-8">
             <div className="row">
               <input type="text" placeholder="User Name" />
               <input type="password" placeholder="Password" />

@@ -1,9 +1,10 @@
-
+body {
+  background-color: rgb(168, 210, 218);
+}
 
 header {
 	margin-bottom: 5px;
 	border-bottom: 3px;
-	background-color: red;
 }
 
 .tutorial_pic {

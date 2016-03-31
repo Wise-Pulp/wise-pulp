@@ -10,6 +10,7 @@
     "postinstall": "NODE_ENV=production webpack --config ./webpack.production.config.js --progress --colors"
   },
   "dependencies": {
+    "axios": "^0.9.1",
     "babel-core": "*",
     "babel-loader": "*",
     "babel-polyfill": "^6.7.4",
