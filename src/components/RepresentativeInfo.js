@@ -1,16 +1,20 @@
 import React, { Component } from 'react'
 
 const RepresentativeInfo = ({representative}) => (
-		<div className='.rep-info-container'>
-				<div className='col-md-4 rep-info'>
-				Website: {representative.website}
+		<div className='row rep-info-container'>
+				<div className='col-md-2 col-md-offset-2 rep-info'>
+					<div>Website:</div>
+					<a href={representative.website}>{representative.website}</a>
 				</div>
-			<div className='col-md-4 rep-info'>
-			Twitter: @{representative.person.twitterid}
+			<div className='col-md-2 col-md-offset-1 rep-info'>
+					<div>Twitter:</div>
+					<a href={'https://www.twitter.com/@' + representative.person.twitterid}>@{representative.person.twitterid}</a>
 			</div>
-			<div className='col-md-4 rep-info'>
-			Phone: {representative.phone}
+			<div className='col-md-2 col-md-offset-1 rep-info'>
+					<div>Phone:</div>
+					<div>{representative.phone}</div>
 			</div>
+			<div className='col-md-2 col-md-offset-1'></div> 
 		</div>
 )
 

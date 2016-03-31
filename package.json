@@ -36,6 +36,7 @@
     "imports-loader": "^0.6.5",
     "isomorphic-fetch": "^2.2.1",
     "jquery": "^2.2.2",
+    "json-loader": "^0.5.4",
     "less": "^2.6.1",
     "less-loader": "^2.2.3",
     "mongoose": "^4.4.10",

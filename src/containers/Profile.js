@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { setRepresentative, getRepresentatives, increaseProgress } from '../actions/index'
+import { setRepresentative, getRepresentatives, increaseProgress, getRepInfo } from '../actions/index'
 import RepresentativeList from '../components/RepresentativeList'
 import Spinner from '../components/Spinner'
 
@@ -44,6 +44,12 @@ export default class Profile extends Component {
     }, 50)
   }    
 
+  componentWillReceiveProps(props) {
+    if (props.representative) {
+      //this.props.dispatch(getRepInfo(props.representative))
+    }
+  }
+
   render() {
 
     const { representative, representatives, isFetching, progress } = this.props
@@ -71,7 +77,6 @@ function mapStateToProps(state) {
   const isFetching = state.Profile.isFetching
   const progress = state.Spinner.progress
   const representative = state.Profile.representative
-  console.log(state)
 
   return {
     representatives,
