@@ -1,4 +1,4 @@
-import { INCREASE_PROGRESS } from '../actions/index'
+import { INCREASE_PROGRESS, STOP_PROGRESS } from '../actions/index'
 
 export default function updateSpinnerProgress(state = {progress: 0}, action) {
   switch (action.type) {
@@ -8,6 +8,11 @@ export default function updateSpinnerProgress(state = {progress: 0}, action) {
       }
       return Object.assign({}, state, {
         progress: state.progress + 10
+      })
+    case STOP_PROGRESS:
+      clearInterval(state.interval)
+      return Object.assign({}, state, {
+        progress: state.progress
       })
     default:
       return state
