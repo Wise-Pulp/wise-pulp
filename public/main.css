@@ -22,6 +22,36 @@ header {
 }
 
 
+
+text {
+font: 10px sans-serif;
+}
+
+form {
+position: absolute;
+right: 10px;
+top: 10px;
+}
+.axis path,
+.axis line {
+  fill: none;
+  stroke: black;
+  shape-rendering: crispEdges;
+  }
+
+  div.tooltip {
+      position: absolute;
+      text-align: center;
+      width: 100px;
+      height: 28px;
+      padding: 2px;
+      font: 12px sans-serif;
+      background: #008AB8;
+      border: 0px;
+      border-radius: 6px;
+      pointer-events: none;
+    }
+
 /********************************
       Representative Page
 *********************************/
@@ -37,7 +67,7 @@ header {
 }
 
 .rep-container {
-	width: 50%;
+  width: 50%;
   height: 40%;
   text-align: center;
   margin-top: 5vh;
