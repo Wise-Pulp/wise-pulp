@@ -54,17 +54,22 @@
 /////////////////////////////////Stacked Bar chart;
 
 
-  var n = 3, // number of layers
-      m = 4, // number of samples per layer
+  var n = 5, // Types of Data // Largest Array size
+      m = 1, // number of Candidates to display
       stack = d3.layout.stack(),
-      layers = stack(d3.range(n).map(function() { return bumpLayer(m, .1); })),
+      layers = stack(d3.range(n).map(function() { 
+        //console.log('this is the bumpLayer', bumpLayer(m, .1))
+        return bumpLayer(m, .1); })),
+      // falseLayers = stack(d3.range(n).map(data, function(){
+
+      // })),
       yGroupMax = d3.max(layers, function(layer) {
-        // console.log("this is layer within yGroupMax", layer);
+        console.log("this is layer within yGroupMax", layer);
        return d3.max(layer, function(d) { 
-        //console.log("this is d withing yGroupMax", d);
+        // console.log("this is d withing yGroupMax", d);
         return d.y; }); }),
       yStackMax = d3.max(layers, function(layer) { return d3.max(layer, function(d) { return d.y0 + d.y; }); });
-      console.log(layers);
+      console.log("this is layers",layers);
 
 //console.log('just plain layers', layers);
   var margin = {top: 40, right: 10, bottom: 20, left: 10},

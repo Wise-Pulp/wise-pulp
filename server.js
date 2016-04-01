@@ -5,14 +5,17 @@ var mongoose = require('mongoose');
 var fs = require('fs');
 var Promise = require('bluebird');
 var pFs = Promise.promisifyAll(require('fs'));
+var bodyParser = require('body-parser');
+
+var config = require('./config');
 
 //connect to local host
 //var db = 'mongodb://localhost/Contributors';
 
 //connect to heroku
-var db = 'mongodb://codeblackwell:Database21@ds035310.mlab.com:35310/heroku_hkr86p3z';
+var db = config.dbURI;
 
-mongoose.connect(db)
+mongoose.connect(db);
 
 ////////////////////////////Models
 // var Contributor = require('./data/db/Contributor.model.js');
@@ -27,14 +30,14 @@ var output = "./data/Gen_Election_Turnout_1980-2014.json";
 // //START SERVER AND WAIT FOR MAGIC!
 
 //Converter Class
-var Converter  = require('csvtojson').Converter;
-var converter  = new Converter({});
-converter.fromFile(csvFile, function(err, result) {
-   console.log(result);
-  pFs.writeFile(output, JSON.stringify(result), function(err) {
-     if(err) throw err;
-   })
-});
+// var Converter  = require('csvtojson').Converter;
+// var converter  = new Converter({});
+// converter.fromFile(csvFile, function(err, result) {
+//    console.log(result);
+//   pFs.writeFile(output, JSON.stringify(result), function(err) {
+//      if(err) throw err;
+//    })
+// });
 
 //var JSONdata = pFs.readFileSync(output);
 //    JSONdata = JSON.parse(JSONdata.toString())
@@ -174,7 +177,22 @@ var proxy = httpProxy.createProxyServer({
 });
 
 var app = express();
-var router = express.Router()
+var router = express.Router();
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }));
+
+// parse application/json
+app.use(bodyParser.json());
+
+// options
+app.use(function (req, res) {
+  res.setHeader('Content-Type', 'text/plain')
+  res.write('you posted:\n')
+  // console.log(Object.keys(req));
+  console.log(req.params);
+
+  res.end(JSON.stringify(req.body, null, 2))
+})
 
 app.use(express.static(publicPath));
 
@@ -235,3 +253,39 @@ app.listen(port, function () {
 
 
 ////////////////////////////////////////////////////////////
+
+
+
+
+
+var userController = require('./data/db/controllers/userController');
+var User = require('./data/db/User.model');
+
+  app.post('/api/signup', function(req, res, next) {
+    if (!req.body.username || !req.body.password) {
+      return res.status(400).json({message: 'Please fill out all fields'});
+    }
+    //console.log('***************', req);
+    var user = new User();
+    user.username = req.body.username;
+    user.password = req.body.password;
+    user.save(function (err, success) {
+      if (err) {
+        return next(err);
+      }
+      return res.json({
+        userId: success._id
+        // token: user.generateJWT()
+      });
+    });
+  });
+
+
+
+
+
+
+
+
+
+
