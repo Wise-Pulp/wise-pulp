@@ -17,6 +17,8 @@ var Zipcode = require('./data/db/Zipcode.model.js')
 var zipcodes = require('./data/zipcodes.js')
 var contributions = require('./data/contribution_data.js')
 console.log(contributions['LEE'])
+console.log(contributions['ADAMS'])
+console.log(contributions['RYAN'])
 
 var proxy = httpProxy.createProxyServer({
   changeOrigin: true
