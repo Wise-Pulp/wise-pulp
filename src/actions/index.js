@@ -29,7 +29,6 @@ export function receiveRepInfo(json) {
 }
 
 export function getRepInfo(rep) {
-  console.log(rep)
   return dispatch => {
     return axios('http://en.wikipedia.org/w/api.php?format=json&action=query&titles=India&prop=revisions&rvprop=content&callback=?')
       .then(response => response.json())

@@ -52,7 +52,7 @@ describe('Select Representative', () => {
     )
   })
 
-    it('creates REP_INFO when fetching rep info is done', (done) => {
+    xit('creates GET_REP_INFO when fetching rep info is done', (done) => {
       nock('https://en.wikipedia.org')
         .get('/w/api.php')
         .query(true)

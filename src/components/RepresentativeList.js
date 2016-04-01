@@ -6,7 +6,6 @@ import Header from './Header'
 export default class RepresentativeList extends Component {
 	render() {
 		const { representative, representatives, selectRep } = this.props
-		console.log(representative)
 		return (
 			<div>
 				<div className='row rep-container'>

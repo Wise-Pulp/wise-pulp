@@ -9,31 +9,6 @@ import { setGraphType } from '../actions/actionContributor'
 
 export class ContributorVisualization extends Component {
 
-    constructor(props) {
-        super(props);
-        var n = 3 // number of layers
-        let m = 4 // number of samples per layer
-        let stack = d3.layout.stack()
-        let layers = stack(d3.range(n).map(function() { return bumpLayer(m, .1); }))
-        function bumpLayer(n, o) {
-
-            function bump(a) {
-              var x = 1 / (.1 + Math.random()),
-                  y = 2 * Math.random() - .5,
-                  z = 10 / (.1 + Math.random());
-              for (var i = 0; i < n; i++) {
-                var w = (i / n - y) * z;
-                a[i] += x * Math.exp(-w * w);
-              }
-            }
-
-        var a = [], i;
-        for (i = 0; i < n; ++i) a[i] = o + o * Math.random();
-        for (i = 0; i < 5; ++i) bump(a);
-        return a.map(function(d, i) { return {x: i, y: Math.max(0, d)}; });
-        }
-    }
-
     handleChange(value) {
       this.props.dispatch(setGraphType())
     }
@@ -61,7 +36,6 @@ export class ContributorVisualization extends Component {
 }
 
 function mapStateToProps(state) {
-	console.log(state)
   const m = state.ContributorVisualization.m
   const n = state.ContributorVisualization.n
   const layers = state.ContributorVisualization.layers
