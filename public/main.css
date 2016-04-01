@@ -27,6 +27,7 @@ body {
   background-attachment: scroll;
   background-repeat: no-repeat;
   background-opacity: 0.9;
+  height: 200px;
 }
 .header h1 {
   font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
@@ -45,7 +46,7 @@ body {
   border-color: rgb(0, 0, 2);
   margin: 20px;
   padding: 2px;
-  left: 18%;
+  left: 7%;
 }
 .splash_data h2 {
   position: relative;
