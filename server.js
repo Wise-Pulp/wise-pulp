@@ -161,16 +161,18 @@ var output = "./data/Gen_Election_Turnout_1980-2014.json";
 
 
 
-var publicPath = path.resolve(__dirname, 'public');
-var Xray = require('x-ray');
-var x = Xray();
+
 var publicPath = path.resolve(__dirname, 'public');
 var districts = require(__dirname, '/districts.js')
 var fetch = require('isomorphic-fetch')
 var polyfill = require('babel-polyfill')
 var isProduction = process.env.NODE_ENV === 'production';
 var port = isProduction ? process.env.PORT : 3500;
+var Zipcode = require('./data/db/Zipcode.model.js')
 
+var zipcodes = require('./data/zipcodes.js')
+var contributions = require('./data/contribution_data.js')
+console.log(contributions['LEE'])
 
 var proxy = httpProxy.createProxyServer({
   changeOrigin: true
@@ -196,21 +198,14 @@ app.use(function (req, res) {
 
 app.use(express.static(publicPath));
 
-// If you only want this for development, you would of course
-// put it in the "if" block below
-var obj;
-fs.readFile('./reps.js', 'utf-8', function(err, data) {
-  if (err) throw err;
-  obj = data
-})
-
+//route to return the representative for the district based on the zipcode lookup
 app.get('/api/representatives/:zipcode', function(req, res) {
   var zipcode = req.params.zipcode
-  var hello = JSON.parse(obj)
-  var district = hello[zipcode]['district']
-  var state = hello[zipcode]['state']
+  var district = zipcodes[zipcode]['district']
+  var state = zipcodes[zipcode]['state']
   var image;
 
+  //govtrack api returns the representative information based on our query
   fetch('https://www.govtrack.us/api/v2/role?current=true&district=' + district + '&state=' + state)
     .then(function(rep) {
        return rep.json()
@@ -228,10 +223,17 @@ app.get('/api/representatives/:zipcode', function(req, res) {
         })
   });
 
+
+//this route gets the contribution data based on last name
+app.get('/api/representatives/:lastname', function(req, res) {
+
+})
+
 app.get('/profile', function(req, res) {
   res.sendFile(publicPath + '/index.html');
 })
 
+//if we're not in production, this proxies requests to localhost:3000 and sends them to our webpack server at localhost:8080
 if (!isProduction) {
   var bundle = require('./server/compiler.js');
   bundle();
@@ -253,8 +255,6 @@ app.listen(port, function () {
 
 
 ////////////////////////////////////////////////////////////
-
-
 
 
 
@@ -288,4 +288,28 @@ var User = require('./data/db/User.model');
 
 
 
+// var dbURI = 'mongodb://localhost/polis';
+
+// mongoose.connect(dbURI);
+
+// mongoose.connection.on( 'connected', function () {
+
+//   console.log( 'successful db connection to: ' + dbURI + '\n' );
+
+//   if (!isProduction ) {
+
+//       Zipcode.remove().exec(); // clear database
+
+//     pFs.readFileAsync('./reps.js', 'utf-8').then(function(zipcodes) {
+//       var hello = [zipcodes]
+//        Zipcode.collection.insertMany( hello, function( err, r ) {
+//         if ( err ) {
+//           console.log( 'error loading demo data:');
+//         } else {
+//           console.log( 'seeded database with records\n' );
+//         };
+//       })
+//     })
+//   }
+// });
 

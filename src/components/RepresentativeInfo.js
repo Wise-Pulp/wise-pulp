@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
+import ContributorVisualization from '../components/ContributorVisualization'
 
 const RepresentativeInfo = ({representative}) => (
+	<div>
 		<div className='row rep-info-container'>
 				<div className='col-md-2 col-md-offset-2 rep-info'>
 					<div>Website:</div>
@@ -16,6 +18,8 @@ const RepresentativeInfo = ({representative}) => (
 			</div>
 			<div className='col-md-2 col-md-offset-1'></div> 
 		</div>
+		<ContributorVisualization />
+	</div>
 )
 
 export default RepresentativeInfo

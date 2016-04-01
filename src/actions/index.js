@@ -1,5 +1,4 @@
 import fetch from 'isomorphic-fetch'
-import nock from 'nock'
 import axios from 'axios'
 
 export const RECEIVE_REPRESENTATIVES = 'RECEIVE_REPRESENTATIVES'
@@ -7,6 +6,7 @@ export const IS_FETCHING = 'IS_FETCHING'
 export const SELECT_REPRESENTATIVE = 'SELECT_REPRESENTATIVE'
 export const INCREASE_PROGRESS = 'INCREASE_PROGRESS'
 export const GET_REP_INFO = 'GET_REP_INFO'
+export const STOP_PROGRESS = 'STOP_PROGRESS'
 
 function changeFetching () {
   return {
@@ -29,7 +29,6 @@ export function receiveRepInfo(json) {
 }
 
 export function getRepInfo(rep) {
-  console.log(rep)
   return dispatch => {
     return axios('http://en.wikipedia.org/w/api.php?format=json&action=query&titles=India&prop=revisions&rvprop=content&callback=?')
       .then(response => response.json())
@@ -56,5 +55,11 @@ export function getRepresentatives (zipcode) {
 export function increaseProgress () {
   return {
     type: INCREASE_PROGRESS
+  }
+}
+
+export function stopProgress() {
+  return {
+    type: STOP_PROGRESS
   }
 }

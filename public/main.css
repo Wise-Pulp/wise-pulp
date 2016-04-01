@@ -1,39 +1,112 @@
-
-
-header {
-	margin-bottom: 5px;
-	border-bottom: 3px;
-	background-color: red;
+body {
+  background-color: rgb(250, 250, 252);
 }
 
-.tutorial_pic {
+/********************************
+      Buttons
+*********************************/
+.getting_started {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 1%;
+  background-color: rgb(168, 210, 220);
+}
+
+/********************************
+      Header
+*********************************/
+.header {
+  margin-bottom: 5px;
+  margin-top: 2px;
+  border-bottom: 3px;
+  border-radius: 1%;
+  background-color: rgb(50, 55, 55);
+  background-image: url('https://upload.wikimedia.org/wikipedia/commons/f/f3/Statue-de-la-liberte-new-york.jpg');
+  background-position: inherit;
+  background-attachment: scroll;
+  background-repeat: no-repeat;
+  background-opacity: 0.9;
+}
+.header h1 {
+  font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+  font-weight: 50;
+  font-size: 80px;
+}
+/********************************
+      Heat Map
+*********************************/
+.splash_data {
+  background-color: rgb(250, 250, 255);
+  position: relative;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 3%;
+  border-color: rgb(0, 0, 2);
+  margin: 20px;
+  padding: 2px;
+  left: 6%;
+}
+.splash_data h2 {
+  position: relative;
+  left: 25%;
+}
+
+.data_info {
   display: inline-block;
-  max-width: 250px;
-}
-
-.tutorial_text {
-  display: block;
+  position: absolute;
+  padding-top: 10%;
+  right: 5%;
 }
 
 .heat_map {
   display: inline-block;
-  width: 100%;
-  max-height: 200px;
+  min-height: 200px;
+  max-height: 600px;
+  padding: 10%
 }
+
+/********************************
+     Tutorial
+*********************************/
+.tutorial {
+  width: 95%;
+  height: 20%;
+  margin-top: 1%;
+  border-bottom: solid;
+  padding-bottom: 15%;
+}
+
+.tutorial_pic {
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+}
+
 
 /*
 *D3 Style
 */
 
-text {
-font: 10px sans-serif;
+/********************************
+      Getting Started Section
+*********************************/
+
+
+/********************************
+      Spinner
+********************************/
+
+.spinner {
+  position: absolute;
+  left: 40%;
+  top: 25%;
 }
 
-form {
-position: absolute;
-right: 10px;
-top: 10px;
-}
+/********************************
+      Graph
+********************************/
+
 .axis path,
 .axis line {
   fill: none;
@@ -59,13 +132,13 @@ top: 10px;
 *********************************/
 
 .rep-img {
-	border-radius: 50%;
+  border-radius: 50%;
   margin: 0 auto;
   width: 75%;
 }
 
 .rep-header {
-	margin: center;
+  margin: center;
 }
 
 .rep-container {
@@ -93,4 +166,3 @@ top: 10px;
 .rep-info:hover {
   background-color: rgba(114, 140, 154, .8);
 }
-
