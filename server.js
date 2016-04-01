@@ -21,47 +21,47 @@ mongoose.connect(db)
 ////////////////////////////
 
 // //INSERT YOUR CSV DATA HERE!
-// var csvFile = "./data/voter_Turnout/candidate_Summary.csv";
+var csvFile = "./data/General_Election_Turnout_1980-2014.csv";
 // //DESIRED OUTPUT DIRECTORY!
-// var output = "./data/candidate_Summary";
+var output = "./data/Gen_Election_Turnout_1980-2014.json";
 // //START SERVER AND WAIT FOR MAGIC!
 
 //Converter Class
 var Converter  = require('csvtojson').Converter;
 var converter  = new Converter({});
-// converter.fromFile(csvFile, function(err, result) {
-//    console.log(result);
-//   pFs.writeFile(output, JSON.stringify(result), function(err) {
-//      if(err) throw err;
-//    })
-// });
+converter.fromFile(csvFile, function(err, result) {
+   console.log(result);
+  pFs.writeFile(output, JSON.stringify(result), function(err) {
+     if(err) throw err;
+   })
+});
 
 //var JSONdata = pFs.readFileSync(output);
 //    JSONdata = JSON.parse(JSONdata.toString())
     //console.log(JSONdata) => csv in JSON.
 
-var JSONdata = fs.readFileSync("./data/candidate_Summary2016.js");
-    JSONdata = JSONdata.toString()
-    JSONdata = JSON.parse(JSONdata);
-    //console.log(JSONdata[53])
+// var JSONdata = fs.readFileSync("./data/candidate_Summary2016.js");
+//     JSONdata = JSONdata.toString()
+//     JSONdata = JSON.parse(JSONdata);
+//     //console.log(JSONdata[53])
     
 
 
-var dataArray = [];
-    for(var i = 0; i < JSONdata.length; i++){
-      if(JSONdata[i].net_con !== 0){
-        var temp = [];
-       // temp.push(JSONdata[i].can_nam);
-        temp.push(JSONdata[i].ind_uni_con);
-        temp.push(JSONdata[i].ind_ite_con);
-        temp.push(JSONdata[i].par_com_con);
-        temp.push(JSONdata[i].oth_com_con);
-        temp.push(JSONdata[i].can_con);
-        temp.push(JSONdata[i].tot_con);
-        //temp.push(JSONdata[i].net_con);
-        dataArray.push(temp);        
-      }
-    }
+// var dataArray = [];
+//     for(var i = 0; i < JSONdata.length; i++){
+//       if(JSONdata[i].net_con !== 0){
+//         var temp = [];
+//         temp.name = JSONdata[i].can_nam;
+//         temp.push(JSONdata[i].ind_uni_con);
+//         temp.push(JSONdata[i].ind_ite_con);
+//         temp.push(JSONdata[i].par_com_con);
+//         temp.push(JSONdata[i].oth_com_con);
+//         temp.push(JSONdata[i].can_con);
+//         temp.push(JSONdata[i].tot_con);
+//         //temp.push(JSONdata[i].net_con);
+//         dataArray.push(temp);        
+//       }
+//     }
 //console.log(dataArray);
 
 
@@ -69,45 +69,49 @@ var dataArray = [];
 * Parses array data for integers by removing '$' and ',' then using
 * the Number() method to parse the integers. 
 **/
-function cleanUpData (arrayOfArrays) {
+// function cleanUpData (arrayOfArrays) {
   
-  function parseCurrency(aString){
-    var monk = aString.replace(/\$/g, ''),
-        kungfu = monk.replace(/\,/g, ''),
-        master = Number(kungfu);
-        return master;
-  }
+//   function parseCurrency(aString){
+//     var monk = aString.replace(/\$/g, ''),
+//         kungfu = monk.replace(/\,/g, ''),
+//         master = Number(kungfu);
+//         return master;
+//   }
   
-  for(var i = 0; i < arrayOfArrays.length; i++) {
-    for(var q = 0; q < arrayOfArrays[i].length; q++){
-      if(arrayOfArrays[i][q]){
-        arrayOfArrays[i][q] = parseCurrency(arrayOfArrays[i][q]);       
-      }
-    }
-  }
-  return arrayOfArrays;
-}
+//   for(var i = 0; i < arrayOfArrays.length; i++) {
+//     for(var q = 0; q < arrayOfArrays[i].length; q++){
+//       if(arrayOfArrays[i][q]){
+//         arrayOfArrays[i][q] = parseCurrency(arrayOfArrays[i][q]);       
+//       }
+//     }
+//   }
+//   return arrayOfArrays;
+// }
 
-var cleanData = cleanUpData(dataArray);
+// var cleanData = cleanUpData(dataArray);
 
-//console.log(cleanData);
+// //console.log(cleanData);
 
-function generateLayers(arrayOfArrays) {
-  var layers = [];
-  for(var i = 0; i < arrayOfArrays.length; i++) {
-    var candidate = [];
-    for(var q = 0; q < arrayOfArrays[i].length; q++) {
-      candidate.push({ x: q, y: arrayOfArrays[i][q] })
-    }
-    layers.push(candidate);
-  }
-  return layers;
-}
+// function generateLayers(arrayOfArrays) {
+//   var layers = [];
+//   for(var i = 0; i < arrayOfArrays.length; i++) {
+//     var candidate = [];
+//     for(var q = 0; q < arrayOfArrays[i].length; q++) {
+//       candidate.push({ x: q, y: arrayOfArrays[i][q] })
+//     }
+//     layers.push(candidate);
+//   }
+//   return layers;
+// }
 
-var generatedLayers = generateLayers(cleanData);
+// var generatedLayers = generateLayers(cleanData);
 
-console.log(generatedLayers);
-module.exports.generatedLayers = generatedLayers;
+//console.log(generatedLayers);
+
+// module.exports.generatedLayers = generatedLayers;
+
+
+
 // var refinedData = [];
 
 // var life = function (JSONdata) {
