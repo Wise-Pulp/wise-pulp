@@ -13,7 +13,7 @@ var config = require('./config');
 //var db = 'mongodb://localhost/Contributors';
 
 //connect to heroku
-var db = config.dbURI;
+var db = config.dbURI2;
 
 mongoose.connect(db);
 
@@ -172,7 +172,7 @@ var Zipcode = require('./data/db/Zipcode.model.js')
 
 var zipcodes = require('./data/zipcodes.js')
 var contributions = require('./data/contribution_data.js')
-console.log(contributions['LEE'])
+//console.log(contributions['LEE'])
 
 var proxy = httpProxy.createProxyServer({
   changeOrigin: true
@@ -182,19 +182,21 @@ var app = express();
 var router = express.Router();
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
-
+// var urlParser = bodyParser.urlencoded({ extended: false });
 // parse application/json
 app.use(bodyParser.json());
+// var jsonParser = bodyParser.json();
+
 
 // options
-app.use(function (req, res) {
-  res.setHeader('Content-Type', 'text/plain')
-  res.write('you posted:\n')
-  // console.log(Object.keys(req));
-  console.log(req.params);
-
-  res.end(JSON.stringify(req.body, null, 2))
-})
+// app.use(function (req, res) {
+//   res.setHeader('Content-Type', 'application/json')
+//   res.write('you posted:\n')
+//   // console.log(Object.keys(req));
+//   console.log('req.body:',req.body);
+//   console.log('req.params:', req.params);
+//   res.end(JSON.stringify(req.body, null, 2))
+// })
 
 app.use(express.static(publicPath));
 
@@ -234,7 +236,7 @@ app.get('/profile', function(req, res) {
 })
 
 //if we're not in production, this proxies requests to localhost:3000 and sends them to our webpack server at localhost:8080
-if (!isProduction) {
+if (isProduction) {
   var bundle = require('./server/compiler.js');
   bundle();
   app.all('/build/*', function (req, res) {
@@ -263,21 +265,26 @@ var User = require('./data/db/User.model');
 
   app.post('/api/signup', function(req, res, next) {
     if (!req.body.username || !req.body.password) {
-      return res.status(400).json({message: 'Please fill out all fields'});
+      return res.status(400).json({ message: 'Please fill out all fields' });
     }
-    //console.log('***************', req);
+    // console.log('***************', Object.keys(req));
     var user = new User();
-    user.username = req.body.username;
-    user.password = req.body.password;
+      user.password = req.body.password
+      user.username = req.body.username
+   console.log('this is the user', user)
     user.save(function (err, success) {
       if (err) {
         return next(err);
       }
       return res.json({
-        userId: success._id
-        // token: user.generateJWT()
+        "theSmellOfSuccess": true
       });
     });
+    // userController.createUser(user, function(err, suc){
+    //   if (err) { throw err; }
+    //   console.log('Complete:', suc);
+    //   res.end();
+    // });
   });
 
 
