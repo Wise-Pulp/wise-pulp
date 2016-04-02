@@ -38,8 +38,8 @@ var converter  = new Converter({});
 
 var JSONdata = fs.readFileSync(output);
     JSONdata = JSON.parse(JSONdata.toString())
-//     console.log(JSONdata) // => csv in JSON.
-
+    // console.log(JSONdata) // => csv in JSON.
+    console.log("dirtyData********", JSONdata[3]);
 
 // var dataArray = [];
 //     for(var i = 0; i < JSONdata.length; i++){
@@ -66,15 +66,14 @@ var JSONdata = fs.readFileSync(output);
 //     JSONdata = JSON.parse(JSONdata);
     
 /*
-* Parses Object data for integers. Removes '$', ',' and '%' then using
+* Parses Object data for integers. Removes '$', and ',' then using
 * the Number() method to parse the integers. 
 **/
-function cleanUpData (arrayOfObjects) {
+function mixedDataCleaner (arrayOfObjects) {
   function parseCurrency(aString){
     var monk = aString.replace(/\$/g, ''),
         kungfu = monk.replace(/\,/g, ''),
-        theAvatar = kungfu.replace(/\%/g, ''),
-        master = Number(theAvatar);
+        master = Number(kungfu);
         return master;
   }
   
@@ -90,12 +89,9 @@ function cleanUpData (arrayOfObjects) {
     } else {
     //For an Array containing Objects (JSON)
       for(var j in arrayOfObjects[i]){
-        var current = arrayOfObjects[i][j];
-        if( current[0] === '$' || current[0] === '-' ) {
-          current = parseCurrency(current);
-          // console.log(current)
-        } else if (current[current.length - 1] === '%') {
-          current = parseCurrency(current);
+        if( arrayOfObjects[i][j][0] === '$' || arrayOfObjects[i][j][0] === '-' ) {
+          arrayOfObjects[i][j] = parseCurrency(arrayOfObjects[i][j]);
+          // console.log(arrayOfObjects[i][j])
         }
       }
     }
@@ -105,10 +101,53 @@ function cleanUpData (arrayOfObjects) {
   return arrayOfObjects;
 }
 
-// var cleanData = cleanUpData(dataArray);
+/*
+* Parses Object data for integers. Removes ',' or '%' then uses
+* the Number() method to parse the integers. 
+**/
 
-//C
-var cleanData = cleanUpData(JSONdata);
+function numericDataCleaner(arrayOfObjects) {
+  function parseNumbers(numberString) {
+    var myKicksGameIs = JSON.stringify(numberString),
+        justRude = myKicksGameIs.replace(/\,/g, ''),
+        dontGet = JSON.parse(justRude),
+        jiujitsued = JSON.parse(dontGet);
+        return jiujitsued;
+  }
+  function parsePercentage(numberString){
+    var soySauce = JSON.stringify(numberString),
+        wasabi = soySauce.replace(/\%/g, ''),
+        seaweed = JSON.parse(wasabi),
+        sushi = JSON.parse(seaweed);
+        return sushi;
+  }
+
+  for(var i = 0; i < arrayOfObjects.length; i++){
+    for(var q in arrayOfObjects[i]) {
+      var currentJSON = arrayOfObjects[i];
+      // console.log(currentJSON[q]);
+      // currentJSON[q] = JSON.stringify(currentJSON[q]);
+
+      //remove all percentage signs
+      if(currentJSON[q][currentJSON[q].length - 1] === '%'){
+        currentJSON[q] = parsePercentage(currentJSON[q]);
+      }
+      //remove all commas 
+      else if (!isNaN(Number(currentJSON[q][currentJSON[q].length - 1]))) {
+        currentJSON[q] = parseNumbers(currentJSON[q]);
+      }
+    }
+  }
+  return arrayOfObjects;
+}
+
+// var cleanData = mixedDataCleaner(dataArray);
+var cleanData = numericDataCleaner(JSONdata);
+
+// console.log("cleanData________", cleanData);
+
+// console.log("cleanedData", cleanData[3]);
+
 
 // function generateLayers(arrayOfArrays) {
 //   var layers = [];
@@ -305,39 +344,34 @@ var cleanData = cleanUpData(JSONdata);
 //   var iterations = cleanData.length;
 //   var i = 0;
 //   asyncLoop(iterations, function(loop) {
-// console.log(loop.iteration(), cleanData[i].exp_amo)
+// console.log(loop.iteration(), cleanData[i].Year)
 
-//   var contribution = new Contribution();
-//       contribution.can_id = cleanData.can_id; 
-//       contribution.can_name = cleanData.can_name;
-//       contribution.spe_id = cleanData.spe_id;
-//       contribution.spe_name = cleanData.spe_name;
-//       contribution.ele_type = cleanData.ele_type;
-//       contribution.can_off_sta = cleanData.can_off_sta;
-//       contribution.can_off_dis = cleanData.can_off_dis;
-//       contribution.can_off = cleanData.can_off;
-//       contribution.can_par_aff = cleanData.can_par_aff;
-//       contribution.exp_amo = cleanData.exp_amo;
-//       contribution.exp_dat = cleanData.exp_dat;
-//       contribution.agg_amo = cleanData.agg_amo;
-//       contribution.sup_opp = cleanData.sup_opp;
-//       contribution.pur = cleanData.pur;
-//       contribution.pay = cleanData.pay;
-//       contribution.file_num = cleanData.file_num;
-//       contribution.amn_ind = cleanData.amn_ind;
-//       contribution.tra_id = cleanData.tra_id;
-//       contribution.ima_num = cleanData.ima_num;
-//       contribution.rec_dt = cleanData.rec_dt;
-//       contribution.prev_file_num = cleanData.prev_file_num;
-  
+//   var turnout = new GE_Turnout();
+//       turnout.Year = cleanData[i].Year;
+//       turnout["ICPSR State Code"] = cleanData[i]["ICPSR State Code"];
+//       turnout.["Alphanumeric State Code"] = cleanData[i].["Alphanumeric State Code"];
+//       turnout.["State"] = cleanData[i].["State"];
+//       turnout.["VEP Total Ballots Counted (%)"] = cleanData[i].["VEP Total Ballots Counted"];
+//       turnout.["VEP Highest Office (%)"] = cleanData[i].["VEP Highest Office"];
+//       turnout.["VAP Highest Office (%)"] = cleanData[i].["VAP Highest Office"];
+//       turnout.["Total Ballots Counted"] = cleanData[i].["Total Ballots Counted"];
+//       turnout.["Highest Office"] = cleanData[i].["Highest Office"];
+//       turnout.["Voting-Eligible Population (VEP)"] = cleanData[i].["Voting-Eligible Population (VEP)"];
+//       turnout.["Voting-Age Population (VAP)"] = cleanData[i].["Voting-Age Population (VAP)"];
+//       turnout.["% Non-citizen"] = cleanData[i].["% Non-citizen"];
+//       turnout.["Prison"] = cleanData[i].["Prison"];
+//       turnout.["Probation"] = cleanData[i].["Probation"];
+//       turnout.["Parole"] = cleanData[i].["Parole"];
+//       turnout.["Total Ineligible Felon"] = cleanData[i].["Total Ineligible Felon"];
+//       turnout.["Overseas Eligible"] = cleanData[i].["Overseas Eligible"];
+      
 
        
         
-//       contribution.save(function (err, success) {
+//       turnout.save(function (err, success) {
 //               if (err) {
-//                 console.log(loop.iteration(), 'contribution was skipped.', err);
-//                 skippedIndices.push({ index: i, 
-//                                       contribution_amo: cleanData[i].exp_amo,
+//                 console.log(loop.iteration(), 'Turnout was skipped.', err);
+//                 skippedIndices.push({ 
 //                                       error: err
 //                                     });
 //                 if(i < iterations){
@@ -348,7 +382,7 @@ var cleanData = cleanUpData(JSONdata);
 //                 } else {
 //                   if(i < iterations){
 //                     i++;
-//                     console.log(loop.iteration(),'contribution has been saved');  
+//                     console.log(loop.iteration(),'Turnout has been saved');  
 //                     loop.next();
 //                     }
 //                   }                    
