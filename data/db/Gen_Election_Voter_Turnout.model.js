@@ -20,11 +20,10 @@ var GE_Turnout = new Schema({
     "Probation": numOpts,
     "Parole": numOpts,
     "Total Ineligible Felon": numOpts,
-    "Overseas Eligible": numOpts
+    "Overseas Eligible": Schema.Types.Mixed
 });
 
 
-code:
 // MongoDB adds an 's' to Model name to create the database name.
 // "Contributions" is the name of the entire Collection
 // "Contribution" is the name of the Model
