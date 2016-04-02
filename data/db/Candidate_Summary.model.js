@@ -13,8 +13,6 @@ var CandidateSummarySchema = new Schema({
     "can_off_dis": stringOpt,
     "can_par_aff": stringOpt,
     "can_inc_cha_ope_sea": stringOpt,
-    "can_str1": [],
-    "can_str2": [],
     "can_sta": stringOpt,
     "can_zip": numberOpt,
     "ind_ite_con": numberOpt,

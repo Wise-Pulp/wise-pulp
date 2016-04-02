@@ -1,12 +1,12 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var stringOpts = { type: String, required: false },
-    numOpts = { type: Number, required: false },
+var stringOpts = { type: String, required: false, sparse: true },
+    numOpts = { type: Number, required: false, sparse: true }
 //Example schema with possible input types.
 var Contribution = new Schema({
   can_id:   stringOpts, //candidate ID
-  can_name: stringOpts, // Candidate name
+  can_name: { type: String, unique: false, uppercase: true }, // Candidate name
   spe_id:   stringOpts, // Spender Id
   spe_name: stringOpts,// Spender Name
   ele_type: stringOpts, // type of election the donation was made for
@@ -29,7 +29,11 @@ can_off_district: numOpts, // Candidate District
   dissem_dt: stringOpts //Date of Public Dissemenation
   });
 
+
+
+
+
 // MongoDB adds an 's' to Model name to create the database name.
-// "Contributors" is the name of the entire Collection
-// "Contributor" is the name of the Model
+// "Contributions" is the name of the entire Collection
+// "Contribution" is the name of the Model
 module.exports = mongoose.model('Contribution', Contribution);
