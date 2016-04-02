@@ -725,9 +725,7 @@ xray('http://docs.house.gov/floor/', '#primaryContent', [{
   billNumber: ['.legisNum'],
   billName: ['.floorText'],
   pdfLink: ['.files a@href']
-}])(function(err, obj) {
-  module.exports.houseResults = obj;
-})
+}])
 .write('houseResults.json'); 
 
 /*******************************************
