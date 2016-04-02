@@ -93,7 +93,7 @@ function cleanUpData (arrayOfObjects) {
     } else {
     //For an Array containing Objects (JSON)
       for(var j in arrayOfObjects[i]){
-        if( arrayOfObjects[i][j][0] === '$' ) {
+        if( arrayOfObjects[i][j][0] === '$' || arrayOfObjects[i][j][0] === '-' ) {
           arrayOfObjects[i][j] = parseCurrency(arrayOfObjects[i][j]);
           // console.log(arrayOfObjects[i][j])
         }     
@@ -162,19 +162,20 @@ var cleanData = cleanUpData(JSONdata);
 //   ///////////////////////////
 
   var CandidateSummary = require('./data/db/Candidate_Summary.model');
-
+  var skippedIndices = [];
 
         var iterations = cleanData.length;
         var i = 0;
         asyncLoop(iterations, function(loop) {
     // for(var i = 0; i < cleanData.length; i++) {
-      console.log(cleanData[i].net_con)
+      console.log(loop.iteration(), cleanData[i].net_con)
         if(cleanData[i].net_con){
-        console.log("within the conditional");
+        // console.log("within the conditional");
         var candidate = new CandidateSummary();
         
         candidate.lin_ima = cleanData[i].lin_ima;
         candidate.can_id  = cleanData[i].can_id;
+        candidate.can_nam = cleanData[i].can_nam;
         candidate.can_off = cleanData[i].can_off;
     candidate.can_off_sta = cleanData[i].can_off_sta;
     candidate.can_off_dis = cleanData[i].can_off_dis;
@@ -225,20 +226,24 @@ candidate.exe_leg_acc_dis = cleanData[i].exe_leg_acc_dis;
              
              candidate.save(function (err, success) {
                     if (err) {
-                      throw err;
+                      console.log(loop.iteration(), 'candidate was skipped.', err);
+                      skippedIndices.push(i)
+                      i++;
+                      loop.next();
                     } else {
-                      // i++;
-                    console.log('candidate has been saved', loop.iteration(), success);  
+                      i++;
+                    console.log(loop.iteration(),'candidate has been saved');  
                    loop.next()
                     }                    
                   });
         } else if (i <= iterations){
           i++
+          console.log(loop.iteration());
           loop.next();
         }
 
   },
-    function(){console.log('cycle ended')}
+    function(){console.log('Data has finished uploading. The following indices were skipped:', skippedIndices)}
 );
       
           // candidate.save(function (err, success) {
