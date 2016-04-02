@@ -32,3 +32,4 @@ for (var i = 0; i < bills.length; i++) {
   }
 
 }
+module.exports.upcomingHouseFormatted = formatted;
