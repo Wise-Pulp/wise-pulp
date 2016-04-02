@@ -704,9 +704,8 @@ function generateLayers(arrayOfArrays) {
 //   ////////////////////////////
 
 
-
-
-
+var Xray = require('x-ray');
+var xray = Xray();
 var publicPath = path.resolve(__dirname, 'public');
 var districts = require(__dirname, '/districts.js')
 var fetch = require('isomorphic-fetch')
@@ -717,6 +716,30 @@ var Zipcode = require('./data/db/Zipcode.model.js')
 
 var zipcodes = require('./data/old_Data/zipcodes.js')
 var contributions = require('./data/old_Data/contribution_data2016.js')
+
+
+/*******************************************
+      Scraping House Site
+*******************************************/
+xray('http://docs.house.gov/floor/', '#primaryContent', [{
+  billNumber: ['.legisNum'],
+  billName: ['.floorText'],
+  pdfLink: ['.files a@href']
+}])(function(err, obj) {
+  module.exports.houseResults = obj;
+})
+.write('houseResults.json'); 
+
+/*******************************************
+      Scraping Senate Site
+*******************************************/
+xray('http://www.senate.gov/legislative/active_leg_page.htm', 'table', [{
+  billName: ['span'],
+  senateLink: ['a@href'],
+  houseLink: ['.advaced']
+}])
+.write('senateResults.json');
+
 
 
 var proxy = httpProxy.createProxyServer({
