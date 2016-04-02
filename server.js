@@ -415,7 +415,7 @@ var Zipcode = require('./data/db/Zipcode.model.js')
 
 var zipcodes = require('./data/zipcodes.js')
 var contributions = require('./data/contribution_data.js')
-//console.log(contributions['LEE'])
+
 
 var proxy = httpProxy.createProxyServer({
   changeOrigin: true
@@ -430,16 +430,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 // var jsonParser = bodyParser.json();
 
-
-// options
-// app.use(function (req, res) {
-//   res.setHeader('Content-Type', 'application/json')
-//   res.write('you posted:\n')
-//   // console.log(Object.keys(req));
-//   console.log('req.body:',req.body);
-//   console.log('req.params:', req.params);
-//   res.end(JSON.stringify(req.body, null, 2))
-// })
 
 app.use(express.static(publicPath));
 
