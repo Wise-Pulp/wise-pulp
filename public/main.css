@@ -83,19 +83,14 @@ body {
   height: 100%;
 }
 
-.tutorial_text {
-  display: inline-block;
-  font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
-}
+
+/*
+*D3 Style
+*/
+
 /********************************
       Getting Started Section
 *********************************/
-.get_started {
-  width: 100%;
-  margin-top: 1%;
-  border-bottom: solid;
-  padding: 1%;
-}
 
 
 /********************************
