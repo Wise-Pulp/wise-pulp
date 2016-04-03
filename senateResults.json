@@ -218,301 +218,19 @@
       "ITALICS",
       "BOLD",
       "struck through."
-    ],
-    "senateLink": [
-      "http://www.senate.gov/legislative/active_leg_page.htm#legend",
-      null,
-      "http://www.senate.gov/reference/active_bill_type/114.xml",
-      "http://www.senate.gov/reference/active_bill_type/114.shtml",
-      "https://www.congress.gov/",
-      "http://www.senate.gov/legislative/active_leg_page.htm#A",
-      "http://www.senate.gov/legislative/active_leg_page.htm#B",
-      "http://www.senate.gov/legislative/active_leg_page.htm#C",
-      "http://www.senate.gov/legislative/active_leg_page.htm#D",
-      "http://www.senate.gov/legislative/active_leg_page.htm#E",
-      "http://www.senate.gov/legislative/active_leg_page.htm#G",
-      "http://www.senate.gov/legislative/active_leg_page.htm#H",
-      "http://www.senate.gov/legislative/active_leg_page.htm#I",
-      "http://www.senate.gov/legislative/active_leg_page.htm#K",
-      "http://www.senate.gov/legislative/active_leg_page.htm#L",
-      "http://www.senate.gov/legislative/active_leg_page.htm#M",
-      "http://www.senate.gov/legislative/active_leg_page.htm#N",
-      "http://www.senate.gov/legislative/active_leg_page.htm#P",
-      "http://www.senate.gov/legislative/active_leg_page.htm#S",
-      "http://www.senate.gov/legislative/active_leg_page.htm#T",
-      "http://www.senate.gov/legislative/active_leg_page.htm#U",
-      "http://www.senate.gov/legislative/active_leg_page.htm#W",
-      "http://www.senate.gov/legislative/active_leg_page.htm#appropriations",
-      "http://www.senate.gov/legislative/active_leg_page.htm#agency",
-      "http://www.senate.gov/legislative/active_leg_page.htm#laws_current",
-      "http://www.senate.gov/legislative/active_leg_page.htm#hot_documents",
-      "http://www.senate.gov/legislative/active_leg_page.htm#program",
-      null,
-      null,
-      "http://www.senate.gov/legislative/active_leg_page.htm#legend",
-      "http://www.senate.gov/legislative/active_leg_page.htm#top",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114S1553",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR36",
-      null,
-      "http://www.senate.gov/legislative/active_leg_page.htm#legend",
-      "http://www.senate.gov/legislative/active_leg_page.htm#top",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR4596",
-      null,
-      "http://www.senate.gov/legislative/active_leg_page.htm#legend",
-      "http://www.senate.gov/legislative/active_leg_page.htm#top",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114S754",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR1560",
-      null,
-      "http://www.senate.gov/legislative/active_leg_page.htm#legend",
-      "http://www.senate.gov/legislative/active_leg_page.htm#top",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR692",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR3442",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR2",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR2",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR2898",
-      null,
-      "http://www.senate.gov/legislative/active_leg_page.htm#legend",
-      "http://www.senate.gov/legislative/active_leg_page.htm#top",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114S2012",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR1105",
-      null,
-      "http://www.senate.gov/legislative/active_leg_page.htm#legend",
-      "http://www.senate.gov/legislative/active_leg_page.htm#top",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114SAmdt3450",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114S764",
-      null,
-      "http://www.senate.gov/legislative/active_leg_page.htm#legend",
-      "http://www.senate.gov/legislative/active_leg_page.htm#top",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR596",
-      null,
-      "http://www.senate.gov/legislative/active_leg_page.htm#legend",
-      "http://www.senate.gov/legislative/active_leg_page.htm#top",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114S534",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HJRes61",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HJRes64",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR1191",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR1191",
-      null,
-      "http://www.senate.gov/legislative/active_leg_page.htm#legend",
-      "http://www.senate.gov/legislative/active_leg_page.htm#top",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114S1",
-      null,
-      "http://www.senate.gov/legislative/active_leg_page.htm#legend",
-      "http://www.senate.gov/legislative/active_leg_page.htm#top",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR4470",
-      null,
-      "http://www.senate.gov/legislative/active_leg_page.htm#legend",
-      "http://www.senate.gov/legislative/active_leg_page.htm#top",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114S683",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR1538",
-      null,
-      "http://www.senate.gov/legislative/active_leg_page.htm#legend",
-      "http://www.senate.gov/legislative/active_leg_page.htm#top",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114SJRes8",
-      null,
-      "http://www.senate.gov/legislative/active_leg_page.htm#legend",
-      "http://www.senate.gov/legislative/active_leg_page.htm#top",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114S1357",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114S1861",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114S1836",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR3134",
-      null,
-      "http://www.senate.gov/legislative/active_leg_page.htm#legend",
-      "http://www.senate.gov/legislative/active_leg_page.htm#top",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114S2146",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR3009",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR399",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR4038",
-      null,
-      "http://www.senate.gov/legislative/active_leg_page.htm#legend",
-      "http://www.senate.gov/legislative/active_leg_page.htm#top",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR26",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR26",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR2146",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR2146",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR1295",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR1295",
-      null,
-      "http://www.senate.gov/legislative/active_leg_page.htm#legend",
-      "http://www.senate.gov/legislative/active_leg_page.htm#top",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR2048",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR2048",
-      null,
-      "http://www.senate.gov/legislative/active_leg_page.htm#legend",
-      "http://www.senate.gov/legislative/active_leg_page.htm#top",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114S925",
-      null,
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR2289",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR1735",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114S1356",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114S1356",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114SAmdt2327",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR22",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR3614",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR3614",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR4721",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR4721",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114S2658",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114S1705",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR2596",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR4127",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR810",
-      "http://www.senate.gov/legislative/active_leg_page.htm#top",
-      null,
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR10",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114S1177",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114S1177",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR2353",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR2353",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR3236",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR3236",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR3819",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR3819",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR3996",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR3996",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114S1647",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR22",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR22",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114S1169",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114S192",
-      "http://www.senate.gov/legislative/active_leg_page.htm#top",
-      null,
-      "http://www.senate.gov/pagelayout/legislative/b_three_sections_with_teasers/appropsbills.htm",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114S1800",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR3049",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR1314",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR1314",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114SConRes11",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HConRes27",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR2578",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114SAmdt2689",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR719",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114SAmdt2689",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR2250",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR2250",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HJRes78",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HJRes78",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114S1558",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR2685",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR2028",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114S1910",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR2995",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR240",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR240",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR33",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR33",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR3762",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114S1619",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR3128",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114S1645",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR2822",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114S1695",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR3020",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR2250",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR2029",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR2029",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR2029",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114S1725",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR2772",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR2577",
-      "http://www.senate.gov/legislative/active_leg_page.htm#top",
-      null,
-      "http://www.senate.gov/pagelayout/legislative/b_three_sections_with_teasers/appropsbills.htm",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HConRes125",
-      "http://www.senate.gov/legislative/active_leg_page.htm#top",
-      null,
-      "http://www.senate.gov/cgi-bin/exitmsg?url=http://www.gpo.gov/fdsys/browse/collection.action?collectionCode=BUDGET&browsePath=Fiscal+Year+2016",
-      "http://www.senate.gov/cgi-bin/exitmsg?url=http://www.gpo.gov/fdsys/browse/collection.action?collectionCode=BUDGET&browsePath=Fiscal+Year+2017",
-      "http://www.senate.gov/legislative/active_leg_page.htm#top",
-      null,
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR2",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR2",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR1191",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR1191",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR26",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR26",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR2146",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR2146",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR1295",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR1295",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR2048",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR2048",
-      null,
-      "http://www.senate.gov/pagelayout/reference/three_column_table/number_prefix.htm",
-      "http://www.senate.gov/legislative/active_leg_page.htm#top"
-    ],
-    "houseLink": []
+    ]
   },
   {
-    "billName": [],
-    "senateLink": [
-      "http://www.senate.gov/legislative/active_leg_page.htm#legend",
-      null,
-      "http://www.senate.gov/reference/active_bill_type/114.xml",
-      "http://www.senate.gov/reference/active_bill_type/114.shtml"
-    ],
-    "houseLink": []
+    "billName": []
   },
   {
-    "billName": [],
-    "senateLink": [
-      "https://www.congress.gov/",
-      "http://www.senate.gov/legislative/active_leg_page.htm#A",
-      "http://www.senate.gov/legislative/active_leg_page.htm#B",
-      "http://www.senate.gov/legislative/active_leg_page.htm#C",
-      "http://www.senate.gov/legislative/active_leg_page.htm#D",
-      "http://www.senate.gov/legislative/active_leg_page.htm#E",
-      "http://www.senate.gov/legislative/active_leg_page.htm#G",
-      "http://www.senate.gov/legislative/active_leg_page.htm#H",
-      "http://www.senate.gov/legislative/active_leg_page.htm#I",
-      "http://www.senate.gov/legislative/active_leg_page.htm#K",
-      "http://www.senate.gov/legislative/active_leg_page.htm#L",
-      "http://www.senate.gov/legislative/active_leg_page.htm#M",
-      "http://www.senate.gov/legislative/active_leg_page.htm#N",
-      "http://www.senate.gov/legislative/active_leg_page.htm#P",
-      "http://www.senate.gov/legislative/active_leg_page.htm#S",
-      "http://www.senate.gov/legislative/active_leg_page.htm#T",
-      "http://www.senate.gov/legislative/active_leg_page.htm#U",
-      "http://www.senate.gov/legislative/active_leg_page.htm#W"
-    ],
-    "houseLink": []
+    "billName": []
   },
   {
-    "billName": [],
-    "senateLink": [
-      "https://www.congress.gov/",
-      "http://www.senate.gov/legislative/active_leg_page.htm#A",
-      "http://www.senate.gov/legislative/active_leg_page.htm#B",
-      "http://www.senate.gov/legislative/active_leg_page.htm#C",
-      "http://www.senate.gov/legislative/active_leg_page.htm#D",
-      "http://www.senate.gov/legislative/active_leg_page.htm#E",
-      "http://www.senate.gov/legislative/active_leg_page.htm#G",
-      "http://www.senate.gov/legislative/active_leg_page.htm#H",
-      "http://www.senate.gov/legislative/active_leg_page.htm#I",
-      "http://www.senate.gov/legislative/active_leg_page.htm#K",
-      "http://www.senate.gov/legislative/active_leg_page.htm#L",
-      "http://www.senate.gov/legislative/active_leg_page.htm#M",
-      "http://www.senate.gov/legislative/active_leg_page.htm#N",
-      "http://www.senate.gov/legislative/active_leg_page.htm#P",
-      "http://www.senate.gov/legislative/active_leg_page.htm#S",
-      "http://www.senate.gov/legislative/active_leg_page.htm#T",
-      "http://www.senate.gov/legislative/active_leg_page.htm#U",
-      "http://www.senate.gov/legislative/active_leg_page.htm#W"
-    ],
-    "houseLink": []
+    "billName": []
   },
   {
-    "billName": [],
-    "senateLink": [
-      "http://www.senate.gov/legislative/active_leg_page.htm#appropriations",
-      "http://www.senate.gov/legislative/active_leg_page.htm#agency",
-      "http://www.senate.gov/legislative/active_leg_page.htm#laws_current",
-      "http://www.senate.gov/legislative/active_leg_page.htm#hot_documents",
-      "http://www.senate.gov/legislative/active_leg_page.htm#program"
-    ],
-    "houseLink": []
+    "billName": []
   },
   {
     "billName": [
@@ -588,258 +306,58 @@
       "P.L.114-23",
       "Women on $20s",
       "S.925"
-    ],
-    "senateLink": [
-      null,
-      null,
-      "http://www.senate.gov/legislative/active_leg_page.htm#legend",
-      "http://www.senate.gov/legislative/active_leg_page.htm#top",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114S1553",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR36",
-      null,
-      "http://www.senate.gov/legislative/active_leg_page.htm#legend",
-      "http://www.senate.gov/legislative/active_leg_page.htm#top",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR4596",
-      null,
-      "http://www.senate.gov/legislative/active_leg_page.htm#legend",
-      "http://www.senate.gov/legislative/active_leg_page.htm#top",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114S754",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR1560",
-      null,
-      "http://www.senate.gov/legislative/active_leg_page.htm#legend",
-      "http://www.senate.gov/legislative/active_leg_page.htm#top",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR692",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR3442",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR2",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR2",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR2898",
-      null,
-      "http://www.senate.gov/legislative/active_leg_page.htm#legend",
-      "http://www.senate.gov/legislative/active_leg_page.htm#top",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114S2012",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR1105",
-      null,
-      "http://www.senate.gov/legislative/active_leg_page.htm#legend",
-      "http://www.senate.gov/legislative/active_leg_page.htm#top",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114SAmdt3450",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114S764",
-      null,
-      "http://www.senate.gov/legislative/active_leg_page.htm#legend",
-      "http://www.senate.gov/legislative/active_leg_page.htm#top",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR596",
-      null,
-      "http://www.senate.gov/legislative/active_leg_page.htm#legend",
-      "http://www.senate.gov/legislative/active_leg_page.htm#top",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114S534",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HJRes61",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HJRes64",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR1191",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR1191",
-      null,
-      "http://www.senate.gov/legislative/active_leg_page.htm#legend",
-      "http://www.senate.gov/legislative/active_leg_page.htm#top",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114S1",
-      null,
-      "http://www.senate.gov/legislative/active_leg_page.htm#legend",
-      "http://www.senate.gov/legislative/active_leg_page.htm#top",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR4470",
-      null,
-      "http://www.senate.gov/legislative/active_leg_page.htm#legend",
-      "http://www.senate.gov/legislative/active_leg_page.htm#top",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114S683",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR1538",
-      null,
-      "http://www.senate.gov/legislative/active_leg_page.htm#legend",
-      "http://www.senate.gov/legislative/active_leg_page.htm#top",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114SJRes8",
-      null,
-      "http://www.senate.gov/legislative/active_leg_page.htm#legend",
-      "http://www.senate.gov/legislative/active_leg_page.htm#top",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114S1357",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114S1861",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114S1836",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR3134",
-      null,
-      "http://www.senate.gov/legislative/active_leg_page.htm#legend",
-      "http://www.senate.gov/legislative/active_leg_page.htm#top",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114S2146",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR3009",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR399",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR4038",
-      null,
-      "http://www.senate.gov/legislative/active_leg_page.htm#legend",
-      "http://www.senate.gov/legislative/active_leg_page.htm#top",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR26",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR26",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR2146",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR2146",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR1295",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR1295",
-      null,
-      "http://www.senate.gov/legislative/active_leg_page.htm#legend",
-      "http://www.senate.gov/legislative/active_leg_page.htm#top",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR2048",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR2048",
-      null,
-      "http://www.senate.gov/legislative/active_leg_page.htm#legend",
-      "http://www.senate.gov/legislative/active_leg_page.htm#top",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114S925"
-    ],
-    "houseLink": []
+    ]
   },
   {
-    "billName": [],
-    "senateLink": [
-      null,
-      "http://www.senate.gov/legislative/active_leg_page.htm#legend",
-      "http://www.senate.gov/legislative/active_leg_page.htm#top"
-    ],
-    "houseLink": []
+    "billName": []
   },
   {
-    "billName": [],
-    "senateLink": [
-      null,
-      "http://www.senate.gov/legislative/active_leg_page.htm#legend",
-      "http://www.senate.gov/legislative/active_leg_page.htm#top"
-    ],
-    "houseLink": []
+    "billName": []
   },
   {
-    "billName": [],
-    "senateLink": [
-      null,
-      "http://www.senate.gov/legislative/active_leg_page.htm#legend",
-      "http://www.senate.gov/legislative/active_leg_page.htm#top"
-    ],
-    "houseLink": []
+    "billName": []
   },
   {
-    "billName": [],
-    "senateLink": [
-      null,
-      "http://www.senate.gov/legislative/active_leg_page.htm#legend",
-      "http://www.senate.gov/legislative/active_leg_page.htm#top"
-    ],
-    "houseLink": []
+    "billName": []
   },
   {
-    "billName": [],
-    "senateLink": [
-      null,
-      "http://www.senate.gov/legislative/active_leg_page.htm#legend",
-      "http://www.senate.gov/legislative/active_leg_page.htm#top"
-    ],
-    "houseLink": []
+    "billName": []
   },
   {
-    "billName": [],
-    "senateLink": [
-      null,
-      "http://www.senate.gov/legislative/active_leg_page.htm#legend",
-      "http://www.senate.gov/legislative/active_leg_page.htm#top"
-    ],
-    "houseLink": []
+    "billName": []
   },
   {
-    "billName": [],
-    "senateLink": [
-      null,
-      "http://www.senate.gov/legislative/active_leg_page.htm#legend",
-      "http://www.senate.gov/legislative/active_leg_page.htm#top"
-    ],
-    "houseLink": []
+    "billName": []
   },
   {
-    "billName": [],
-    "senateLink": [
-      null,
-      "http://www.senate.gov/legislative/active_leg_page.htm#legend",
-      "http://www.senate.gov/legislative/active_leg_page.htm#top"
-    ],
-    "houseLink": []
+    "billName": []
   },
   {
-    "billName": [],
-    "senateLink": [
-      null,
-      "http://www.senate.gov/legislative/active_leg_page.htm#legend",
-      "http://www.senate.gov/legislative/active_leg_page.htm#top"
-    ],
-    "houseLink": []
+    "billName": []
   },
   {
-    "billName": [],
-    "senateLink": [
-      null,
-      "http://www.senate.gov/legislative/active_leg_page.htm#legend",
-      "http://www.senate.gov/legislative/active_leg_page.htm#top"
-    ],
-    "houseLink": []
+    "billName": []
   },
   {
-    "billName": [],
-    "senateLink": [
-      null,
-      "http://www.senate.gov/legislative/active_leg_page.htm#legend",
-      "http://www.senate.gov/legislative/active_leg_page.htm#top"
-    ],
-    "houseLink": []
+    "billName": []
   },
   {
-    "billName": [],
-    "senateLink": [
-      null,
-      "http://www.senate.gov/legislative/active_leg_page.htm#legend",
-      "http://www.senate.gov/legislative/active_leg_page.htm#top"
-    ],
-    "houseLink": []
+    "billName": []
   },
   {
-    "billName": [],
-    "senateLink": [
-      null,
-      "http://www.senate.gov/legislative/active_leg_page.htm#legend",
-      "http://www.senate.gov/legislative/active_leg_page.htm#top"
-    ],
-    "houseLink": []
+    "billName": []
   },
   {
-    "billName": [],
-    "senateLink": [
-      null,
-      "http://www.senate.gov/legislative/active_leg_page.htm#legend",
-      "http://www.senate.gov/legislative/active_leg_page.htm#top"
-    ],
-    "houseLink": []
+    "billName": []
   },
   {
-    "billName": [],
-    "senateLink": [
-      null,
-      "http://www.senate.gov/legislative/active_leg_page.htm#legend",
-      "http://www.senate.gov/legislative/active_leg_page.htm#top"
-    ],
-    "houseLink": []
+    "billName": []
   },
   {
-    "billName": [],
-    "senateLink": [
-      null,
-      "http://www.senate.gov/legislative/active_leg_page.htm#legend",
-      "http://www.senate.gov/legislative/active_leg_page.htm#top"
-    ],
-    "houseLink": []
+    "billName": []
   },
   {
-    "billName": [],
-    "senateLink": [
-      null,
-      "http://www.senate.gov/legislative/active_leg_page.htm#legend",
-      "http://www.senate.gov/legislative/active_leg_page.htm#top"
-    ],
-    "houseLink": []
+    "billName": []
   },
   {
     "billName": [
@@ -868,28 +386,7 @@
       "H.R.4127*",
       "NASA, FY2015",
       "H.R.810"
-    ],
-    "senateLink": [
-      null,
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR2289",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR1735",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114S1356",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114S1356",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114SAmdt2327",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR22",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR3614",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR3614",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR4721",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR4721",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114S2658",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114S1705",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR2596",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR4127",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR810",
-      "http://www.senate.gov/legislative/active_leg_page.htm#top"
-    ],
-    "houseLink": []
+    ]
   },
   {
     "billName": [
@@ -919,28 +416,7 @@
       "S.1169",
       "Older Americans Act, reauthorization",
       "S.192"
-    ],
-    "senateLink": [
-      null,
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR10",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114S1177",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114S1177",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR2353",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR2353",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR3236",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR3236",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR3819",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR3819",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR3996",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR3996",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114S1647",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR22",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR22",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114S1169",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114S192",
-      "http://www.senate.gov/legislative/active_leg_page.htm#top"
-    ],
-    "houseLink": []
+    ]
   },
   {
     "billName": [
@@ -1002,50 +478,7 @@
       "H.R.2772",
       "Transportation, HUD",
       "H.R.2577"
-    ],
-    "senateLink": [
-      null,
-      "http://www.senate.gov/pagelayout/legislative/b_three_sections_with_teasers/appropsbills.htm",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114S1800",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR3049",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR1314",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR1314",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114SConRes11",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HConRes27",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR2578",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114SAmdt2689",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR719",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114SAmdt2689",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR2250",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR2250",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HJRes78",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HJRes78",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114S1558",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR2685",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR2028",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114S1910",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR2995",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR240",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR240",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR33",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR33",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR3762",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114S1619",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR3128",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114S1645",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR2822",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114S1695",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR3020",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR2250",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR2029",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR2029",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR2029",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114S1725",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR2772",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR2577",
-      "http://www.senate.gov/legislative/active_leg_page.htm#top"
-    ],
-    "houseLink": []
+    ]
   },
   {
     "billName": [
@@ -1063,24 +496,10 @@
       "Military Construction and Veterans Affairs",
       "State and Foreign Operations",
       "Transportation, HUD"
-    ],
-    "senateLink": [
-      null,
-      "http://www.senate.gov/pagelayout/legislative/b_three_sections_with_teasers/appropsbills.htm",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HConRes125",
-      "http://www.senate.gov/legislative/active_leg_page.htm#top"
-    ],
-    "houseLink": []
+    ]
   },
   {
-    "billName": [],
-    "senateLink": [
-      null,
-      "http://www.senate.gov/cgi-bin/exitmsg?url=http://www.gpo.gov/fdsys/browse/collection.action?collectionCode=BUDGET&browsePath=Fiscal+Year+2016",
-      "http://www.senate.gov/cgi-bin/exitmsg?url=http://www.gpo.gov/fdsys/browse/collection.action?collectionCode=BUDGET&browsePath=Fiscal+Year+2017",
-      "http://www.senate.gov/legislative/active_leg_page.htm#top"
-    ],
-    "houseLink": []
+    "billName": []
   },
   {
     "billName": [
@@ -1102,23 +521,7 @@
       "USA Freedom",
       "H.R.2048",
       "P.L.114-23"
-    ],
-    "senateLink": [
-      null,
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR2",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR2",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR1191",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR1191",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR26",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR26",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR2146",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR2146",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR1295",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR1295",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR2048",
-      "http://hdl.loc.gov/loc.uscongress/legislation.114HR2048"
-    ],
-    "houseLink": []
+    ]
   },
   {
     "billName": [
@@ -1126,12 +529,6 @@
       "ITALICS",
       "BOLD",
       "struck through."
-    ],
-    "senateLink": [
-      null,
-      "http://www.senate.gov/pagelayout/reference/three_column_table/number_prefix.htm",
-      "http://www.senate.gov/legislative/active_leg_page.htm#top"
-    ],
-    "houseLink": []
+    ]
   }
 ]

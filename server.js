@@ -212,7 +212,16 @@ function numericDataCleaner(arrayOfObjects) {
   return arrayOfObjects;
 }
 
+<<<<<<< b4b4f0072494d528ad99eb6385014900d508042b
 
+=======
+var cleanData = mixedDataCleaner(JSONdata);
+// var cleanData = numericDataCleaner(JSONdata);
+
+// console.log("cleanData________", cleanData);
+
+console.log("cleanedData", cleanData[3]);
+>>>>>>> Added Schema for upcoming congressional votes
 
 
 //Generate Layered Data. This is specifically used with Stacked Bar Graph
@@ -731,12 +740,15 @@ xray('http://docs.house.gov/floor/', '#primaryContent', [{
 /*******************************************
       Scraping Senate Site
 *******************************************/
-xray('http://www.senate.gov/legislative/active_leg_page.htm', 'table', [{
-  billName: ['span'],
-  senateLink: ['a@href'],
-  houseLink: ['.advaced']
-}])
-.write('senateResults.json');
+// I'm commenting out the data acquisition for the senate for now because
+// We aren't able to get links to the full text of the bill, when 
+// Senate Bills are being voted on, or any other relevant information.
+// Only title and HR and Senate bill numbers are readily available
+
+// xray('http://www.senate.gov/legislative/active_leg_page.htm', 'table', [{
+//   billName: ['span']
+// }])
+// .write('senateResults.json');
 
 
 
