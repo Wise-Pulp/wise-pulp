@@ -8,7 +8,7 @@ export default class Visualization {
         this.props = props;
     }
 
-    create(data) {
+  create(data) {
      let yGroupMax = d3.max(data.layers, function(layer) {
         // console.log('this is layer within yGroupMax', layer);
        return d3.max(layer, function(d) { 
@@ -72,8 +72,7 @@ export default class Visualization {
 
 
     }
-    update(data) {
-      console.log('this is the data', data)
+  update(data) {
         let yGroupMax = d3.max(data.layers, function(layer) {
         // console.log('this is layer within yGroupMax', layer);
        return d3.max(layer, function(d) { 
@@ -131,5 +130,8 @@ let yStackMax = d3.max(data.layers, function(layer) { return d3.max(layer, funct
   // Inspired by Lee Byron's test data generator.
   
     }
-    }
+  }
+  unmount() {
+    this.el.remove();
+  }
 }

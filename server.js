@@ -14,135 +14,135 @@ var config = require('./config');
 //connect to heroku
 var db = config.dbURI2;
 
-mongoose.connect(db);
+//mongoose.connect(db);
 
 
 //THIS IS THE DATA CONVERSION MACHINE!!!!!!!!!
 ////////////////////////////
 
-// //INSERT YOUR CSV DATA HERE!
-var csvFile = "./data/old_Data/Contributors.csv";
-// //DESIRED OUTPUT DIRECTORY!
-var output = "./data/Contributors.json";
-// //START SERVER AND WAIT FOR MAGIC!
+// // //INSERT YOUR CSV DATA HERE!
+// var csvFile = "./data/old_Data/Contributors.csv";
+// // //DESIRED OUTPUT DIRECTORY!
+// var output = "./data/Contributors.json";
+// // //START SERVER AND WAIT FOR MAGIC!
 
-//Converter Class
-var Converter  = require('csvtojson').Converter;
-var converter  = new Converter({});
-// converter.fromFile(csvFile, function(err, result) {
-//    console.log(result);
-//   fs.writeFile(output, JSON.stringify(result), function(err) {
-//      if(err) throw err;
-//    })
-// });
+// //Converter Class
+// var Converter  = require('csvtojson').Converter;
+// var converter  = new Converter({});
+// // converter.fromFile(csvFile, function(err, result) {
+// //    console.log(result);
+// //   fs.writeFile(output, JSON.stringify(result), function(err) {
+// //      if(err) throw err;
+// //    })
+// // });
 
-var JSONdata = fs.readFileSync(output);
-    JSONdata = JSON.parse(JSONdata.toString())
-    // console.log(JSONdata) // => csv in JSON.
-    console.log("dirtyData********", JSONdata[3]);
+// var JSONdata = fs.readFileSync(output);
+//     JSONdata = JSON.parse(JSONdata.toString())
+//     // console.log(JSONdata) // => csv in JSON.
+//     console.log("dirtyData********", JSONdata[3]);
 
-// var dataArray = [];
-//     for(var i = 0; i < JSONdata.length; i++){
-//       if(JSONdata[i].net_con !== 0){
-//         var temp = [];
-//         temp.name = JSONdata[i].can_nam;
-//         temp.push(JSONdata[i].ind_uni_con);
-//         temp.push(JSONdata[i].ind_ite_con);
-//         temp.push(JSONdata[i].par_com_con);
-//         temp.push(JSONdata[i].oth_com_con);
-//         temp.push(JSONdata[i].can_con);
-//         temp.push(JSONdata[i].tot_con);
-//         //temp.push(JSONdata[i].net_con);
-//         dataArray.push(temp);        
-//       }
-//     }
-//console.log(dataArray);
-
-
+// // var dataArray = [];
+// //     for(var i = 0; i < JSONdata.length; i++){
+// //       if(JSONdata[i].net_con !== 0){
+// //         var temp = [];
+// //         temp.name = JSONdata[i].can_nam;
+// //         temp.push(JSONdata[i].ind_uni_con);
+// //         temp.push(JSONdata[i].ind_ite_con);
+// //         temp.push(JSONdata[i].par_com_con);
+// //         temp.push(JSONdata[i].oth_com_con);
+// //         temp.push(JSONdata[i].can_con);
+// //         temp.push(JSONdata[i].tot_con);
+// //         //temp.push(JSONdata[i].net_con);
+// //         dataArray.push(temp);        
+// //       }
+// //     }
+// //console.log(dataArray);
 
 
-// var JSONdata = fs.readFileSync("./data/candidate_Summary2016.js");
-//     JSONdata = JSONdata.toString()
-//     JSONdata = JSON.parse(JSONdata);
+
+
+// // var JSONdata = fs.readFileSync("./data/candidate_Summary2016.js");
+// //     JSONdata = JSONdata.toString()
+// //     JSONdata = JSON.parse(JSONdata);
     
-/*
-* Parses Object data for integers. Removes '$', and ',' then using
-* the Number() method to parse the integers. 
-**/
-function mixedDataCleaner (arrayOfObjects) {
-  function parseCurrency(aString){
-    var monk = aString.replace(/\$/g, ''),
-        kungfu = monk.replace(/\,/g, ''),
-        master = Number(kungfu);
-        return master;
-  }
+// /*
+// * Parses Object data for integers. Removes '$', and ',' then using
+// * the Number() method to parse the integers. 
+// **/
+// function mixedDataCleaner (arrayOfObjects) {
+//   function parseCurrency(aString){
+//     var monk = aString.replace(/\$/g, ''),
+//         kungfu = monk.replace(/\,/g, ''),
+//         master = Number(kungfu);
+//         return master;
+//   }
   
 
-  for(var i = 0; i < arrayOfObjects.length; i++) {
-    //For an Array containing arrays (custom data)
-    if(Array.isArray(arrayOfObjects[i])) {
-      for(var q = 0; q < arrayOfObjects[i].length; q++){
-        if(arrayOfObjects[i][q]){
-          arrayOfObjects[i][q] = parseCurrency(arrayOfObjects[i][q]);       
-        }
-      }      
-    } else {
-    //For an Array containing Objects (JSON)
-      for(var j in arrayOfObjects[i]){
-        if( arrayOfObjects[i][j][0] === '$' || arrayOfObjects[i][j][0] === '-' ) {
-          arrayOfObjects[i][j] = parseCurrency(arrayOfObjects[i][j]);
-          // console.log(arrayOfObjects[i][j])
-        }
-      }
-    }
+//   for(var i = 0; i < arrayOfObjects.length; i++) {
+//     //For an Array containing arrays (custom data)
+//     if(Array.isArray(arrayOfObjects[i])) {
+//       for(var q = 0; q < arrayOfObjects[i].length; q++){
+//         if(arrayOfObjects[i][q]){
+//           arrayOfObjects[i][q] = parseCurrency(arrayOfObjects[i][q]);       
+//         }
+//       }      
+//     } else {
+//     //For an Array containing Objects (JSON)
+//       for(var j in arrayOfObjects[i]){
+//         if( arrayOfObjects[i][j][0] === '$' || arrayOfObjects[i][j][0] === '-' ) {
+//           arrayOfObjects[i][j] = parseCurrency(arrayOfObjects[i][j]);
+//           // console.log(arrayOfObjects[i][j])
+//         }
+//       }
+//     }
 
 
-  }
-  return arrayOfObjects;
-}
+//   }
+//   return arrayOfObjects;
+// }
 
-/*
-* Parses Object data for integers. Removes ',' or '%' then uses
-* the Number() method to parse the integers. 
-**/
+// /*
+// * Parses Object data for integers. Removes ',' or '%' then uses
+// * the Number() method to parse the integers. 
+// **/
 
-function numericDataCleaner(arrayOfObjects) {
-  function parseNumbers(numberString) {
-    var myKicksGameIs = JSON.stringify(numberString),
-        justRude = myKicksGameIs.replace(/\,/g, ''),
-        dontGet = JSON.parse(justRude),
-        jiujitsued = JSON.parse(dontGet);
-        return jiujitsued;
-  }
-  function parsePercentage(numberString){
-    var soySauce = JSON.stringify(numberString),
-        wasabi = soySauce.replace(/\%/g, ''),
-        seaweed = JSON.parse(wasabi),
-        sushi = JSON.parse(seaweed);
-        return sushi;
-  }
+// function numericDataCleaner(arrayOfObjects) {
+//   function parseNumbers(numberString) {
+//     var myKicksGameIs = JSON.stringify(numberString),
+//         justRude = myKicksGameIs.replace(/\,/g, ''),
+//         dontGet = JSON.parse(justRude),
+//         jiujitsued = JSON.parse(dontGet);
+//         return jiujitsued;
+//   }
+//   function parsePercentage(numberString){
+//     var soySauce = JSON.stringify(numberString),
+//         wasabi = soySauce.replace(/\%/g, ''),
+//         seaweed = JSON.parse(wasabi),
+//         sushi = JSON.parse(seaweed);
+//         return sushi;
+//   }
 
-  for(var i = 0; i < arrayOfObjects.length; i++){
-    for(var q in arrayOfObjects[i]) {
-      var currentJSON = arrayOfObjects[i];
-      // console.log(currentJSON[q]);
-      // currentJSON[q] = JSON.stringify(currentJSON[q]);
+//   for(var i = 0; i < arrayOfObjects.length; i++){
+//     for(var q in arrayOfObjects[i]) {
+//       var currentJSON = arrayOfObjects[i];
+//       // console.log(currentJSON[q]);
+//       // currentJSON[q] = JSON.stringify(currentJSON[q]);
 
-      //remove all percentage signs
-      if(currentJSON[q][currentJSON[q].length - 1] === '%'){
-        currentJSON[q] = parsePercentage(currentJSON[q]);
-      }
-      //remove all commas 
-      else if (!isNaN(Number(currentJSON[q][currentJSON[q].length - 1]))) {
-        currentJSON[q] = parseNumbers(currentJSON[q]);
-      }
-    }
-  }
-  return arrayOfObjects;
-}
+//       //remove all percentage signs
+//       if(currentJSON[q][currentJSON[q].length - 1] === '%'){
+//         currentJSON[q] = parsePercentage(currentJSON[q]);
+//       }
+//       //remove all commas 
+//       else if (!isNaN(Number(currentJSON[q][currentJSON[q].length - 1]))) {
+//         currentJSON[q] = parseNumbers(currentJSON[q]);
+//       }
+//     }
+//   }
+//   return arrayOfObjects;
+// }
 
-// var cleanData = mixedDataCleaner(dataArray);
-var cleanData = numericDataCleaner(JSONdata);
+// // var cleanData = mixedDataCleaner(dataArray);
+// var cleanData = numericDataCleaner(JSONdata);
 
 // console.log("cleanData________", cleanData);
 
@@ -397,38 +397,38 @@ var cleanData = numericDataCleaner(JSONdata);
 
 
 
-////////// Asynchronous Loop... A beautiful thing.
-    function asyncLoop(iterations, func, callback) {
-    var index = 0;
-    var done = false;
-    var loop = {
-        next: function() {
-            if (done) {
-                return;
-            }
+// ////////// Asynchronous Loop... A beautiful thing.
+//     function asyncLoop(iterations, func, callback) {
+//     var index = 0;
+//     var done = false;
+//     var loop = {
+//         next: function() {
+//             if (done) {
+//                 return;
+//             }
 
-            if (index < iterations) {
-                index++;
-                func(loop);
+//             if (index < iterations) {
+//                 index++;
+//                 func(loop);
 
-            } else {
-                done = true;
-                callback();
-            }
-        },
+//             } else {
+//                 done = true;
+//                 callback();
+//             }
+//         },
 
-        iteration: function() {
-            return index - 1;
-        },
+//         iteration: function() {
+//             return index - 1;
+//         },
 
-        break: function() {
-            done = true;
-            callback();
-        }
-    };
-    loop.next();
-    return loop;
-}
+//         break: function() {
+//             done = true;
+//             callback();
+//         }
+//     };
+//     loop.next();
+//     return loop;
+// }
 
 
 
@@ -503,7 +503,7 @@ app.get('/profile', function(req, res) {
 })
 
 //if we're not in production, this proxies requests to localhost:3000 and sends them to our webpack server at localhost:8080
-if (isProduction) {
+if (!isProduction) {
   var bundle = require('./server/compiler.js');
   bundle();
   app.all('/build/*', function (req, res) {
@@ -531,33 +531,33 @@ app.listen(port, function () {
 // var Contributor = require('./data/db/Contributor.model.js');
 
 // var userController = require('./data/db/controllers/userController');
-var User = require('./data/db/User.model');
+// var User = require('./data/db/User.model');
 
-  app.post('/api/signup', function(req, res, next) {
-    if (!req.body.username || !req.body.password) {
-      return res.status(400).json({ message: 'Please fill out all fields' });
-    }
-    // console.log('***************', Object.keys(req));
-    var user = new User();
-      user.password = req.body.password
-      user.username = req.body.username
-   console.log('this is the user', user)
+//   app.post('/api/signup', function(req, res, next) {
+//     if (!req.body.username || !req.body.password) {
+//       return res.status(400).json({ message: 'Please fill out all fields' });
+//     }
+//     // console.log('***************', Object.keys(req));
+//     var user = new User();
+//       user.password = req.body.password
+//       user.username = req.body.username
+//    console.log('this is the user', user)
 
-      console.log(docs)
-      user.save(function (err, success) {
-        if (err) {
-          return next(err);
-        }
-        return res.json({
-          "theSmellOfSuccess": true
-        });
-      });      
-    // userController.createUser(user, function(err, suc){
-    //   if (err) { throw err; }
-    //   console.log('Complete:', suc);
-    //   res.end();
-    // });
-  });
+//       console.log(docs)
+//       user.save(function (err, success) {
+//         if (err) {
+//           return next(err);
+//         }
+//         return res.json({
+//           "theSmellOfSuccess": true
+//         });
+//       });      
+//     // userController.createUser(user, function(err, suc){
+//     //   if (err) { throw err; }
+//     //   console.log('Complete:', suc);
+//     //   res.end();
+//     // });
+//   });
 
 
 app.post('/api/data', function(req, res, next) {
