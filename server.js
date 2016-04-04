@@ -715,6 +715,7 @@ function generateLayers(arrayOfArrays) {
 
 var Xray = require('x-ray');
 var xray = Xray();
+var CronJob = require('cron').CronJob;
 var publicPath = path.resolve(__dirname, 'public');
 var districts = require(__dirname, '/districts.js')
 var fetch = require('isomorphic-fetch')
@@ -730,12 +731,14 @@ var contributions = require('./data/old_Data/contribution_data2016.js')
 /*******************************************
       Scraping House Site
 *******************************************/
-xray('http://docs.house.gov/floor/', '#primaryContent', [{
-  billNumber: ['.legisNum'],
-  billName: ['.floorText'],
-  pdfLink: ['.files a@href']
-}])
-.write('houseResults.json'); 
+new CronJob('00 00 05 * * *', function() {
+  xray('http://docs.house.gov/floor/', '#primaryContent', [{
+    billNumber: ['.legisNum'],
+    billName: ['.floorText'],
+    pdfLink: ['.files a@href']
+  }])
+  .write('houseResults.json'); 
+}, null, true, 'America/Los_Angeles');
 
 /*******************************************
       Scraping Senate Site
