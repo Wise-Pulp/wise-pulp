@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
 import d3 from 'd3'
 
-
-
 var counties = {
   6001: 35.36,
   6003: 53.30,
@@ -63,72 +61,40 @@ var counties = {
   6113: 32.97,
   6115: 26.58
 }
+
 export default class HeatMap extends Component {
-  render() {
-    return (
-      <div className="container splash_data">
-      <h2>Voter Turn Out In Your Area (County Name?)</h2>
-      <div className="col-md-4">
-      <img className="heat_map" src="https://pbs.twimg.com/media/CS82xWSWIAAdBmZ.png:large" />
-      </div>
-      <div className="col-md-4 col-md-offset-4">
-        <p className="data_info">Would it be very difficult to somehow have a short description of each data-viz and put it here? If so, we can get rid of this paragraph.<br />
-          Otherwise we could add so many paragraphs!<br />
-          Visualize all of the data!!!!!</p>
-      </div>
-      </div>
-      );
-  }
-}
 
-
-
-const rateById = d3.map();
-
-
-const quantize = d3.scale.quantize()
-  .domain([25, 50])
-  .range(d3.range(9).map(function(i) { return "q" + i + "-9"}))
-
-const width = 960;
-const height = 600;
- 
-const projection = d3.geo.albersUsa()
-  .scale(1280)
-  .translate([width / 2, height / 2])
-
-const path = d3.geo.path()
-  .projection(projection)
-
-class Counties extends React.Component {
-  constructor(props) {
-    super(props)
+  componentWillMount() {
+    d3.json('../../data/voter_Turnout/California/ca.txt', (error, ch) => {
+      console.log(ch)
+    })
   }
   render() {
+    const rateById = d3.map();
+    const quantize = d3.scale.quantize()
+      .domain([25, 50])
+      .range(d3.range(9).map(function(i) { return 'q' + i + '-9'}))
+
+    const width = 960;
+    const height = 600;
+     
+    const projection = d3.geo.albersUsa()
+      .scale(1280)
+      .translate([width / 2, height / 2])
+
+    const path = d3.geo.path()
+      .projection(projection)
+
     return (
-    <g>
-      {this.props.ch.features.map(function(county) {
-        return <path d={path(county)} 
-                     className={quantize(counties[county.properties.id])}
-            />
-      })}
-    </g>
+      <svg width={width} height={height}>
+        <g>
+          {this.props.ch.features.map(function(county) {
+            return <path d={path(county)} 
+                         className={quantize(counties[county.properties.id])}
+                />
+          })}
+        </g>
+      </svg>
     )
   }
 }
-
-const Map = ({ch}) => {
-
-  return (
-    <svg width={width} height={height}>
-      <Counties ch={ch}/>
-    </svg>
-  );
-};
- 
-d3.json('california.txt', (error, ch) => {
-  ReactDOM.render(
-    <Map ch={ch} />,
-    document.body
-  );
-});
