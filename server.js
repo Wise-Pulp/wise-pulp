@@ -7,7 +7,7 @@ var Promise = require('bluebird');
 var bodyParser = require('body-parser');
 
 var config = require('./config');
-
+var cleanData;
 //connect to local host
 //var db = 'mongodb://localhost/Contributors';
 
@@ -21,26 +21,40 @@ mongoose.connect(db);
 ////////////////////////////
 
 // //INSERT YOUR CSV DATA HERE!
-var csvFile = "./data/old_Data/Contributors.csv";
+var csvFile = "./data";
 // //DESIRED OUTPUT DIRECTORY!
-var output = "./data/Contributors.json";
+var output = "./data/Administrative_Fines2016.json";
 // //START SERVER AND WAIT FOR MAGIC!
+
+
+
+
 
 //Converter Class
 var Converter  = require('csvtojson').Converter;
 var converter  = new Converter({});
+
 // converter.fromFile(csvFile, function(err, result) {
+//    if(err) console.log(err)
 //    console.log(result);
 //   fs.writeFile(output, JSON.stringify(result), function(err) {
-//      if(err) throw err;
+//      if(err) {
+//      console.log(err);
+//      }
 //    })
 // });
 
 var JSONdata = fs.readFileSync(output);
     JSONdata = JSON.parse(JSONdata.toString())
     // console.log(JSONdata) // => csv in JSON.
-    console.log("dirtyData********", JSONdata[3]);
+    //console.log("dirtyData********", JSONdata[3]);
 
+
+
+
+/*
+* Format data to be used with GenerateLayers
+**/
 // var dataArray = [];
 //     for(var i = 0; i < JSONdata.length; i++){
 //       if(JSONdata[i].net_con !== 0){
@@ -58,18 +72,52 @@ var JSONdata = fs.readFileSync(output);
 //     }
 //console.log(dataArray);
 
+////////// Asynchronous Loop... A beautiful thing.
+function asyncLoop(iterations, func, callback) {
+var index = 0;
+var done = false;
+var loop = {
+    next: function() {
+        if (done) {
+            return;
+        }
+
+        if (index < iterations) {
+            index++;
+            func(loop);
+
+        } else {
+            done = true;
+            callback();
+        }
+    },
+
+    iteration: function() {
+        return index - 1;
+    },
+
+    break: function() {
+        done = true;
+        callback();
+    }
+};
+loop.next();
+return loop;
+}
 
 
 
-// var JSONdata = fs.readFileSync("./data/candidate_Summary2016.js");
-//     JSONdata = JSONdata.toString()
-//     JSONdata = JSON.parse(JSONdata);
-    
+
+
+
+
+
 /*
 * Parses Object data for integers. Removes '$', and ',' then using
 * the Number() method to parse the integers. 
 **/
 function mixedDataCleaner (arrayOfObjects) {
+
   function parseCurrency(aString){
     var monk = aString.replace(/\$/g, ''),
         kungfu = monk.replace(/\,/g, ''),
@@ -103,10 +151,11 @@ function mixedDataCleaner (arrayOfObjects) {
 
 /*
 * Parses Object data for integers. Removes ',' or '%' then uses
-* the Number() method to parse the integers. 
+* the JSON.parse() to parse the integers. 
 **/
 
 function numericDataCleaner(arrayOfObjects) {
+
   function parseNumbers(numberString) {
     var myKicksGameIs = JSON.stringify(numberString),
         justRude = myKicksGameIs.replace(/\,/g, ''),
@@ -125,14 +174,12 @@ function numericDataCleaner(arrayOfObjects) {
   for(var i = 0; i < arrayOfObjects.length; i++){
     for(var q in arrayOfObjects[i]) {
       var currentJSON = arrayOfObjects[i];
-      // console.log(currentJSON[q]);
-      // currentJSON[q] = JSON.stringify(currentJSON[q]);
 
-      //remove all percentage signs
+      //remove all '%'
       if(currentJSON[q][currentJSON[q].length - 1] === '%'){
         currentJSON[q] = parsePercentage(currentJSON[q]);
       }
-      //remove all commas 
+      //remove all ',' 
       else if (!isNaN(Number(currentJSON[q][currentJSON[q].length - 1]))) {
         currentJSON[q] = parseNumbers(currentJSON[q]);
       }
@@ -141,25 +188,23 @@ function numericDataCleaner(arrayOfObjects) {
   return arrayOfObjects;
 }
 
-// var cleanData = mixedDataCleaner(dataArray);
-var cleanData = numericDataCleaner(JSONdata);
-
-// console.log("cleanData________", cleanData);
-
-// console.log("cleanedData", cleanData[3]);
 
 
-// function generateLayers(arrayOfArrays) {
-//   var layers = [];
-//   for(var i = 0; i < arrayOfArrays.length; i++) {
-//     var candidate = [];
-//     for(var q = 0; q < arrayOfArrays[i].length; q++) {
-//       candidate.push({ x: q, y: arrayOfArrays[i][q] })
-//     }
-//     layers.push(candidate);
-//   }
-//   return layers;
-// }
+
+
+
+//Generate Layered Data. This is specifically used with Stacked Bar Graph
+function generateLayers(arrayOfArrays) {
+  var layers = [];
+  for(var i = 0; i < arrayOfArrays.length; i++) {
+    var candidate = [];
+    for(var q = 0; q < arrayOfArrays[i].length; q++) {
+      candidate.push({ x: q, y: arrayOfArrays[i][q] })
+    }
+    layers.push(candidate);
+  }
+  return layers;
+}
 
 // var generatedLayers = generateLayers(cleanData);
 
@@ -182,6 +227,7 @@ var cleanData = numericDataCleaner(JSONdata);
 
 //   var CandidateSummary = require('./data/db/Candidate_Summary.model');
 //   var skippedIndices = [];
+//   cleanData = mixedDataCleaner(JSONdata);
 
 //         var iterations = cleanData.length;
 //         var i = 0;
@@ -275,6 +321,7 @@ var cleanData = numericDataCleaner(JSONdata);
       
 //   var Contribution = require('./data/db/Contribution.model');
 //   var skippedIndices = [];
+//   cleanData = mixedDataCleaner(JSONdata);
 
 //   var iterations = cleanData.length;
 //   var i = 0;
@@ -336,10 +383,11 @@ var cleanData = numericDataCleaner(JSONdata);
 
 
 
-/////////////////////////////////////// Upload General Election Voter Turnout Data
+///////////////////////////////////// Upload General Election Voter Turnout Data
 
 //   var GE_Turnout = require('./data/db/Gen_Election_Voter_Turnout.model');
 //   var skippedIndices = [];
+//   cleanData = numericDataCleaner(JSONdata);
 
 //   var iterations = cleanData.length;
 //   var i = 0;
@@ -349,21 +397,21 @@ var cleanData = numericDataCleaner(JSONdata);
 //   var turnout = new GE_Turnout();
 //       turnout.Year = cleanData[i].Year;
 //       turnout["ICPSR State Code"] = cleanData[i]["ICPSR State Code"];
-//       turnout.["Alphanumeric State Code"] = cleanData[i].["Alphanumeric State Code"];
-//       turnout.["State"] = cleanData[i].["State"];
-//       turnout.["VEP Total Ballots Counted (%)"] = cleanData[i].["VEP Total Ballots Counted"];
-//       turnout.["VEP Highest Office (%)"] = cleanData[i].["VEP Highest Office"];
-//       turnout.["VAP Highest Office (%)"] = cleanData[i].["VAP Highest Office"];
-//       turnout.["Total Ballots Counted"] = cleanData[i].["Total Ballots Counted"];
-//       turnout.["Highest Office"] = cleanData[i].["Highest Office"];
-//       turnout.["Voting-Eligible Population (VEP)"] = cleanData[i].["Voting-Eligible Population (VEP)"];
-//       turnout.["Voting-Age Population (VAP)"] = cleanData[i].["Voting-Age Population (VAP)"];
-//       turnout.["% Non-citizen"] = cleanData[i].["% Non-citizen"];
-//       turnout.["Prison"] = cleanData[i].["Prison"];
-//       turnout.["Probation"] = cleanData[i].["Probation"];
-//       turnout.["Parole"] = cleanData[i].["Parole"];
-//       turnout.["Total Ineligible Felon"] = cleanData[i].["Total Ineligible Felon"];
-//       turnout.["Overseas Eligible"] = cleanData[i].["Overseas Eligible"];
+//       turnout["Alphanumeric State Code"] = cleanData[i]["Alphanumeric State Code"];
+//       turnout["State"] = cleanData[i]["State"];
+//       turnout["VEP Total Ballots Counted (%)"] = cleanData[i]["VEP Total Ballots Counted"];
+//       turnout["VEP Highest Office (%)"] = cleanData[i]["VEP Highest Office"];
+//       turnout["VAP Highest Office (%)"] = cleanData[i]["VAP Highest Office"];
+//       turnout["Total Ballots Counted"] = cleanData[i]["Total Ballots Counted"];
+//       turnout["Highest Office"] = cleanData[i]["Highest Office"];
+//       turnout["Voting-Eligible Population (VEP)"] = cleanData[i]["Voting-Eligible Population (VEP)"];
+//       turnout["Voting-Age Population (VAP)"] = cleanData[i]["Voting-Age Population (VAP)"];
+//       turnout["% Non-citizen"] = cleanData[i]["% Non-citizen"];
+//       turnout["Prison"] = cleanData[i]["Prison"];
+//       turnout["Probation"] = cleanData[i]["Probation"];
+//       turnout["Parole"] = cleanData[i]["Parole"];
+//       turnout["Total Ineligible Felon"] = cleanData[i]["Total Ineligible Felon"];
+//       turnout["Overseas Eligible"] = cleanData[i]["Overseas Eligible"];
       
 
        
@@ -393,47 +441,258 @@ var cleanData = numericDataCleaner(JSONdata);
 // );
 
 
+//////////////////////////// Upload Leadership PAC Data
+
+//   var LDR_PAC_Sponsor = require('./data/db/LDR_PAC_Sponsor.model');
+//   var skippedIndices = [];
+//       cleanData = mixedDataCleaner(JSONdata);
+
+//   var iterations = cleanData.length;
+//   var i = 0;
+//   asyncLoop(iterations, function(loop) {
+//   console.log(loop.iteration(), cleanData[i].com_nam)
+
+//   var sponsor = new LDR_PAC_Sponsor();
+//       sponsor.com_id = cleanData[i].com_id,
+//       sponsor.com_nam = cleanData[i].com_nam,
+//       sponsor.lin_ima = cleanData[i].lin_ima,
+//       sponsor.spo_nam = cleanData[i].spo_nam,
+//       sponsor.aff_com_nam = cleanData[i].aff_com_nam,
+//       sponsor.tot_rec = cleanData[i].tot_rec,
+//       sponsor.cas_on_han = cleanData[i].cas_on_han,
+//       sponsor.cov_end_dat = cleanData[i].cov_end_dat
+      
+
+       
+        
+//       sponsor.save(function (err, success) {
+//               if (err) {
+//                 console.log(loop.iteration(), 'sponsor was skipped.', err);
+//                 skippedIndices.push({ 
+//                                       error: err
+//                                     });
+//                 if(i < iterations){
+//                   i++;
+//                   loop.next();
+//                 } else { loop.next(); }
+
+//                 } else {
+//                   if(i < iterations){
+//                     i++;
+//                     console.log(loop.iteration(),'sponsor has been saved');  
+//                     loop.next();
+//                     }
+//                   }                    
+//                 });
+//   },
+//     function(){
+//       console.log('Data has finished uploading. The following indices were skipped:', skippedIndices)}
+// );
+
+
+//////////////////////////// Upload Administrative Fines Data
+
+  var Administrative_Fine = require('./data/db/Administrative_Fine.model');
+  var skippedIndices = [];
+      cleanData = mixedDataCleaner(JSONdata);
+
+  var iterations = cleanData.length;
+  var i = 0;
+  asyncLoop(iterations, function(loop) {
+  console.log(loop.iteration(), cleanData[i].com_nam)
+
+  var fine = new Administrative_Fine();
+    fine.cas_num = cleanData[i].cas_num;
+    fine.com_id = cleanData[i].com_id;
+    fine.com_nam = cleanData[i].com_nam;
+    fine.rep_typ = cleanData[i].rep_typ;
+    fine.rep_yea = cleanData[i].rep_yea;
+    fine.fin_amo = cleanData[i].fin_amo;
+    fine.off = cleanData[i].off;
+    fine.sta = cleanData[i].sta;
+    fine.dis = cleanData[i].dis;
+    fine.can_nam = cleanData[i].can_nam;
+    fine.lat_fil_not_fil = cleanData[i].lat_fil_not_fil;
+    fine.pai_yes_no = cleanData[i].pai_yes_no
+       
+        
+      fine.save(function (err, success) {
+              if (err) {
+                console.log(loop.iteration(), 'fine was skipped.', err);
+                skippedIndices.push({ 
+                                      index: i,
+                                      error: err
+                                    });
+                if(i < iterations){
+                  i++;
+                  loop.next();
+                } else { loop.next(); }
+
+                } else {
+                  if(i < iterations){
+                    i++;
+                    console.log(loop.iteration(),'fine has been saved');  
+                    loop.next();
+                    }
+                  }                    
+                });
+  },
+    function(){
+      console.log('Data has finished uploading. The following indices were skipped:', skippedIndices)}
+);
 
 
 
 
-////////// Asynchronous Loop... A beautiful thing.
-    function asyncLoop(iterations, func, callback) {
-    var index = 0;
-    var done = false;
-    var loop = {
-        next: function() {
-            if (done) {
-                return;
-            }
+//////////////////////////// Upload CommitteeSummary
 
-            if (index < iterations) {
-                index++;
-                func(loop);
 
-            } else {
-                done = true;
-                callback();
-            }
-        },
+  var Committee_Summary = require('./data/db/Committee_Summary.model');
+  var skippedIndices = [];
+      cleanData = mixedDataCleaner(JSONdata);
 
-        iteration: function() {
-            return index - 1;
-        },
+  var iterations = cleanData.length;
+  var i = 0;
+  asyncLoop(iterations, function(loop) {
+  console.log(loop.iteration(), cleanData[i].com_nam)
 
-        break: function() {
-            done = true;
-            callback();
-        }
-    };
-    loop.next();
-    return loop;
-}
+  
+    var hold =   {
+    "com_nam": "ADDIVINOLA COMMITTEE; THE",
+    "lin_ima": "http://www.fec.gov/fecviewer/CandidateCommitteeDetail.do?candidateCommitteeId=C00523332&tabIndex=1",
+    "com_typ": "S",
+    "com_des": "P",
+    "fil_fre": "Q",
+    "add": "6 LIBERTY SQUARE #11",
+    "cit": "BOSTON",
+    "sta": "MA",
+    "zip": 2109,
+    "tre_nam": "ANGELICA ADDIVINOLA",
+    "com_id": "C00523332",
+    "fec_ele_yea": 2016,
+    "ind_ite_con": "",
+    "ind_uni_con": "",
+    "ind_con": "",
+    "ind_ref": "",
+    "par_com_con": "",
+    "oth_com_con": "",
+    "oth_com_ref": "",
+    "can_con": "",
+    "tot_con": "",
+    "tot_con_ref": "",
+    "can_loa": "",
+    "can_loa_rep": "",
+    "oth_loa": "",
+    "oth_loa_rep": "",
+    "tot_loa": "",
+    "tot_loa_rep": "",
+    "tra_fro_oth_aut_com": "",
+    "tra_fro_non_fed_acc": "",
+    "tra_fro_non_fed_lev_acc": "",
+    "tot_non_fed_tra": "",
+    "oth_rec": "",
+    "tot_rec": "",
+    "tot_fed_rec": "",
+    "ope_exp": "",
+    "sha_fed_ope_exp": "",
+    "sha_non_fed_ope_exp": "",
+    "tot_ope_exp": "",
+    "off_to_ope_exp": "",
+    "fed_sha_of_joi_act": "",
+    "non_fed_sha_of_joi_act": "",
+    "non_all_fed_ele_act_par": "",
+    "tot_fed_ele_act": "",
+    "fed_can_com_con": "",
+    "fed_can_con_ref": "",
+    "ind_exp_mad": "",
+    "coo_exp_par": "",
+    "loa_mad": "",
+    "loa_rep_rec": "",
+    "tra_to_oth_aut_com": "",
+    "fun_dis": "",
+    "off_to_fun_exp_pre": "",
+    "exe_leg_acc_dis_pre": "",
+    "off_to_leg_acc_exp_pre": "",
+    "tot_off_to_ope_exp": "",
+    "oth_dis": "",
+    "tot_fed_dis": "",
+    "tot_dis": "",
+    "net_con": "",
+    "net_ope_exp": "",
+    "cas_on_han_beg_of_per": "$103,331.00",
+    "cas_on_han_clo_of_per": "$103,331.00",
+    "deb_owe_by_com": "$58,047.00",
+    "deb_owe_to_com": "",
+    "cov_sta_dat": "2015-01-01",
+    "cov_end_dat": "2015-12-31",
+    "pol_par_com_ref": "",
+    "can_id": "",
+    "cas_on_han_beg_of_yea": "",
+    "cas_on_han_clo_of_yea": "",
+    "exp_sub_to_lim_pri_yea_pre": "",
+    "exp_sub_lim": "",
+    "fed_fun": "",
+    "ite_con_exp_con_com": "",
+    "ite_oth_dis": "",
+    "ite_oth_inc": "",
+    "ite_oth_ref_or_reb": "",
+    "ite_ref_or_reb": "",
+    "oth_fed_ope_exp": "",
+    "sub_con_exp": "",
+    "sub_oth_ref_or_reb": "",
+    "sub_ref_or_reb": "",
+    "tot_com_cos": "",
+    "tot_exp_sub_to_lim_pre": "",
+    "uni_con_exp": "",
+    "uni_oth_dis": "",
+    "uni_oth_inc": "",
+    "uni_oth_ref_or_reb": "",
+    "uni_ref_or_reb": "",
+    "org_tp": ""
+  }
+
+  var committeeSummary = new Committee_Summary();
+    committeeSummary.[] = cleanData[]
+
+        
+      committeeSummary.save(function (err, success) {
+              if (err) {
+                console.log(loop.iteration(), 'Committee_Summary was skipped.', err);
+                skippedIndices.push({ 
+                                      index: i,
+                                      error: err
+                                    });
+                if(i < iterations){
+                  i++;
+                  loop.next();
+                } else { loop.next(); }
+
+                } else {
+                  if(i < iterations){
+                    i++;
+                    console.log(loop.iteration(),'Committee_Summary has been saved');  
+                    loop.next();
+                    }
+                  }                    
+                });
+  },
+    function(){
+      console.log('Data has finished uploading. The following indices were skipped:', skippedIndices)}
+);
+
+
+
+
+
+
+
+
+
+
 
 
 
 //   ////////////////////////////
- //})
 
 
 
@@ -447,8 +706,8 @@ var isProduction = process.env.NODE_ENV === 'production';
 var port = isProduction ? process.env.PORT : 3500;
 var Zipcode = require('./data/db/Zipcode.model.js')
 
-var zipcodes = require('./data/zipcodes.js')
-var contributions = require('./data/contribution_data.js')
+var zipcodes = require('./data/old_Data/zipcodes.js')
+var contributions = require('./data/old_Data/contribution_data2016.js')
 
 
 var proxy = httpProxy.createProxyServer({
@@ -538,25 +797,19 @@ var User = require('./data/db/User.model');
       return res.status(400).json({ message: 'Please fill out all fields' });
     }
     // console.log('***************', Object.keys(req));
-    var user = new User();
-      user.password = req.body.password
-      user.username = req.body.username
-   console.log('this is the user', user)
+  var user = new User();
+    user.password = req.body.password
+    user.username = req.body.username
+  console.log('this is the user', user)
 
-      console.log(docs)
-      user.save(function (err, success) {
-        if (err) {
-          return next(err);
-        }
-        return res.json({
-          "theSmellOfSuccess": true
-        });
-      });      
-    // userController.createUser(user, function(err, suc){
-    //   if (err) { throw err; }
-    //   console.log('Complete:', suc);
-    //   res.end();
-    // });
+    user.save(function (err, success) {
+      if (err) {
+        return next(err);
+      }
+      return res.json({
+        "theSmellOfSuccess": true
+      });
+    });      
   });
 
 
