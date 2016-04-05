@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import RepresentativePicture from './RepresentativePicture'
-import RepresentativeInfo from './RepresentativeInfo'
+import ContributorVisualization from '../components/ContributorVisualization'
 import Header from './Header'
 
 export default class RepresentativeList extends Component {
@@ -19,10 +19,7 @@ export default class RepresentativeList extends Component {
 						/>
 				})}
 				</div>
-				<div>
-				{ representative ? <RepresentativeInfo representative={representative} /> : 
-													 <div></div> }
-				</div>
+				<ContributorVisualization />
 			</div>
 		)
 	}
