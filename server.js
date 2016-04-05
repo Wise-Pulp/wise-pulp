@@ -8,11 +8,13 @@ var bodyParser = require('body-parser');
 
 var config = require('./config');
 var cleanData;
+//var config = require('./config');
+
 //connect to local host
 //var db = 'mongodb://localhost/Contributors';
 
 //connect to heroku
-var db = config.dbURI2;
+//var db = config.dbURI2;
 
 //mongoose.connect(db);
 
