@@ -492,13 +492,7 @@ app.get('/api/representatives/:zipcode', function(req, res) {
         })
   });
 
-
-//this route gets the contribution data based on last name
-app.get('/api/representatives/:lastname', function(req, res) {
-
-})
-
-app.get('/profile', function(req, res) {
+app.get('/representatives', function(req, res) {
   res.sendFile(publicPath + '/index.html');
 })
 

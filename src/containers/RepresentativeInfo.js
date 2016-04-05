@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import ContributorVisualization from '../components/ContributorVisualization'
+import { connect } from 'react-redux'
 
 const RepresentativeInfo = ({representative}) => (
 	<div>
@@ -18,8 +18,25 @@ const RepresentativeInfo = ({representative}) => (
 			</div>
 			<div className='col-md-2 col-md-offset-1'></div> 
 		</div>
-		<ContributorVisualization />
+		
 	</div>
 )
 
 export default RepresentativeInfo
+
+function mapStateToProps(state) {
+  console.log(state)
+  const representatives = state.Representatives.representatives
+  const isFetching = state.Representatives.isFetching
+  const progress = state.Spinner.progress
+  const representative = state.Representatives.representative
+
+  return {
+    representatives,
+    isFetching,
+    representative,
+    progress
+  }
+}
+
+export default connect(mapStateToProps)(RepresentativeInfo)

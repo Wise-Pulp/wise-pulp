@@ -1,13 +1,21 @@
 export const GET_CONTRIBUTOR_DATA = 'GET_CONTRIBUTOR_DATA'
 export const SET_GRAPH_TYPE = 'SET_GRAPH_TYPE'
 
-export function setContributorData() {
-	var data = createData()
+export function setContributorData(rep1, rep2, rep3) {
+  console.log(rep1, rep2, rep3)
+  return dispatch => {
+    return fetch('/api/data/CandidateSummary/' + rep1 + '/' + rep2 + '/' + rep3)
+      .then(response => response.json())
+      .then(json => dispatch(receiveContributorData(json))) 
+  }
+  
+}
+
+export function receiveContributorData(data) {
 	return {
 		type: GET_CONTRIBUTOR_DATA,
 		data
 	}
-	
 }
 
 export function setGraphType() {

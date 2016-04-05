@@ -7,7 +7,7 @@ import Spinner from '../components/Spinner'
 
 
 
-export default class Profile extends Component {
+export default class Representatives extends Component {
   constructor(props) {
     super(props)
     this.selectRep = this.selectRep.bind(this)
@@ -33,24 +33,18 @@ export default class Profile extends Component {
     this.props.dispatch(increaseProgress())
   }
 
-  componentDidMount() {
-    this.props.dispatch(setContributorData())
-    this.interval = setInterval(() => {
-      this.tick()
-      if (this.props.isFetching) {
-        this.props.dispatch({ type: 'INCREASE_PROGRESS' })
-      } else {
-        this.props.dispatch({type: 'STOP_PROGRESS'})
-        this.stopSpinner()
-      }
-    }, 50)
-  }    
-
-  componentWillReceiveProps(props) {
-    if (props.representative) {
-      //this.props.dispatch(getRepInfo(props.representative))
-    }
-  }
+  // componentDidMount() {
+  //   //this.props.dispatch(setContributorData())
+  //   this.interval = setInterval(() => {
+  //     this.tick()
+  //     if (this.props.isFetching) {
+  //       this.props.dispatch({ type: 'INCREASE_PROGRESS' })
+  //     } else {
+  //       this.props.dispatch({type: 'STOP_PROGRESS'})
+  //       this.stopSpinner()
+  //     }
+  //   }, 50)
+  // }    
 
   render() {
 
@@ -73,10 +67,11 @@ export default class Profile extends Component {
 
 
 function mapStateToProps(state) {
-  const representatives = state.Profile.representatives
-  const isFetching = state.Profile.isFetching
+  console.log(state)
+  const representatives = state.Representatives.representatives
+  const isFetching = state.Representatives.isFetching
   const progress = state.Spinner.progress
-  const representative = state.Profile.representative
+  const representative = state.Representatives.representative
 
   return {
     representatives,
@@ -86,4 +81,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps)(Profile)
+export default connect(mapStateToProps)(Representatives)
