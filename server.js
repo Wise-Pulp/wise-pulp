@@ -6,13 +6,13 @@ var fs = require('fs');
 var Promise = require('bluebird');
 var bodyParser = require('body-parser');
 
-var config = require('./config');
+//var config = require('./config');
 
 //connect to local host
 //var db = 'mongodb://localhost/Contributors';
 
 //connect to heroku
-var db = config.dbURI2;
+//var db = config.dbURI2;
 
 //mongoose.connect(db);
 
