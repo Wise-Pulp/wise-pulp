@@ -791,7 +791,7 @@ var queryName = function(string){
   var results2 = [];
     // "PETE AGUILAR"
   results = results.split(' ');
-  console.log('this is results#2', );
+  console.log('this is results#2');
   results2.push(results[1], results[0]);
   console.log('results2 #1');
   results2 = results2.join(', ');
