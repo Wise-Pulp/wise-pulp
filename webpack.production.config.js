@@ -20,9 +20,9 @@ var config = {
       }
     }),
     new webpack.ProvidePlugin({
-           $: "jquery",
-           jQuery: "jquery"
-       })
+      $: "jquery",
+      jQuery: "jquery"
+    })
   ],
   module: {
     loaders: [{

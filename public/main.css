@@ -1,0 +1,187 @@
+body {
+  background-color: rgb(250, 250, 252);
+}
+
+/********************************
+      Buttons
+*********************************/
+.getting_started {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 1%;
+  background-color: rgb(168, 210, 220);
+}
+
+/********************************
+      Header
+*********************************/
+.header {
+  margin-bottom: 5px;
+  margin-top: 2px;
+  border-bottom: 3px;
+  border-radius: 1%;
+  background-color: rgb(50, 55, 55);
+  background-image: url('https://upload.wikimedia.org/wikipedia/commons/f/f3/Statue-de-la-liberte-new-york.jpg');
+  background-position: inherit;
+  background-attachment: scroll;
+  background-repeat: no-repeat;
+  background-opacity: 0.9;
+}
+.header h1 {
+  font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+  font-weight: 50;
+  font-size: 80px;
+}
+/********************************
+      Heat Map
+*********************************/
+.splash_data {
+  background-color: rgb(250, 250, 255);
+  position: relative;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 3%;
+  border-color: rgb(0, 0, 2);
+  margin: 20px;
+  padding: 2px;
+  left: 6%;
+}
+.splash_data h2 {
+  position: relative;
+  left: 25%;
+}
+
+.data_info {
+  display: inline-block;
+  position: absolute;
+  padding-top: 10%;
+  right: 5%;
+}
+
+.heat_map {
+  display: inline-block;
+  min-height: 200px;
+  max-height: 600px;
+  padding: 10%
+}
+
+/********************************
+     Tutorial
+*********************************/
+.tutorial {
+  width: 95%;
+  height: 20%;
+  margin-top: 1%;
+  border-bottom: solid;
+  padding-bottom: 15%;
+}
+
+.tutorial_pic {
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+}
+
+
+/*
+*D3 Style
+*/
+
+/********************************
+      Getting Started Section
+*********************************/
+
+
+/********************************
+      Spinner
+********************************/
+
+.spinner {
+  position: absolute;
+  left: 40%;
+  top: 25%;
+}
+
+/********************************
+      Graph
+********************************/
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: black;
+  shape-rendering: crispEdges;
+  }
+
+  div.tooltip {
+      position: absolute;
+      text-align: center;
+      width: 100px;
+      height: 28px;
+      padding: 2px;
+      font: 12px sans-serif;
+      background: #008AB8;
+      border: 0px;
+      border-radius: 6px;
+      pointer-events: none;
+    }
+
+/********************************
+      Heat-Map
+********************************/
+
+.counties {
+  stroke: #222;
+  stroke-width: 1;
+}
+
+.q0-9 { fill:rgb(247,251,255); }
+.q1-9 { fill:rgb(222,235,247); }
+.q2-9 { fill:rgb(198,219,239); }
+.q3-9 { fill:rgb(158,202,225); }
+.q4-9 { fill:rgb(107,174,214); }
+.q5-9 { fill:rgb(66,146,198); }
+.q6-9 { fill:rgb(33,113,181); }
+.q7-9 { fill:rgb(8,81,156); }
+.q8-9 { fill:rgb(8,48,107); }
+
+/********************************
+      Representative Page
+*********************************/
+
+.rep-img {
+  border-radius: 50%;
+  margin: 0 auto;
+  width: 75%;
+}
+
+.rep-header {
+  margin: center;
+}
+
+.rep-container {
+  width: 50%;
+  height: 40%;
+  text-align: center;
+  margin-top: 5vh;
+  margin-bottom: 5vh;
+  padding: 20px;
+  margin: 0 auto;
+  border-radius: 10px;
+  position: relative;
+}
+
+.rep-info-container {
+  text-align: center;
+  width: 100%;
+  height: 10%;
+  border: 1px solid;
+  padding: 5px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.rep-info:hover {
+  background-color: rgba(114, 140, 154, .8);
+}
