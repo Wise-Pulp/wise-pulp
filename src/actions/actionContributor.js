@@ -1,13 +1,8 @@
 export const GET_CONTRIBUTOR_DATA = 'GET_CONTRIBUTOR_DATA'
 export const SET_GRAPH_TYPE = 'SET_GRAPH_TYPE'
 
-<<<<<<< e372a022f52da8a47878cf5e5b790894bfa1d979
 
-export function getContributorData() {
-  
-  return;
-=======
-export function setContributorData(rep1, rep2, rep3) {
+export function getContributorData(rep1, rep2, rep3) {
   console.log(rep1, rep2, rep3)
   return dispatch => {
     return fetch('/api/data/CandidateSummary/' + rep1 + '/' + rep2 + '/' + rep3)
@@ -22,8 +17,6 @@ export function receiveContributorData(data) {
 		type: GET_CONTRIBUTOR_DATA,
 		data
 	}
->>>>>>> Working on refactoring the routing
-}
 
 export function setGraphType() {
   return {
@@ -31,10 +24,6 @@ export function setGraphType() {
   }
 }
 
-	// return {
-		// type: GET_CONTRIBUTOR_DATA,
-		// data
-	// }
 function createData() {
 	let n = 6 // number of layers
   let m = 3 // number of bars

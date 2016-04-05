@@ -6,10 +6,13 @@ var fs = require('fs');
 var Promise = require('bluebird');
 var bodyParser = require('body-parser');
 
+<<<<<<< HEAD
 <<<<<<< 901aefd0932194605862c8bd0d86ea18a38960a0
 var config = require('./config');
 var cleanData;
 =======
+=======
+>>>>>>> 39d2ad5f56b1bda7f46384c07cb39541d0419a23
 //var config = require('./config');
 
 >>>>>>> Deploying
