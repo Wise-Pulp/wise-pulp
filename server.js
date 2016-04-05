@@ -791,11 +791,6 @@ app.listen(port, function () {
 
 
 
-// var contributorController = require('./data/db/controllers/contributorController');
-// var Contributor = require('./data/db/Contributor.model.js');
-
-// var userController = require('./data/db/controllers/userController');
-<<<<<<< HEAD
 var User = require('./data/db/User.model');
 
   app.post('/api/signup', function(req, res, next) {
@@ -818,35 +813,6 @@ var User = require('./data/db/User.model');
       });
     });      
   });
-=======
-// var User = require('./data/db/User.model');
-
-//   app.post('/api/signup', function(req, res, next) {
-//     if (!req.body.username || !req.body.password) {
-//       return res.status(400).json({ message: 'Please fill out all fields' });
-//     }
-//     // console.log('***************', Object.keys(req));
-//     var user = new User();
-//       user.password = req.body.password
-//       user.username = req.body.username
-//    console.log('this is the user', user)
-
-//       console.log(docs)
-//       user.save(function (err, success) {
-//         if (err) {
-//           return next(err);
-//         }
-//         return res.json({
-//           "theSmellOfSuccess": true
-//         });
-//       });      
-//     // userController.createUser(user, function(err, suc){
-//     //   if (err) { throw err; }
-//     //   console.log('Complete:', suc);
-//     //   res.end();
-//     // });
-//   });
->>>>>>> bb837cb5410940b72c5fcea6806b073e4b906b43
 
 
 app.post('/api/data', function(req, res, next) {
