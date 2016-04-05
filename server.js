@@ -6,13 +6,18 @@ var fs = require('fs');
 var Promise = require('bluebird');
 var bodyParser = require('body-parser');
 
+<<<<<<< 901aefd0932194605862c8bd0d86ea18a38960a0
 var config = require('./config');
 var cleanData;
+=======
+//var config = require('./config');
+
+>>>>>>> Deploying
 //connect to local host
 //var db = 'mongodb://localhost/Contributors';
 
 //connect to heroku
-var db = config.dbURI2;
+//var db = config.dbURI2;
 
 //mongoose.connect(db);
 
@@ -795,7 +800,7 @@ var queryName = function(string){
   var results2 = [];
     // "PETE AGUILAR"
   results = results.split(' ');
-  console.log('this is results#2', );
+  console.log('this is results#2');
   results2.push(results[1], results[0]);
   console.log('results2 #1');
   results2 = results2.join(', ');
