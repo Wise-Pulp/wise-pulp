@@ -3,7 +3,7 @@ var Schema = mongoose.Schema;
 
 var stringOpts = { type: String, required: false, sparse: true },
     numOpts = { type: Number, required: false, sparse: true }
-//Example schema with possible input types.
+
 var GE_Turnout = new Schema({
     Year: numOpts,
     "ICPSR State Code": numOpts,
@@ -25,6 +25,6 @@ var GE_Turnout = new Schema({
 
 
 // MongoDB adds an 's' to Model name to create the database name.
-// "Contributions" is the name of the entire Collection
-// "Contribution" is the name of the Model
+// "GE_turnouts" is the name of the entire Collection
+// "GE_Turnout" is the name of the Model
 module.exports = mongoose.model('GE_Turnout', GE_Turnout);

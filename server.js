@@ -7,7 +7,7 @@ var Promise = require('bluebird');
 var bodyParser = require('body-parser');
 
 var config = require('./config');
-
+var cleanData;
 //connect to local host
 //var db = 'mongodb://localhost/Contributors';
 
@@ -20,146 +20,210 @@ var db = config.dbURI2;
 //THIS IS THE DATA CONVERSION MACHINE!!!!!!!!!
 ////////////////////////////
 
-// // //INSERT YOUR CSV DATA HERE!
-// var csvFile = "./data/old_Data/Contributors.csv";
-// // //DESIRED OUTPUT DIRECTORY!
-// var output = "./data/Contributors.json";
-// // //START SERVER AND WAIT FOR MAGIC!
-
-// //Converter Class
-// var Converter  = require('csvtojson').Converter;
-// var converter  = new Converter({});
-// // converter.fromFile(csvFile, function(err, result) {
-// //    console.log(result);
-// //   fs.writeFile(output, JSON.stringify(result), function(err) {
-// //      if(err) throw err;
-// //    })
-// // });
-
-// var JSONdata = fs.readFileSync(output);
-//     JSONdata = JSON.parse(JSONdata.toString())
-//     // console.log(JSONdata) // => csv in JSON.
-//     console.log("dirtyData********", JSONdata[3]);
-
-// // var dataArray = [];
-// //     for(var i = 0; i < JSONdata.length; i++){
-// //       if(JSONdata[i].net_con !== 0){
-// //         var temp = [];
-// //         temp.name = JSONdata[i].can_nam;
-// //         temp.push(JSONdata[i].ind_uni_con);
-// //         temp.push(JSONdata[i].ind_ite_con);
-// //         temp.push(JSONdata[i].par_com_con);
-// //         temp.push(JSONdata[i].oth_com_con);
-// //         temp.push(JSONdata[i].can_con);
-// //         temp.push(JSONdata[i].tot_con);
-// //         //temp.push(JSONdata[i].net_con);
-// //         dataArray.push(temp);        
-// //       }
-// //     }
-// //console.log(dataArray);
+// //INSERT YOUR CSV DATA HERE!
+var csvFile = './data';
+// //DESIRED OUTPUT DIRECTORY!
+var output = './data/Committee_Summary2016.json';
+// //START SERVER AND WAIT FOR MAGIC!
 
 
 
 
-// // var JSONdata = fs.readFileSync("./data/candidate_Summary2016.js");
-// //     JSONdata = JSONdata.toString()
-// //     JSONdata = JSON.parse(JSONdata);
-    
+
+//Converter Class
+var Converter  = require('csvtojson').Converter;
+var converter  = new Converter({});
+
+// converter.fromFile(csvFile, function(err, result) {
+//    if(err) console.log(err)
+//    console.log(result);
+//   fs.writeFile(output, JSON.stringify(result), function(err) {
+//      if(err) {
+//      console.log(err);
+//      }
+//    })
+// });
+
+var JSONdata = fs.readFileSync(output);
+    JSONdata = JSON.parse(JSONdata.toString())
+    // console.log(JSONdata) // => csv in JSON.
+    //console.log("dirtyData********", JSONdata[3]);
+
+
+
+
+/*
+* Format data to be used with GenerateLayers
+**/
+// var dataArray = [];
+//     for(var i = 0; i < JSONdata.length; i++){
+//       if(JSONdata[i].net_con !== 0){
+//         var temp = [];
+//         temp.name = JSONdata[i].can_nam;
+//         temp.push(JSONdata[i].ind_uni_con);
+//         temp.push(JSONdata[i].ind_ite_con);
+//         temp.push(JSONdata[i].par_com_con);
+//         temp.push(JSONdata[i].oth_com_con);
+//         temp.push(JSONdata[i].can_con);
+//         temp.push(JSONdata[i].tot_con);
+//         //temp.push(JSONdata[i].net_con);
+//         dataArray.push(temp);        
+//       }
+//     }
+//console.log(dataArray);
+
+////////// Asynchronous Loop... A beautiful thing.
+function asyncLoop(iterations, func, callback) {
+var index = 0;
+var done = false;
+var loop = {
+    next: function() {
+        if (done) {
+            return;
+        }
+
+        if (index < iterations) {
+            index++;
+            func(loop);
+
+        } else {
+            done = true;
+            callback();
+        }
+    },
+
+    iteration: function() {
+        return index - 1;
+    },
+
+    break: function() {
+        done = true;
+        callback();
+    }
+};
+loop.next();
+return loop;
+}
+
+/*
+* Takes dates formatted as YYYY/MM/DD
+* and returns a numeric value representing that date
+**/
+
+function fixDates(BadlyFormattedDate) {
+  var regEx = BadlyFormattedDate.replace(/\-/g, '++');
+  console.log('this is regex', regEx);
+    regEx = regEx.replace(/\//g, '++')
+  console.log('this is regex2', regEx);
+
+  var storage = [];
+  var results = '';
+  for(var i = 2; i >= 0; i--) {
+    var temp = regEx.split('++');
+    storage.push(temp[i]);
+    console.log(storage);
+  } 
+  results = storage[0] + '-' + storage[1] + '-' + storage[2];
+  console.log(results)
+  return Date.parse(results);
+}
+
+
+
+
+
 // /*
 // * Parses Object data for integers. Removes '$', and ',' then using
 // * the Number() method to parse the integers. 
 // **/
-// function mixedDataCleaner (arrayOfObjects) {
-//   function parseCurrency(aString){
-//     var monk = aString.replace(/\$/g, ''),
-//         kungfu = monk.replace(/\,/g, ''),
-//         master = Number(kungfu);
-//         return master;
-//   }
+function mixedDataCleaner (arrayOfObjects) {
+  function parseCurrency(aString){
+    var monk = aString.replace(/\$/g, ''),
+        kungfu = monk.replace(/\,/g, ''),
+        master = Number(kungfu);
+        return master;
+  }
   
 
-//   for(var i = 0; i < arrayOfObjects.length; i++) {
-//     //For an Array containing arrays (custom data)
-//     if(Array.isArray(arrayOfObjects[i])) {
-//       for(var q = 0; q < arrayOfObjects[i].length; q++){
-//         if(arrayOfObjects[i][q]){
-//           arrayOfObjects[i][q] = parseCurrency(arrayOfObjects[i][q]);       
-//         }
-//       }      
-//     } else {
-//     //For an Array containing Objects (JSON)
-//       for(var j in arrayOfObjects[i]){
-//         if( arrayOfObjects[i][j][0] === '$' || arrayOfObjects[i][j][0] === '-' ) {
-//           arrayOfObjects[i][j] = parseCurrency(arrayOfObjects[i][j]);
-//           // console.log(arrayOfObjects[i][j])
-//         }
-//       }
-//     }
+  for(var i = 0; i < arrayOfObjects.length; i++) {
+    //For an Array containing arrays (custom data)
+    if(Array.isArray(arrayOfObjects[i])) {
+      for(var q = 0; q < arrayOfObjects[i].length; q++){
+        if(arrayOfObjects[i][q]){
+          arrayOfObjects[i][q] = parseCurrency(arrayOfObjects[i][q]);       
+        }
+      }      
+    } else {
+    //For an Array containing Objects (JSON)
+      for(var j in arrayOfObjects[i]){
+        if( arrayOfObjects[i][j][0] === '$' || arrayOfObjects[i][j][0] === '-' ) {
+          arrayOfObjects[i][j] = parseCurrency(arrayOfObjects[i][j]);
+          // console.log(arrayOfObjects[i][j])
+        }
+      }
+    }
 
 
-//   }
-//   return arrayOfObjects;
-// }
 
-// /*
-// * Parses Object data for integers. Removes ',' or '%' then uses
-// * the Number() method to parse the integers. 
-// **/
-
-// function numericDataCleaner(arrayOfObjects) {
-//   function parseNumbers(numberString) {
-//     var myKicksGameIs = JSON.stringify(numberString),
-//         justRude = myKicksGameIs.replace(/\,/g, ''),
-//         dontGet = JSON.parse(justRude),
-//         jiujitsued = JSON.parse(dontGet);
-//         return jiujitsued;
-//   }
-//   function parsePercentage(numberString){
-//     var soySauce = JSON.stringify(numberString),
-//         wasabi = soySauce.replace(/\%/g, ''),
-//         seaweed = JSON.parse(wasabi),
-//         sushi = JSON.parse(seaweed);
-//         return sushi;
-//   }
-
-//   for(var i = 0; i < arrayOfObjects.length; i++){
-//     for(var q in arrayOfObjects[i]) {
-//       var currentJSON = arrayOfObjects[i];
-//       // console.log(currentJSON[q]);
-//       // currentJSON[q] = JSON.stringify(currentJSON[q]);
-
-//       //remove all percentage signs
-//       if(currentJSON[q][currentJSON[q].length - 1] === '%'){
-//         currentJSON[q] = parsePercentage(currentJSON[q]);
-//       }
-//       //remove all commas 
-//       else if (!isNaN(Number(currentJSON[q][currentJSON[q].length - 1]))) {
-//         currentJSON[q] = parseNumbers(currentJSON[q]);
-//       }
-//     }
-//   }
-//   return arrayOfObjects;
-// }
-
-// // var cleanData = mixedDataCleaner(dataArray);
-// var cleanData = numericDataCleaner(JSONdata);
-
-// console.log("cleanData________", cleanData);
-
-// console.log("cleanedData", cleanData[3]);
+  }
+  return arrayOfObjects;
+}
 
 
-// function generateLayers(arrayOfArrays) {
-//   var layers = [];
-//   for(var i = 0; i < arrayOfArrays.length; i++) {
-//     var candidate = [];
-//     for(var q = 0; q < arrayOfArrays[i].length; q++) {
-//       candidate.push({ x: q, y: arrayOfArrays[i][q] })
-//     }
-//     layers.push(candidate);
-//   }
-//   return layers;
-// }
+/*
+* Parses Object data for integers. Removes ',' or '%' then uses
+* the JSON.parse() to parse the integers. 
+**/
+
+function numericDataCleaner(arrayOfObjects) {
+
+  function parseNumbers(numberString) {
+    var myKicksGameIs = JSON.stringify(numberString),
+        justRude = myKicksGameIs.replace(/\,/g, ''),
+        dontGet = JSON.parse(justRude),
+        jiujitsued = JSON.parse(dontGet);
+        return jiujitsued;
+  }
+  function parsePercentage(numberString){
+    var soySauce = JSON.stringify(numberString),
+        wasabi = soySauce.replace(/\%/g, ''),
+        seaweed = JSON.parse(wasabi),
+        sushi = JSON.parse(seaweed);
+        return sushi;
+  }
+
+  for(var i = 0; i < arrayOfObjects.length; i++){
+    for(var q in arrayOfObjects[i]) {
+      var currentJSON = arrayOfObjects[i];
+
+      //remove all '%'
+      if(currentJSON[q][currentJSON[q].length - 1] === '%'){
+        currentJSON[q] = parsePercentage(currentJSON[q]);
+      }
+      //remove all ',' 
+      else if (!isNaN(Number(currentJSON[q][currentJSON[q].length - 1]))) {
+        currentJSON[q] = parseNumbers(currentJSON[q]);
+      }
+    }
+  }
+  return arrayOfObjects;
+}
+
+
+
+
+//Generate Layered Data. This is specifically used with Stacked Bar Graph
+function generateLayers(arrayOfArrays) {
+  var layers = [];
+  for(var i = 0; i < arrayOfArrays.length; i++) {
+    var candidate = [];
+    for(var q = 0; q < arrayOfArrays[i].length; q++) {
+      candidate.push({ x: q, y: arrayOfArrays[i][q] })
+    }
+    layers.push(candidate);
+  }
+  return layers;
+}
 
 // var generatedLayers = generateLayers(cleanData);
 
@@ -182,6 +246,7 @@ var db = config.dbURI2;
 
 //   var CandidateSummary = require('./data/db/Candidate_Summary.model');
 //   var skippedIndices = [];
+//   cleanData = mixedDataCleaner(JSONdata);
 
 //         var iterations = cleanData.length;
 //         var i = 0;
@@ -275,6 +340,7 @@ var db = config.dbURI2;
       
 //   var Contribution = require('./data/db/Contribution.model');
 //   var skippedIndices = [];
+//   cleanData = mixedDataCleaner(JSONdata);
 
 //   var iterations = cleanData.length;
 //   var i = 0;
@@ -336,10 +402,11 @@ var db = config.dbURI2;
 
 
 
-/////////////////////////////////////// Upload General Election Voter Turnout Data
+///////////////////////////////////// Upload General Election Voter Turnout Data
 
 //   var GE_Turnout = require('./data/db/Gen_Election_Voter_Turnout.model');
 //   var skippedIndices = [];
+//   cleanData = numericDataCleaner(JSONdata);
 
 //   var iterations = cleanData.length;
 //   var i = 0;
@@ -349,21 +416,21 @@ var db = config.dbURI2;
 //   var turnout = new GE_Turnout();
 //       turnout.Year = cleanData[i].Year;
 //       turnout["ICPSR State Code"] = cleanData[i]["ICPSR State Code"];
-//       turnout.["Alphanumeric State Code"] = cleanData[i].["Alphanumeric State Code"];
-//       turnout.["State"] = cleanData[i].["State"];
-//       turnout.["VEP Total Ballots Counted (%)"] = cleanData[i].["VEP Total Ballots Counted"];
-//       turnout.["VEP Highest Office (%)"] = cleanData[i].["VEP Highest Office"];
-//       turnout.["VAP Highest Office (%)"] = cleanData[i].["VAP Highest Office"];
-//       turnout.["Total Ballots Counted"] = cleanData[i].["Total Ballots Counted"];
-//       turnout.["Highest Office"] = cleanData[i].["Highest Office"];
-//       turnout.["Voting-Eligible Population (VEP)"] = cleanData[i].["Voting-Eligible Population (VEP)"];
-//       turnout.["Voting-Age Population (VAP)"] = cleanData[i].["Voting-Age Population (VAP)"];
-//       turnout.["% Non-citizen"] = cleanData[i].["% Non-citizen"];
-//       turnout.["Prison"] = cleanData[i].["Prison"];
-//       turnout.["Probation"] = cleanData[i].["Probation"];
-//       turnout.["Parole"] = cleanData[i].["Parole"];
-//       turnout.["Total Ineligible Felon"] = cleanData[i].["Total Ineligible Felon"];
-//       turnout.["Overseas Eligible"] = cleanData[i].["Overseas Eligible"];
+//       turnout["Alphanumeric State Code"] = cleanData[i]["Alphanumeric State Code"];
+//       turnout["State"] = cleanData[i]["State"];
+//       turnout["VEP Total Ballots Counted (%)"] = cleanData[i]["VEP Total Ballots Counted"];
+//       turnout["VEP Highest Office (%)"] = cleanData[i]["VEP Highest Office"];
+//       turnout["VAP Highest Office (%)"] = cleanData[i]["VAP Highest Office"];
+//       turnout["Total Ballots Counted"] = cleanData[i]["Total Ballots Counted"];
+//       turnout["Highest Office"] = cleanData[i]["Highest Office"];
+//       turnout["Voting-Eligible Population (VEP)"] = cleanData[i]["Voting-Eligible Population (VEP)"];
+//       turnout["Voting-Age Population (VAP)"] = cleanData[i]["Voting-Age Population (VAP)"];
+//       turnout["% Non-citizen"] = cleanData[i]["% Non-citizen"];
+//       turnout["Prison"] = cleanData[i]["Prison"];
+//       turnout["Probation"] = cleanData[i]["Probation"];
+//       turnout["Parole"] = cleanData[i]["Parole"];
+//       turnout["Total Ineligible Felon"] = cleanData[i]["Total Ineligible Felon"];
+//       turnout["Overseas Eligible"] = cleanData[i]["Overseas Eligible"];
       
 
        
@@ -393,47 +460,244 @@ var db = config.dbURI2;
 // );
 
 
+//////////////////////////// Upload Leadership PAC Data
+
+//   var LDR_PAC_Sponsor = require('./data/db/LDR_PAC_Sponsor.model');
+//   var skippedIndices = [];
+//       cleanData = mixedDataCleaner(JSONdata);
+
+//   var iterations = cleanData.length;
+//   var i = 0;
+//   asyncLoop(iterations, function(loop) {
+//   console.log(loop.iteration(), cleanData[i].com_nam)
+
+//   var sponsor = new LDR_PAC_Sponsor();
+//       sponsor.com_id = cleanData[i].com_id,
+//       sponsor.com_nam = cleanData[i].com_nam,
+//       sponsor.lin_ima = cleanData[i].lin_ima,
+//       sponsor.spo_nam = cleanData[i].spo_nam,
+//       sponsor.aff_com_nam = cleanData[i].aff_com_nam,
+//       sponsor.tot_rec = cleanData[i].tot_rec,
+//       sponsor.cas_on_han = cleanData[i].cas_on_han,
+//       sponsor.cov_end_dat = cleanData[i].cov_end_dat
+      
+
+       
+        
+//       sponsor.save(function (err, success) {
+//               if (err) {
+//                 console.log(loop.iteration(), 'sponsor was skipped.', err);
+//                 skippedIndices.push({ 
+//                                       error: err
+//                                     });
+//                 if(i < iterations){
+//                   i++;
+//                   loop.next();
+//                 } else { loop.next(); }
+
+//                 } else {
+//                   if(i < iterations){
+//                     i++;
+//                     console.log(loop.iteration(),'sponsor has been saved');  
+//                     loop.next();
+//                     }
+//                   }                    
+//                 });
+//   },
+//     function(){
+//       console.log('Data has finished uploading. The following indices were skipped:', skippedIndices)}
+// );
+
+
+//////////////////////////// Upload Administrative Fines Data
+
+//   var Administrative_Fine = require('./data/db/Administrative_Fine.model');
+//   var skippedIndices = [];
+//       cleanData = mixedDataCleaner(JSONdata);
+
+//   var iterations = cleanData.length;
+//   var i = 0;
+//   asyncLoop(iterations, function(loop) {
+//   console.log(loop.iteration(), cleanData[i].com_nam)
+
+//   var fine = new Administrative_Fine();
+//     fine.cas_num = cleanData[i].cas_num;
+//     fine.com_id = cleanData[i].com_id;
+//     fine.com_nam = cleanData[i].com_nam;
+//     fine.rep_typ = cleanData[i].rep_typ;
+//     fine.rep_yea = cleanData[i].rep_yea;
+//     fine.fin_amo = cleanData[i].fin_amo;
+//     fine.off = cleanData[i].off;
+//     fine.sta = cleanData[i].sta;
+//     fine.dis = cleanData[i].dis;
+//     fine.can_nam = cleanData[i].can_nam;
+//     fine.lat_fil_not_fil = cleanData[i].lat_fil_not_fil;
+//     fine.pai_yes_no = cleanData[i].pai_yes_no
+       
+        
+//       fine.save(function (err, success) {
+//               if (err) {
+//                 console.log(loop.iteration(), 'fine was skipped.', err);
+//                 skippedIndices.push({ 
+//                                       index: i,
+//                                       error: err
+//                                     });
+//                 if(i < iterations){
+//                   i++;
+//                   loop.next();
+//                 } else { loop.next(); }
+
+//                 } else {
+//                   if(i < iterations){
+//                     i++;
+//                     console.log(loop.iteration(),'fine has been saved');  
+//                     loop.next();
+//                     }
+//                   }                    
+//                 });
+//   },
+//     function(){
+//       console.log('Data has finished uploading. The following indices were skipped:', skippedIndices)}
+// );
 
 
 
 
-// ////////// Asynchronous Loop... A beautiful thing.
-//     function asyncLoop(iterations, func, callback) {
-//     var index = 0;
-//     var done = false;
-//     var loop = {
-//         next: function() {
-//             if (done) {
-//                 return;
-//             }
+//////////////////////////// Upload CommitteeSummary
 
-//             if (index < iterations) {
-//                 index++;
-//                 func(loop);
 
-//             } else {
-//                 done = true;
-//                 callback();
-//             }
-//         },
+//   var Committee_Summary = require('./data/db/Committee_Summary.model');
+//   var skippedIndices = [];
+//       cleanData = mixedDataCleaner(JSONdata);
 
-//         iteration: function() {
-//             return index - 1;
-//         },
+//   var iterations = cleanData.length;
+//   var i = 0;
+//   asyncLoop(iterations, function(loop) {
+//   console.log(loop.iteration(), cleanData[i].com_nam)
 
-//         break: function() {
-//             done = true;
-//             callback();
-//         }
-//     };
-//     loop.next();
-//     return loop;
-// }
+//   var committeeSummary = new Committee_Summary();
+//     committeeSummary.com_nam = cleanData[i].com_nam;
+//     committeeSummary.lin_ima = cleanData[i].lin_ima;
+//     committeeSummary.com_typ = cleanData[i].com_typ;
+//     committeeSummary.com_des = cleanData[i].com_des;
+//     committeeSummary.fil_fre = cleanData[i].fil_fre;
+//     committeeSummary.add = cleanData[i].add;
+//     committeeSummary.cit = cleanData[i].cit;
+//     committeeSummary.sta = cleanData[i].sta;
+//     committeeSummary.zip = cleanData[i].zip;
+//     committeeSummary.tre_nam = cleanData[i].tre_nam;
+//     committeeSummary.com_id = cleanData[i].com_id;
+//     committeeSummary.fec_ele_yea = cleanData[i].fec_ele_yea;
+//     committeeSummary.ind_ite_con = cleanData[i].ind_ite_con;
+//     committeeSummary.ind_uni_con = cleanData[i].ind_uni_con;
+//     committeeSummary.ind_con = cleanData[i].ind_con;
+//     committeeSummary.ind_ref = cleanData[i].ind_ref;
+//     committeeSummary.par_com_con = cleanData[i].par_com_con;
+//     committeeSummary.oth_com_con = cleanData[i].oth_com_con;
+//     committeeSummary.oth_com_ref = cleanData[i].oth_com_ref;
+//     committeeSummary.can_con = cleanData[i].can_con;
+//     committeeSummary.tot_con = cleanData[i].tot_con;
+//     committeeSummary.tot_con_ref = cleanData[i].tot_con_ref;
+//     committeeSummary.can_loa = cleanData[i].can_loa;
+//     committeeSummary.oth_loa = cleanData[i].oth_loa;
+//     committeeSummary.oth_loa_rep = cleanData[i].oth_loa_rep;
+//     committeeSummary.tot_loa = cleanData[i].tot_loa;
+//     committeeSummary.tot_loa_rep = cleanData[i].tot_loa_rep;
+//     committeeSummary.tra_fro_oth_aut_com = cleanData[i].tra_fro_oth_aut_com;
+//     committeeSummary.tra_fro_non_fed_acc = cleanData[i].tra_fro_non_fed_acc;
+//     committeeSummary.tra_fro_non_fed_lev_acc = cleanData[i].tra_fro_non_fed_lev_acc;
+//     committeeSummary.tot_non_fed_tra = cleanData[i].tot_non_fed_tra;
+//     committeeSummary.oth_rec = cleanData[i].oth_rec;
+//     committeeSummary.tot_rec = cleanData[i].tot_rec;
+//     committeeSummary.tot_fed_rec = cleanData[i].tot_fed_rec;
+//     committeeSummary.ope_exp = cleanData[i].ope_exp;
+//     committeeSummary.sha_fed_ope_exp = cleanData[i].sha_fed_ope_exp;
+//     committeeSummary.sha_non_fed_ope_exp = cleanData[i].sha_non_fed_ope_exp;
+//     committeeSummary.tot_ope_exp = cleanData[i].tot_ope_exp;
+//     committeeSummary.off_to_ope_exp = cleanData[i].off_to_ope_exp;
+//     committeeSummary.fed_sha_of_joi_act = cleanData[i].fed_sha_of_joi_act;
+//     committeeSummary.non_fed_sha_of_joi_act = cleanData[i].non_fed_sha_of_joi_act;
+//     committeeSummary.non_all_fed_ele_act_par = cleanData[i].non_all_fed_ele_act_par;
+//     committeeSummary.tot_fed_ele_act = cleanData[i].tot_fed_ele_act;
+//     committeeSummary.fed_can_com_con = cleanData[i].fed_can_com_con;
+//     committeeSummary.fed_can_con_ref = cleanData[i].fed_can_con_ref;
+//     committeeSummary.ind_exp_mad = cleanData[i].ind_exp_mad;
+//     committeeSummary.coo_exp_par = cleanData[i].coo_exp_par;
+//     committeeSummary.loa_mad = cleanData[i].loa_mad;
+//     committeeSummary.loa_rep_rec = cleanData[i].loa_rep_rec;
+//     committeeSummary.tra_to_oth_aut_com = cleanData[i].tra_fro_oth_aut_com;
+//     committeeSummary.fun_dis = cleanData[i].fun_dis;
+//     committeeSummary.off_to_fun_exp_pre = cleanData[i].off_to_fun_exp_pre;
+//     committeeSummary.exe_leg_acc_dis = cleanData[i].exe_leg_acc_dis;
+//     committeeSummary.off_to_leg_acc_exp_pre = cleanData[i].off_to_leg_acc_exp_pre;
+//     committeeSummary.tot_off_to_ope_exp = cleanData[i].tot_off_to_ope_exp;
+//     committeeSummary.oth_dis = cleanData[i].oth_dis;
+//     committeeSummary.tot_fed_dis = cleanData[i].tot_fed_dis;
+//     committeeSummary.tot_dis = cleanData[i].tot_dis;
+//     committeeSummary.net_con = cleanData[i].net_con;
+//     committeeSummary.net_ope_exp = cleanData[i].net_ope_exp;
+//     committeeSummary.cas_on_han_beg_of_per = cleanData[i].cas_on_han_beg_of_per;
+//     committeeSummary.cas_on_han_clo_of_per = cleanData[i].cas_on_han_clo_of_per;
+//     committeeSummary.deb_owe_by_com = cleanData[i].deb_owe_by_com;
+//     committeeSummary.deb_owe_to_com = cleanData[i].deb_owe_to_com;
+//     committeeSummary.cov_sta_dat = cleanData[i].cov_sta_dat;
+//     committeeSummary.cov_end_dat = cleanData[i].cov_end_dat;
+//     committeeSummary.pol_par_com_ref = cleanData[i].pol_par_com_ref;
+//     committeeSummary.can_id = cleanData[i].can_id;
+//     committeeSummary.cas_on_han_beg_of_yea = cleanData[i].cas_on_han_beg_of_yea;
+//     committeeSummary.cas_on_han_clo_of_yea = cleanData[i].cas_on_han_clo_of_yea;
+//     committeeSummary.exp_sub_to_lim_pri_yea_pre = cleanData[i].exp_sub_to_lim_pri_yea_pre;
+//     committeeSummary.exp_sub_lim = cleanData[i].exp_sub_lim;
+//     committeeSummary.fed_fun = cleanData[i].fed_fun;
+//     committeeSummary.ite_con_exp_con_com = cleanData[i].ite_con_exp_con_com;
+//     committeeSummary.ite_oth_dis = cleanData[i].ite_oth_dis;
+//     committeeSummary.ite_oth_inc = cleanData[i].ite_oth_inc;
+//     committeeSummary.ite_oth_ref_or_reb = cleanData[i].ite_oth_ref_or_reb;
+//     committeeSummary.ite_ref_or_reb = cleanData[i].ite_ref_or_reb;
+//     committeeSummary.oth_fed_ope_exp = cleanData[i].oth_fed_ope_exp;
+//     committeeSummary.sub_con_exp = cleanData[i].sub_con_exp;
+//     committeeSummary.sub_oth_ref_or_reb = cleanData[i].sub_oth_ref_or_reb;
+//     committeeSummary.sub_ref_or_reb = cleanData[i].sub_ref_or_reb;
+//     committeeSummary.tot_com_cos = cleanData[i].tot_com_cos;
+//     committeeSummary.tot_exp_sub_to_lim_pre = cleanData[i].tot_exp_sub_to_lim_pre;
+//     committeeSummary.uni_con_exp = cleanData[i].uni_con_exp;
+//     committeeSummary.uni_oth_dis = cleanData[i].uni_oth_dis;
+//     committeeSummary.uni_oth_inc = cleanData[i].uni_oth_inc;
+//     committeeSummary.uni_oth_ref_or_reb = cleanData[i].uni_oth_ref_or_reb;
+//     committeeSummary.uni_ref_or_reb = cleanData[i].uni_ref_or_reb;
+//     committeeSummary.org_tp = cleanData[i].org_tp;
+
+        
+//       committeeSummary.save(function (err, success) {
+//               if (err) {
+//                 console.log(loop.iteration(), 'Committee_Summary was skipped.', err);
+//                 skippedIndices.push({ 
+//                                       index: i,
+//                                       error: err
+//                                     });
+//                 if(i < iterations){
+//                   i++;
+//                   loop.next();
+//                 } else { loop.next(); }
+
+//                 } else {
+//                   if(i < iterations){
+//                     i++;
+//                     console.log(loop.iteration(),'Committee_Summary has been saved');  
+//                     loop.next();
+//                     }
+//                   }                    
+//                 });
+//   },
+//     function(){
+//       console.log('Data has finished uploading. The following indices were skipped:', skippedIndices)}
+// );
+
+
 
 
 
 //   ////////////////////////////
- //})
 
 
 
@@ -447,8 +711,8 @@ var isProduction = process.env.NODE_ENV === 'production';
 var port = isProduction ? process.env.PORT : 3500;
 var Zipcode = require('./data/db/Zipcode.model.js')
 
-var zipcodes = require('./data/zipcodes.js')
-var contributions = require('./data/contribution_data.js')
+var zipcodes = require('./data/old_Data/zipcodes.js')
+var contributions = require('./data/old_Data/contribution_data2016.js')
 
 
 var proxy = httpProxy.createProxyServer({
@@ -527,37 +791,28 @@ app.listen(port, function () {
 
 
 
-// var contributorController = require('./data/db/controllers/contributorController');
-// var Contributor = require('./data/db/Contributor.model.js');
+var User = require('./data/db/User.model');
 
-// var userController = require('./data/db/controllers/userController');
-// var User = require('./data/db/User.model');
+  app.post('/api/signup', function(req, res, next) {
+    if (!req.body.username || !req.body.password) {
+      console.log(req)
+      return res.status(400).json({ message: 'Please fill out all fields' });
+    }
+    // console.log('***************', Object.keys(req));
+  var user = new User();
+    user.password = req.body.password
+    user.username = req.body.username
+  console.log('this is the user', user)
 
-//   app.post('/api/signup', function(req, res, next) {
-//     if (!req.body.username || !req.body.password) {
-//       return res.status(400).json({ message: 'Please fill out all fields' });
-//     }
-//     // console.log('***************', Object.keys(req));
-//     var user = new User();
-//       user.password = req.body.password
-//       user.username = req.body.username
-//    console.log('this is the user', user)
-
-//       console.log(docs)
-//       user.save(function (err, success) {
-//         if (err) {
-//           return next(err);
-//         }
-//         return res.json({
-//           "theSmellOfSuccess": true
-//         });
-//       });      
-//     // userController.createUser(user, function(err, suc){
-//     //   if (err) { throw err; }
-//     //   console.log('Complete:', suc);
-//     //   res.end();
-//     // });
-//   });
+    user.save(function (err, success) {
+      if (err) {
+        return next(err);
+      }
+      return res.json({
+        'theSmellOfSuccess': true
+      });
+    });      
+  });
 
 
 app.post('/api/data', function(req, res, next) {
