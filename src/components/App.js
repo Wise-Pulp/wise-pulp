@@ -3,7 +3,7 @@ import fetch from 'isomorphic-fetch'
 import { connect } from 'react-redux'
 
 import FrontPage from '../containers/FrontPage'
-import Profile from '../containers/Profile'
+import Representatives from '../containers/Representatives'
 import { getRepresentatives } from '../actions/index'
 
 const API_KEY = 'AIzaSyD2uEW__R9AOm1JrooaddNSZM1EdN6KhAc'

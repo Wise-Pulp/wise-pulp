@@ -2,9 +2,20 @@ export const GET_CONTRIBUTOR_DATA = 'GET_CONTRIBUTOR_DATA'
 export const SET_GRAPH_TYPE = 'SET_GRAPH_TYPE'
 
 
-export function getContributorData() {
+export function getContributorData(rep1, rep2, rep3) {
+  return dispatch => {
+    return fetch('/api/data/CandidateSummary/' + rep1 + '/' + rep2 + '/' + rep3)
+      .then(response => response.json())
+      .then(json => dispatch(receiveContributorData(json))) 
+  }
   
-  return;
+}
+
+export function receiveContributorData(data) {
+	return {
+		type: GET_CONTRIBUTOR_DATA,
+		data
+	}
 }
 
 export function setGraphType() {
@@ -13,10 +24,6 @@ export function setGraphType() {
   }
 }
 
-	// return {
-		// type: GET_CONTRIBUTOR_DATA,
-		// data
-	// }
 function createData() {
 	let n = 6 // number of layers
   let m = 3 // number of bars

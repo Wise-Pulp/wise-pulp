@@ -7,7 +7,7 @@ import Spinner from '../components/Spinner'
 
 
 
-export default class Profile extends Component {
+export default class Representatives extends Component {
   constructor(props) {
     super(props)
     this.selectRep = this.selectRep.bind(this)
@@ -34,7 +34,6 @@ export default class Profile extends Component {
   }
 
   componentDidMount() {
-    this.props.dispatch(getContributorData())
     this.interval = setInterval(() => {
       this.tick()
       if (this.props.isFetching) {
@@ -45,12 +44,6 @@ export default class Profile extends Component {
       }
     }, 50)
   }    
-
-  componentWillReceiveProps(props) {
-    if (props.representative) {
-      //this.props.dispatch(getRepInfo(props.representative))
-    }
-  }
 
   render() {
 
@@ -73,10 +66,11 @@ export default class Profile extends Component {
 
 
 function mapStateToProps(state) {
-  const representatives = state.Profile.representatives
-  const isFetching = state.Profile.isFetching
+  console.log(state)
+  const representatives = state.Representatives.representatives
+  const isFetching = state.Representatives.isFetching
   const progress = state.Spinner.progress
-  const representative = state.Profile.representative
+  const representative = state.Representatives.representative
 
   return {
     representatives,
@@ -86,4 +80,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps)(Profile)
+export default connect(mapStateToProps)(Representatives)
