@@ -9,50 +9,50 @@ export default class Visualization {
     }
 
   create(data) {
-     let yGroupMax = d3.max(data.layers, function(layer) {
+    let yGroupMax = d3.max(data.layers, function(layer) {
         // console.log('this is layer within yGroupMax', layer);
-       return d3.max(layer, function(d) { 
+      return d3.max(layer, function(d) { 
         //console.log('this is d withing yGroupMax', d);
-        return d.y; }); })
-     let yStackMax = d3.max(data.layers, function(layer) { return d3.max(layer, function(d) { return d.y0 + d.y; }); });
+      return d.y; }); })
+    let yStackMax = d3.max(data.layers, function(layer) { return d3.max(layer, function(d) { return d.y0 + d.y; }); });
 
 //console.log('just plain layers', layers);
-  var margin = {top: 40, right: 10, bottom: 20, left: 10},
+  let margin = {top: 40, right: 10, bottom: 20, left: 10},
       width = 960 - margin.left - margin.right,
       height = 500 - margin.top - margin.bottom;
 
-  var x = d3.scale.ordinal()
+  let x = d3.scale.ordinal()
       .domain(d3.range(data.m))
       .rangeRoundBands([0, width], .08);
       //console.log(layers);
 
-  var y = d3.scale.linear()
+  let y = d3.scale.linear()
       .domain([0, yStackMax])
       .range([height, 0]);
 
-  var color = d3.scale.linear()
+  let color = d3.scale.linear()
       .domain([0, data.n - 1])
       .range(['#aad', '#556']);
 
-  var xAxis = d3.svg.axis()
+  let xAxis = d3.svg.axis()
       .scale(x)
       .tickSize(0)
       .tickPadding(6)
       .orient('bottom');
 
-  var svg = d3.select(this.el).append('svg')
+  let svg = d3.select(this.el).append('svg')
       .attr('width', width + margin.left + margin.right)
       .attr('height', height + margin.top + margin.bottom)
     .append('g')
       .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
-  var layer = svg.selectAll('.layer')
+  let layer = svg.selectAll('.layer')
       .data(data.layers)
     .enter().append('g')
       .attr('class', 'layer')
       .style('fill', function(d, i) { return color(i); });
 
-  var rect = layer.selectAll('rect')
+  let rect = layer.selectAll('rect')
       .data(function(d) { return d; })
     .enter().append('rect')
       .attr('x', function(d) { return x(d.x); })
@@ -69,9 +69,8 @@ export default class Visualization {
       .attr('class', 'x axis')
       .attr('transform', 'translate(0,' + height + ')')
       .call(xAxis);
+  }
 
-
-    }
   update(data) {
         let yGroupMax = d3.max(data.layers, function(layer) {
         // console.log('this is layer within yGroupMax', layer);
@@ -79,20 +78,20 @@ export default class Visualization {
         //console.log('this is d withing yGroupMax', d);
         return d.y; }); })
 
-  var margin = {top: 40, right: 10, bottom: 20, left: 10},
+  let margin = {top: 40, right: 10, bottom: 20, left: 10},
       width = 960 - margin.left - margin.right,
       height = 500 - margin.top - margin.bottom;
-  var x = d3.scale.ordinal()
+  let x = d3.scale.ordinal()
       .domain(d3.range(data.m))
       .rangeRoundBands([0, width], .08);
 
 
-          var layer = d3.select('svg').selectAll('.layer')
+  let layer = d3.select('svg').selectAll('.layer')
 
-  var rect = layer.selectAll('rect')
+  let rect = layer.selectAll('rect')
 
-let yStackMax = d3.max(data.layers, function(layer) { return d3.max(layer, function(d) { return d.y0 + d.y; }); });
-  var y = d3.scale.linear()
+  let yStackMax = d3.max(data.layers, function(layer) { return d3.max(layer, function(d) { return d.y0 + d.y; }); });
+  let y = d3.scale.linear()
       .domain([0, yStackMax])
       .range([height, 0]);
 

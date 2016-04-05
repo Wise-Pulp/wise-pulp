@@ -13,8 +13,8 @@ export default class FrontPage extends Component {
       <div className="col-sm-12">
         <Header />
         <Tutorial />
+        <HeatMap />
         <GettingStarted />
-
       </div>
     );
   }

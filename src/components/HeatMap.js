@@ -1,5 +1,9 @@
 import React, { Component } from 'react'
 import d3 from 'd3'
+import { connect } from 'react-redux'
+
+import { GET_HEAT_MAP, getHeatMapData } from '../actions/actionHeatMap'
+
 
 var counties = {
   6001: 35.36,
@@ -65,8 +69,9 @@ var counties = {
 export default class HeatMap extends Component {
 
   componentWillMount() {
-    d3.json('../../data/voter_Turnout/California/ca.txt', (error, ch) => {
-      console.log(ch)
+    d3.json('./ca.txt', (error, ch) => {
+      const center = d3.geo.centroid(ch)
+      this.props.dispatch(getHeatMapData(ch, center))
     })
   }
   render() {
@@ -78,23 +83,40 @@ export default class HeatMap extends Component {
     const width = 960;
     const height = 600;
      
-    const projection = d3.geo.albersUsa()
-      .scale(1280)
-      .translate([width / 2, height / 2])
+    const projection = d3.geo.albers()
+      .scale(3000)
+      //.rotate([30, 0])
+      .translate([1500, 350])
 
     const path = d3.geo.path()
       .projection(projection)
 
+    console.log(this.props.center)
     return (
+      <div>
+      {this.props.mapData.features ? 
       <svg width={width} height={height}>
         <g>
-          {this.props.ch.features.map(function(county) {
+          {this.props.mapData.features.map(function(county, i) {
             return <path d={path(county)} 
                          className={quantize(counties[county.properties.id])}
+                         key={i}
                 />
           })}
-        </g>
-      </svg>
+        </g> 
+      </svg> : <svg width={width} height={height}/> }
+      </div>
     )
   }
 }
+
+function mapStateToProps(state) {
+  const mapData = state.HeatMap.map
+  const center = state.HeatMap.center
+  return {
+    mapData,
+    center
+  }
+}
+
+export default connect(mapStateToProps)(HeatMap)
