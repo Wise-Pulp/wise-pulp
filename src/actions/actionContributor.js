@@ -17,6 +17,7 @@ export function receiveContributorData(data) {
 		type: GET_CONTRIBUTOR_DATA,
 		data
 	}
+}
 
 export function setGraphType() {
   return {
