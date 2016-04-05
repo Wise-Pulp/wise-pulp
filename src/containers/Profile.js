@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { setRepresentative, getRepresentatives, increaseProgress, stopProgress, getRepInfo } from '../actions/index'
-import { setContributorData } from '../actions/actionContributor'
+import { getContributorData } from '../actions/actionContributor'
 import RepresentativeList from '../components/RepresentativeList'
 import Spinner from '../components/Spinner'
 
@@ -34,7 +34,7 @@ export default class Profile extends Component {
   }
 
   componentDidMount() {
-    this.props.dispatch(setContributorData())
+    this.props.dispatch(getContributorData())
     this.interval = setInterval(() => {
       this.tick()
       if (this.props.isFetching) {
