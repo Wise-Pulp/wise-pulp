@@ -21,9 +21,9 @@ mongoose.connect(db);
 ////////////////////////////
 
 // //INSERT YOUR CSV DATA HERE!
-var csvFile = "./data";
+var csvFile = './data';
 // //DESIRED OUTPUT DIRECTORY!
-var output = "./data/Administrative_Fines2016.json";
+var output = './data/Committee_Summary2016.json';
 // //START SERVER AND WAIT FOR MAGIC!
 
 
@@ -105,9 +105,28 @@ loop.next();
 return loop;
 }
 
+/*
+* Takes dates formatted as YYYY/MM/DD
+* and returns a numeric value representing that date
+**/
 
+function fixDates(BadlyFormattedDate) {
+  var regEx = BadlyFormattedDate.replace(/\-/g, '++');
+  console.log('this is regex', regEx);
+    regEx = regEx.replace(/\//g, '++')
+  console.log('this is regex2', regEx);
 
-
+  var storage = [];
+  var results = '';
+  for(var i = 2; i >= 0; i--) {
+    var temp = regEx.split('++');
+    storage.push(temp[i]);
+    console.log(storage);
+  } 
+  results = storage[0] + '-' + storage[1] + '-' + storage[2];
+  console.log(results)
+  return Date.parse(results);
+}
 
 
 
@@ -492,54 +511,54 @@ function generateLayers(arrayOfArrays) {
 
 //////////////////////////// Upload Administrative Fines Data
 
-  var Administrative_Fine = require('./data/db/Administrative_Fine.model');
-  var skippedIndices = [];
-      cleanData = mixedDataCleaner(JSONdata);
+//   var Administrative_Fine = require('./data/db/Administrative_Fine.model');
+//   var skippedIndices = [];
+//       cleanData = mixedDataCleaner(JSONdata);
 
-  var iterations = cleanData.length;
-  var i = 0;
-  asyncLoop(iterations, function(loop) {
-  console.log(loop.iteration(), cleanData[i].com_nam)
+//   var iterations = cleanData.length;
+//   var i = 0;
+//   asyncLoop(iterations, function(loop) {
+//   console.log(loop.iteration(), cleanData[i].com_nam)
 
-  var fine = new Administrative_Fine();
-    fine.cas_num = cleanData[i].cas_num;
-    fine.com_id = cleanData[i].com_id;
-    fine.com_nam = cleanData[i].com_nam;
-    fine.rep_typ = cleanData[i].rep_typ;
-    fine.rep_yea = cleanData[i].rep_yea;
-    fine.fin_amo = cleanData[i].fin_amo;
-    fine.off = cleanData[i].off;
-    fine.sta = cleanData[i].sta;
-    fine.dis = cleanData[i].dis;
-    fine.can_nam = cleanData[i].can_nam;
-    fine.lat_fil_not_fil = cleanData[i].lat_fil_not_fil;
-    fine.pai_yes_no = cleanData[i].pai_yes_no
+//   var fine = new Administrative_Fine();
+//     fine.cas_num = cleanData[i].cas_num;
+//     fine.com_id = cleanData[i].com_id;
+//     fine.com_nam = cleanData[i].com_nam;
+//     fine.rep_typ = cleanData[i].rep_typ;
+//     fine.rep_yea = cleanData[i].rep_yea;
+//     fine.fin_amo = cleanData[i].fin_amo;
+//     fine.off = cleanData[i].off;
+//     fine.sta = cleanData[i].sta;
+//     fine.dis = cleanData[i].dis;
+//     fine.can_nam = cleanData[i].can_nam;
+//     fine.lat_fil_not_fil = cleanData[i].lat_fil_not_fil;
+//     fine.pai_yes_no = cleanData[i].pai_yes_no
        
         
-      fine.save(function (err, success) {
-              if (err) {
-                console.log(loop.iteration(), 'fine was skipped.', err);
-                skippedIndices.push({ 
-                                      index: i,
-                                      error: err
-                                    });
-                if(i < iterations){
-                  i++;
-                  loop.next();
-                } else { loop.next(); }
+//       fine.save(function (err, success) {
+//               if (err) {
+//                 console.log(loop.iteration(), 'fine was skipped.', err);
+//                 skippedIndices.push({ 
+//                                       index: i,
+//                                       error: err
+//                                     });
+//                 if(i < iterations){
+//                   i++;
+//                   loop.next();
+//                 } else { loop.next(); }
 
-                } else {
-                  if(i < iterations){
-                    i++;
-                    console.log(loop.iteration(),'fine has been saved');  
-                    loop.next();
-                    }
-                  }                    
-                });
-  },
-    function(){
-      console.log('Data has finished uploading. The following indices were skipped:', skippedIndices)}
-);
+//                 } else {
+//                   if(i < iterations){
+//                     i++;
+//                     console.log(loop.iteration(),'fine has been saved');  
+//                     loop.next();
+//                     }
+//                   }                    
+//                 });
+//   },
+//     function(){
+//       console.log('Data has finished uploading. The following indices were skipped:', skippedIndices)}
+// );
 
 
 
@@ -547,138 +566,132 @@ function generateLayers(arrayOfArrays) {
 //////////////////////////// Upload CommitteeSummary
 
 
-  var Committee_Summary = require('./data/db/Committee_Summary.model');
-  var skippedIndices = [];
-      cleanData = mixedDataCleaner(JSONdata);
+//   var Committee_Summary = require('./data/db/Committee_Summary.model');
+//   var skippedIndices = [];
+//       cleanData = mixedDataCleaner(JSONdata);
 
-  var iterations = cleanData.length;
-  var i = 0;
-  asyncLoop(iterations, function(loop) {
-  console.log(loop.iteration(), cleanData[i].com_nam)
+//   var iterations = cleanData.length;
+//   var i = 0;
+//   asyncLoop(iterations, function(loop) {
+//   console.log(loop.iteration(), cleanData[i].com_nam)
 
-  
-    var hold =   {
-    "com_nam": "ADDIVINOLA COMMITTEE; THE",
-    "lin_ima": "http://www.fec.gov/fecviewer/CandidateCommitteeDetail.do?candidateCommitteeId=C00523332&tabIndex=1",
-    "com_typ": "S",
-    "com_des": "P",
-    "fil_fre": "Q",
-    "add": "6 LIBERTY SQUARE #11",
-    "cit": "BOSTON",
-    "sta": "MA",
-    "zip": 2109,
-    "tre_nam": "ANGELICA ADDIVINOLA",
-    "com_id": "C00523332",
-    "fec_ele_yea": 2016,
-    "ind_ite_con": "",
-    "ind_uni_con": "",
-    "ind_con": "",
-    "ind_ref": "",
-    "par_com_con": "",
-    "oth_com_con": "",
-    "oth_com_ref": "",
-    "can_con": "",
-    "tot_con": "",
-    "tot_con_ref": "",
-    "can_loa": "",
-    "can_loa_rep": "",
-    "oth_loa": "",
-    "oth_loa_rep": "",
-    "tot_loa": "",
-    "tot_loa_rep": "",
-    "tra_fro_oth_aut_com": "",
-    "tra_fro_non_fed_acc": "",
-    "tra_fro_non_fed_lev_acc": "",
-    "tot_non_fed_tra": "",
-    "oth_rec": "",
-    "tot_rec": "",
-    "tot_fed_rec": "",
-    "ope_exp": "",
-    "sha_fed_ope_exp": "",
-    "sha_non_fed_ope_exp": "",
-    "tot_ope_exp": "",
-    "off_to_ope_exp": "",
-    "fed_sha_of_joi_act": "",
-    "non_fed_sha_of_joi_act": "",
-    "non_all_fed_ele_act_par": "",
-    "tot_fed_ele_act": "",
-    "fed_can_com_con": "",
-    "fed_can_con_ref": "",
-    "ind_exp_mad": "",
-    "coo_exp_par": "",
-    "loa_mad": "",
-    "loa_rep_rec": "",
-    "tra_to_oth_aut_com": "",
-    "fun_dis": "",
-    "off_to_fun_exp_pre": "",
-    "exe_leg_acc_dis_pre": "",
-    "off_to_leg_acc_exp_pre": "",
-    "tot_off_to_ope_exp": "",
-    "oth_dis": "",
-    "tot_fed_dis": "",
-    "tot_dis": "",
-    "net_con": "",
-    "net_ope_exp": "",
-    "cas_on_han_beg_of_per": "$103,331.00",
-    "cas_on_han_clo_of_per": "$103,331.00",
-    "deb_owe_by_com": "$58,047.00",
-    "deb_owe_to_com": "",
-    "cov_sta_dat": "2015-01-01",
-    "cov_end_dat": "2015-12-31",
-    "pol_par_com_ref": "",
-    "can_id": "",
-    "cas_on_han_beg_of_yea": "",
-    "cas_on_han_clo_of_yea": "",
-    "exp_sub_to_lim_pri_yea_pre": "",
-    "exp_sub_lim": "",
-    "fed_fun": "",
-    "ite_con_exp_con_com": "",
-    "ite_oth_dis": "",
-    "ite_oth_inc": "",
-    "ite_oth_ref_or_reb": "",
-    "ite_ref_or_reb": "",
-    "oth_fed_ope_exp": "",
-    "sub_con_exp": "",
-    "sub_oth_ref_or_reb": "",
-    "sub_ref_or_reb": "",
-    "tot_com_cos": "",
-    "tot_exp_sub_to_lim_pre": "",
-    "uni_con_exp": "",
-    "uni_oth_dis": "",
-    "uni_oth_inc": "",
-    "uni_oth_ref_or_reb": "",
-    "uni_ref_or_reb": "",
-    "org_tp": ""
-  }
-
-  var committeeSummary = new Committee_Summary();
-    committeeSummary.[] = cleanData[]
+//   var committeeSummary = new Committee_Summary();
+//     committeeSummary.com_nam = cleanData[i].com_nam;
+//     committeeSummary.lin_ima = cleanData[i].lin_ima;
+//     committeeSummary.com_typ = cleanData[i].com_typ;
+//     committeeSummary.com_des = cleanData[i].com_des;
+//     committeeSummary.fil_fre = cleanData[i].fil_fre;
+//     committeeSummary.add = cleanData[i].add;
+//     committeeSummary.cit = cleanData[i].cit;
+//     committeeSummary.sta = cleanData[i].sta;
+//     committeeSummary.zip = cleanData[i].zip;
+//     committeeSummary.tre_nam = cleanData[i].tre_nam;
+//     committeeSummary.com_id = cleanData[i].com_id;
+//     committeeSummary.fec_ele_yea = cleanData[i].fec_ele_yea;
+//     committeeSummary.ind_ite_con = cleanData[i].ind_ite_con;
+//     committeeSummary.ind_uni_con = cleanData[i].ind_uni_con;
+//     committeeSummary.ind_con = cleanData[i].ind_con;
+//     committeeSummary.ind_ref = cleanData[i].ind_ref;
+//     committeeSummary.par_com_con = cleanData[i].par_com_con;
+//     committeeSummary.oth_com_con = cleanData[i].oth_com_con;
+//     committeeSummary.oth_com_ref = cleanData[i].oth_com_ref;
+//     committeeSummary.can_con = cleanData[i].can_con;
+//     committeeSummary.tot_con = cleanData[i].tot_con;
+//     committeeSummary.tot_con_ref = cleanData[i].tot_con_ref;
+//     committeeSummary.can_loa = cleanData[i].can_loa;
+//     committeeSummary.oth_loa = cleanData[i].oth_loa;
+//     committeeSummary.oth_loa_rep = cleanData[i].oth_loa_rep;
+//     committeeSummary.tot_loa = cleanData[i].tot_loa;
+//     committeeSummary.tot_loa_rep = cleanData[i].tot_loa_rep;
+//     committeeSummary.tra_fro_oth_aut_com = cleanData[i].tra_fro_oth_aut_com;
+//     committeeSummary.tra_fro_non_fed_acc = cleanData[i].tra_fro_non_fed_acc;
+//     committeeSummary.tra_fro_non_fed_lev_acc = cleanData[i].tra_fro_non_fed_lev_acc;
+//     committeeSummary.tot_non_fed_tra = cleanData[i].tot_non_fed_tra;
+//     committeeSummary.oth_rec = cleanData[i].oth_rec;
+//     committeeSummary.tot_rec = cleanData[i].tot_rec;
+//     committeeSummary.tot_fed_rec = cleanData[i].tot_fed_rec;
+//     committeeSummary.ope_exp = cleanData[i].ope_exp;
+//     committeeSummary.sha_fed_ope_exp = cleanData[i].sha_fed_ope_exp;
+//     committeeSummary.sha_non_fed_ope_exp = cleanData[i].sha_non_fed_ope_exp;
+//     committeeSummary.tot_ope_exp = cleanData[i].tot_ope_exp;
+//     committeeSummary.off_to_ope_exp = cleanData[i].off_to_ope_exp;
+//     committeeSummary.fed_sha_of_joi_act = cleanData[i].fed_sha_of_joi_act;
+//     committeeSummary.non_fed_sha_of_joi_act = cleanData[i].non_fed_sha_of_joi_act;
+//     committeeSummary.non_all_fed_ele_act_par = cleanData[i].non_all_fed_ele_act_par;
+//     committeeSummary.tot_fed_ele_act = cleanData[i].tot_fed_ele_act;
+//     committeeSummary.fed_can_com_con = cleanData[i].fed_can_com_con;
+//     committeeSummary.fed_can_con_ref = cleanData[i].fed_can_con_ref;
+//     committeeSummary.ind_exp_mad = cleanData[i].ind_exp_mad;
+//     committeeSummary.coo_exp_par = cleanData[i].coo_exp_par;
+//     committeeSummary.loa_mad = cleanData[i].loa_mad;
+//     committeeSummary.loa_rep_rec = cleanData[i].loa_rep_rec;
+//     committeeSummary.tra_to_oth_aut_com = cleanData[i].tra_fro_oth_aut_com;
+//     committeeSummary.fun_dis = cleanData[i].fun_dis;
+//     committeeSummary.off_to_fun_exp_pre = cleanData[i].off_to_fun_exp_pre;
+//     committeeSummary.exe_leg_acc_dis = cleanData[i].exe_leg_acc_dis;
+//     committeeSummary.off_to_leg_acc_exp_pre = cleanData[i].off_to_leg_acc_exp_pre;
+//     committeeSummary.tot_off_to_ope_exp = cleanData[i].tot_off_to_ope_exp;
+//     committeeSummary.oth_dis = cleanData[i].oth_dis;
+//     committeeSummary.tot_fed_dis = cleanData[i].tot_fed_dis;
+//     committeeSummary.tot_dis = cleanData[i].tot_dis;
+//     committeeSummary.net_con = cleanData[i].net_con;
+//     committeeSummary.net_ope_exp = cleanData[i].net_ope_exp;
+//     committeeSummary.cas_on_han_beg_of_per = cleanData[i].cas_on_han_beg_of_per;
+//     committeeSummary.cas_on_han_clo_of_per = cleanData[i].cas_on_han_clo_of_per;
+//     committeeSummary.deb_owe_by_com = cleanData[i].deb_owe_by_com;
+//     committeeSummary.deb_owe_to_com = cleanData[i].deb_owe_to_com;
+//     committeeSummary.cov_sta_dat = cleanData[i].cov_sta_dat;
+//     committeeSummary.cov_end_dat = cleanData[i].cov_end_dat;
+//     committeeSummary.pol_par_com_ref = cleanData[i].pol_par_com_ref;
+//     committeeSummary.can_id = cleanData[i].can_id;
+//     committeeSummary.cas_on_han_beg_of_yea = cleanData[i].cas_on_han_beg_of_yea;
+//     committeeSummary.cas_on_han_clo_of_yea = cleanData[i].cas_on_han_clo_of_yea;
+//     committeeSummary.exp_sub_to_lim_pri_yea_pre = cleanData[i].exp_sub_to_lim_pri_yea_pre;
+//     committeeSummary.exp_sub_lim = cleanData[i].exp_sub_lim;
+//     committeeSummary.fed_fun = cleanData[i].fed_fun;
+//     committeeSummary.ite_con_exp_con_com = cleanData[i].ite_con_exp_con_com;
+//     committeeSummary.ite_oth_dis = cleanData[i].ite_oth_dis;
+//     committeeSummary.ite_oth_inc = cleanData[i].ite_oth_inc;
+//     committeeSummary.ite_oth_ref_or_reb = cleanData[i].ite_oth_ref_or_reb;
+//     committeeSummary.ite_ref_or_reb = cleanData[i].ite_ref_or_reb;
+//     committeeSummary.oth_fed_ope_exp = cleanData[i].oth_fed_ope_exp;
+//     committeeSummary.sub_con_exp = cleanData[i].sub_con_exp;
+//     committeeSummary.sub_oth_ref_or_reb = cleanData[i].sub_oth_ref_or_reb;
+//     committeeSummary.sub_ref_or_reb = cleanData[i].sub_ref_or_reb;
+//     committeeSummary.tot_com_cos = cleanData[i].tot_com_cos;
+//     committeeSummary.tot_exp_sub_to_lim_pre = cleanData[i].tot_exp_sub_to_lim_pre;
+//     committeeSummary.uni_con_exp = cleanData[i].uni_con_exp;
+//     committeeSummary.uni_oth_dis = cleanData[i].uni_oth_dis;
+//     committeeSummary.uni_oth_inc = cleanData[i].uni_oth_inc;
+//     committeeSummary.uni_oth_ref_or_reb = cleanData[i].uni_oth_ref_or_reb;
+//     committeeSummary.uni_ref_or_reb = cleanData[i].uni_ref_or_reb;
+//     committeeSummary.org_tp = cleanData[i].org_tp;
 
         
-      committeeSummary.save(function (err, success) {
-              if (err) {
-                console.log(loop.iteration(), 'Committee_Summary was skipped.', err);
-                skippedIndices.push({ 
-                                      index: i,
-                                      error: err
-                                    });
-                if(i < iterations){
-                  i++;
-                  loop.next();
-                } else { loop.next(); }
+//       committeeSummary.save(function (err, success) {
+//               if (err) {
+//                 console.log(loop.iteration(), 'Committee_Summary was skipped.', err);
+//                 skippedIndices.push({ 
+//                                       index: i,
+//                                       error: err
+//                                     });
+//                 if(i < iterations){
+//                   i++;
+//                   loop.next();
+//                 } else { loop.next(); }
 
-                } else {
-                  if(i < iterations){
-                    i++;
-                    console.log(loop.iteration(),'Committee_Summary has been saved');  
-                    loop.next();
-                    }
-                  }                    
-                });
-  },
-    function(){
-      console.log('Data has finished uploading. The following indices were skipped:', skippedIndices)}
-);
+//                 } else {
+//                   if(i < iterations){
+//                     i++;
+//                     console.log(loop.iteration(),'Committee_Summary has been saved');  
+//                     loop.next();
+//                     }
+//                   }                    
+//                 });
+//   },
+//     function(){
+//       console.log('Data has finished uploading. The following indices were skipped:', skippedIndices)}
+// );
 
 
 
@@ -762,7 +775,7 @@ app.get('/profile', function(req, res) {
 })
 
 //if we're not in production, this proxies requests to localhost:3000 and sends them to our webpack server at localhost:8080
-if (isProduction) {
+if (!isProduction) {
   var bundle = require('./server/compiler.js');
   bundle();
   app.all('/build/*', function (req, res) {
@@ -794,6 +807,7 @@ var User = require('./data/db/User.model');
 
   app.post('/api/signup', function(req, res, next) {
     if (!req.body.username || !req.body.password) {
+      console.log(req)
       return res.status(400).json({ message: 'Please fill out all fields' });
     }
     // console.log('***************', Object.keys(req));
@@ -807,7 +821,7 @@ var User = require('./data/db/User.model');
         return next(err);
       }
       return res.json({
-        "theSmellOfSuccess": true
+        'theSmellOfSuccess': true
       });
     });      
   });

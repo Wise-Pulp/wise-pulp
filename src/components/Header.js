@@ -3,6 +3,15 @@ import React, { Component } from 'react'
 
 
 export default class Header extends Component {
+  
+
+  logCredentials(event) {
+    event.preventDefault();
+    console.log(
+      "this is this in the header", this
+      );
+  }
+
   render() {
     return (
       <div className="container header">
@@ -14,10 +23,11 @@ export default class Header extends Component {
           </div>
           <div className="col-md-2 col-md-offset-8">
             <div className="row">
-              <input type="text" placeholder="User Name" />
-              <input type="password" placeholder="Password" />
-              <button className="btn btn-default">Log In</button>
-              <button className="btn btn-default">Sign Up</button>
+                <form action='/api/signup' method="POST" className="signup">
+                    Name: <input type="text" username="name" />
+                    Password: <input type="text" password="password" />
+                  <input type="submit" onClick={this.logCredentials.bind(this)} />
+                </form>
             </div>
           </div>
         </header>
