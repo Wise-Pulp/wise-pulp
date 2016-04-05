@@ -26,7 +26,7 @@ export default class Header extends Component {
                 <form action='/api/signup' method="POST" className="signup">
                     Name: <input type="text" username="name" />
                     Password: <input type="text" password="password" />
-                  <input type="submit" onClick={this.logCredentials.bind(this)} />
+                  <input type="submit" value="Sign up" />
                 </form>
             </div>
           </div>

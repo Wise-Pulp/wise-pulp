@@ -21,9 +21,9 @@ var db = config.dbURI2;
 ////////////////////////////
 
 // //INSERT YOUR CSV DATA HERE!
-var csvFile = './data';
+var csvFile = './data/'
 // //DESIRED OUTPUT DIRECTORY!
-var output = './data/Committee_Summary2016.json';
+var output = './data/Contributors2012.json';
 // //START SERVER AND WAIT FOR MAGIC!
 
 
@@ -44,8 +44,8 @@ var converter  = new Converter({});
 //    })
 // });
 
-var JSONdata = fs.readFileSync(output);
-    JSONdata = JSON.parse(JSONdata.toString())
+// var JSONdata = fs.readFileSync(output);
+//     JSONdata = JSON.parse(JSONdata.toString())
     // console.log(JSONdata) // => csv in JSON.
     //console.log("dirtyData********", JSONdata[3]);
 
@@ -244,7 +244,7 @@ function generateLayers(arrayOfArrays) {
 
 /////////////////////////////// Upload Candidate summary data
 
-//   var CandidateSummary = require('./data/db/Candidate_Summary.model');
+  var CandidateSummary = require('./data/db/Candidate_Summary.model');
 //   var skippedIndices = [];
 //   cleanData = mixedDataCleaner(JSONdata);
 
@@ -338,7 +338,7 @@ function generateLayers(arrayOfArrays) {
 
 
       
-//   var Contribution = require('./data/db/Contribution.model');
+  var Contribution = require('./data/db/Contribution.model');
 //   var skippedIndices = [];
 //   cleanData = mixedDataCleaner(JSONdata);
 
@@ -404,7 +404,7 @@ function generateLayers(arrayOfArrays) {
 
 ///////////////////////////////////// Upload General Election Voter Turnout Data
 
-//   var GE_Turnout = require('./data/db/Gen_Election_Voter_Turnout.model');
+  var GE_Turnout = require('./data/db/Gen_Election_Voter_Turnout.model');
 //   var skippedIndices = [];
 //   cleanData = numericDataCleaner(JSONdata);
 
@@ -462,7 +462,7 @@ function generateLayers(arrayOfArrays) {
 
 //////////////////////////// Upload Leadership PAC Data
 
-//   var LDR_PAC_Sponsor = require('./data/db/LDR_PAC_Sponsor.model');
+  var LDR_PAC_Sponsor = require('./data/db/LDR_PAC_Sponsor.model');
 //   var skippedIndices = [];
 //       cleanData = mixedDataCleaner(JSONdata);
 
@@ -511,7 +511,7 @@ function generateLayers(arrayOfArrays) {
 
 //////////////////////////// Upload Administrative Fines Data
 
-//   var Administrative_Fine = require('./data/db/Administrative_Fine.model');
+  var Administrative_Fine = require('./data/db/Administrative_Fine.model');
 //   var skippedIndices = [];
 //       cleanData = mixedDataCleaner(JSONdata);
 
@@ -560,13 +560,14 @@ function generateLayers(arrayOfArrays) {
 //       console.log('Data has finished uploading. The following indices were skipped:', skippedIndices)}
 // );
 
+// fine.find({ name: })
 
 
 
 //////////////////////////// Upload CommitteeSummary
 
 
-//   var Committee_Summary = require('./data/db/Committee_Summary.model');
+  var Committee_Summary = require('./data/db/Committee_Summary.model');
 //   var skippedIndices = [];
 //       cleanData = mixedDataCleaner(JSONdata);
 
@@ -787,7 +788,19 @@ app.listen(port, function () {
 
 
 
-////////////////////////////////////////////////////////////
+/////////////////////////////////////////// API helper functions
+var queryName = function(string){
+  var results = string.toUpperCase();
+  console.log('this is results#1', results);
+  var results2 = [];
+    // "PETE AGUILAR"
+  results = results.split(' ');
+  console.log('this is results#2', );
+  results2.push(results[1], results[0]);
+  console.log('results2 #1');
+  results2 = results2.join(', ');
+  return results2;
+};
 
 
 
@@ -795,7 +808,7 @@ var User = require('./data/db/User.model');
 
   app.post('/api/signup', function(req, res, next) {
     if (!req.body.username || !req.body.password) {
-      console.log(req)
+      console.log(req.params)
       return res.status(400).json({ message: 'Please fill out all fields' });
     }
     // console.log('***************', Object.keys(req));
@@ -815,14 +828,19 @@ var User = require('./data/db/User.model');
   });
 
 
-app.post('/api/data', function(req, res, next) {
+
+app.get('/api/data/CandidateSummary', function(req, res, next) {
+
+  var data = CandidateSummary.find({})
+  .exec( function(err, data){
+    if(err){
+      res.send('an error occured fetching your data :(')
+    } else {
+      res.json(data)
+    }
+  })
 
 })
-
-app.post('api/data/contributors', function(req, res, next){
-
-})
-
 
 
 

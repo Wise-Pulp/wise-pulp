@@ -1,13 +1,10 @@
 export const GET_CONTRIBUTOR_DATA = 'GET_CONTRIBUTOR_DATA'
 export const SET_GRAPH_TYPE = 'SET_GRAPH_TYPE'
 
-export function setContributorData() {
-	var data = createData()
-	return {
-		type: GET_CONTRIBUTOR_DATA,
-		data
-	}
-	
+
+export function getContributorData() {
+  
+  return;
 }
 
 export function setGraphType() {
@@ -16,6 +13,10 @@ export function setGraphType() {
   }
 }
 
+	// return {
+		// type: GET_CONTRIBUTOR_DATA,
+		// data
+	// }
 function createData() {
 	let n = 6 // number of layers
   let m = 3 // number of bars
