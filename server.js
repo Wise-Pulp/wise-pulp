@@ -14,7 +14,7 @@ var cleanData;
 //connect to heroku
 var db = config.dbURI2;
 
-mongoose.connect(db);
+//mongoose.connect(db);
 
 
 //THIS IS THE DATA CONVERSION MACHINE!!!!!!!!!
@@ -131,12 +131,12 @@ function fixDates(BadlyFormattedDate) {
 
 
 
-/*
-* Parses Object data for integers. Removes '$', and ',' then using
-* the Number() method to parse the integers. 
-**/
-function mixedDataCleaner (arrayOfObjects) {
 
+// /*
+// * Parses Object data for integers. Removes '$', and ',' then using
+// * the Number() method to parse the integers. 
+// **/
+function mixedDataCleaner (arrayOfObjects) {
   function parseCurrency(aString){
     var monk = aString.replace(/\$/g, ''),
         kungfu = monk.replace(/\,/g, ''),
@@ -164,9 +164,11 @@ function mixedDataCleaner (arrayOfObjects) {
     }
 
 
+
   }
   return arrayOfObjects;
 }
+
 
 /*
 * Parses Object data for integers. Removes ',' or '%' then uses
@@ -206,8 +208,6 @@ function numericDataCleaner(arrayOfObjects) {
   }
   return arrayOfObjects;
 }
-
-
 
 
 
@@ -698,14 +698,6 @@ function generateLayers(arrayOfArrays) {
 
 
 
-
-
-
-
-
-
-
-
 //   ////////////////////////////
 
 
@@ -797,19 +789,19 @@ app.listen(port, function () {
 
 
 /////////////////////////////////////////// API helper functions
- var queryName = function(string){
-    var results = string.toUpperCase();
-    console.log('this is results#1', results)
-    var results2 = [];
+var queryName = function(string){
+  var results = string.toUpperCase();
+  console.log('this is results#1', results);
+  var results2 = [];
     // "PETE AGUILAR"
-    results = results.split(' ');
-    console.log('this is results#2', )
-    results2.push(results[1], results[0]);
-    console.log('results2 #1');
-    results2 = results2.join(', ');
-    return results2;
-  }
-//
+  results = results.split(' ');
+  console.log('this is results#2', );
+  results2.push(results[1], results[0]);
+  console.log('results2 #1');
+  results2 = results2.join(', ');
+  return results2;
+};
+
 
 
 var User = require('./data/db/User.model');

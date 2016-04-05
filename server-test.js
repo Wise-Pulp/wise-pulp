@@ -14,21 +14,23 @@ app.listen(port, function () {
   console.log('Server running on port ' + port);
 });
 
+//console.log(pdfParser)
+// pdfParser.on('dfParser_dataError', function(errData) {
+// 	console.error(errData.parserError)
+// })
+// pdfParser.on('dfParser_dataReady', function(pdfData) {
+// 	console.log(pdfData)
+//     fs.writeFile('/data/voter_turnout/California/participation.json', JSON.stringify(pdfData), (err) => {
+//     	if (err) throw err;
+//     	console.log('It\'s saved!')
+//     });
+// });
+// var arr = []
+// fs.readFile('./data/voter_Turnout/California/ca.txt', 'utf-8', function(err, data) {
+//   var hello = data.split('\n')
+//   console.log(hello)
+// })
 
-pdfParser.on('dfParser_dataError', function(errData) {
-	console.error(errData.parserError)
-})
-pdfParser.on('dfParser_dataReady', function(pdfData) {
-	console.log(pdfData)
-    fs.writeFile('/data/voter_turnout/California/participation.json', JSON.stringify(pdfData), (err) => {
-    	if (err) throw err;
-    	console.log('It\'s saved!')
-    });
-});
-
-pdfParser.loadPDF('/data/voter_Turnout/California/03-voter-participation-stats-by-county.pdf', function(err) {
-	console.log('hi')
-});
 
 //****************UNCOMMENT FOR DISTRICT / ZIPCODE RELATION DATA**********************//
 // // fs.readFile('./natl_zccd_delim.txt', 'utf-8', function(err, data) {
@@ -88,8 +90,8 @@ pdfParser.loadPDF('/data/voter_Turnout/California/03-voter-participation-stats-b
 // //START SERVER AND WAIT FOR MAGIC!
 
 //Converter Class
-var Converter  = require('csvtojson').Converter;
-var converter  = new Converter({});
+// var Converter  = require('csvtojson').Converter;
+// var converter  = new Converter({});
 // converter.fromFile(csvFile, function(err, result) {
 //    console.log(result);
 //   pFs.writeFile(output, JSON.stringify(result), function(err) {
@@ -101,29 +103,29 @@ var converter  = new Converter({});
 //    JSONdata = JSON.parse(JSONdata.toString())
     //console.log(JSONdata) => csv in JSON.
 
-var JSONdata = fs.readFileSync('./data/candidate_Summary2016.js');
-    JSONdata = JSONdata.toString()
-    JSONdata = JSON.parse(JSONdata);
-    //console.log(JSONdata[53])
+// var JSONdata = fs.readFileSync('./data/candidate_Summary2016.js');
+//     JSONdata = JSONdata.toString()
+//     JSONdata = JSON.parse(JSONdata);
+//     //console.log(JSONdata[53])
     
 
 
-var dataArray = [];
-    for(var i = 0; i < JSONdata.length; i++){
-      if(JSONdata[i].net_con !== 0){
-        var temp = {};
-        var hello = JSONdata[i].can_nam.split(',')
-        temp[hello[0]] = []
-        temp[hello[0]].push(JSONdata[i].ind_uni_con);
-        temp[hello[0]].push(JSONdata[i].ind_ite_con);
-        temp[hello[0]].push(JSONdata[i].par_com_con);
-        temp[hello[0]].push(JSONdata[i].oth_com_con);
-        temp[hello[0]].push(JSONdata[i].can_con);
-        temp[hello[0]].push(JSONdata[i].tot_con);
-        //temp.push(JSONdata[i].net_con);
-        dataArray.push(temp);        
-      }
-    }
+// var dataArray = [];
+//     for(var i = 0; i < JSONdata.length; i++){
+//       if(JSONdata[i].net_con !== 0){
+//         var temp = {};
+//         var hello = JSONdata[i].can_nam.split(',')
+//         temp[hello[0]] = []
+//         temp[hello[0]].push(JSONdata[i].ind_uni_con);
+//         temp[hello[0]].push(JSONdata[i].ind_ite_con);
+//         temp[hello[0]].push(JSONdata[i].par_com_con);
+//         temp[hello[0]].push(JSONdata[i].oth_com_con);
+//         temp[hello[0]].push(JSONdata[i].can_con);
+//         temp[hello[0]].push(JSONdata[i].tot_con);
+//         //temp.push(JSONdata[i].net_con);
+//         dataArray.push(temp);        
+//       }
+//     }
 //console.log(dataArray);
 
 
@@ -131,52 +133,52 @@ var dataArray = [];
 * Parses array data for integers by removing '$' and ',' then using
 * the Number() method to parse the integers. 
 **/
-function cleanUpData (arrayOfObjects) {
+// function cleanUpData (arrayOfObjects) {
   
-  function parseCurrency(aString){
-    var monk = aString.replace(/\$/g, ''),
-        kungfu = monk.replace(/\,/g, ''),
-        master = Number(kungfu);
-        return master;
-  }
+//   function parseCurrency(aString){
+//     var monk = aString.replace(/\$/g, ''),
+//         kungfu = monk.replace(/\,/g, ''),
+//         master = Number(kungfu);
+//         return master;
+//   }
   
-  for(var i = 0; i < arrayOfObjects.length; i++) {
-    for(var key in arrayOfObjects[i]) {
-      for(var q = 0; q < arrayOfObjects[i][key].length; q++) {
-        if(arrayOfObjects[i][key][q]){
-          arrayOfObjects[i][key][q] = parseCurrency(arrayOfObjects[i][key][q]);       
-        }
-      }
-    }
-   // console.log(arrayOfObjects[i][0])
-  }
-  return arrayOfObjects;
-}
+//   for(var i = 0; i < arrayOfObjects.length; i++) {
+//     for(var key in arrayOfObjects[i]) {
+//       for(var q = 0; q < arrayOfObjects[i][key].length; q++) {
+//         if(arrayOfObjects[i][key][q]){
+//           arrayOfObjects[i][key][q] = parseCurrency(arrayOfObjects[i][key][q]);       
+//         }
+//       }
+//     }
+//    // console.log(arrayOfObjects[i][0])
+//   }
+//   return arrayOfObjects;
+// }
 
-var cleanData = cleanUpData(dataArray);
+// var cleanData = cleanUpData(dataArray);
 
 //console.log(cleanData[30]);
 
-function generateLayers(arrayOfArrays) {
-  var layers = [];
-  for(var i = 0; i < arrayOfArrays.length; i++) {
-    for (var key in arrayOfArrays[i]) {
-      var candidate = {};
-      candidate[key] = [];
-        for(var q = 0; q < arrayOfArrays[i][key].length; q++) {
-          candidate[key].push({ x: q, y: arrayOfArrays[i][key][q] })
-        }
-        layers.push(candidate);
-    }
-  }
-  var yup = JSON.stringify(layers)
-  fs.writeFile('./contribution_data', yup, function(err, data) {
-    if (err) throw err;
-    console.log('it is saved my darling')
-  })
-}
+// function generateLayers(arrayOfArrays) {
+//   var layers = [];
+//   for(var i = 0; i < arrayOfArrays.length; i++) {
+//     for (var key in arrayOfArrays[i]) {
+//       var candidate = {};
+//       candidate[key] = [];
+//         for(var q = 0; q < arrayOfArrays[i][key].length; q++) {
+//           candidate[key].push({ x: q, y: arrayOfArrays[i][key][q] })
+//         }
+//         layers.push(candidate);
+//     }
+//   }
+//   var yup = JSON.stringify(layers)
+//   fs.writeFile('./contribution_data', yup, function(err, data) {
+//     if (err) throw err;
+//     console.log('it is saved my darling')
+//   })
+// }
 
-var generatedLayers = generateLayers(cleanData);
+// var generatedLayers = generateLayers(cleanData);
 
 // var refinedData = [];
 
