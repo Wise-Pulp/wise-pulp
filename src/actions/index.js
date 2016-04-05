@@ -38,7 +38,7 @@ export function getRepresentatives (zipcode) {
         let firstRep = json.objects[0].person.lastname + ', ' + json.objects[0].person.firstname
         let secondRep = json.objects[1].person.lastname + ', ' + json.objects[1].person.firstname
         let thirdRep = json.objects[2].person.lastname + ', ' + json.objects[2].person.firstname
-        dispatch(setContributorData(firstRep, secondRep, thirdRep))
+       // dispatch(setContributorData(firstRep, secondRep, thirdRep))
       })
   } 
 }
