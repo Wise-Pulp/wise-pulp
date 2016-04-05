@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router'
 
 const RepresentativePicture = ({representative, image, selectRep}) => (
 		<div className='col-md-4'>
-			<img onClick={e => selectRep(representative)} src={image} className='img-responsive rep-img'/>
+			<Link to={{ pathname: '/representatives/' + representative.id }}><img src={image} className='img-responsive rep-img'/></Link>
 			<div>{representative.person.firstname + ' ' + representative.person.lastname}</div>
 			<div>{representative.role_type_label}</div>
 		</div>

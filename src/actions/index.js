@@ -1,5 +1,5 @@
 import fetch from 'isomorphic-fetch'
-import axios from 'axios'
+import  { setContributorData } from './actionContributor'
 
 export const RECEIVE_REPRESENTATIVES = 'RECEIVE_REPRESENTATIVES'
 export const IS_FETCHING = 'IS_FETCHING'
@@ -21,21 +21,6 @@ export function setRepresentative(rep) {
   }
 }
 
-export function receiveRepInfo(json) {
-  return {
-    type: GET_REP_INFO,
-    info: json
-  }
-}
-
-export function getRepInfo(rep) {
-  return dispatch => {
-    return axios('http://en.wikipedia.org/w/api.php?format=json&action=query&titles=India&prop=revisions&rvprop=content&callback=?')
-      .then(response => response.json())
-      .then(json => dispatch(receiveRepInfo(json)))
-  }
-}
-
 export function receiveRepresentatives(json) {
   return {
     type: RECEIVE_REPRESENTATIVES,
@@ -48,8 +33,14 @@ export function getRepresentatives (zipcode) {
     dispatch(changeFetching())
   	return fetch('/api/representatives/' + zipcode)
   		.then(response => response.json())
-  		.then(json => dispatch(receiveRepresentatives(json))) 
-  }
+  		.then(json => {
+        dispatch(receiveRepresentatives(json))
+        let firstRep = json.objects[0].person.lastname + ', ' + json.objects[0].person.firstname
+        let secondRep = json.objects[1].person.lastname + ', ' + json.objects[1].person.firstname
+        let thirdRep = json.objects[2].person.lastname + ', ' + json.objects[2].person.firstname
+       // dispatch(setContributorData(firstRep, secondRep, thirdRep))
+      })
+  } 
 }
 
 export function increaseProgress () {
