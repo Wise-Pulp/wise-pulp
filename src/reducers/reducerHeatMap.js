@@ -1,7 +1,7 @@
 import { GET_HEAT_MAP } from '../actions/actionHeatMap'
 
 export default function heatMapData(state = {
-	map: {},
+	map: null,
 	center: []
 }, action) {
 	switch (action.type) {

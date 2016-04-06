@@ -1,9 +1,8 @@
 import fetch from 'isomorphic-fetch'
-import  { setContributorData } from './actionContributor'
+import  { getContributorData } from './actionContributor'
 
 export const RECEIVE_REPRESENTATIVES = 'RECEIVE_REPRESENTATIVES'
 export const IS_FETCHING = 'IS_FETCHING'
-export const SELECT_REPRESENTATIVE = 'SELECT_REPRESENTATIVE'
 export const INCREASE_PROGRESS = 'INCREASE_PROGRESS'
 export const GET_REP_INFO = 'GET_REP_INFO'
 export const STOP_PROGRESS = 'STOP_PROGRESS'
@@ -11,13 +10,6 @@ export const STOP_PROGRESS = 'STOP_PROGRESS'
 function changeFetching () {
   return {
     type: IS_FETCHING
-  }
-}
-
-export function setRepresentative(rep) {
-  return {
-    type: SELECT_REPRESENTATIVE,
-    rep
   }
 }
 
@@ -35,10 +27,14 @@ export function getRepresentatives (zipcode) {
   		.then(response => response.json())
   		.then(json => {
         dispatch(receiveRepresentatives(json))
+        console.log(json.objects)
         let firstRep = json.objects[0].person.lastname + ', ' + json.objects[0].person.firstname
+        let firstRole = json.objects[0].role_type[0]
         let secondRep = json.objects[1].person.lastname + ', ' + json.objects[1].person.firstname
+        let secondRole = json.objects[1].role_type[0]
         let thirdRep = json.objects[2].person.lastname + ', ' + json.objects[2].person.firstname
-       // dispatch(setContributorData(firstRep, secondRep, thirdRep))
+        let thirdRole = json.objects[2].role_type[0]
+        dispatch(getContributorData(firstRep, firstRole, secondRep, secondRole, thirdRep, thirdRole, json.objects[0].state))
       })
   } 
 }

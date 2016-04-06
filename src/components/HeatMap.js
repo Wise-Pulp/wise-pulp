@@ -68,7 +68,7 @@ var counties = {
 
 export default class HeatMap extends Component {
 
-  componentWillMount() {
+  componentDidMount() {
     d3.json('./ca.txt', (error, ch) => {
       const center = d3.geo.centroid(ch)
       this.props.dispatch(getHeatMapData(ch, center))
@@ -91,10 +91,10 @@ export default class HeatMap extends Component {
     const path = d3.geo.path()
       .projection(projection)
 
-    console.log(this.props.center)
+    console.log(this.props.mapData)
     return (
       <div>
-      {this.props.mapData.features ? 
+      {this.props.mapData ? 
       <svg width={width} height={height}>
         <g>
           {this.props.mapData.features.map(function(county, i) {

@@ -1,14 +1,31 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import RepresentativePicture from '../components/RepresentativePicture'
+import RepresentativeDetails from '../components/RepresentativeDetails'
 
 export default class RepresentativeInfo extends Component {
 	render() {
 		const { params, representatives } = this.props
 		return (
 			<div>
-				{representatives.map(function(representative) {
+				{representatives.map(function(representative, i) {
 					if (representative.id === JSON.parse(params.id)) {
-						return <div>{representative.person.firstname}</div>
+						let image = 'https://www.govtrack.us/data/photos/' + representative.person.id + '-200px.jpeg'
+						return (
+							<div>
+								<div key={i} className='rep-container'>
+									<RepresentativePicture
+										key={representative.id}
+										representative={representative}
+										image={image} />
+								</div>
+								<div className='rep-info-container'>
+									<RepresentativeDetails
+										representative={representative}
+										key={i} />
+								</div>
+							</div>
+						)
 					}
 				})}
 			</div>
@@ -26,18 +43,3 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps)(RepresentativeInfo)
-				// <div className='row rep-info-container'>
-				// 		<div className='col-md-2 col-md-offset-2 rep-info'>
-				// 			<div>Website:</div>
-				// 			<a href={representative.website}>{representative.website}</a>
-				// 		</div>
-				// 	<div className='col-md-2 col-md-offset-1 rep-info'>
-				// 			<div>Twitter:</div>
-				// 			<a href={'https://www.twitter.com/@' + representative.person.twitterid}>@{representative.person.twitterid}</a>
-				// 	</div>
-				// 	<div className='col-md-2 col-md-offset-1 rep-info'>
-				// 			<div>Phone:</div>
-				// 			<div>{representative.phone}</div>
-				// 	</div>
-				// 	<div className='col-md-2 col-md-offset-1'></div> 
-				// </div>

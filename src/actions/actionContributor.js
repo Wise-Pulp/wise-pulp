@@ -2,10 +2,10 @@ export const GET_CONTRIBUTOR_DATA = 'GET_CONTRIBUTOR_DATA'
 export const SET_GRAPH_TYPE = 'SET_GRAPH_TYPE'
 
 
-export function getContributorData(rep1, rep2, rep3) {
-  console.log(rep1, rep2, rep3)
+export function getContributorData(rep1, role1, rep2, role2, rep3, role3, state) {
+  var hello = '/api/data/CandidateSummary/' + rep1 + '/' + role1 + '/' + rep2 + '/' + role2 + '/' + rep3 + '/' + role3 + '/' + state
   return dispatch => {
-    return fetch('/api/data/CandidateSummary/' + rep1 + '/' + rep2 + '/' + rep3)
+    return fetch(hello)
       .then(response => response.json())
       .then(json => dispatch(receiveContributorData(json))) 
   }

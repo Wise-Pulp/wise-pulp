@@ -9,9 +9,7 @@ var bodyParser = require('body-parser');
 
 var config = require('./config');
 var cleanData;
-
 //var config = require('./config');
-
 
 //connect to local host
 //var db = 'mongodb://localhost/Contributors';
@@ -762,8 +760,12 @@ app.get('/api/representatives/:zipcode', function(req, res) {
         })
   });
 
-app.get('/representatives', function(req, res) {
+app.get('/representatives/:id', function(req, res) {
   res.sendFile(publicPath + '/index.html');
+})
+
+app.get('/representatives', function(req, res) {
+  res.sendFile(publicPath + '/index.html')
 })
 
 //if we're not in production, this proxies requests to localhost:3000 and sends them to our webpack server at localhost:8080
@@ -785,8 +787,6 @@ app.listen(port, function () {
   console.log('Server running on port ' + port);
 });
 
-
-
 /////////////////////////////////////////// API helper functions
 var queryName = function(string){
   var results = string.toUpperCase();
@@ -800,8 +800,6 @@ var queryName = function(string){
   results2 = results2.join(', ');
   return results2;
 };
-
-
 
 var User = require('./data/db/User.model');
 
@@ -826,7 +824,9 @@ var User = require('./data/db/User.model');
     });      
   });
 
-
+app.get('/api/data/CandidateSummary/:rep1/:role1/:rep2/:role2/:rep3/:role3j/:state', function(req, res) {
+  console.log(req.params)
+})
 
 app.get('/api/data/CandidateSummary', function(req, res, next) {
 
