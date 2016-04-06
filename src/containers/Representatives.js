@@ -11,11 +11,7 @@ const API_KEY = 'AIzaSyD2uEW__R9AOm1JrooaddNSZM1EdN6KhAc'
 export default class Representatives extends Component {
   constructor(props) {
     super(props)
-    this.tick = this.tick.bind(this)
-  }
-
-  beginSpinner() {
-    this.props.dispatch(increaseProgress())
+    //this.tick = this.tick.bind(this)
   }
 
   stopSpinner() {
@@ -38,7 +34,7 @@ export default class Representatives extends Component {
         this.props.dispatch({type: 'STOP_PROGRESS'})
         this.stopSpinner()
       }
-    }, 50)
+    }, 100)
   }
 
   componentWillMount() {

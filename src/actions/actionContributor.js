@@ -3,16 +3,20 @@ export const SET_GRAPH_TYPE = 'SET_GRAPH_TYPE'
 
 
 export function getContributorData(rep1, role1, rep2, role2, rep3, role3, state) {
-  var hello = '/api/data/CandidateSummary/' + rep1 + '/' + role1 + '/' + rep2 + '/' + role2 + '/' + rep3 + '/' + role3 + '/' + state
+  // var hello = '/api/data/CandidateSummary/' + rep1 + '/' + role1 + '/' + rep2 + '/' + role2 + '/' + rep3 + '/' + role3 + '/' + state
+  // return dispatch => {
+  //   return fetch(hello)
+  //     .then(response => response.json())
+  //     .then(json => dispatch(receiveContributorData(json))) 
+  // }
+  let data = createData()
   return dispatch => {
-    return fetch(hello)
-      .then(response => response.json())
-      .then(json => dispatch(receiveContributorData(json))) 
+    dispatch(receiveContributorData(data))
   }
-  
 }
 
 export function receiveContributorData(data) {
+  console.log(data)
 	return {
 		type: GET_CONTRIBUTOR_DATA,
 		data

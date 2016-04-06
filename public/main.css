@@ -114,18 +114,27 @@ body {
   shape-rendering: crispEdges;
   }
 
-  div.tooltip {
-      position: absolute;
-      text-align: center;
-      width: 100px;
-      height: 28px;
-      padding: 2px;
-      font: 12px sans-serif;
-      background: #008AB8;
-      border: 0px;
-      border-radius: 6px;
-      pointer-events: none;
-    }
+div.tooltip {
+    position: absolute;
+    text-align: center;
+    width: 100px;
+    height: 28px;
+    padding: 2px;
+    font: 12px sans-serif;
+    background: #008AB8;
+    border: 0px;
+    border-radius: 6px;
+    pointer-events: none;
+}
+
+.graph-container {
+  text-align: center;
+  padding: 1em;
+}
+
+.rep-info-graph-container {
+  padding: 1em;
+}
 
 /********************************
       Heat-Map
@@ -150,14 +159,40 @@ body {
       Representative Page
 *********************************/
 
+.rep-header {
+  margin: center;
+}
+
 .rep-img {
   border-radius: 50%;
   margin: 0 auto;
   width: 75%;
 }
 
-.rep-header {
-  margin: center;
+.rep-img-container {
+  text-align: left;
+  position: relative;
+  padding: 20px;
+}
+
+.rep-name {
+  text-align: center;
+  position: relative;
+  font-size: 32px;
+}
+
+.rep-role {
+  text-align: center;
+  position: relative;
+  font-size: 16px;
+}
+
+.rep-name-container {
+  position: relative;
+  text-align: left;
+  width: 10%;
+  height: 100%;
+  margin: 4% auto 0 auto;
 }
 
 .rep-container {
@@ -183,5 +218,19 @@ body {
 }
 
 .rep-info:hover {
+  background-color: rgba(114, 140, 154, .8);
+}
+
+.rep-left-navbar {
+  padding: 1em;
+  text-align: center;
+}
+
+.rep-left-navbar .option {
+  padding: 1em;
+  font-size: 18px;
+}
+
+.rep-left-navbar .option:hover {
   background-color: rgba(114, 140, 154, .8);
 }
