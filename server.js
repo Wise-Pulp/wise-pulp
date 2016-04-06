@@ -713,91 +713,10 @@ var fetch = require('isomorphic-fetch');
 var polyfill = require('babel-polyfill');
 var isProduction = process.env.NODE_ENV === 'production';
 var port = isProduction ? process.env.PORT : 3500;
-<<<<<<< 652b21456fc5ac5df398bb36b237f9f8f6270191
 var Zipcode = require('./data/db/Zipcode.model.js')
 
 var zipcodes = require('./data/old_Data/zipcodes.js')
 var contributions = require('./data/old_Data/contribution_data2016.js')
-=======
-var Zipcode = require('./data/db/Zipcode.model.js');
->>>>>>> Successfully uploading congressional bills to db, set up cron job. Needs refactoring, of course
-
-var zipcodes = require('./data/zipcodes.js');
-var contributions = require('./data/contribution_data.js');
-
-/*******************************************
-      Scraping House Site
-*******************************************/
-const Bill = require('./data/db/UpcomingCongressionalVotes.model');
-
-new CronJob('00 00 09 * * *', () => {
-  const formatHouseBills = require('./houseResultsFormatting.js');
-  
-  xray('http://docs.house.gov/floor/', '#main', [{
-    billNumber: ['.legisNum'],
-    billName: ['.floorText'],
-    pdfLink: ['.files a@href']
-  }])
-  (function(err, res) {
-    if(err) {
-      console.log('error on ' + Date.now() + '.', err);
-    }
-    var formatted = formatHouseBills.upcomingHouseFormatted(res);
-    // console.log('formatted', formatted);
-    var i = 0;
-    var iterations = formatted.length;
-    var skippedBills = [];
-
-    asyncLoop(iterations, function(loop) {
-      console.log('loop.iteration()', loop.iteration());
-      const bill = new Bill();
-      bill.billNumber = formatted[i].billNumber;
-      bill.billName = formatted[i].billName;
-      bill.downloadLink = formatted[i].downloads;
-
-      bill.save(function(err, success) {
-        if (err) {
-          console.warn(loop.iteration(), ' bill data was skipped! ', err);
-          skippedBills.push({
-            index: i,
-            error: err
-          });
-          if (i < iterations) {
-            i++;
-            loop.next();
-          } else {
-            loop.next();
-          }
-        } else {
-          if (i < iterations) {
-            i++;
-            console.log('iteration ', loop.iteration(), ' bill has been saved');
-            loop.next();
-          }
-        }
-      })
-    },
-    function() {
-      console.log('Bills have finished uploading. The following bills were skipped', skippedBills);
-    });
-  });
-}, true, 'America/Los_Angeles');
-
-  
-
-/*******************************************
-      Scraping Senate Site
-*******************************************/
-// I'm commenting out the data acquisition for the senate for now because
-// We aren't able to get links to the full text of the bill, when 
-// Senate Bills are being voted on, or any other relevant information.
-// Only title and HR and Senate bill numbers are readily available
-
-// xray('http://www.senate.gov/legislative/active_leg_page.htm', 'table', [{
-//   billName: ['span']
-// }])
-// .write('senateResults.json');
-
 
 
 var proxy = httpProxy.createProxyServer({
@@ -840,6 +759,68 @@ app.get('/api/representatives/:zipcode', function(req, res) {
               })
         })
   });
+/****************************************************
+      collects bill information from govtrack
+****************************************************/
+const congressBill = require('./data/db/UpcomingCongressionalVotes.model');
+const senateBill = require('./data/db/UpcomingSenateBills.model');
+
+function collectBills(uri, model) {
+  fetch(uri, (req, res) => {
+  }).then(res => {
+    //console.log('*********************\n\n\n\n\response from housebills \n\n\n\n\n\n********************', res.json());
+    return res.json();
+  }).then( function(houseBill){
+    
+    var i = 0;
+    var iterations = houseBill.objects.length;
+    var skippedBills = [];
+
+    asyncLoop(iterations, function(loop) {
+      console.log('loop.iteration()', loop.iteration());
+      const bill = new model();
+      bill.billNumber = houseBill.objects[i].display_number;
+      bill.billName = houseBill.objects[i].title_without_number;
+      bill.fullTextLink = houseBill.objects[i].link;
+      bill.statusDescription = houseBill.objects[i].current_status_label;
+      bill.sponsor = houseBill.objects[i].sponsor.name;
+      bill.sponsorLink = houseBill.objects[i].rss_url;
+
+      bill.save(function(err, success) {
+        if (err) {
+          console.warn(loop.iteration(), ' bill data was skipped! ', err);
+          skippedBills.push({
+            index: i,
+            error: err
+          });
+          if (i < iterations) {
+            i++;
+            loop.next();
+          } else {
+            loop.next();
+          }
+        } else {
+          if (i < iterations) {
+            i++;
+            console.log('iteration ', loop.iteration(), ' bill has been saved');
+            loop.next();
+          }
+        }
+      })
+    },
+    function() {
+      console.log('Bills have finished uploading. The following bills were skipped', skippedBills);
+    });
+  });
+}
+// cronjob runs every day at 9am Pacific Time
+new CronJob('00 00 09 * * *', () => {
+  // Collects bills to be debated before House and Senate and send them to the database
+  collectBills('https://www.govtrack.us/api/v2/bill?sort=-introduced_date&bill_type=house_bill', congressBill);
+  collectBills('https://www.govtrack.us/api/v2/bill?sort=-introduced_date&bill_type=senate_bill', senateBill);
+  // Add any other data collecting functions we want automated here
+
+}, true, 'America/Los_Angeles');
 
 app.get('/representatives/:id', function(req, res) {
   res.sendFile(publicPath + '/index.html');
