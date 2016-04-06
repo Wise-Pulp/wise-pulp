@@ -212,16 +212,7 @@ function numericDataCleaner(arrayOfObjects) {
   return arrayOfObjects;
 }
 
-<<<<<<< b4b4f0072494d528ad99eb6385014900d508042b
 
-=======
-var cleanData = mixedDataCleaner(JSONdata);
-// var cleanData = numericDataCleaner(JSONdata);
-
-// console.log("cleanData________", cleanData);
-
-console.log("cleanedData", cleanData[3]);
->>>>>>> Added Schema for upcoming congressional votes
 
 
 //Generate Layered Data. This is specifically used with Stacked Bar Graph
@@ -717,28 +708,82 @@ var Xray = require('x-ray');
 var xray = Xray();
 var CronJob = require('cron').CronJob;
 var publicPath = path.resolve(__dirname, 'public');
-var districts = require(__dirname, '/districts.js')
-var fetch = require('isomorphic-fetch')
-var polyfill = require('babel-polyfill')
+var districts = require(__dirname, '/districts.js');
+var fetch = require('isomorphic-fetch');
+var polyfill = require('babel-polyfill');
 var isProduction = process.env.NODE_ENV === 'production';
 var port = isProduction ? process.env.PORT : 3500;
+<<<<<<< 652b21456fc5ac5df398bb36b237f9f8f6270191
 var Zipcode = require('./data/db/Zipcode.model.js')
 
 var zipcodes = require('./data/old_Data/zipcodes.js')
 var contributions = require('./data/old_Data/contribution_data2016.js')
+=======
+var Zipcode = require('./data/db/Zipcode.model.js');
+>>>>>>> Successfully uploading congressional bills to db, set up cron job. Needs refactoring, of course
 
+var zipcodes = require('./data/zipcodes.js');
+var contributions = require('./data/contribution_data.js');
 
 /*******************************************
       Scraping House Site
 *******************************************/
-new CronJob('00 00 05 * * *', function() {
-  xray('http://docs.house.gov/floor/', '#primaryContent', [{
+const Bill = require('./data/db/UpcomingCongressionalVotes.model');
+
+new CronJob('00 00 09 * * *', () => {
+  const formatHouseBills = require('./houseResultsFormatting.js');
+  
+  xray('http://docs.house.gov/floor/', '#main', [{
     billNumber: ['.legisNum'],
     billName: ['.floorText'],
     pdfLink: ['.files a@href']
   }])
-  .write('houseResults.json'); 
-}, null, true, 'America/Los_Angeles');
+  (function(err, res) {
+    if(err) {
+      console.log('error on ' + Date.now() + '.', err);
+    }
+    var formatted = formatHouseBills.upcomingHouseFormatted(res);
+    // console.log('formatted', formatted);
+    var i = 0;
+    var iterations = formatted.length;
+    var skippedBills = [];
+
+    asyncLoop(iterations, function(loop) {
+      console.log('loop.iteration()', loop.iteration());
+      const bill = new Bill();
+      bill.billNumber = formatted[i].billNumber;
+      bill.billName = formatted[i].billName;
+      bill.downloadLink = formatted[i].downloads;
+
+      bill.save(function(err, success) {
+        if (err) {
+          console.warn(loop.iteration(), ' bill data was skipped! ', err);
+          skippedBills.push({
+            index: i,
+            error: err
+          });
+          if (i < iterations) {
+            i++;
+            loop.next();
+          } else {
+            loop.next();
+          }
+        } else {
+          if (i < iterations) {
+            i++;
+            console.log('iteration ', loop.iteration(), ' bill has been saved');
+            loop.next();
+          }
+        }
+      })
+    },
+    function() {
+      console.log('Bills have finished uploading. The following bills were skipped', skippedBills);
+    });
+  });
+}, true, 'America/Los_Angeles');
+
+  
 
 /*******************************************
       Scraping Senate Site
