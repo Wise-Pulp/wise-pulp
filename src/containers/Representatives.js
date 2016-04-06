@@ -5,6 +5,7 @@ import { getContributorData } from '../actions/actionContributor'
 import RepresentativeList from '../components/RepresentativeList'
 import Spinner from '../components/Spinner'
 
+const API_KEY = 'AIzaSyD2uEW__R9AOm1JrooaddNSZM1EdN6KhAc'
 
 
 export default class Representatives extends Component {
@@ -38,7 +39,16 @@ export default class Representatives extends Component {
         this.stopSpinner()
       }
     }, 50)
-  }    
+  }
+
+  componentWillMount() {
+    window.navigator.geolocation.getCurrentPosition(function(pos){
+    fetch('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + pos.coords.latitude + ',' + pos.coords.longitude + ' &result_type=postal_code&key=' + API_KEY)
+      .then(response => response.json())
+      .then(location => this.props.dispatch(getRepresentatives(location.results[0].address_components[0].short_name)))
+    }.bind(this))
+  }
+
 
   render() {
     const { representative, representatives, isFetching, progress } = this.props

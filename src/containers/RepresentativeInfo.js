@@ -2,8 +2,10 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import RepresentativePicture from '../components/RepresentativePicture'
 import RepresentativeDetails from '../components/RepresentativeDetails'
+import { getCurrentPosition, getRepresentatives } from '../actions/index'
 
 export default class RepresentativeInfo extends Component {
+	
 	render() {
 		const { params, representatives } = this.props
 		return (

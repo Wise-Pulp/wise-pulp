@@ -21,6 +21,7 @@ export function receiveRepresentatives(json) {
 }
 
 export function getRepresentatives (zipcode) {
+  console.log(zipcode)
   return dispatch => {
     dispatch(changeFetching())
   	return fetch('/api/representatives/' + zipcode)
