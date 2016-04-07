@@ -26,17 +26,7 @@ export function getRepresentatives (zipcode) {
     dispatch(changeFetching())
   	return fetch('/api/representatives/' + zipcode)
   		.then(response => response.json())
-  		.then(json => {
-        dispatch(receiveRepresentatives(json))
-        console.log(json.objects)
-        let firstRep = json.objects[0].person.lastname + ', ' + json.objects[0].person.firstname
-        let firstRole = json.objects[0].role_type[0]
-        let secondRep = json.objects[1].person.lastname + ', ' + json.objects[1].person.firstname
-        let secondRole = json.objects[1].role_type[0]
-        let thirdRep = json.objects[2].person.lastname + ', ' + json.objects[2].person.firstname
-        let thirdRole = json.objects[2].role_type[0]
-        dispatch(getContributorData(firstRep, firstRole, secondRep, secondRole, thirdRep, thirdRole, json.objects[0].state))
-      })
+  		.then(json => dispatch(receiveRepresentatives(json)))
   } 
 }
 

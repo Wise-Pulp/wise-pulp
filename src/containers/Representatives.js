@@ -39,9 +39,12 @@ export default class Representatives extends Component {
 
   componentWillMount() {
     window.navigator.geolocation.getCurrentPosition(function(pos){
-    fetch('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + pos.coords.latitude + ',' + pos.coords.longitude + ' &result_type=postal_code&key=' + API_KEY)
-      .then(response => response.json())
-      .then(location => this.props.dispatch(getRepresentatives(location.results[0].address_components[0].short_name)))
+      fetch('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + pos.coords.latitude + ',' + pos.coords.longitude + ' &result_type=postal_code&key=' + API_KEY)
+        .then(response => response.json())
+        .then(location => {
+          this.props.dispatch(getRepresentatives(location.results[0].address_components[0].short_name))
+          this.props.dispatch(getContributorData(location.results[0].address_components[0].short_name))
+      })
     }.bind(this))
   }
 
