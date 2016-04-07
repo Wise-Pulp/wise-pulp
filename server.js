@@ -15,9 +15,9 @@ var cleanData;
 //var db = 'mongodb://localhost/Contributors';
 
 //connect to heroku
-//var db = config.dbURI2;
+var db = config.dbURI2;
 
-//mongoose.connect(db);
+mongoose.connect(db);
 
 
 //THIS IS THE DATA CONVERSION MACHINE!!!!!!!!!
@@ -830,6 +830,10 @@ app.get('/representatives', function(req, res) {
   res.sendFile(publicPath + '/index.html')
 })
 
+app.get('/upcoming_bills', function(req, res) {
+  res.sendFile(publicPath + '/index.html');
+})
+
 //if we're not in production, this proxies requests to localhost:3000 and sends them to our webpack server at localhost:8080
 if (!isProduction) {
   var bundle = require('./server/compiler.js');
@@ -902,3 +906,39 @@ app.get('/api/data/CandidateSummary', function(req, res, next) {
   })
 
 })
+
+// senate bills
+app.get('/api/data/senate_bills', (req, res) => {
+  senateBill.find({}, (err, doc) => {
+    if (err) {
+      console.warn('error getting senate bills', err);
+    }
+    res.send(doc);
+  });
+});
+
+// house bills
+app.get('/api/data/house_bills', (req, res) => {
+  congressBill.find({}, (error, bill) => {
+    if (error) {
+      console.warn('error getting house bill', error);
+    }
+    res.send(bill);
+  });
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

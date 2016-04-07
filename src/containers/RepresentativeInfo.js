@@ -23,10 +23,10 @@ export default class RepresentativeInfo extends Component {
 					}
 				})}
 				<div className='row'>
-					<div className='col-lg-2 rep-left-navbar'>
+					<div className='col-md-2 rep-left-navbar'>
 						<RepresentativeLeftNavBar />
 					</div>
-					<div className='col-lg-10 rep-info-graph-container'>
+					<div className='col-md-10 rep-info-graph-container'>
 						<ContributorVisualization />
 					</div>
 				</div>
