@@ -1,8 +1,8 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var stringOpt = { type: String, required: false},
-    numberOpt = { type: Number, required: false}
+var stringOpt = { type: String, required: false};
+var numberOpt = { type: Number, required: false};
 
 var CandidateSummarySchema = new Schema({
     "lin_ima": stringOpt,
@@ -51,8 +51,9 @@ var CandidateSummarySchema = new Schema({
     "deb_owe_by_com": numberOpt,
     "deb_owe_to_com": numberOpt,
     "cov_sta_dat": stringOpt,
-    "cov_end_dat": stringOpt
-  });
+    "cov_end_dat": stringOpt,
+    "year_of_collection": numberOpt
+});
 
 // MongoDB adds an 's' to Model name to create the database name.
 // "Contributors" is the name of the entire Collection

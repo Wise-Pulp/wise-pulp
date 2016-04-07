@@ -17,18 +17,18 @@ var cleanData;
 //var db = 'mongodb://localhost/Contributors';
 
 //connect to heroku
-//var db = config.dbURI2;
+var db = config.dbURI2;
 
-//mongoose.connect(db);
+mongoose.connect(db);
 
 
 //THIS IS THE DATA CONVERSION MACHINE!!!!!!!!!
 ////////////////////////////
 
 // //INSERT YOUR CSV DATA HERE!
-var csvFile = './data/'
+var csvFile = './data/districts.csv';
 // //DESIRED OUTPUT DIRECTORY!
-var output = './data/Contributors2012.json';
+var output = './data/Districts.json';
 // //START SERVER AND WAIT FOR MAGIC!
 
 
@@ -43,39 +43,21 @@ var converter  = new Converter({});
 //    if(err) console.log(err)
 //    console.log(result);
 //   fs.writeFile(output, JSON.stringify(result), function(err) {
-//      if(err) {
-//      console.log(err);
-//      }
-//    })
+//     if (err) {
+//       console.log(err);
+//     }
+//     console.log('SUCESS');
+//   });
 // });
 
-// var JSONdata = fs.readFileSync(output);
-//     JSONdata = JSON.parse(JSONdata.toString())
+var JSONdata = fs.readFileSync(output);
+JSONdata = JSON.parse(JSONdata.toString());
+
     // console.log(JSONdata) // => csv in JSON.
     //console.log("dirtyData********", JSONdata[3]);
 
 
 
-
-/*
-* Format data to be used with GenerateLayers
-**/
-// var dataArray = [];
-//     for(var i = 0; i < JSONdata.length; i++){
-//       if(JSONdata[i].net_con !== 0){
-//         var temp = [];
-//         temp.name = JSONdata[i].can_nam;
-//         temp.push(JSONdata[i].ind_uni_con);
-//         temp.push(JSONdata[i].ind_ite_con);
-//         temp.push(JSONdata[i].par_com_con);
-//         temp.push(JSONdata[i].oth_com_con);
-//         temp.push(JSONdata[i].can_con);
-//         temp.push(JSONdata[i].tot_con);
-//         //temp.push(JSONdata[i].net_con);
-//         dataArray.push(temp);        
-//       }
-//     }
-//console.log(dataArray);
 
 ////////// Asynchronous Loop... A beautiful thing.
 function asyncLoop(iterations, func, callback) {
@@ -115,22 +97,22 @@ return loop;
 * and returns a numeric value representing that date
 **/
 
-function fixDates(BadlyFormattedDate) {
+function fixCandidateDates(BadlyFormattedDate) {
   var regEx = BadlyFormattedDate.replace(/\-/g, '++');
-  console.log('this is regex', regEx);
+  // console.log('this is regex', regEx);
     regEx = regEx.replace(/\//g, '++')
-  console.log('this is regex2', regEx);
+  // console.log('this is regex2', regEx);
 
   var storage = [];
   var results = '';
   for(var i = 2; i >= 0; i--) {
     var temp = regEx.split('++');
     storage.push(temp[i]);
-    console.log(storage);
+    // console.log(storage);
   } 
-  results = storage[0] + '-' + storage[1] + '-' + storage[2];
-  console.log(results)
-  return Date.parse(results);
+  results = storage[1] + '-' + storage[0] + '-' + storage[2];
+  // console.log(results)
+  return results;
 }
 
 
@@ -238,10 +220,96 @@ function generateLayers(arrayOfArrays) {
 
 
 
+/////////////////////////////////////////////
+
+/*
+* Format data to be used with GenerateLayers
+**/
+// var dataArray = [];
+//     for(var i = 0; i < JSONdata.length; i++){
+//       if(JSONdata[i].net_con !== 0){
+//         var temp = [];
+//         temp.name = JSONdata[i].can_nam;
+//         temp.push(JSONdata[i].ind_uni_con);
+//         temp.push(JSONdata[i].ind_ite_con);
+//         temp.push(JSONdata[i].par_com_con);
+//         temp.push(JSONdata[i].oth_com_con);
+//         temp.push(JSONdata[i].can_con);
+//         temp.push(JSONdata[i].tot_con);
+//         //temp.push(JSONdata[i].net_con);
+//         dataArray.push(temp);        
+//       }
+//     }
+//console.log(dataArray);
+
+
+
+
+
+
+
 
 //   ////////////////////////////
 //   //Time To Upload data to Mongolab
 //   ///////////////////////////
+
+
+//////////////////////////// Upload Districts/Zicodes
+
+var Zipcode = require('./data/db/Zipcode.model.js');
+  
+var skippedIndices = [];
+
+var iterations = JSONdata.length;
+var i = 0;
+asyncLoop(iterations, function(loop) {
+  console.log(loop.iteration(), JSONdata[i].state);
+
+  var zipcode = new Zipcode();
+  zipcode.zipcode = JSONdata[i].zip_code;
+  zipcode.state = JSONdata[i].state;
+  zipcode.district = JSONdata[i].district;
+
+
+
+       
+        
+  zipcode.save(function (err, success) {
+    if (err) {
+      console.log(loop.iteration(), 'Zipcode was skipped.', err);
+      skippedIndices.push({ 
+        index: i,
+        error: err
+      });
+      if (i < iterations) {
+        i++;
+        loop.next();
+      } else { loop.next(); }
+
+    } else {
+      if (i < iterations) {
+        i++;
+        console.log(loop.iteration(), 'Zipcode has been saved');  
+        loop.next();
+      }
+    }                    
+  });
+},
+    function(){
+      console.log('Data has finished uploading. The following indices were skipped:', skippedIndices)}
+);
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -249,93 +317,95 @@ function generateLayers(arrayOfArrays) {
 
 /////////////////////////////// Upload Candidate summary data
 
-  var CandidateSummary = require('./data/db/Candidate_Summary.model');
-//   var skippedIndices = [];
-//   cleanData = mixedDataCleaner(JSONdata);
+var CandidateSummary = require('./data/db/Candidate_Summary.model');
+// var skippedIndices = [];
+// cleanData = mixedDataCleaner(JSONdata);
 
-//         var iterations = cleanData.length;
-//         var i = 0;
-//         asyncLoop(iterations, function(loop) {
+// var iterations = cleanData.length;
+// var i = 0;
+// asyncLoop(iterations, function(loop) {
         
-//         console.log(loop.iteration(), cleanData[i].net_con)
+//   console.log(loop.iteration(), cleanData[i].net_con);
 
-//         if(cleanData[i].net_con !== 0){
+//   if (cleanData[i].net_con !== 0 && cleanData[i].net_con !== '') {
 
-//         var candidate = new CandidateSummary();
-        
-//         candidate.lin_ima = cleanData[i].lin_ima;
-//         candidate.can_id  = cleanData[i].can_id;
-//         candidate.can_nam = cleanData[i].can_nam;
-//         candidate.can_off = cleanData[i].can_off;
+//     var candidate = new CandidateSummary();
+          
+//     candidate.lin_ima = cleanData[i].lin_ima;
+//     candidate.can_id = cleanData[i].can_id;
+//     candidate.can_nam = cleanData[i].can_nam;
+//     candidate.can_off = cleanData[i].can_off;
 //     candidate.can_off_sta = cleanData[i].can_off_sta;
 //     candidate.can_off_dis = cleanData[i].can_off_dis;
 //     candidate.can_par_aff = cleanData[i].can_par_aff;
 //     candidate.can_inc_cha_ope_sea = cleanData[i].can_inc_cha_ope_sea;
-//        candidate.can_sta  = cleanData[i].can_sta;
-//        candidate.can_zip  = cleanData[i].can_zip;
-//    candidate.ind_ite_con  = cleanData[i].ind_ite_con;
-//    candidate.ind_uni_con  = cleanData[i].ind_uni_con;
-//        candidate.ind_con  = cleanData[i].ind_con;
-//    candidate.par_com_con  = cleanData[i].par_com_con;
-//    candidate.oth_com_con  = cleanData[i].oth_com_con;
-//        candidate.can_con  = cleanData[i].can_con;
-//        candidate.tot_con  = cleanData[i].tot_con
-//    candidate.tra_fro_oth_aut_com = cleanData[i].tra_fro_oth_aut_com
-//         candidate.can_loa = cleanData[i].can_loa;
-//         candidate.oth_loa = cleanData[i].oth_loa;
-//         candidate.tot_loa = cleanData[i].tot_loa;
-//  candidate.off_to_ope_exp = cleanData[i].off_to_ope_exp;
-//      candidate.off_to_fun = cleanData[i].off_to_fun;
-//  candidate.off_to_leg_acc = cleanData[i].off_to_leg_acc;
-//         candidate.oth_rec = cleanData[i].oth_rec;
-//         candidate.tot_rec = cleanData[i].tot_rec;
-//         candidate.ope_exp = cleanData[i].ope_exp;
-// candidate.exe_leg_acc_dis = cleanData[i].exe_leg_acc_dis;
-//         candidate.fun_dis = cleanData[i].fun_dis;
-//   candidate.tra_to_oth_aut_com = cleanData[i].tra_to_oth_aut_com;
+//     candidate.can_sta = cleanData[i].can_sta;
+//     candidate.can_zip = cleanData[i].can_zip;
+//     candidate.ind_ite_con = cleanData[i].ind_ite_con;
+//     candidate.ind_uni_con = cleanData[i].ind_uni_con;
+//     candidate.ind_con = cleanData[i].ind_con;
+//     candidate.par_com_con = cleanData[i].par_com_con;
+//     candidate.oth_com_con = cleanData[i].oth_com_con;
+//     candidate.can_con = cleanData[i].can_con;
+//     candidate.tot_con = cleanData[i].tot_con;
+//     candidate.tra_fro_oth_aut_com = cleanData[i].tra_fro_oth_aut_com;
+//     candidate.can_loa = cleanData[i].can_loa;
+//     candidate.oth_loa = cleanData[i].oth_loa;
+//     candidate.tot_loa = cleanData[i].tot_loa;
+//     candidate.off_to_ope_exp = cleanData[i].off_to_ope_exp;
+//     candidate.off_to_fun = cleanData[i].off_to_fun;
+//     candidate.off_to_leg_acc = cleanData[i].off_to_leg_acc;
+//     candidate.oth_rec = cleanData[i].oth_rec;
+//     candidate.tot_rec = cleanData[i].tot_rec;
+//     candidate.ope_exp = cleanData[i].ope_exp;
+//     candidate.exe_leg_acc_dis = cleanData[i].exe_leg_acc_dis;
+//     candidate.fun_dis = cleanData[i].fun_dis;
+//     candidate.tra_to_oth_aut_com = cleanData[i].tra_to_oth_aut_com;
 //     candidate.can_loa_rep = cleanData[i].can_loa_rep;
 //     candidate.oth_loa_rep = cleanData[i].oth_loa_rep;
 //     candidate.tot_loa_rep = cleanData[i].tot_loa_rep;
-//         candidate.ind_ref = cleanData[i].ind_ref;
+//     candidate.ind_ref = cleanData[i].ind_ref;
 //     candidate.par_com_ref = cleanData[i].par_com_ref;
 //     candidate.oth_com_ref = cleanData[i].oth_com_ref;
 //     candidate.tot_con_ref = cleanData[i].tot_con_ref;
-//         candidate.oth_dis = cleanData[i].oth_dis;
-//         candidate.cas_on_han_beg_of_per = cleanData[i].cas_on_han_beg_of_per;
-//         candidate.cas_on_han_clo_of_per = cleanData[i].cas_on_han_clo_of_per;
-//         candidate.net_con = cleanData[i].net_con;
+//     candidate.oth_dis = cleanData[i].oth_dis;
+//     candidate.cas_on_han_beg_of_per = cleanData[i].cas_on_han_beg_of_per;
+//     candidate.cas_on_han_clo_of_per = cleanData[i].cas_on_han_clo_of_per;
+//     candidate.net_con = cleanData[i].net_con;
 //     candidate.net_ope_exp = cleanData[i].net_ope_exp;
-//      candidate.deb_owe_by_com = cleanData[i].deb_owe_by_com;
-//      candidate.deb_owe_to_com = cleanData[i].deb_owe_to_com;
-//         candidate.cov_sta_dat = cleanData[i].cov_sta_dat;
-//         candidate.cov_end_dat = cleanData[i].cov_end_dat;
-      
+//     candidate.deb_owe_by_com = cleanData[i].deb_owe_by_com;
+//     candidate.deb_owe_to_com = cleanData[i].deb_owe_to_com;
+//     candidate.cov_sta_dat = fixCandidateDates(cleanData[i].cov_sta_dat);
+//     candidate.cov_end_dat = fixCandidateDates(cleanData[i].cov_end_dat);
+//     candidate.year_of_collection = Date.parse('01/01/2014');
+        
 
              
-//              candidate.save(function (err, success) {
-//                     if (err) {
-//                       console.log(loop.iteration(), 'candidate was skipped.', err);
-//                       skippedIndices.push({ index: i, 
-//                                             net_contribution: cleanData[i].net_con,
-//                                             error: err
-//                                           });
-//                       i++;
-//                       loop.next();
-//                     } else {
-//                       i++;
-//                     console.log(loop.iteration(),'candidate has been saved');  
-//                    loop.next();
-//                     }                    
-//                   });
-//         } else if (i <= iterations){
-//           i++;
-//           console.log(loop.iteration());
-//           loop.next();
-//         }
+//     candidate.save(function (err, success) {
+//       if (err) {
+//         console.log(loop.iteration(), 'candidate was skipped.', err);
+//         skippedIndices.push({ index: i, 
+//                               End_Date: fixCandidateDates(cleanData[i].cov_end_dat),
+//                               error: err
+//                             });
+//         i++;
+//         loop.next();
+//       } else {
+//         i++;
+//         console.log(loop.iteration(), 'candidate has been saved', candidate.cov_end_dat);  
+//         loop.next();
+//       }                    
+//     });
+//   } else if (i <= iterations) {
+//     i++;
+//     console.log(loop.iteration());
+//     loop.next();
+//   }
 
-//   },
-//     function(){
-//       console.log('Data has finished uploading. The following indices were skipped:', skippedIndices)}
+// },
+//     function() {
+//       console.log('Data has finished uploading. The following indices were skipped:', skippedIndices);
+//     }
 // );
 
 
@@ -343,7 +413,7 @@ function generateLayers(arrayOfArrays) {
 
 
       
-  var Contribution = require('./data/db/Contribution.model');
+var Contribution = require('./data/db/Contribution.model');
 //   var skippedIndices = [];
 //   cleanData = mixedDataCleaner(JSONdata);
 
@@ -379,21 +449,21 @@ function generateLayers(arrayOfArrays) {
        
         
 //       contribution.save(function (err, success) {
-//               if (err) {
-//                 console.log(loop.iteration(), 'contribution was skipped.', err);
-//                 skippedIndices.push({ index: i, 
-//                                       contribution_amo: cleanData[i].exp_amo,
-//                                       error: err
-//                                     });
-//                 if(i < iterations){
-//                   i++;
-//                   loop.next();
-//                 } else { loop.next(); }
+//         if (err) {
+//           console.log(loop.iteration(), 'contribution was skipped.', err);
+//           skippedIndices.push({ index: i, 
+//                                 contribution_amo: cleanData[i].exp_amo,
+//                                 error: err
+//                               });
+//           if (i < iterations) {
+//             i++;
+//             loop.next();
+//           } else { loop.next(); }
 
-//                 } else {
-//                   if(i < iterations){
+//         } else {
+//           if (i < iterations) {
 //                     i++;
-//                     console.log(loop.iteration(),'contribution has been saved');  
+//                     console.log(loop.iteration(), 'contribution has been saved');  
 //                     loop.next();
 //                     }
 //                   }                    
@@ -710,25 +780,25 @@ function generateLayers(arrayOfArrays) {
 
 
 var publicPath = path.resolve(__dirname, 'public');
-var districts = require(__dirname, '/districts.js')
-var fetch = require('isomorphic-fetch')
-var polyfill = require('babel-polyfill')
+var districts = require(__dirname, '/districts.js');
+var fetch = require('isomorphic-fetch');
+var polyfill = require('babel-polyfill');
 var isProduction = process.env.NODE_ENV === 'production';
 var port = isProduction ? process.env.PORT : 3500;
-var Zipcode = require('./data/db/Zipcode.model.js')
 
-var zipcodes = require('./data/old_Data/zipcodes.js')
-var contributions = require('./data/old_Data/contribution_data2016.js')
+// var zipcodes = require('./data/old_Data/zipcodes.js');
 
 
 var proxy = httpProxy.createProxyServer({
   changeOrigin: true
 });
 
+
 var app = express();
-var router = express.Router();
+
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
+/// @TODO: assign bodybarsers to variables and only execute on necessary routes
 // var urlParser = bodyParser.urlencoded({ extended: false });
 // parse application/json
 app.use(bodyParser.json());
@@ -739,35 +809,44 @@ app.use(express.static(publicPath));
 
 //route to return the representative for the district based on the zipcode lookup
 app.get('/api/representatives/:zipcode', function(req, res) {
-  var zipcode = req.params.zipcode
-  var district = zipcodes[zipcode]['district']
-  var state = zipcodes[zipcode]['state']
-  var image;
+  var zipcode = req.params.zipcode;
+  var storage;
+  Zipcode.find({ zipcode: zipcode}).exec(function(err, doc){
+    var state = doc.state,
+        district = doc.district;
+
+    fetch('https://www.govtrack.us/api/v2/role?current=true&district=' + district + '&state=' + state)
+  .then(function(rep) {
+    return rep.json();
+  }).then(function(val) {
+    return val;
+  }).then(function(congressperson) {
+    fetch('https://www.govtrack.us/api/v2/role?current=true&role_type=senator&state=CA')
+        .then(function(img) {
+          return img.json();
+        })
+        .then(function(senator) {
+          senator.objects.push(congressperson.objects[0]);
+          res.send(senator);
+        });
+  });
+  });  
+});
+
+
+
+  // var district = zipcodes[zipcode]['district'];
+  // var state = zipcodes[zipcode]['state'];
+  // var image;
 
   //govtrack api returns the representative information based on our query
-  fetch('https://www.govtrack.us/api/v2/role?current=true&district=' + district + '&state=' + state)
-    .then(function(rep) {
-       return rep.json()
-      }).then(function(val) {
-        return val
-       }).then(function(congressperson) {
-          fetch('https://www.govtrack.us/api/v2/role?current=true&role_type=senator&state=CA')
-              .then(function(img) {
-                return img.json()
-              })
-              .then(function(senator) {
-                senator.objects.push(congressperson.objects[0])
-                res.send(senator)
-              })
-        })
-  });
 
 app.get('/representatives', function(req, res) {
   res.sendFile(publicPath + '/index.html');
 })
 
 //if we're not in production, this proxies requests to localhost:3000 and sends them to our webpack server at localhost:8080
-if (!isProduction) {
+if (isProduction) {
   var bundle = require('./server/compiler.js');
   bundle();
   app.all('/build/*', function (req, res) {
@@ -788,35 +867,37 @@ app.listen(port, function () {
 
 
 /////////////////////////////////////////// API helper functions
-var queryName = function(string){
+
+// ABBOTT, GIFFORD WHEELER
+//G
+function queryName(string){
   var results = string.toUpperCase();
-  console.log('this is results#1', results);
+  // console.log('this is results#1', results);
   var results2 = [];
     // "PETE AGUILAR"
   results = results.split(' ');
-  console.log('this is results#2');
+  // console.log('this is results#2');
   results2.push(results[1], results[0]);
-  console.log('results2 #1');
+  // console.log('results2 #1');
   results2 = results2.join(', ');
   return results2;
 };
 
 
-
 var User = require('./data/db/User.model');
 
-  app.post('/api/signup', function(req, res, next) {
-    if (!req.body.username || !req.body.password) {
-      console.log(req.params)
-      return res.status(400).json({ message: 'Please fill out all fields' });
-    }
+app.post('/api/signup', function(req, res, next) {
+  if (!req.body.username || !req.body.password) {
+    console.log(req.params);
+    return res.status(400).json({ message: 'Please fill out all fields' });
+  }
     // console.log('***************', Object.keys(req));
   var user = new User();
-    user.password = req.body.password
-    user.username = req.body.username
-  console.log('this is the user', user)
+  user.password = req.body.password;
+  user.username = req.body.username;
+  console.log('this is the user', user);
 
-    user.save(function (err, success) {
+  user.save(function (err, success) {
       if (err) {
         return next(err);
       }
@@ -824,7 +905,7 @@ var User = require('./data/db/User.model');
         'theSmellOfSuccess': true
       });
     });      
-  });
+});
 
 
 
@@ -832,39 +913,51 @@ app.get('/api/data/CandidateSummary', function(req, res, next) {
 
   var data = CandidateSummary.find({})
   .exec( function(err, data){
-    if(err){
-      res.send('an error occured fetching your data :(')
+    if(err) {
+      res.send('an error occured fetching your data :(');
     } else {
-      res.json(data)
+      res.json(data);
     }
-  })
-
-})
-
+  });
+});
 
 
-// var dbURI = 'mongodb://localhost/polis';
 
-// mongoose.connect(dbURI);
+app.get('/api/data/CandidateSummary/:state/:district/:collectionYear', function(req, res) {
+  CandidateSummary.find({ can_off_dis: req.params.district, can_off_sta: req.params.state.toUpperCase(), year_of_collection: req.params.collectionYear }).exec(function(err, data) {
+    if (err) {
+      res.send('user not found');
+    } else {
+      res.json(data); 
+    }
+  });
+});
 
-// mongoose.connection.on( 'connected', function () {
+app.get('/api/data/CandidateSummary/:zipcode/:collectionYear', function(req, res) {
+  CandidateSummary.find()
+});
 
-//   console.log( 'successful db connection to: ' + dbURI + '\n' );
 
-//   if (!isProduction ) {
+// app.get('/api/data/Candidate_Summary/:can_nam', function(req, res) {
+  // var rep1 = queryName(req.params.rep1); // Boxer, Barbara
+  // var rep2 = queryName(req.params.rep2.toUpperCase()); // Feinstein, Dianne
+  // var rep3 = queryName(req.params.rep3.toUpperCase()); // Guy, Some
+  // var state = req.params.state; // CA
+  // if (req.params.role.toUpperCase() === 'R') {
+  //   var role = 'H';
+  // } else { 
+  //   var role = req.params.role.toUpperCase; // S, H, P //
+  // }
+  // console.log(rep1, rep2, rep3, state, role)
 
-//       Zipcode.remove().exec(); // clear database
+  // var data = CandidateSummary.$where('(this.can_nam === ' + rep1 + '|| this.can_nam === ' + rep2 + ' || this.can_nam ===' + rep3 + ') && (this.can_off === ' + role + ') && (this.can_off_sta === ' + state + ')').exec(function (err, data) {
+  //   if (err) {
+  //     res.send('an error has occured searching for your data');
+  //   } else {
+  //     res.json(data);
+  //   }
 
-//     fs.readFileAsync('./reps.js', 'utf-8').then(function(zipcodes) {
-//       var hello = [zipcodes]
-//        Zipcode.collection.insertMany( hello, function( err, r ) {
-//         if ( err ) {
-//           console.log( 'error loading demo data:');
-//         } else {
-//           console.log( 'seeded database with records\n' );
-//         };
-//       })
-//     })
-//   }
+  // });
 // });
+
 
