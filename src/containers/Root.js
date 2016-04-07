@@ -18,3 +18,9 @@ Root.propTypes = {
   store: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired
 }
+
+//TODO: Add zipcode submit field to some component
+
+//TODO: Spinner progress state to App, pass down through props
+
+//TODO: Map dispatch to props in Representatives container

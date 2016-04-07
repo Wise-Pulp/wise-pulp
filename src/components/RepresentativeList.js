@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import RepresentativePicture from './RepresentativePicture'
+import RepresentativeName from './RepresentativeName'
 import ContributorVisualization from '../components/ContributorVisualization'
 import Header from './Header'
 import { Link } from 'react-router'
@@ -17,16 +18,19 @@ export default class RepresentativeList extends Component {
 								<Link to={{ pathname: '/representatives/' + representative.id }}>
 									<RepresentativePicture
 										key={representative.id}
-										representative={representative}
 										image={image}
-										selectRep={selectRep}
-									/>
+										selectRep={selectRep} />
+									<RepresentativeName
+									  key={representative.id + 1}
+									  representative={representative} />
 								</Link>
 							</div>
 						)
 				})}
 				</div>
-				<ContributorVisualization />
+					<div className='graph-container'>
+						<ContributorVisualization />
+				</div>
 			</div>
 		)
 	}

@@ -68,7 +68,16 @@ var counties = {
 
 export default class HeatMap extends Component {
 
+  // componentWillUpdate() {
+  //   console.log('ay papi')
+  //   d3.json('./ca.txt', (error, ch) => {
+  //     const center = d3.geo.centroid(ch)
+  //     this.props.dispatch(getHeatMapData(ch, center))
+  //   })
+  // }
+
   componentDidMount() {
+    console.log('mammamia')
     d3.json('./ca.txt', (error, ch) => {
       const center = d3.geo.centroid(ch)
       this.props.dispatch(getHeatMapData(ch, center))
@@ -113,6 +122,7 @@ export default class HeatMap extends Component {
 function mapStateToProps(state) {
   const mapData = state.HeatMap.map
   const center = state.HeatMap.center
+  console.log(mapData)
   return {
     mapData,
     center

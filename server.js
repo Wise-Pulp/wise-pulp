@@ -825,7 +825,7 @@ var User = require('./data/db/User.model');
   });
 
 app.get('/api/data/CandidateSummary/:rep1/:role1/:rep2/:role2/:rep3/:role3j/:state', function(req, res) {
-  console.log(req.params)
+  //console.log(req.params)
 })
 
 app.get('/api/data/CandidateSummary', function(req, res, next) {
@@ -840,31 +840,3 @@ app.get('/api/data/CandidateSummary', function(req, res, next) {
   })
 
 })
-
-
-
-// var dbURI = 'mongodb://localhost/polis';
-
-// mongoose.connect(dbURI);
-
-// mongoose.connection.on( 'connected', function () {
-
-//   console.log( 'successful db connection to: ' + dbURI + '\n' );
-
-//   if (!isProduction ) {
-
-//       Zipcode.remove().exec(); // clear database
-
-//     fs.readFileAsync('./reps.js', 'utf-8').then(function(zipcodes) {
-//       var hello = [zipcodes]
-//        Zipcode.collection.insertMany( hello, function( err, r ) {
-//         if ( err ) {
-//           console.log( 'error loading demo data:');
-//         } else {
-//           console.log( 'seeded database with records\n' );
-//         };
-//       })
-//     })
-//   }
-// });
-
