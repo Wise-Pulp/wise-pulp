@@ -2,17 +2,23 @@ export const GET_CONTRIBUTOR_DATA = 'GET_CONTRIBUTOR_DATA'
 export const SET_GRAPH_TYPE = 'SET_GRAPH_TYPE'
 
 
-export function getContributorData(rep1, rep2, rep3) {
-  console.log(rep1, rep2, rep3)
+export function getContributorData(zipcode) {
+  let date = Date.parse('01/01/16')
+  console.log(date)
+  let hello = '/api/data/CandidateSummary/' + zipcode + '/' + date
+  // return dispatch => {
+  //   return fetch(hello)
+  //     .then(response => response.json())
+  //     .then(json => dispatch(receiveContributorData(json))) 
+  // }
+  let data = createData()
   return dispatch => {
-    return fetch('/api/data/CandidateSummary/' + rep1 + '/' + rep2 + '/' + rep3)
-      .then(response => response.json())
-      .then(json => dispatch(receiveContributorData(json))) 
+    dispatch(receiveContributorData(data))
   }
-  
 }
 
 export function receiveContributorData(data) {
+  console.log(data)
 	return {
 		type: GET_CONTRIBUTOR_DATA,
 		data

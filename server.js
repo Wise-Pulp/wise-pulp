@@ -9,9 +9,7 @@ var bodyParser = require('body-parser');
 
 var config = require('./config');
 var cleanData;
-
 //var config = require('./config');
-
 
 //connect to local host
 //var db = 'mongodb://localhost/Contributors';
@@ -776,9 +774,9 @@ var Contribution = require('./data/db/Contribution.model');
 //   ////////////////////////////
 
 
-
-
-
+var Xray = require('x-ray');
+var xray = Xray();
+var CronJob = require('cron').CronJob;
 var publicPath = path.resolve(__dirname, 'public');
 var districts = require(__dirname, '/districts.js');
 var fetch = require('isomorphic-fetch');
@@ -830,6 +828,7 @@ app.get('/api/representatives/:zipcode', function(req, res) {
           res.send(senator);
         });
   });
+<<<<<<< HEAD
   });  
 });
 
@@ -840,8 +839,80 @@ app.get('/api/representatives/:zipcode', function(req, res) {
   // var image;
 
   //govtrack api returns the representative information based on our query
+=======
+/****************************************************
+      collects bill information from govtrack
+****************************************************/
+const congressBill = require('./data/db/UpcomingCongressionalVotes.model');
+const senateBill = require('./data/db/UpcomingSenateBills.model');
+
+function collectBills(uri, model) {
+  fetch(uri, (req, res) => {
+  }).then(res => {
+    //console.log('*********************\n\n\n\n\response from housebills \n\n\n\n\n\n********************', res.json());
+    return res.json();
+  }).then( function(houseBill){
+    
+    var i = 0;
+    var iterations = houseBill.objects.length;
+    var skippedBills = [];
+
+    asyncLoop(iterations, function(loop) {
+      console.log('loop.iteration()', loop.iteration());
+      const bill = new model();
+      bill.billNumber = houseBill.objects[i].display_number;
+      bill.billName = houseBill.objects[i].title_without_number;
+      bill.fullTextLink = houseBill.objects[i].link;
+      bill.statusDescription = houseBill.objects[i].current_status_label;
+      bill.sponsor = houseBill.objects[i].sponsor.name;
+      bill.sponsorLink = houseBill.objects[i].rss_url;
+
+      bill.save(function(err, success) {
+        if (err) {
+          console.warn(loop.iteration(), ' bill data was skipped! ', err);
+          skippedBills.push({
+            index: i,
+            error: err
+          });
+          if (i < iterations) {
+            i++;
+            loop.next();
+          } else {
+            loop.next();
+          }
+        } else {
+          if (i < iterations) {
+            i++;
+            console.log('iteration ', loop.iteration(), ' bill has been saved');
+            loop.next();
+          }
+        }
+      })
+    },
+    function() {
+      console.log('Bills have finished uploading. The following bills were skipped', skippedBills);
+    });
+  });
+}
+// cronjob runs every day at 9am Pacific Time
+new CronJob('00 00 09 * * *', () => {
+  // Collects bills to be debated before House and Senate and send them to the database
+  collectBills('https://www.govtrack.us/api/v2/bill?sort=-introduced_date&bill_type=house_bill', congressBill);
+  collectBills('https://www.govtrack.us/api/v2/bill?sort=-introduced_date&bill_type=senate_bill', senateBill);
+  // Add any other data collecting functions we want automated here
+
+}, true, 'America/Los_Angeles');
+
+app.get('/representatives/:id', function(req, res) {
+  res.sendFile(publicPath + '/index.html');
+})
+>>>>>>> 21789578a96b8f6120eaf1462f57dedcee974bd9
 
 app.get('/representatives', function(req, res) {
+  res.sendFile(publicPath + '/index.html')
+})
+
+app.get('/upcoming_bills', function(req, res) {
   res.sendFile(publicPath + '/index.html');
 })
 
@@ -863,8 +934,6 @@ proxy.on('error', function(e) {
 app.listen(port, function () {
   console.log('Server running on port ' + port);
 });
-
-
 
 /////////////////////////////////////////// API helper functions
 
@@ -909,6 +978,33 @@ app.post('/api/signup', function(req, res, next) {
 
 
 
+// senate bills
+app.get('/api/data/senate_bills', (req, res) => {
+  senateBill.find({}, (err, doc) => {
+    if (err) {
+      console.warn('error getting senate bills', err);
+    }
+    res.send(doc);
+  });
+});
+
+// house bills
+app.get('/api/data/house_bills', (req, res) => {
+  congressBill.find({}, (error, bill) => {
+    if (error) {
+      console.warn('error getting house bill', error);
+    }
+    res.send(bill);
+  });
+})
+
+
+
+
+///////////////////////////////////////////////////////////////// Queryable API
+
+
+
 app.get('/api/data/CandidateSummary', function(req, res, next) {
 
   var data = CandidateSummary.find({})
@@ -920,8 +1016,6 @@ app.get('/api/data/CandidateSummary', function(req, res, next) {
     }
   });
 });
-
-
 
 
 app.get('/api/data/CandidateSummary/:zipcode/:collectionYear', function(req, res) {
@@ -983,27 +1077,5 @@ app.get('/api/data/CandidateSummary/:zipcode/:collectionYear', function(req, res
     }
   });
 });
-
-// app.get('/api/data/Candidate_Summary/:can_nam', function(req, res) {
-  // var rep1 = queryName(req.params.rep1); // Boxer, Barbara
-  // var rep2 = queryName(req.params.rep2.toUpperCase()); // Feinstein, Dianne
-  // var rep3 = queryName(req.params.rep3.toUpperCase()); // Guy, Some
-  // var state = req.params.state; // CA
-  // if (req.params.role.toUpperCase() === 'R') {
-  //   var role = 'H';
-  // } else { 
-  //   var role = req.params.role.toUpperCase; // S, H, P //
-  // }
-  // console.log(rep1, rep2, rep3, state, role)
-
-  // var data = CandidateSummary.$where('(this.can_nam === ' + rep1 + '|| this.can_nam === ' + rep2 + ' || this.can_nam ===' + rep3 + ') && (this.can_off === ' + role + ') && (this.can_off_sta === ' + state + ')').exec(function (err, data) {
-  //   if (err) {
-  //     res.send('an error has occured searching for your data');
-  //   } else {
-  //     res.json(data);
-  //   }
-
-  // });
-// });
 
 

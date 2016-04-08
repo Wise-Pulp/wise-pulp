@@ -29,7 +29,11 @@ describe('Loading spinner', () => {
   it('should increase progress by 10 when the action is INCREASE_PROGRESS', () => {
     const progress = 0;
     expect(
-      updateSpinnerProgress({progress}, INCREASE_PROGRESS)
+      updateSpinnerProgress({progress}, 
+        {
+          type: INCREASE_PROGRESS,
+          progress: progress + 10
+        })
     ).to.deep.equal(
       {
         progress: 10
@@ -37,20 +41,20 @@ describe('Loading spinner', () => {
     )
   });
 
-  // it('Should not display if isFetching is false', () => {
-  //   const isFetching = false;
-  //   const component = renderIntoDocument(<Spinner connected={isFetching} />)
-  //   const progressLabel = scryRenderedDOMComponentsWithTag(component, 'div')
+  xit('Should not display if isFetching is false', () => {
+    const isFetching = false;
+    const component = renderIntoDocument(<Spinner connected={isFetching} />)
+    const progressLabel = scryRenderedDOMComponentsWithTag(component, 'div')
 
-  //   expect(progressLabel.style.display).to.equal('none');
-  // });
+    expect(progressLabel).to.equal(undefined);
+  });
 
-  // it('Should display spinner if isFetching is true', () => {
-  //   const isFetching = true;
-  //   const component = renderIntoDocument(<Spinner connected={isFetching} />)
-  //   const progressLabel = scryRenderedDOMComponentsWithTag(component, 'div')
+  xit('Should display spinner if isFetching is true', () => {
+    const isFetching = true;
+    const component = renderIntoDocument(<Spinner connected={isFetching} />)
+    const progressLabel = scryRenderedDOMComponentsWithTag(component, 'div')
 
-  //   expect(progressLabel.style.display).to.equal('block');
-  // });
+    expect(progressLabel.style.display).to.equal('block');
+  });
 
 });
