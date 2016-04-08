@@ -8,7 +8,10 @@ export function getContributorData(zipcode) {
   return dispatch => {
     return fetch(hello)
       .then(response => response.json())
-      .then(json => dispatch(receiveContributorData(json))) 
+      .then(json => {
+        console.log(json)
+        dispatch(receiveContributorData(json))
+    })
   }
   // let data = createData()
   // return dispatch => {

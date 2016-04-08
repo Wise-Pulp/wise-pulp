@@ -9,15 +9,14 @@ var bodyParser = require('body-parser');
 
 var config = require('./config');
 var cleanData;
-//var config = require('./config');
 
 //connect to local host
 //var db = 'mongodb://localhost/Contributors';
 
 //connect to heroku
-var db = config.dbURI2;
+var db = config.dbURI;
 
-mongoose.connect(db);
+//mongoose.connect(db);
 
 
 //THIS IS THE DATA CONVERSION MACHINE!!!!!!!!!
@@ -916,7 +915,7 @@ app.get('/upcoming_bills', function(req, res) {
 })
 
 //if we're not in production, this proxies requests to localhost:3000 and sends them to our webpack server at localhost:8080
-if (isProduction) {
+if (!isProduction) {
   var bundle = require('./server/compiler.js');
   bundle();
   app.all('/build/*', function (req, res) {
