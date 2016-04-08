@@ -8,7 +8,7 @@ import { getCurrentPosition, getRepresentatives } from '../actions/index'
 export default class RepresentativeInfo extends Component {
 
 	render() {
-		const { params, representatives } = this.props
+		const { params, representatives, children } = this.props
 		return (
 			<div>
 				{representatives.map(function(representative, i) {
@@ -23,12 +23,11 @@ export default class RepresentativeInfo extends Component {
 					}
 				})}
 				<div className='row'>
-					<div className='col-md-2 rep-left-navbar'>
-						<RepresentativeLeftNavBar />
+					<div className='col-md-3 rep-left-navbar'>
+						<RepresentativeLeftNavBar id={params.id}/>
 					</div>
-					<div className='col-md-10 rep-info-graph-container'>
-						<a href="#">Upcoming Legislation</a>
-						<ContributorVisualization />
+					<div className='col-md-7 rep-info-graph-container'>
+						{children }
 					</div>
 				</div>
 			</div>

@@ -1,5 +1,18 @@
 body {
-  background-color: rgb(250, 250, 252);
+  background-color: #e6e6e8;
+}
+p {
+  font-family: "Arial Black", Gadget, sans-serif;
+}
+/********************************
+      Div for spacing
+*********************************/
+.between {
+  background-color: #06000a;
+  height: 50px;
+  opacity: 0.6;
+  margin: 2%, 0, 2%, 0;
+  text-align: center;
 }
 
 /********************************
@@ -7,12 +20,19 @@ body {
 *********************************/
 .getting_started {
   position: relative;
-  width: 100%;
-  height: 100%;
+  width: 300px;
+  height: 40%;
   padding: 1%;
   background-color: rgb(168, 210, 220);
 }
-
+.getting_started_large {
+  position: relative;
+  width: 300px;
+  height: 50%;
+  padding: 1%;
+  left: 5%;
+  background-color: rgb(168, 210, 220); 
+}
 /********************************
       Logo Image
 *********************************/
@@ -25,41 +45,50 @@ body {
       Header
 *********************************/
 .header {
-  margin-bottom: 5px;
+  position: relative;
+  height: 30%;
+  margin-bottom: 3%;
   margin-top: 2px;
   border-bottom: 3px;
   border-radius: 1%;
-  background-color: rgb(50, 55, 55);
-  background-image: url('https://upload.wikimedia.org/wikipedia/commons/f/f3/Statue-de-la-liberte-new-york.jpg');
+  background-color: #c5d5cb;
   background-position: inherit;
   background-attachment: scroll;
   background-repeat: no-repeat;
   background-opacity: 0.9;
-  height: 200px;
 }
-.header h1 {
+.main_brand {
   font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
   font-weight: 50;
   font-size: 80px;
 }
+.blurb {
+  position: relative;
+  left: 5%;
+}
+.signup {
+  position: relative;
+  bottom: 140px;
+}
+input {
+  position: relative;
+  right: -80%;
+  width: 100%;
+  bottom: -5%;
+}
+
 /********************************
       Heat Map
 *********************************/
-.splash_data {
-  background-color: rgb(250, 250, 255);
+.front_data {
+  /*background-color: #e3e0cf;*/
+  background-color: #c5d5cb;
   position: relative;
-  border-style: solid;
-  border-width: 1px;
-  border-radius: 3%;
-  border-color: rgb(0, 0, 2);
-  margin: 20px;
-  padding: 2px;
-  left: 7%;
+  text-align: center;
+  width: 100%;
+  top: 2%;
 }
-.splash_data h2 {
-  position: relative;
-  left: 25%;
-}
+
 
 .data_info {
   display: inline-block;
@@ -74,24 +103,38 @@ body {
   max-height: 600px;
   padding: 10%
 }
-
+.heat_map_heading {
+  position: relative;
+  top: 215px;
+  right: 50%;
+}
 /********************************
      Tutorial
 *********************************/
 .tutorial {
-  width: 95%;
-  height: 20%;
+  position: relative;
+  left: 5%;
+  width: 90%;
+  height: 10%;
   margin-top: 1%;
   border-bottom: solid;
-  padding-bottom: 15%;
+  background-color: #9fa8a3;
+  background-color: #e3e0cf;
+  margin-bottom: 15%;
+  text-align: center;
+  z-index: 99;
 }
 
 .tutorial_pic {
   display: inline-block;
+  position: relative;
+  margin-top: 15%;
   width: 100%;
   height: 100%;
 }
-
+.tutorial_text {
+  text-align: center;
+}
 
 /*
 *D3 Style
@@ -100,7 +143,9 @@ body {
 /********************************
       Getting Started Section
 *********************************/
-
+.get_started {
+  text-align: center;
+}
 
 /********************************
       Spinner
@@ -237,9 +282,12 @@ div.tooltip {
 
 .rep-left-navbar .option {
   padding: 1em;
+  padding-bottom: 5em;
   font-size: 18px;
+  text-align: center;
+  width: 100%;
 }
 
-.rep-left-navbar .option:hover {
+.option:hover {
   background-color: rgba(114, 140, 154, .8);
 }

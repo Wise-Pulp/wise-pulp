@@ -13,7 +13,9 @@ export default class FrontPage extends Component {
         <Header />
         <TopNavbar />
         <Tutorial />
+        <div className="between"></div>
         <HeatMap />
+        <div className="between"></div>
         <GettingStarted />
       </div>
     );

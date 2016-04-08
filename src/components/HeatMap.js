@@ -102,7 +102,8 @@ export default class HeatMap extends Component {
 
     console.log(this.props.mapData)
     return (
-      <div>
+      <div className="front_data">
+      <h2 className="heat_map_heading">Voter Turnout in Your State</h2>
       {this.props.mapData ? 
       <svg width={width} height={height}>
         <g>

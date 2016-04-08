@@ -781,10 +781,10 @@ function collectBills(uri, model) {
       const bill = new model();
       bill.billNumber = houseBill.objects[i].display_number;
       bill.billName = houseBill.objects[i].title_without_number;
-      bill.fullTextLink = houseBill.objects[i].link;
+      bill.fullTextLink = houseBill.objects[i].thomas_link;
+      bill.terms = houseBill.objects[i].terms;
       bill.statusDescription = houseBill.objects[i].current_status_label;
       bill.sponsor = houseBill.objects[i].sponsor.name;
-      bill.sponsorLink = houseBill.objects[i].rss_url;
 
       bill.save(function(err, success) {
         if (err) {
