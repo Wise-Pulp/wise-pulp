@@ -827,19 +827,12 @@ app.get('/api/representatives/:zipcode', function(req, res) {
           senator.objects.push(congressperson.objects[0]);
           res.send(senator);
         });
-  });
-<<<<<<< HEAD
+    });
   });  
 });
 
-
-
-  // var district = zipcodes[zipcode]['district'];
-  // var state = zipcodes[zipcode]['state'];
-  // var image;
-
   //govtrack api returns the representative information based on our query
-=======
+
 /****************************************************
       collects bill information from govtrack
 ****************************************************/
@@ -905,16 +898,15 @@ new CronJob('00 00 09 * * *', () => {
 
 app.get('/representatives/:id', function(req, res) {
   res.sendFile(publicPath + '/index.html');
-})
->>>>>>> 21789578a96b8f6120eaf1462f57dedcee974bd9
+});
 
 app.get('/representatives', function(req, res) {
-  res.sendFile(publicPath + '/index.html')
-})
+  res.sendFile(publicPath + '/index.html');
+});
 
 app.get('/upcoming_bills', function(req, res) {
   res.sendFile(publicPath + '/index.html');
-})
+});
 
 //if we're not in production, this proxies requests to localhost:3000 and sends them to our webpack server at localhost:8080
 if (isProduction) {
@@ -939,7 +931,7 @@ app.listen(port, function () {
 
 // ABBOTT, GIFFORD WHEELER
 //G
-function queryName(string){
+function queryName(string) {
   var results = string.toUpperCase();
   // console.log('this is results#1', results);
   var results2 = [];
