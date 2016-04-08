@@ -9,7 +9,6 @@ var bodyParser = require('body-parser');
 
 var config = require('./config');
 var cleanData;
-//var config = require('./config');
 
 //connect to local host
 //var db = 'mongodb://localhost/Contributors';
@@ -816,8 +815,8 @@ app.get('/api/representatives/:zipcode', function(req, res) {
   var zipcode = req.params.zipcode;
   var storage;
   Zipcode.find({ zipcode: zipcode}).exec(function(err, doc){
-    var state = doc.state,
-        district = doc.district;
+    var state = doc[0].state,
+        district = doc[0].district;
 
     fetch('https://www.govtrack.us/api/v2/role?current=true&district=' + district + '&state=' + state)
   .then(function(rep) {
@@ -1099,13 +1098,13 @@ app.get('/api/data/CandidateSummary/:zipcode/:collectionYear', function(req, res
 
           });
         } else {
-          res.status(404).send('invalid query');
+          res.status(404).send('Invalid query');
         }
       }
     }); 
 
   } else {
-    res.status(404).send('invalid Year or Zipcode Entered');
+    res.status(404).send('Invalid Year or Zipcode Entered');
   }
 });
 
