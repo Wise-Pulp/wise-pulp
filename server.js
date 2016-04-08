@@ -57,6 +57,12 @@ JSONdata = JSON.parse(JSONdata.toString());
 
 
 
+/////////////////////////////////
+/////// Functions to help with the data processing
+/////// and upload process.
+////////////////////////////////
+
+
 ////////// Asynchronous Loop... A beautiful thing.
 function asyncLoop(iterations, func, callback) {
 var index = 0;
@@ -946,6 +952,21 @@ function queryName(string){
 };
 
 
+function validateNumber(aString) {
+  var results = aString.replace(/(\D)/g, '0');
+  return results;
+}
+
+function validateYear(yearParam) {
+  var storage = yearParam.toString();
+  storage = storage.split('');
+  var results = [];
+
+}
+
+
+//////////////////////////////////////////
+
 var User = require('./data/db/User.model');
 
 app.post('/api/signup', function(req, res, next) {
@@ -1013,65 +1034,79 @@ app.get('/api/data/CandidateSummary', function(req, res, next) {
 
 app.get('/api/data/CandidateSummary/:zipcode/:collectionYear', function(req, res) {
 
-  console.log(req.params.collectionYear);
-  console.log('req.params.zipcode:', req.params.zipcode);
-  zipcode = req.params.zipcode;
+    req.params.zipcode = validateNumber(req.params.zipcode);
+    req.params.collectionYear = validateNumber(req.params.collectionYear);
+    //@TODO: Update so 2016 is not hardcoded in
+    console.log('Number(req.params.collectionYear)', Number(req.params.collectionYear))
+    if(Number(req.params.collectionYear) <= 2016 &&
+      Number(req.params.collectionYear) >= 2000 &&
+      req.params.zipcode.length === 5
+      ) {
 
-  Zipcode.find({ zipcode: zipcode }).exec(function(error, zipObject) {
-    if (error) { console.log('error retrieving zipcode', error); }
+    console.log('req.params.collectionYear:', req.params.collectionYear);
+    console.log('req.params.zipcode:', req.params.zipcode);
+    zipcode = req.params.zipcode;
 
-    console.log('the Zip Object:', zipObject);
-    var theYear = Date.parse('01/01/' + req.params.collectionYear);
+    Zipcode.find({ zipcode: zipcode }).exec(function(error, zipObject) {
+      if (error) { console.log('error retrieving zipcode', error); }
 
-    if (zipObject.length > 1) {
-      var storage = [];
-      var iterations = zipObject.length;
-      var i = 0;
-      asyncLoop(iterations, function(loop) {
+      console.log('the Zip Object:', zipObject);
+      var theYear = Date.parse('01/01/' + req.params.collectionYear);
+
+      if (zipObject.length > 1) {
+        var storage = [];
+        var iterations = zipObject.length;
+        var i = 0;
+        asyncLoop(iterations, function(loop) {
 
 
-        console.log('this is theYear before entering Query #MultipleObjects:', theYear);
+          console.log('this is theYear before entering Query #MultipleObjects:', theYear);
 
-        CandidateSummary.find({ year_of_collection: theYear, can_off_sta: zipObject[i].state, can_off_dis: zipObject[i].district })
+          CandidateSummary.find({ year_of_collection: theYear, can_off_sta: zipObject[i].state, can_off_dis: zipObject[i].district })
 
-      .exec(function(err, docs) {
+        .exec(function(err, docs) {
 
-        if (err) {
-          console.log(loop.iteration(), 'Candidate was skipped.', err);
-          skippedIndices.push({ 
-            index: i,
-            error: err
+          if (err) {
+            console.log(loop.iteration(), 'Candidate was skipped.', err);
+            if (i < iterations) {
+              i++;
+              loop.next();
+            } else { 
+              loop.next(); 
+            }
+
+          } else {
+            if (i < iterations) {
+              i++;
+              console.log(loop.iteration(), 'Candidate has been sent');
+
+              storage.push(docs);  
+              loop.next();
+            }
+          }
+        });
+        }, function() { res.json(storage); });
+      } else {
+        if( zipObject[0] ){
+
+          console.log('this is theYear before entering Query #SingleObject:', theYear);
+          console.log('this is zipObject.state:', zipObject[0].state);
+          console.log('this is zipObject.district:', zipObject[0].district);
+
+          CandidateSummary.find({ year_of_collection: theYear, can_off_sta: zipObject[0].state, can_off_dis: zipObject[0].district })
+          .exec(function(err, documents) {
+            if (err) { console.log('there was an error', err) } else { res.json(documents) }
+
           });
-          if (i < iterations) {
-            i++;
-            loop.next();
-          } else { 
-            loop.next(); 
-          }
-
         } else {
-          if (i < iterations) {
-            i++;
-            console.log(loop.iteration(), 'Candidate has been sent');
-
-            storage.push(docs);  
-            loop.next();
-          }
+          res.status(404).send('invalid query');
         }
-      });
-      }, function() { res.json(storage); });
-    } else {
-      console.log('this is theYear before entering Query #SingleObject:', theYear);
-      console.log('this is zipObject.state:', zipObject[0].state);
-      console.log('this is zipObject.district:', zipObject[0].district);
+      }
+    }); 
 
-      CandidateSummary.find({ year_of_collection: theYear, can_off_sta: zipObject[0].state, can_off_dis: zipObject[0].district })
-      .exec(function(err, documents) {
-        if (err) { console.log('there was an error', err) } else { res.json(documents) }
-
-      });
-    }
-  });
+  } else {
+    res.status(404).send('invalid Year or Zipcode Entered');
+  }
 });
 
 
