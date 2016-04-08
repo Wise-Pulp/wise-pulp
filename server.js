@@ -827,7 +827,8 @@ app.get('/api/representatives/:zipcode', function(req, res) {
           senator.objects.push(congressperson.objects[0]);
           res.send(senator);
         });
-    });
+  });
+
   });  
 });
 
@@ -898,15 +899,15 @@ new CronJob('00 00 09 * * *', () => {
 
 app.get('/representatives/:id', function(req, res) {
   res.sendFile(publicPath + '/index.html');
-});
+})
 
 app.get('/representatives', function(req, res) {
-  res.sendFile(publicPath + '/index.html');
-});
+  res.sendFile(publicPath + '/index.html')
+})
 
 app.get('/upcoming_bills', function(req, res) {
   res.sendFile(publicPath + '/index.html');
-});
+})
 
 //if we're not in production, this proxies requests to localhost:3000 and sends them to our webpack server at localhost:8080
 if (isProduction) {
@@ -931,7 +932,7 @@ app.listen(port, function () {
 
 // ABBOTT, GIFFORD WHEELER
 //G
-function queryName(string) {
+function queryName(string){
   var results = string.toUpperCase();
   // console.log('this is results#1', results);
   var results2 = [];
@@ -999,17 +1000,17 @@ app.get('/api/data/house_bills', (req, res) => {
 
 app.get('/api/data/CandidateSummary', function(req, res, next) {
 
-  CandidateSummary.find({})
-  .exec( function(err, documents) {
+  var data = CandidateSummary.find({})
+  .exec( function(err, data){
     if (err) {
       res.send('an error occured fetching your data :(');
     } else {
-      res.json(documents);
+      res.json(data);
     }
   });
 });
 
-//Route responsible for providing Candidate Financial Information
+
 app.get('/api/data/CandidateSummary/:zipcode/:collectionYear', function(req, res) {
 
   console.log(req.params.collectionYear);
@@ -1029,7 +1030,7 @@ app.get('/api/data/CandidateSummary/:zipcode/:collectionYear', function(req, res
       asyncLoop(iterations, function(loop) {
 
 
-        console.log('this is theYear before entering Query:', theYear);
+        console.log('this is theYear before entering Query #MultipleObjects:', theYear);
 
         CandidateSummary.find({ year_of_collection: theYear, can_off_sta: zipObject[i].state, can_off_dis: zipObject[i].district })
 
@@ -1060,14 +1061,14 @@ app.get('/api/data/CandidateSummary/:zipcode/:collectionYear', function(req, res
       });
       }, function() { res.json(storage); });
     } else {
+      console.log('this is theYear before entering Query #SingleObject:', theYear);
+      console.log('this is zipObject.state:', zipObject[0].state);
+      console.log('this is zipObject.district:', zipObject[0].district);
 
       CandidateSummary.find({ year_of_collection: theYear, can_off_sta: zipObject[0].state, can_off_dis: zipObject[0].district })
       .exec(function(err, documents) {
-        if (err) {
-         console.log('there was an error', err) 
-       } else { 
-        res.json(documents) 
-        }
+        if (err) { console.log('there was an error', err) } else { res.json(documents) }
+
       });
     }
   });
