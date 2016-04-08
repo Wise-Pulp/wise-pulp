@@ -999,17 +999,17 @@ app.get('/api/data/house_bills', (req, res) => {
 
 app.get('/api/data/CandidateSummary', function(req, res, next) {
 
-  var data = CandidateSummary.find({})
-  .exec( function(err, data){
+  CandidateSummary.find({})
+  .exec( function(err, documents) {
     if (err) {
       res.send('an error occured fetching your data :(');
     } else {
-      res.json(data);
+      res.json(documents);
     }
   });
 });
 
-
+//Route responsible for providing Candidate Financial Information
 app.get('/api/data/CandidateSummary/:zipcode/:collectionYear', function(req, res) {
 
   console.log(req.params.collectionYear);
@@ -1061,10 +1061,13 @@ app.get('/api/data/CandidateSummary/:zipcode/:collectionYear', function(req, res
       }, function() { res.json(storage); });
     } else {
 
-      CandidateSummary.find({ year_of_collection: theYear, can_off_sta: zipObject.state, can_off_dis: zipObject.district })
+      CandidateSummary.find({ year_of_collection: theYear, can_off_sta: zipObject[0].state, can_off_dis: zipObject[0].district })
       .exec(function(err, documents) {
-        if (err) { console.log('there was an error', err) } else { res.json(documents) }
-
+        if (err) {
+         console.log('there was an error', err) 
+       } else { 
+        res.json(documents) 
+        }
       });
     }
   });
