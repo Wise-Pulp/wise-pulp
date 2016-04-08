@@ -20,7 +20,6 @@ export function receiveSenateBillData(bill) {
   } 
 }
 
-
 export function getHouseBillData() {
 let house = '/api/data/house_bills';
 
@@ -38,4 +37,11 @@ export function receiveHouseBillData(bill) {
     type: HOUSE_BILL_DATA,
     bill
   } 
+}
+
+export function SingleHouseData() {
+
+  return {
+    type: SHOW_SINGLE_HOUSE_DATA
+  }
 }

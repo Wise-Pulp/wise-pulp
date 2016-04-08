@@ -27,6 +27,7 @@ export default class RepresentativeInfo extends Component {
 						<RepresentativeLeftNavBar />
 					</div>
 					<div className='col-md-10 rep-info-graph-container'>
+						<a href="#">Upcoming Legislation</a>
 						<ContributorVisualization />
 					</div>
 				</div>
