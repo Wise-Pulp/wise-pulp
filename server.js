@@ -815,8 +815,8 @@ app.get('/api/representatives/:zipcode', function(req, res) {
   var zipcode = req.params.zipcode;
   var storage;
   Zipcode.find({ zipcode: zipcode}).exec(function(err, doc){
-    var state = doc.state,
-        district = doc.district;
+    var state = doc[0].state,
+        district = doc[0].district;
     fetch('https://www.govtrack.us/api/v2/role?current=true&district=' + district + '&state=' + state)
     .then(function(rep) {
       return rep.json();

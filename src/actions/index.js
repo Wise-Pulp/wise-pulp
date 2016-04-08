@@ -23,7 +23,7 @@ export function receiveRepresentatives(json) {
 export function getRepresentatives (zipcode) {
   return dispatch => {
     dispatch(changeFetching())
-  	return fetch('/api/representatives/' + zipcode)
+  	return fetch('/api/representatives/' + 94605)
   		.then(response => response.json())
   		.then(json => dispatch(receiveRepresentatives(json)))
   } 
