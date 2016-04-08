@@ -28,7 +28,7 @@ mongoose.connect(db);
 // //INSERT YOUR CSV DATA HERE!
 var csvFile = './data/districts.csv';
 // //DESIRED OUTPUT DIRECTORY!
-var output = './data/Districts.json';
+var output = './data/Contributors2014.json';
 // //START SERVER AND WAIT FOR MAGIC!
 
 
@@ -258,46 +258,46 @@ function generateLayers(arrayOfArrays) {
 
 var Zipcode = require('./data/db/Zipcode.model.js');
   
-var skippedIndices = [];
+// var skippedIndices = [];
 
-var iterations = JSONdata.length;
-var i = 0;
-asyncLoop(iterations, function(loop) {
-  console.log(loop.iteration(), JSONdata[i].state);
+// var iterations = JSONdata.length;
+// var i = 0;
+// asyncLoop(iterations, function(loop) {
+//   console.log(loop.iteration(), JSONdata[i].state);
 
-  var zipcode = new Zipcode();
-  zipcode.zipcode = JSONdata[i].zip_code;
-  zipcode.state = JSONdata[i].state;
-  zipcode.district = JSONdata[i].district;
+//   var zipcode = new Zipcode();
+//   zipcode.zipcode = JSONdata[i].zip_code;
+//   zipcode.state = JSONdata[i].state;
+//   zipcode.district = JSONdata[i].district;
 
 
 
        
         
-  zipcode.save(function (err, success) {
-    if (err) {
-      console.log(loop.iteration(), 'Zipcode was skipped.', err);
-      skippedIndices.push({ 
-        index: i,
-        error: err
-      });
-      if (i < iterations) {
-        i++;
-        loop.next();
-      } else { loop.next(); }
+//   zipcode.save(function (err, success) {
+//     if (err) {
+//       console.log(loop.iteration(), 'Zipcode was skipped.', err);
+//       skippedIndices.push({ 
+//         index: i,
+//         error: err
+//       });
+//       if (i < iterations) {
+//         i++;
+//         loop.next();
+//       } else { loop.next(); }
 
-    } else {
-      if (i < iterations) {
-        i++;
-        console.log(loop.iteration(), 'Zipcode has been saved');  
-        loop.next();
-      }
-    }                    
-  });
-},
-    function(){
-      console.log('Data has finished uploading. The following indices were skipped:', skippedIndices)}
-);
+//     } else {
+//       if (i < iterations) {
+//         i++;
+//         console.log(loop.iteration(), 'Zipcode has been saved');  
+//         loop.next();
+//       }
+//     }                    
+//   });
+// },
+//     function(){
+//       console.log('Data has finished uploading. The following indices were skipped:', skippedIndices)}
+// );
 
 
 
@@ -913,7 +913,7 @@ app.get('/api/data/CandidateSummary', function(req, res, next) {
 
   var data = CandidateSummary.find({})
   .exec( function(err, data){
-    if(err) {
+    if (err) {
       res.send('an error occured fetching your data :(');
     } else {
       res.json(data);
@@ -923,20 +923,66 @@ app.get('/api/data/CandidateSummary', function(req, res, next) {
 
 
 
-app.get('/api/data/CandidateSummary/:state/:district/:collectionYear', function(req, res) {
-  CandidateSummary.find({ can_off_dis: req.params.district, can_off_sta: req.params.state.toUpperCase(), year_of_collection: req.params.collectionYear }).exec(function(err, data) {
-    if (err) {
-      res.send('user not found');
+
+app.get('/api/data/CandidateSummary/:zipcode/:collectionYear', function(req, res) {
+
+  console.log(req.params.collectionYear);
+  console.log('req.params.zipcode:', req.params.zipcode);
+  zipcode = req.params.zipcode;
+
+  Zipcode.find({ zipcode: zipcode }).exec(function(error, zipObject) {
+    if (error) { console.log('error retrieving zipcode', error); }
+
+    console.log('the Zip Object:', zipObject);
+    var theYear = Date.parse('01/01/' + req.params.collectionYear);
+
+    if (zipObject.length > 1) {
+      var storage = [];
+      var iterations = zipObject.length;
+      var i = 0;
+      asyncLoop(iterations, function(loop) {
+
+
+        console.log('this is theYear before entering Query:', theYear);
+
+        CandidateSummary.find({ year_of_collection: theYear, can_off_sta: zipObject[i].state, can_off_dis: zipObject[i].district })
+
+      .exec(function(err, docs) {
+
+        if (err) {
+          console.log(loop.iteration(), 'Candidate was skipped.', err);
+          skippedIndices.push({ 
+            index: i,
+            error: err
+          });
+          if (i < iterations) {
+            i++;
+            loop.next();
+          } else { 
+            loop.next(); 
+          }
+
+        } else {
+          if (i < iterations) {
+            i++;
+            console.log(loop.iteration(), 'Candidate has been sent');
+
+            storage.push(docs);  
+            loop.next();
+          }
+        }
+      });
+      }, function() { res.json(storage); });
     } else {
-      res.json(data); 
+
+      CandidateSummary.find({ year_of_collection: theYear, can_off_sta: zipObject.state, can_off_dis: zipObject.district })
+      .exec(function(err, documents) {
+        if (err) { console.log('there was an error', err) } else { res.json(documents) }
+
+      });
     }
   });
 });
-
-app.get('/api/data/CandidateSummary/:zipcode/:collectionYear', function(req, res) {
-  CandidateSummary.find()
-});
-
 
 // app.get('/api/data/Candidate_Summary/:can_nam', function(req, res) {
   // var rep1 = queryName(req.params.rep1); // Boxer, Barbara
