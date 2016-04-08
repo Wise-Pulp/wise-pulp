@@ -3,8 +3,7 @@ export const SET_GRAPH_TYPE = 'SET_GRAPH_TYPE'
 
 
 export function getContributorData(zipcode) {
-  let date = Date.parse('01/01/16')
-  let hello = '/api/data/CandidateSummary/' + zipcode + '/' + date
+  let hello = '/api/data/CandidateSummary/' + zipcode + '/2016'
   return dispatch => {
     return fetch(hello)
       .then(response => response.json())

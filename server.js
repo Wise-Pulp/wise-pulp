@@ -14,9 +14,9 @@ var cleanData;
 //var db = 'mongodb://localhost/Contributors';
 
 //connect to heroku
-var db = config.dbURI;
+var db = config.dbURI2;
 
-//mongoose.connect(db);
+mongoose.connect(db);
 
 
 //THIS IS THE DATA CONVERSION MACHINE!!!!!!!!!
@@ -817,22 +817,21 @@ app.get('/api/representatives/:zipcode', function(req, res) {
   Zipcode.find({ zipcode: zipcode}).exec(function(err, doc){
     var state = doc.state,
         district = doc.district;
-
     fetch('https://www.govtrack.us/api/v2/role?current=true&district=' + district + '&state=' + state)
-  .then(function(rep) {
-    return rep.json();
-  }).then(function(val) {
-    return val;
-  }).then(function(congressperson) {
-    fetch('https://www.govtrack.us/api/v2/role?current=true&role_type=senator&state=CA')
-        .then(function(img) {
-          return img.json();
-        })
-        .then(function(senator) {
-          senator.objects.push(congressperson.objects[0]);
-          res.send(senator);
-        });
-  });
+    .then(function(rep) {
+      return rep.json();
+    }).then(function(val) {
+      return val;
+    }).then(function(congressperson) {
+      fetch('https://www.govtrack.us/api/v2/role?current=true&role_type=senator&state=CA')
+          .then(function(img) {
+            return img.json();
+          })
+          .then(function(senator) {
+            senator.objects.push(congressperson.objects[0]);
+            res.send(senator);
+          });
+    });
 
   });  
 });
