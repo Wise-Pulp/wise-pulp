@@ -4,17 +4,16 @@ export const SET_GRAPH_TYPE = 'SET_GRAPH_TYPE'
 
 export function getContributorData(zipcode) {
   let date = Date.parse('01/01/16')
-  console.log(date)
   let hello = '/api/data/CandidateSummary/' + zipcode + '/' + date
-  // return dispatch => {
-  //   return fetch(hello)
-  //     .then(response => response.json())
-  //     .then(json => dispatch(receiveContributorData(json))) 
-  // }
-  let data = createData()
   return dispatch => {
-    dispatch(receiveContributorData(data))
+    return fetch(hello)
+      .then(response => response.json())
+      .then(json => dispatch(receiveContributorData(json))) 
   }
+  // let data = createData()
+  // return dispatch => {
+  //   dispatch(receiveContributorData(data))
+  // }
 }
 
 export function receiveContributorData(data) {
