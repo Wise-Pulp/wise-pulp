@@ -4,22 +4,19 @@ import { render } from 'react-dom'
 
 export default class Visualization {
     constructor(el, props) {
-        this.el = el;
-        this.props = props;
+      this.el = el;
+      this.props = props;
     }
 
   create(data) {
-    let yGroupMax = d3.max(data.layers, function(layer) {
-        // console.log('this is layer within yGroupMax', layer);
-      return d3.max(layer, function(d) { 
-        //console.log('this is d withing yGroupMax', d);
-      return d.y; }); })
-    let yStackMax = d3.max(data.layers, function(layer) { return d3.max(layer, function(d) { return d.y0 + d.y; }); });
+  let yGroupMax = d3.max(data.layers, function(layer) {
+    return d3.max(layer, function(d) { 
+    return d.y; }); })
+  let yStackMax = d3.max(data.layers, function(layer) { return d3.max(layer, function(d) { return d.y0 + d.y; }); });
 
-//console.log('just plain layers', layers);
   let margin = {top: 40, right: 10, bottom: 20, left: 10},
-      width = 960 - margin.left - margin.right,
-      height = 500 - margin.top - margin.bottom;
+      width = 780 - margin.left - margin.right,
+      height = 375 - margin.top - margin.bottom;
 
   let x = d3.scale.ordinal()
       .domain(d3.range(data.m))
@@ -72,15 +69,13 @@ export default class Visualization {
   }
 
   update(data) {
-        let yGroupMax = d3.max(data.layers, function(layer) {
-        // console.log('this is layer within yGroupMax', layer);
-       return d3.max(layer, function(d) { 
-        //console.log('this is d withing yGroupMax', d);
-        return d.y; }); })
+  let yGroupMax = d3.max(data.layers, function(layer) {
+    return d3.max(layer, function(d) { 
+    return d.y; }); })
 
   let margin = {top: 40, right: 10, bottom: 20, left: 10},
-      width = 960 - margin.left - margin.right,
-      height = 500 - margin.top - margin.bottom;
+      width = 780 - margin.left - margin.right,
+      height = 375 - margin.top - margin.bottom;
   let x = d3.scale.ordinal()
       .domain(d3.range(data.m))
       .rangeRoundBands([0, width], .08);

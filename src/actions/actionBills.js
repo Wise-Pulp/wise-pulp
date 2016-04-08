@@ -4,19 +4,18 @@ export const GET_ROLE_BILLS = 'GET_ROLE_BILLS'
 
 export function getRoleBills(role) {
   if( role === 'senator') {
-    return dispatch =>{
-      return (getSenateBillData('senator'));
+    return dispatch => {
+      return dispatch(getSenateBillData(true));
       } 
   }else {
     return dispatch => {
-      return (getHouseBillData(true));
+      return dispatch(getHouseBillData(true));
     }
   }
 }
 
 export function getSenateBillData(something) {
 let senate = '/api/data/senate_bills';
-console.log('i want pizza', something);
   return dispatch => {
     return fetch(senate)
       .then(response => response.json())
@@ -26,9 +25,7 @@ console.log('i want pizza', something);
 
 
 export function receiveSenateBillData(bill, anything) {
-  console.log('bill outside contidional', bill);
   if (anything) {
-    console.log('bill inside condigion', bill);
     return {
       type: GET_ROLE_BILLS,
       bill

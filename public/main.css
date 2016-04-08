@@ -232,7 +232,7 @@ div.tooltip {
 .rep-name {
   text-align: center;
   position: relative;
-  font-size: 32px;
+  font-size: 20px;
 }
 
 .rep-role {
@@ -250,11 +250,8 @@ div.tooltip {
 }
 
 .rep-container {
-  width: 50%;
-  height: 40%;
+  width: 40%;
   text-align: center;
-  margin-top: 5vh;
-  margin-bottom: 5vh;
   padding: 20px;
   margin: 0 auto;
   border-radius: 10px;
@@ -269,6 +266,10 @@ div.tooltip {
   padding: 5px;
   margin: 0 auto;
   position: relative;
+}
+
+.rep-individual-header-container {
+  width: 80%;
 }
 
 .rep-info:hover {

@@ -23,8 +23,7 @@ export default class Spinner extends Component {
           size={400}
           fillColor="white"
           trackColor="red"
-          progressColor="blue" 
-          >
+          progressColor="blue" >
           <text x="200" y="200" style={textStyle}>Loading</text>          
           </ProgressLabel>
       </div>

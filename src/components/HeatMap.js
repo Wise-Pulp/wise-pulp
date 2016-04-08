@@ -77,7 +77,6 @@ export default class HeatMap extends Component {
   // }
 
   componentDidMount() {
-    console.log('mammamia')
     d3.json('./ca.txt', (error, ch) => {
       const center = d3.geo.centroid(ch)
       this.props.dispatch(getHeatMapData(ch, center))
@@ -100,7 +99,6 @@ export default class HeatMap extends Component {
     const path = d3.geo.path()
       .projection(projection)
 
-    console.log(this.props.mapData)
     return (
       <div className="front_data">
       <h2 className="heat_map_heading">Voter Turnout in Your State</h2>
@@ -123,7 +121,6 @@ export default class HeatMap extends Component {
 function mapStateToProps(state) {
   const mapData = state.HeatMap.map
   const center = state.HeatMap.center
-  console.log(mapData)
   return {
     mapData,
     center

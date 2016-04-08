@@ -9,7 +9,6 @@ var bodyParser = require('body-parser');
 
 var config = require('./config');
 var cleanData;
-//var config = require('./config');
 
 //connect to local host
 //var db = 'mongodb://localhost/Contributors';
@@ -816,24 +815,23 @@ app.get('/api/representatives/:zipcode', function(req, res) {
   var zipcode = req.params.zipcode;
   var storage;
   Zipcode.find({ zipcode: zipcode}).exec(function(err, doc){
-    var state = doc.state,
-        district = doc.district;
-
+    var state = doc[0].state,
+        district = doc[0].district;
     fetch('https://www.govtrack.us/api/v2/role?current=true&district=' + district + '&state=' + state)
-  .then(function(rep) {
-    return rep.json();
-  }).then(function(val) {
-    return val;
-  }).then(function(congressperson) {
-    fetch('https://www.govtrack.us/api/v2/role?current=true&role_type=senator&state=CA')
-        .then(function(img) {
-          return img.json();
-        })
-        .then(function(senator) {
-          senator.objects.push(congressperson.objects[0]);
-          res.send(senator);
-        });
-  });
+    .then(function(rep) {
+      return rep.json();
+    }).then(function(val) {
+      return val;
+    }).then(function(congressperson) {
+      fetch('https://www.govtrack.us/api/v2/role?current=true&role_type=senator&state=CA')
+          .then(function(img) {
+            return img.json();
+          })
+          .then(function(senator) {
+            senator.objects.push(congressperson.objects[0]);
+            res.send(senator);
+          });
+    });
 
   });  
 });
@@ -916,7 +914,7 @@ app.get('/upcoming_bills', function(req, res) {
 })
 
 //if we're not in production, this proxies requests to localhost:3000 and sends them to our webpack server at localhost:8080
-if (isProduction) {
+if (!isProduction) {
   var bundle = require('./server/compiler.js');
   bundle();
   app.all('/build/*', function (req, res) {
