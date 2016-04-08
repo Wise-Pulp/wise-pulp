@@ -57,6 +57,12 @@ JSONdata = JSON.parse(JSONdata.toString());
 
 
 
+/////////////////////////////////
+/////// Functions to help with the data processing
+/////// and upload process.
+////////////////////////////////
+
+
 ////////// Asynchronous Loop... A beautiful thing.
 function asyncLoop(iterations, func, callback) {
 var index = 0;
@@ -1033,7 +1039,8 @@ app.get('/api/data/CandidateSummary/:zipcode/:collectionYear', function(req, res
     //@TODO: Update so 2016 is not hardcoded in
     console.log('Number(req.params.collectionYear)', Number(req.params.collectionYear))
     if(Number(req.params.collectionYear) <= 2016 &&
-      Number(req.params.collectionYear) >= 2000
+      Number(req.params.collectionYear) >= 2000 &&
+      req.params.zipcode.length === 5
       ) {
 
     console.log('req.params.collectionYear:', req.params.collectionYear);
@@ -1098,7 +1105,7 @@ app.get('/api/data/CandidateSummary/:zipcode/:collectionYear', function(req, res
     }); 
 
   } else {
-    res.status(404).send('invalid Year Entered');
+    res.status(404).send('invalid Year or Zipcode Entered');
   }
 });
 
