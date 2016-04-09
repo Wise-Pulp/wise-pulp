@@ -20,7 +20,7 @@ export default class UpcomingRepBills extends Component {
     const { bills } = this.props;
     return (
       <div>
-        { bills ? <BillList bills={bills} /> : <div><Spinner /></div> }
+        { bills ? <BillList bills={bills} index={9}/> : <div><Spinner /></div> }
       </div>
     )
   }

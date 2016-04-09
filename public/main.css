@@ -70,12 +70,12 @@ p {
   position: relative;
   bottom: 140px;
 }
-input {
+/*input {
   position: relative;
   right: -80%;
   width: 100%;
   bottom: -5%;
-}
+}*/
 
 /********************************
       Heat Map
@@ -279,16 +279,75 @@ div.tooltip {
 .rep-left-navbar {
   padding: 1em;
   text-align: center;
+  height: 100%;
 }
 
 .rep-left-navbar .option {
+  position: relative;
   padding: 1em;
-  padding-bottom: 5em;
   font-size: 18px;
   text-align: center;
+  height: 20%;
   width: 100%;
 }
 
 .option:hover {
   background-color: rgba(114, 140, 154, .8);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.user_vote {
+  position: relative;
+  width: 10%;
+  height: 10%;
+  margin-right: 0;
 }
