@@ -25,7 +25,7 @@ mongoose.connect(db);
 // //INSERT YOUR CSV DATA HERE!
 var csvFile = './data/districts.csv';
 // //DESIRED OUTPUT DIRECTORY!
-var output = './data/Contributors2014.json';
+var output = './data/GeoJson/USCounties_500k.json';
 // //START SERVER AND WAIT FOR MAGIC!
 
 
@@ -223,6 +223,9 @@ function generateLayers(arrayOfArrays) {
 
 
 
+
+
+
 /////////////////////////////////////////////
 
 /*
@@ -255,6 +258,7 @@ function generateLayers(arrayOfArrays) {
 //   ////////////////////////////
 //   //Time To Upload data to Mongolab
 //   ///////////////////////////
+
 
 
 //////////////////////////// Upload Districts/Zicodes
@@ -934,22 +938,6 @@ app.listen(port, function () {
 });
 
 /////////////////////////////////////////// API helper functions
-
-// ABBOTT, GIFFORD WHEELER
-//G
-function queryName(string){
-  var results = string.toUpperCase();
-  // console.log('this is results#1', results);
-  var results2 = [];
-    // "PETE AGUILAR"
-  results = results.split(' ');
-  // console.log('this is results#2');
-  results2.push(results[1], results[0]);
-  // console.log('results2 #1');
-  results2 = results2.join(', ');
-  return results2;
-};
-
 
 function validateNumber(aString) {
   var results = aString.replace(/(\D)/g, '0');
