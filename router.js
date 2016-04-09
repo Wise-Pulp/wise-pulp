@@ -36,8 +36,10 @@ module.exports = function(app) {
   //   res.send({ hi: 'there' });
   // });
 
+
   app.post('/signin', requireSignin, Authentication.signin);
   app.post('/signup', Authentication.signup);
+
   //route to return the representative for the district based on the zipcode lookup
   app.get('/api/representatives/:zipcode', function(req, res) {
     var zipcode = req.params.zipcode;

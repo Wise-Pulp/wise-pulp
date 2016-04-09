@@ -14,10 +14,11 @@ module.exports.signin = function(req, res, next) {
   res.send({ token: tokenForUser(req.user) });
 }
 module.exports.signup = function(req, res, next) {
-  const email = req.body.email;
-  const password = req.body.password;
+  console.log(req.params);
+  console.log('*********************', Object.keys(req));
+  const email = req.params.email;
+  const password = req.params.password;
   
-  console.log(req.body);
 
   // if (!email || !password) {
   //  return res.status(422).send({"you must provide Email and Password"});
