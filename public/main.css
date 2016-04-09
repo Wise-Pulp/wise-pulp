@@ -56,6 +56,10 @@ p {
     float: right;
 }
 
+.top-nav-bar .home {
+  float: left;
+}
+
 .top-nav-bar a {
     display: block;
     color: white;
@@ -252,6 +256,9 @@ div.tooltip {
 /********************************
       Representative Page
 *********************************/
+.cong-reps {
+  margin-top: 40%;
+}
 
 .rep-header {
   margin: center;

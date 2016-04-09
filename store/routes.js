@@ -11,8 +11,10 @@ import CampaignContributions from '../src/components/ContributorVisualization'
 export default (
     <Route path='/' component={App}>
     	<IndexRoute component={FrontPage} />
+      <Route path='home' component={FrontPage} />
     	<Route path='representatives' component={Representatives} />
       <Route path='representatives/:id' component={RepresentativeInfo} >
+        <IndexRoute component={UpcomingRepBills} />
         <Route path='upcoming_rep_bills' component={UpcomingRepBills} />
         <Route path='campaign_contributions' component={CampaignContributions} />
       </Route>
