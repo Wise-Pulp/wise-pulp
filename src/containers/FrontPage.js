@@ -11,12 +11,8 @@ export default class FrontPage extends Component {
     return (
       <div className="col-sm-12">
         <Header />
-        <TopNavbar />
         <Tutorial />
-        <div className="between"></div>
         <HeatMap />
-        <div className="between"></div>
-        <GettingStarted />
       </div>
     );
   }

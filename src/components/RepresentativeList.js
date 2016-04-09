@@ -27,9 +27,7 @@ export default class RepresentativeList extends Component {
 							</div>
 						)
 				})}
-				</div>
-					<div className='graph-container'>
-						<ContributorVisualization />
+					<h1 className='cong-reps'>Your Congressional Representatives</h1>
 				</div>
 			</div>
 		)
