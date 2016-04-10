@@ -77,7 +77,6 @@ export default class HeatMap extends Component {
   // }
 
   componentDidMount() {
-    console.log('mammamia')
     d3.json('./ca.txt', (error, ch) => {
       const center = d3.geo.centroid(ch)
       this.props.dispatch(getHeatMapData(ch, center))
@@ -95,26 +94,27 @@ export default class HeatMap extends Component {
     const projection = d3.geo.albers()
       .scale(3000)
       //.rotate([30, 0])
-      .translate([1500, 350])
+      .translate([1100, 400])
 
     const path = d3.geo.path()
       .projection(projection)
 
-    console.log(this.props.mapData)
     return (
-      <div className="front_data">
-      <h2 className="heat_map_heading">Voter Turnout in Your State</h2>
-      {this.props.mapData ? 
-      <svg width={width} height={height}>
-        <g>
-          {this.props.mapData.features.map(function(county, i) {
-            return <path d={path(county)} 
-                         className={quantize(counties[county.properties.id])}
-                         key={i}
-                />
-          })}
-        </g> 
-      </svg> : <svg width={width} height={height}/> }
+      <div className='row'>
+        <div className='col-md-4 voter-turnout'>Voter Turnout For California</div>
+        <div className='col-md-8'>
+          {this.props.mapData ?
+          <svg width={width} height={height}>
+            <g>
+              {this.props.mapData.features.map(function(county, i) {
+                return <path d={path(county)} 
+                             className={quantize(counties[county.properties.id])}
+                             key={i}
+                    />
+              })}
+            </g> 
+          </svg> : <svg width={width} height={height}/> }
+        </div>
       </div>
     )
   }
@@ -123,7 +123,6 @@ export default class HeatMap extends Component {
 function mapStateToProps(state) {
   const mapData = state.HeatMap.map
   const center = state.HeatMap.center
-  console.log(mapData)
   return {
     mapData,
     center

@@ -11,8 +11,8 @@ const RepresentativeDetails = ({representative}) => (
 				<a href={'https://www.twitter.com/@' + representative.person.twitterid} target="_blank">@{representative.person.twitterid}</a>
 		</div>
 		<div className='col-md-2 col-md-offset-1 rep-info'>
-				<div>Phone:</div>
-				<div>{representative.phone}</div>
+				<div>Email:</div>
+				<a href={representative.extra.contact_form}>Contact Form</a>
 		</div>
 		<div className='col-md-2 col-md-offset-1'></div> 
 	</div>

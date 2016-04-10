@@ -6,20 +6,21 @@ import Spinner from '../components/Spinner'
 
 export default class UpcomingRepBills extends Component {
 
-  getBills(role) {
-    console.log(role)
-    this.props.dispatch(getRoleBills(role))
+  componentDidMount() {
+    const { params, representatives, dispatch } = this.props
+    representatives.map(function(rep) {
+      if (rep.id === JSON.parse(params.id)) {
+        console.log('hello')
+        dispatch(getRoleBills(rep.role_type))
+      }
+    }.bind(this))
   }
 
   render() {
-    const { params, representatives } = this.props;
-    representatives.map(function(rep) {
-      if (rep.id === JSON.parse(params.id)) {
-        this.getBills(rep.role_type)
-      }
-    }.bind(this))
+    const { bills } = this.props;
     return (
-      <div className="col-md-10 col-md-offset-1 full-bill-list">
+      <div>
+        { bills ? <BillList bills={bills} index={9}/> : <div><Spinner /></div> }
       </div>
     )
   }
@@ -29,7 +30,6 @@ export default class UpcomingRepBills extends Component {
 function mapStateToProps(state) {
   const representatives = state.Representatives.representatives
   const bills = state.UpcomingBills.congress
-  console.log('noooooooooooo', state) 
   return {
     representatives,
     bills

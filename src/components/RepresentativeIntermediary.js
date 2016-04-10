@@ -5,7 +5,7 @@ import RepresentativeDetails from '../components/RepresentativeDetails'
 
 const RepresentativeIntermediary = ({representative, image}) => (
 	<div>
-		<div className='row'>
+		<div className='row rep-individual-header-container'>
 			<div className='rep-img-container col-lg-2'>
 				<RepresentativePicture
 					image={image} />
