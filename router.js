@@ -5,7 +5,8 @@ const passport = require('passport');
 const requireAuth = passport.authenticate('jwt', { session: false });
 const requireSignin = passport.authenticate('local', { session: false });
 
-
+const congressBill = require('./data/db/UpcomingCongressionalVotes.model');
+const senateBill = require('./data/db/UpcomingSenateBills.model');
 
 
 ///////////////////////////////////////// Models
