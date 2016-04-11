@@ -1,5 +1,18 @@
 body {
-  background-color: rgb(250, 250, 252);
+  background-color: #e6e6e8;
+}
+p {
+  font-family: "Arial Black", Gadget, sans-serif;
+}
+/********************************
+      Div for spacing
+*********************************/
+.between {
+  background-color: #06000a;
+  height: 50px;
+  opacity: 0.6;
+  margin: 5%, 0, 5%, 0;
+  text-align: center;
 }
 
 /********************************
@@ -7,49 +20,113 @@ body {
 *********************************/
 .getting_started {
   position: relative;
-  width: 100%;
-  height: 100%;
+  width: 300px;
+  height: 40%;
   padding: 1%;
   background-color: rgb(168, 210, 220);
+}
+.getting_started_large {
+  position: relative;
+  width: 300px;
+  height: 50%;
+  padding: 1%;
+  left: 5%;
+  background-color: rgb(168, 210, 220); 
+}
+/********************************
+      Logo Image
+*********************************/
+.brand_image {
+  /*position: inherit;*/
+  height: 150px;
+}
+
+/********************************
+      Top Navbar
+*********************************/
+.top-nav-bar {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+
+.top-nav-bar .item {
+    float: right;
+}
+
+.top-nav-bar .home {
+  float: left;
+}
+
+.top-nav-bar a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+/* Change the link color to #111 (black) on hover */
+.top-nav-bar a:hover {
+    background-color: #111;
 }
 
 /********************************
       Header
 *********************************/
 .header {
-  margin-bottom: 5px;
-  margin-top: 2px;
+  position: relative;
+  height: 30%;
+  margin-bottom: 3%;
   border-bottom: 3px;
   border-radius: 1%;
-  background-color: rgb(50, 55, 55);
-  background-image: url('https://upload.wikimedia.org/wikipedia/commons/f/f3/Statue-de-la-liberte-new-york.jpg');
+  background-color: #c5d5cb;
   background-position: inherit;
   background-attachment: scroll;
   background-repeat: no-repeat;
   background-opacity: 0.9;
+  z-index: 150;
+  width: 100%;
 }
-.header h1 {
+.main_brand {
   font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
   font-weight: 50;
   font-size: 80px;
+  text-align: center;
 }
+.blurb {
+  position: relative;
+  text-align: center;
+}
+.signup {
+  position: relative;
+  bottom: 140px;
+}
+/*input {
+  position: relative;
+  right: -80%;
+  width: 100%;
+  bottom: -5%;
+}*/
+
 /********************************
       Heat Map
 *********************************/
-.splash_data {
-  background-color: rgb(250, 250, 255);
-  position: relative;
-  border-style: solid;
-  border-width: 1px;
-  border-radius: 3%;
-  border-color: rgb(0, 0, 2);
-  margin: 20px;
-  padding: 2px;
-  left: 6%;
+
+.voter-turnout {
+  font-size: 48px;
+  padding: 4em;
 }
-.splash_data h2 {
+
+.front_data {
+  /*background-color: #e3e0cf;*/
+  background-color: #c5d5cb;
   position: relative;
-  left: 25%;
+  text-align: center;
+  width: 100%;
+  top: 2%;
 }
 
 .data_info {
@@ -65,24 +142,41 @@ body {
   max-height: 600px;
   padding: 10%
 }
-
+.heat_map_heading {
+  position: relative;
+  top: 215px;
+  right: 50%;
+}
 /********************************
      Tutorial
 *********************************/
+.tutorial-container {
+  width: 80%;
+  text-align: center;
+}
+
 .tutorial {
-  width: 95%;
-  height: 20%;
+  position: relative;
+  left: 15%;
+  width: 90%;
   margin-top: 1%;
   border-bottom: solid;
-  padding-bottom: 15%;
+  background-color: #9fa8a3;
+  background-color: #e3e0cf;
+  text-align: center;
+  z-index: 99;
 }
 
 .tutorial_pic {
   display: inline-block;
+  position: relative;
+  margin-top: 15%;
   width: 100%;
   height: 100%;
 }
-
+.tutorial_text {
+  text-align: center;
+}
 
 /*
 *D3 Style
@@ -91,7 +185,11 @@ body {
 /********************************
       Getting Started Section
 *********************************/
-
+.getting-started-container {
+  text-align: center;
+  margin-left: 25%;
+  padding: 1em;
+}
 
 /********************************
       Spinner
@@ -114,18 +212,27 @@ body {
   shape-rendering: crispEdges;
   }
 
-  div.tooltip {
-      position: absolute;
-      text-align: center;
-      width: 100px;
-      height: 28px;
-      padding: 2px;
-      font: 12px sans-serif;
-      background: #008AB8;
-      border: 0px;
-      border-radius: 6px;
-      pointer-events: none;
-    }
+div.tooltip {
+    position: absolute;
+    text-align: center;
+    width: 100px;
+    height: 28px;
+    padding: 2px;
+    font: 12px sans-serif;
+    background: #008AB8;
+    border: 0px;
+    border-radius: 6px;
+    pointer-events: none;
+}
+
+.graph-container {
+  text-align: center;
+  padding: 1em;
+}
+
+.rep-info-graph-container {
+  padding: 1em;
+}
 
 /********************************
       Heat-Map
@@ -149,6 +256,13 @@ body {
 /********************************
       Representative Page
 *********************************/
+.cong-reps {
+  margin-top: 40%;
+}
+
+.rep-header {
+  margin: center;
+}
 
 .rep-img {
   border-radius: 50%;
@@ -156,16 +270,35 @@ body {
   width: 75%;
 }
 
-.rep-header {
-  margin: center;
+.rep-img-container {
+  text-align: left;
+  position: relative;
+  padding: 20px;
+}
+
+.rep-name {
+  text-align: center;
+  position: relative;
+  font-size: 20px;
+}
+
+.rep-role {
+  text-align: center;
+  position: relative;
+  font-size: 16px;
+}
+
+.rep-name-container {
+  position: relative;
+  text-align: left;
+  width: 10%;
+  height: 100%;
+  margin: 4% auto 0 auto;
 }
 
 .rep-container {
-  width: 50%;
-  height: 40%;
+  width: 40%;
   text-align: center;
-  margin-top: 5vh;
-  margin-bottom: 5vh;
   padding: 20px;
   margin: 0 auto;
   border-radius: 10px;
@@ -182,6 +315,87 @@ body {
   position: relative;
 }
 
+.rep-individual-header-container {
+  width: 80%;
+}
+
 .rep-info:hover {
   background-color: rgba(114, 140, 154, .8);
+}
+
+.rep-left-navbar {
+  padding: 1em;
+  text-align: center;
+  height: 100%;
+}
+
+.rep-left-navbar .option {
+  position: relative;
+  padding: 1em;
+  font-size: 18px;
+  text-align: center;
+  height: 20%;
+  width: 100%;
+  height: 20%;
+}
+
+.option:hover {
+  background-color: rgba(114, 140, 154, .8);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.user_vote {
+  position: relative;
+  width: 10%;
+  height: 10%;
+  margin-right: 0;
 }

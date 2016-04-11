@@ -8,6 +8,7 @@ export default function contributorData(state = {
 }, action) {
 	switch (action.type) {
 		case GET_CONTRIBUTOR_DATA:
+		console.log(action)
 			return Object.assign({}, state, action.data)
 		case SET_GRAPH_TYPE:
 			return Object.assign({}, state, {
