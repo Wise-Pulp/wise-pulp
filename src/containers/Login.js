@@ -12,8 +12,7 @@ export class Login extends Component {
       const { isLoggedIn, loginError } = this.props
       return (
          <div>
-            <LoginForm isLoggedIn={isLoggedIn}
-                       loginError={loginError}
+            <LoginForm {...this.props}
                        onSubmit={this.onSubmit.bind(this)} />
          </div>
       )
