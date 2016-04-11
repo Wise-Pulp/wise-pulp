@@ -1,11 +1,13 @@
 const Authentication = require('./data/db/controllers/authentication');
 const passportService = require('./services/passport');
 const passport = require('passport');
-
+var path = require('path');
+var publicPath = path.resolve(__dirname, 'public');
 const requireAuth = passport.authenticate('jwt', { session: false });
 const requireSignin = passport.authenticate('local', { session: false });
 
-
+const congressBill = require('./data/db/UpcomingCongressionalVotes.model');
+const senateBill = require('./data/db/UpcomingSenateBills.model');
 
 
 ///////////////////////////////////////// Models
@@ -47,8 +49,13 @@ module.exports = function(app) {
     Zipcode.find({ zipcode: zipcode}).exec(function(err, doc){
       var state = doc[0].state,
           district = doc[0].district;
-
-      fetch('https://www.govtrack.us/api/v2/role?current=true&district=' + district + '&state=' + state)
+      var url;
+      if (doc[1]) {
+        url = 'https://www.govtrack.us/api/v2/role?current=true&district=' + district + '&' + doc[1].district + '&state=' + state
+      } else {
+        url = 'https://www.govtrack.us/api/v2/role?current=true&district=' + district + '&state=' + state
+      }
+    fetch(url)
     .then(function(rep) {
       return rep.json();
     }).then(function(val) {
