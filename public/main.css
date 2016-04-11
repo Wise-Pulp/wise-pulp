@@ -1,5 +1,7 @@
 body {
   background-color: #e6e6e8;
+  min-height: 800px;
+  max-height: 1200px;
 }
 p {
   font-family: "Arial Black", Gadget, sans-serif;
@@ -261,8 +263,9 @@ div.tooltip {
 *********************************/
 
 .footer {
-  bottom: 1%;
-  margin-top: 3%;
+  position: relative;
+  bottom: 3px;
+  margin-top: 20%;
   text-align: center;
 }
 
@@ -393,46 +396,11 @@ div.tooltip {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+/* user voting form */
 
 .user_vote {
   position: relative;
-  width: 10%;
+  width: 15%;
   height: 10%;
   margin-right: 0;
 }
