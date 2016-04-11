@@ -28,7 +28,7 @@ export default class BillList extends Component {
           </div> )
       }
       }) }
-     <button type="button" className=" btn btn-default show_more_bills">More</button>
+     <button type="button" className="btn btn-default show_more_bills">More</button>
     </div> 
   )
  } 
