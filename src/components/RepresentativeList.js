@@ -8,7 +8,6 @@ import { Link } from 'react-router'
 export default class RepresentativeList extends Component {
 	render() {
 		const { representatives, selectRep } = this.props
-		console.log(representatives)
 		return <div>
 			<div className='row rep-container'>
 				{representatives.length === 3 ? 

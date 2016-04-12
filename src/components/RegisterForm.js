@@ -11,7 +11,7 @@ export default class LoginForm extends Component {
    render () {
       return (
          <div>
-            <h1 className='login-header'>Login</h1>
+            <h1 className='login-header'>Register</h1>
             <form action="#" onSubmit={(e) => this.handleSubmit(e)}>
                <d1>
                   <dt>

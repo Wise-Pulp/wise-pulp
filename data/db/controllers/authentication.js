@@ -15,7 +15,7 @@ module.exports.signin = function(req, res, next) {
   res.send({ token: tokenForUser(req.user) });
 }
 module.exports.signup = function(req, res, next) {
-  console.log('(((((((', Object.keys(req)) ;
+  console.log(req.body) ;
 
   var logit = {
     email: req.params.email,
