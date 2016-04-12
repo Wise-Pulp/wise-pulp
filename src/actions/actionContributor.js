@@ -19,7 +19,6 @@ export function getContributorData(zipcode) {
 }
 
 export function receiveContributorData(data) {
-  console.log(data)
 	return {
 		type: GET_CONTRIBUTOR_DATA,
 		data
