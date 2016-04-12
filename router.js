@@ -38,6 +38,15 @@ module.exports = function(app) {
   //   res.send({ hi: 'there' });
   // });
 
+  app.get('/test', function(req, res) {
+    // console.log('@@@@@@@@@', passport.authenticate('jwt', { session: false })); 
+    res.send('test');
+  });
+
+
+  app.get('/', requireAuth, function(req, res) {
+    res.send({ hi: 'there' });
+  });
 
   app.post('/signin', requireSignin, Authentication.signin);
   app.post('/signup', Authentication.signup);
@@ -87,14 +96,14 @@ module.exports = function(app) {
   })
 
   app.post('/api/signup', function(req, res, next) {
-  if (!req.body.username || !req.body.password) {
+  if (!req.body.email || !req.body.password) {
     console.log(req.params);
     return res.status(400).json({ message: 'Please fill out all fields' });
   }
     // console.log('***************', Object.keys(req));
   var user = new User();
   user.password = req.body.password;
-  user.username = req.body.username;
+  user.email = req.body.email;
   console.log('this is the user', user);
 
   user.save(function (err, success) {
