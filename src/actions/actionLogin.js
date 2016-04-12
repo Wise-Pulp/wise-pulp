@@ -45,7 +45,9 @@ export function userRegister(email, password) {
         email,
         password
       })
-    }).then((res) => {
+    }).then(respone => response.json())
+      .then((token) => {
+        console.log(token)
       if (res.status === 200 ) {
         return dispatch(loginSuccess())
       } else {
@@ -82,9 +84,10 @@ export function userLogin(email, password) {
       })
     }).then((res) => {
       if (res.status === 200 ) {
+        console.log(res)
         return dispatch(loginSuccess())
       } else {
-        return dispatch(loginError(res))
+        return dispatch(loginError())
       }
     })
   }

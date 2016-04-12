@@ -27,7 +27,6 @@ export default class TopNavbar extends Component {
 }
 
 function mapStateToProps(state) {
-  console.log(state)
   const isLoggedIn = state.user.isLoggedIn
   return {
     isLoggedIn
