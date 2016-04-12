@@ -9,10 +9,8 @@ import TopNavbar from '../components/TopNavbar'
 export default class FrontPage extends Component {
   render() {
     return (
-      <div className="col-sm-12">
-        <Header />
+      <div>        
         <Tutorial />
-        <HeatMap />
       </div>
     );
   }
