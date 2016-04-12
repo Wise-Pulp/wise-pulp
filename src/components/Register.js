@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 
 export default class LoginForm extends Component {
    handleSubmit(e) {
+      console.log(e)
       e.preventDefault();
       this.props.onSubmit(this.login.value, this.password.value);
       this.login.value = ''
@@ -11,7 +12,7 @@ export default class LoginForm extends Component {
    render () {
       return (
          <div>
-            <h1 className='login-header'>Login</h1>
+            <h1 className='login-header'>Register</h1>
             <form action="#" onSubmit={(e) => this.handleSubmit(e)}>
                <d1>
                   <dt>

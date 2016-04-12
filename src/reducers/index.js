@@ -6,7 +6,7 @@ import Spinner from './reducerSpinner'
 import ContributorVisualization from './reducerContributor'
 import HeatMap from './reducerHeatMap'
 import UpcomingBills from './reducerBills'
-import Login from './reducerLogin'
+import user from './reducerLogin'
 
 const rootReducer = combineReducers({
   FrontPage,
@@ -16,7 +16,7 @@ const rootReducer = combineReducers({
   HeatMap,
   routing,
   UpcomingBills,
-  Login
+  user
 })
 
 export default rootReducer

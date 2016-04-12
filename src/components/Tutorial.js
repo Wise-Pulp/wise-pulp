@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router'
-import Login from '../containers/Login'
+import Register from '../containers/Register'
 
 
 export default class Tutorial extends Component {
@@ -19,7 +19,7 @@ export default class Tutorial extends Component {
            <Link to={'representatives'}>
             <button className="btn btn-default getting_started">Get Started!</button></Link>
             <h4 className="or">- or - </h4>
-            <Login />
+            <Register />
           </div>
         </div>
       </div>

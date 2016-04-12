@@ -44,9 +44,9 @@ module.exports = function(app) {
   });
 
 
-  app.get('/', requireAuth, function(req, res) {
-    res.send({ hi: 'there' });
-  });
+  // app.get('/', requireAuth, function(req, res) {
+  //   res.send({ hi: 'there' });
+  // });
 
   app.post('/signin', requireSignin, Authentication.signin);
   app.post('/signup', Authentication.signup);
@@ -60,7 +60,7 @@ module.exports = function(app) {
           district = doc[0].district;
       var url;
       if (doc[1]) {
-        url = 'https://www.govtrack.us/api/v2/role?current=true&district=' + district + '&' + doc[1].district + '&state=' + state
+        url = 'https://www.govtrack.us/api/v2/role?current=true&district=' + district + '&district=' + doc[1].district + '&state=' + state
       } else {
         url = 'https://www.govtrack.us/api/v2/role?current=true&district=' + district + '&state=' + state
       }
@@ -75,7 +75,9 @@ module.exports = function(app) {
             return img.json();
           })
           .then(function(senator) {
-            senator.objects.push(congressperson.objects[0]);
+            for (var i = congressperson.objects.length - 1; i >= 0; i--) {
+              senator.objects.push(congressperson.objects[i])
+            }
             res.send(senator);
           });
     });
