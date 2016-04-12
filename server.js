@@ -816,8 +816,6 @@ app.use(express.static(publicPath));
 /****************************************************
       collects bill information from govtrack
 ****************************************************/
-const congressBill = require('./data/db/UpcomingCongressionalVotes.model');
-const senateBill = require('./data/db/UpcomingSenateBills.model');
 
 function collectBills(uri, model) {
   fetch(uri, (req, res) => {

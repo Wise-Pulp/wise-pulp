@@ -121,7 +121,6 @@ export default class Visualization {
       .transition()
         .attr('x', function(d) { return x(d.x); })
         .attr('width', x.rangeBand());
-  // Inspired by Lee Byron's test data generator.
   
     }
   }

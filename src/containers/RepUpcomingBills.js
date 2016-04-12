@@ -21,7 +21,6 @@ export default class RepUpcomingBills extends Component {
           <h2>Bills To Be Debated Before Congress</h2>
         </div>
         <div className="col-md-4 col-md-offset-1">
-        /* Somehow here we only show the bills for House or Senate, depending on const title!!!!!! */
           { title.length ? <div> <h3>Senate</h3> <BillList 
             bills={title} /> </div> : <div><Spinner /></div> }
         </div>

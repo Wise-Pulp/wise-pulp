@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import FrontPage from '../containers/FrontPage'
 import Representatives from '../containers/Representatives'
 import TopNavbar from './TopNavbar'
+import Footer from './Footer'
 import { getRepresentatives } from '../actions/index'
 
 export default class App extends Component {
@@ -14,6 +15,7 @@ export default class App extends Component {
       <div>
         <TopNavbar />
       	{children}
+        <Footer />
       </div>
     );
   }
