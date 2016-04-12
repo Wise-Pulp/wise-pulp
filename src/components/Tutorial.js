@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router'
+import Login from '../containers/Login'
 
 
 export default class Tutorial extends Component {
@@ -14,7 +15,12 @@ export default class Tutorial extends Component {
             </div>
             <p className="tutorial_text">Assisting voters in taking ownership of their democratic system through education, and data.</p>
           </div>
-            <div className='getting-started-container'><Link to={'representatives'}><button className="btn btn-default getting_started">Get Started!</button></Link></div>
+          <div className='getting-started-container'>
+           <Link to={'representatives'}>
+            <button className="btn btn-default getting_started">Get Started!</button></Link>
+            <h4 className="or">- or - </h4>
+            <Login />
+          </div>
         </div>
       </div>
       );

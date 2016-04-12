@@ -22,12 +22,17 @@ body {
       Buttons
 *********************************/
 .getting_started {
-  position: relative;
+  position: inherit;
+  display: block;
+  right: 95%;
+  bottom: 10%;
   width: 300px;
-  height: 40%;
-  padding: 1%;
+  height: 50px;
+  text-align: center;
+  font-size: 28px;
   background-color: rgb(168, 210, 220);
   border-radius: 6px;
+  z-index: 100;
 }
 .getting_started_large {
   position: relative;
@@ -211,7 +216,13 @@ body {
 .tutorial_text {
   text-align: center;
 }
-
+.or {
+  position: inherit;
+  display: block;
+  left: 41%;
+  bottom: 10%;
+  z-index: 900;
+}
 /*
 *D3 Style
 */
@@ -219,11 +230,11 @@ body {
 /********************************
       Getting Started Section
 *********************************/
-/*.getting-started-container {
-  text-align: center;
-  margin-left: 25%;
-  padding: 1em;
-}*/
+.getting-started-container {
+  position: relative;
+  bottom: 7%;
+  right: 25%;
+}
 
 /********************************
       Spinner
