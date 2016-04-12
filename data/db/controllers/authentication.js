@@ -11,13 +11,21 @@ function tokenForUser(user) {
 module.exports.signin = function(req, res, next) {
   //User has already supplied and verified their username and password
   //We need to give them a token.
+  console.log(req.user)
   res.send({ token: tokenForUser(req.user) });
 }
 module.exports.signup = function(req, res, next) {
-  console.log(req.params);
-  console.log('*********************', Object.keys(req));
-  const email = req.params.email;
-  const password = req.params.password;
+  console.log('(((((((', Object.keys(req)) ;
+
+  var logit = {
+    email: req.params.email,
+    password: req.params.password,
+    body: req.body
+  }
+
+  console.log('*********************', logit);
+  const email = req.body.email;
+  const password = req.body.password;
   
 
   // if (!email || !password) {

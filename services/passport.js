@@ -12,7 +12,9 @@ const localOptions = { usernameField: 'email' };
 const localLogin = new LocalStrategy(localOptions, function(email, password, done) {
   // Verify this username and password
   User.findOne({ email: email }, function(err, user){
-    if (err) { return done(err); }
+    if (err) { 
+      console.log('user not found!');
+      return done(err); }
     if (!user) { return done(null, false); }
 
     //compare passwords - is 'password' equal to user.password?

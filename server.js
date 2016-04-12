@@ -13,6 +13,12 @@ var config = require('./config');
 var cleanData;
 
 
+/// @TODO: assign bodybarsers to variables and only execute on necessary routes
+app.use(bodyParser());
+
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: true }));
+
 router(app);
 
 //connect to heroku
@@ -801,14 +807,6 @@ var port = isProduction ? process.env.PORT : 3500;
 var proxy = httpProxy.createProxyServer({
   changeOrigin: true
 });
-
-
-
-
-// parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: false }));
-/// @TODO: assign bodybarsers to variables and only execute on necessary routes
-app.use(bodyParser.json({ type: '*/*' }));
 
 
 app.use(express.static(publicPath));
