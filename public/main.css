@@ -22,17 +22,17 @@ body {
       Buttons
 *********************************/
 .getting_started {
-  position: inherit;
+  position: relative;
   display: block;
-  left: 95%;
-  bottom: 10%;
+  /*bottom: 50%;*/
+  left: 35%;
   width: 300px;
   height: 50px;
   text-align: center;
   font-size: 28px;
   background-color: rgb(168, 210, 220);
   border-radius: 6px;
-  z-index: 100;
+  z-index: 1100;
 }
 .getting_started_large {
   position: relative;
@@ -112,7 +112,7 @@ body {
 }
 .signup {
   position: relative;
-  bottom: 140px;
+  bottom: 10%;
 }
 /*input {
   position: relative;
@@ -187,8 +187,8 @@ body {
 .tutorial-container {
   position: absolute;
   width: 100%;
-  height: 600px;
-  top: 5%;
+  height: 100%;
+  top: 8%;
   text-align: left;
   z-index: 1;
   /*background-color: #e3e0cf;*/
@@ -217,9 +217,11 @@ body {
   text-align: center;
 }
 .or {
-  position: absolute;
-/*  left: 1px;
-  bottom: 1px;*/
+  position: relative;
+  display: block;
+  top: 20%;
+  left: 42%;
+  font-weight: bold;
   z-index: 900;
 }
 /*
@@ -230,9 +232,9 @@ body {
       Getting Started Section
 *********************************/
 .getting-started-container {
-  position: relative;
+  position: absolute;
   width: 100%;
-  height: 100%;
+  height: 80%;
   bottom: 7%;
   right: 25%;
 }
