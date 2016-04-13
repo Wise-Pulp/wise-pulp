@@ -38,10 +38,10 @@ module.exports = function(app) {
   //   res.send({ hi: 'there' });
   // });
 
-  app.get('/test', function(req, res) {
-    // console.log('@@@@@@@@@', passport.authenticate('jwt', { session: false })); 
-    res.send('test');
-  });
+  // app.get('/test', function(req, res) {
+  //   // console.log('@@@@@@@@@', passport.authenticate('jwt', { session: false })); 
+  //   res.send('test');
+  // });
 
 
   // app.get('/', requireAuth, function(req, res) {

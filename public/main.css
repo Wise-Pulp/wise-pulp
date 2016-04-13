@@ -4,35 +4,21 @@ body {
   max-height: 1200px;
   width: 100%;
 }
-/*p {
-  font-family: "Arial Black", Gadget, sans-serif;
-}*/
-/********************************
-      Div for spacing
-*********************************/
-.between {
-  background-color: #06000a;
-  height: 50px;
-  opacity: 0.6;
-  margin: 5%, 0, 5%, 0;
-  text-align: center;
-}
-
 /********************************
       Buttons
 *********************************/
 .getting_started {
-  position: inherit;
+  position: relative;
   display: block;
-  right: 95%;
-  bottom: 10%;
+  top: 150px;
+  left: 35%;
   width: 300px;
   height: 50px;
   text-align: center;
   font-size: 28px;
   background-color: rgb(168, 210, 220);
   border-radius: 6px;
-  z-index: 100;
+  z-index: 1100;
 }
 .getting_started_large {
   position: relative;
@@ -42,13 +28,6 @@ body {
   left: 5%;
   background-color: rgb(168, 210, 220); 
   border-radius: 6px;
-}
-/********************************
-      Logo Image
-*********************************/
-.brand_image {
-  /*position: inherit;*/
-  height: 150px;
 }
 
 /********************************
@@ -112,15 +91,8 @@ body {
 }
 .signup {
   position: relative;
-  bottom: 140px;
+  bottom: 10%;
 }
-/*input {
-  position: relative;
-  right: -80%;
-  width: 100%;
-  bottom: -5%;
-}*/
-
 /********************************
       Heat Map
 *********************************/
@@ -131,7 +103,6 @@ body {
 }
 
 .front_data {
-  /*background-color: #e3e0cf;*/
   background-color: #c5d5cb;
   position: relative;
   text-align: center;
@@ -182,13 +153,12 @@ body {
   background-repeat: no-repeat;
   background-position: 0, -10px;
   opacity: 0.8;
-  /*background-color: #e3e0cf;*/
 }
 .tutorial-container {
   position: absolute;
   width: 100%;
-  height: 600px;
-  top: 5%;
+  height: 100%;
+  top: 8%;
   text-align: left;
   z-index: 1;
   /*background-color: #e3e0cf;*/
@@ -217,22 +187,38 @@ body {
   text-align: center;
 }
 .or {
-  position: inherit;
+  position: relative;
   display: block;
-  left: 41%;
-  bottom: 10%;
+  top: 30%;
+  left: 42%;
+  font-weight: bold;
   z-index: 900;
 }
-/*
-*D3 Style
-*/
+.track {
+  position: relative;
+  width: 40%;
+  left: 5%;
+  margin: 10% 3%;
+  text-align: center;
+  font-size: 20px;
+}
+.future {
+  width: 40%;
+  position: relative;
+  left: 52%;
+  margin: 10% 3%;
+  text-align: center;
+  font-size: 20px;
+}
 
 /********************************
       Getting Started Section
 *********************************/
 .getting-started-container {
-  position: relative;
-  bottom: 7%;
+  position: absolute;
+  width: 100%;
+  height: 80%;
+  bottom: 20%;
   right: 25%;
 }
 
@@ -305,8 +291,8 @@ div.tooltip {
 
 .footer {
   position: relative;
-  bottom: 3px;
-  margin-top: 20%;
+  font-size: 20px;
+  margin-top: 55%;
   text-align: center;
 }
 
@@ -424,6 +410,19 @@ div.tooltip {
   margin: 15% auto;
   width: 30%;
   height: 90%;
+  /*margin-bottom: 500px;*/
+  z-index: 9999;
+}
+.login-background {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  /*margin-bottom: 200px;*/
+  background-image: url("http://scan.lusu.co.uk/wp-content/uploads/2016/03/Vote.jpg");
+  background-size: 100%, 50%;
+  background-repeat: no-repeat;
+  background-position: 0, -10px;
+  opacity: 0.8;
 }
 
 .input-field {
