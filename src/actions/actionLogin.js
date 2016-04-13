@@ -7,17 +7,17 @@ export const PROCESSING_LOGIN = 'PROCESSING_LOGIN'
 export const PROCESSING_REGISTRATION = 'PROCESSING_REGISTRATION'
 export const USER_REGISTRATION_ERROR = 'USER_REGISTRATION_ERROR'
 
-export function loginSuccess() {
+export function loginSuccess(payload) {
   browserHistory.push('representatives')
   return {
-    type: USER_LOGIN_SUCCESS
+    type: USER_LOGIN_SUCCESS,
+    payload
   }
 }
 
-export function loginError(err) {
+export function loginError() {
   return {
     type: USER_LOGIN_ERROR,
-    payload: err
   }
 }
 
@@ -45,10 +45,9 @@ export function userRegister(email, password) {
         email,
         password
       })
-    }).then(respone => response.json())
-      .then((token) => {
-        console.log(token)
-      if (res.status === 200 ) {
+    }).then(response => response.json())
+      .then((res) => {
+      if (res.token) {
         return dispatch(loginSuccess())
       } else {
         return dispatch(registrationError())
@@ -82,13 +81,13 @@ export function userLogin(email, password) {
         email,
         password
       })
-    }).then((res) => {
-      if (res.status === 200 ) {
-        console.log(res)
-        return dispatch(loginSuccess())
-      } else {
-        return dispatch(loginError())
-      }
-    })
+    }).then(function(user) {
+        if (user.status === 200) {
+          user = user.json()
+          return dispatch(loginSuccess(user.userId))
+        } else {
+          return dispatch(loginError())
+        }
+      })
   }
 }

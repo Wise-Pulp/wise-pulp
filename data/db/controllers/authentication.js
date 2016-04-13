@@ -11,7 +11,7 @@ function tokenForUser(user) {
 module.exports.signin = function(req, res, next) {
   //User has already supplied and verified their username and password
   //We need to give them a token.
-  console.log(req.user)
+  console.log(tokenForUser(req.user))
   res.send({ token: tokenForUser(req.user) });
 }
 module.exports.signup = function(req, res, next) {
