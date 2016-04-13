@@ -2,13 +2,10 @@ import React, { Component } from 'react'
 
 export default class BillList extends Component {
  render() {
+  console.log('props', this.props)
   return (
     <div>
      { this.props.bills.map( (bill, i)=> {
-      if (this.props.index === i) {
-        console.log('this index', this.props.index, 'i', i);
-        return;
-      }
       while (i < this.props.billsToShow) {
         return ( <div>
           Bill Number: {bill.billNumber}<br />
@@ -28,7 +25,7 @@ export default class BillList extends Component {
           </div> )
       }
       }) }
-     <button type="button" className="btn btn-default show_more_bills">More</button>
+     <button type="button" className="btn btn-default show_more_bills" onClick={e => this.props.showMoreBills()}>More</button>
     </div> 
   )
  } 

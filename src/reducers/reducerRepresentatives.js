@@ -1,4 +1,5 @@
 import { RECEIVE_REPRESENTATIVES, IS_FETCHING } from '../actions/index'
+import { ADD_TO_BILLS } from '../actions/actionBills'
 
 export default function representativesList(state = {
 	representatives: [],

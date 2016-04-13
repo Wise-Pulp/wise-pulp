@@ -64,7 +64,7 @@ export function receiveHouseBillData(bill, anything) {
   }
 }
 
-export function addToBills() {
+export function addToBills(bill) {
   return {
     type: ADD_TO_BILLS,
     bill

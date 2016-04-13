@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getSenateBillData, getHouseBillData } from '../actions/actionBills';
+import { getSenateBillData, getHouseBillData, addToBills } from '../actions/actionBills';
 import BillList from '../components/BillList'
 import Spinner from '../components/Spinner'
 
 export default class UpcomingBills extends Component {
+
+  showMoreBills() {
+    this.props.dispatch(addToBills());
+  }
 
   componentWillMount() {
     this.props.dispatch(getSenateBillData());
@@ -20,10 +24,10 @@ export default class UpcomingBills extends Component {
         </div>
         <div className="col-md-4 col-md-offset-1">
           { senate.length ? <div> <h3>Senate</h3> <BillList 
-            bills={senate} billsToShow={billsToShow} /> </div> : <div><Spinner /></div> }
+            bills={senate} billsToShow={billsToShow} showMoreBills={this.showMoreBills.bind(this)}/> </div> : <div><Spinner /></div> }
         </div>
         <div className="col-md-4 col-md-offset-1">
-          { house.length ? <div> <h3>House of Representatives</h3> <BillList bills={house} billsToShow={billsToShow} /> </div>: null }
+          { house.length ? <div> <h3>House of Representatives</h3> <BillList bills={house} billsToShow={billsToShow} showMoreBills={this.showMoreBills.bind(this)}/> </div>: null }
         </div>
       </div>
     )
@@ -31,10 +35,10 @@ export default class UpcomingBills extends Component {
 }
 
 function mapStateToProps(state) {
-  
-  const senate = state.UpcomingBills.senate || [];
-  const house = state.UpcomingBills.house || [];
-  var billsToShow = billsToShow || 9;
+  console.log('state', state)
+  const senate = state.UpcomingBills.senate || []
+  const house = state.UpcomingBills.house || []
+  var billsToShow = state.UpcomingBills.billsToShow
   return {
     senate,
     house,
