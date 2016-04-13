@@ -12,20 +12,20 @@ const senateBill = require('./data/db/UpcomingSenateBills.model');
 
 ///////////////////////////////////////// Models
 var User = require('./data/db/User.model');
-var Zipcode = require('./data/db/Zipcode.model.js');
+var Zipcode = require('./data/db/Zipcode.model');
 var CandidateSummary = require('./data/db/Candidate_Summary.model');
 var Contribution = require('./data/db/Contribution.model');
 var GE_Turnout = require('./data/db/Gen_Election_Voter_Turnout.model');
 var LDR_PAC_Sponsor = require('./data/db/LDR_PAC_Sponsor.model');
 var Administrative_Fine = require('./data/db/Administrative_Fine.model');
-
+var UserOpinion = require('./data/db/UserOpinion.model');
 
 /////////////////////////////////////////// API helper functions
 
 function validateNumber(aString) {
   var results = aString.replace(/(\D)/g, '0');
   return results;
-}
+};
 
 
 
@@ -34,19 +34,22 @@ function validateNumber(aString) {
 
 
 module.exports = function(app) {
-  // app.get('/', requireAuth, function(req, res) {
-  //   res.send({ hi: 'there' });
-  // });
-
-  // app.get('/test', function(req, res) {
-  //   // console.log('@@@@@@@@@', passport.authenticate('jwt', { session: false })); 
-  //   res.send('test');
-  // });
+  
 
 
-  // app.get('/', requireAuth, function(req, res) {
-  //   res.send({ hi: 'there' });
-  // });
+  app.post('/userOpinions', requireAuth, function(req, res) {
+    var id = req.body.userId;
+    var billNumber = req.body.billNumber;
+    var opinion = req.body.opinion;
+    var votedAt = Date.parse(new Date());
+
+    var thisOpinion = new UserOpinion();
+    thisOpinion.userid = id;
+    thisOpinion.billNumber = billNumber;
+    thisOpinion.decision = JSON.parse(opinion);
+    thisOpinion.votedAt = votedAt;
+
+  });
 
   app.post('/signin', requireSignin, Authentication.signin);
   app.post('/signup', Authentication.signup);
@@ -87,36 +90,36 @@ module.exports = function(app) {
 
   app.get('/representatives/:id', function(req, res) {
   res.sendFile(publicPath + '/index.html');
-  })
+  });
 
   app.get('/representatives', function(req, res) {
     res.sendFile(publicPath + '/index.html')
-  })
+  });
 
   app.get('/upcoming_bills', function(req, res) {
     res.sendFile(publicPath + '/index.html');
-  })
+  });
 
-  app.post('/api/signup', function(req, res, next) {
-  if (!req.body.email || !req.body.password) {
-    console.log(req.params);
-    return res.status(400).json({ message: 'Please fill out all fields' });
-  }
-    // console.log('***************', Object.keys(req));
-  var user = new User();
-  user.password = req.body.password;
-  user.email = req.body.email;
-  console.log('this is the user', user);
+  // app.post('/api/signup', function(req, res, next) {
+  //   if (!req.body.email || !req.body.password) {
+  //     console.log(req.params);
+  //     return res.status(400).json({ message: 'Please fill out all fields' });
+  //   }
+  //   // console.log('***************', Object.keys(req));
+  //   var user = new User();
+  //   user.password = req.body.password;
+  //   user.email = req.body.email;
+  //   console.log('this is the user', user);
 
-  user.save(function (err, success) {
-      if (err) {
-        return next(err);
-      }
-      return res.json({
-        'theSmellOfSuccess': true
-      });
-    });      
-});
+  //   user.save(function (err, success) {
+  //     if (err) {
+  //       return next(err);
+  //     }
+  //     return res.json({
+  //       'theSmellOfSuccess': true
+  //     });
+  //   });      
+  // });
 
 
 

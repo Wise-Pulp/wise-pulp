@@ -41,8 +41,8 @@ var output = './data/GeoJson/USCounties_500k.json';
 
 
 //Converter Class
-var Converter  = require('csvtojson').Converter;
-var converter  = new Converter({});
+var Converter = require('csvtojson').Converter;
+var converter = new Converter({});
 
 // converter.fromFile(csvFile, function(err, result) {
 //    if(err) console.log(err)
