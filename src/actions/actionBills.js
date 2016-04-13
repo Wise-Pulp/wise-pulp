@@ -2,13 +2,16 @@ export const SENATE_BILL_DATA = 'SENATE_BILL_DATA'
 export const HOUSE_BILL_DATA = 'HOUSE_BILL_DATA'
 export const GET_ROLE_BILLS = 'GET_ROLE_BILLS'
 export const ADD_TO_BILLS = 'ADD_TO_BILLS'
+export const YES_VOTE = 'YES_VOTE'
+export const NO_VOTE = 'NO_VOTE'
+export const BILL_VOTE = 'BILL_VOTE'
 
 export function getRoleBills(role) {
   if( role === 'senator') {
     return dispatch => {
       return dispatch(getSenateBillData(true));
-      } 
-  }else {
+    } 
+  } else {
     return dispatch => {
       return dispatch(getHouseBillData(true));
     }
@@ -68,5 +71,27 @@ export function addToBills(bill) {
   return {
     type: ADD_TO_BILLS,
     bill
+  }
+}
+
+export function yes(payload) {
+  return {
+    type: YES_VOTE,
+    payload
+  }
+}
+
+export function no(payload) {
+  return {
+    type: NO_VOTE,
+    payload
+  }
+}
+
+export function billVote(bill, vote) {
+  return {
+    type: BILL_VOTE,
+    bill,
+    vote
   }
 }

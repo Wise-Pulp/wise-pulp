@@ -5,7 +5,7 @@ import Tutorial from '../components/Tutorial'
 import GettingStarted from '../components/GettingStarted'
 import TopNavbar from '../components/TopNavbar'
 
-
+//TODO: add gray background to the p tag
 export default class FrontPage extends Component {
   render() {
     return (

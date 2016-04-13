@@ -3,6 +3,11 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router';
 import { processLogout } from '../actions/actionLogin'
 
+
+//put a logo in next to the home button
+//Polis (get rid of home)
+//Make the login look like a button
+
 export default class TopNavbar extends Component {
 
   logout(e) {

@@ -31,7 +31,6 @@ export default class UpcomingRepBills extends Component {
 
 
 function mapStateToProps(state) {
-  console.log('state', state)
   const representatives = state.Representatives.representatives
   const bills = state.UpcomingBills.congress
   var billsToShow = state.UpcomingBills.billsToShow
