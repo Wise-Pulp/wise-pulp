@@ -9,7 +9,7 @@ export default class BillList extends Component {
         console.log('this index', this.props.index, 'i', i);
         return;
       }
-      while (i < 9) {
+      while (i < this.props.billsToShow) {
         return ( <div>
           Bill Number: {bill.billNumber}<br />
           Bill Name: {bill.billName}<br />
