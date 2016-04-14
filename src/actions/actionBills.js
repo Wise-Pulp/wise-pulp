@@ -1,6 +1,7 @@
 export const SENATE_BILL_DATA = 'SENATE_BILL_DATA'
 export const HOUSE_BILL_DATA = 'HOUSE_BILL_DATA'
 export const GET_ROLE_BILLS = 'GET_ROLE_BILLS'
+export const ADD_TO_BILLS = 'ADD_TO_BILLS'
 
 export function getRoleBills(role) {
   if( role === 'senator') {
@@ -60,5 +61,12 @@ export function receiveHouseBillData(bill, anything) {
       type: HOUSE_BILL_DATA,
       bill
     } 
+  }
+}
+
+export function addToBills(bill) {
+  return {
+    type: ADD_TO_BILLS,
+    bill
   }
 }

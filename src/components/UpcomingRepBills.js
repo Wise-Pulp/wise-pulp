@@ -1,26 +1,29 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getRoleBills, getSenateBillData, getHouseBillData } from '../actions/actionBills';
+import { getRoleBills, getSenateBillData, getHouseBillData, addToBills } from '../actions/actionBills';
 import BillList from '../components/BillList'
 import Spinner from '../components/Spinner'
 
 export default class UpcomingRepBills extends Component {
 
+  showMoreBills() {
+    this.props.dispatch(addToBills());
+  }
+
   componentDidMount() {
     const { params, representatives, dispatch } = this.props
     representatives.map(function(rep) {
       if (rep.id === JSON.parse(params.id)) {
-        console.log('hello')
         dispatch(getRoleBills(rep.role_type))
       }
     }.bind(this))
   }
 
   render() {
-    const { bills } = this.props;
+    const { bills, billsToShow } = this.props;
     return (
       <div>
-        { bills ? <BillList bills={bills} index={9}/> : <div><Spinner /></div> }
+        { bills ? <BillList bills={bills} billsToShow={billsToShow} showMoreBills={this.showMoreBills.bind(this)}/> : <div><Spinner /></div> }
       </div>
     )
   }
@@ -28,11 +31,14 @@ export default class UpcomingRepBills extends Component {
 
 
 function mapStateToProps(state) {
+  console.log('state', state)
   const representatives = state.Representatives.representatives
   const bills = state.UpcomingBills.congress
+  var billsToShow = state.UpcomingBills.billsToShow
   return {
     representatives,
-    bills
+    bills,
+    billsToShow
   }
 }
 

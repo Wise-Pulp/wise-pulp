@@ -12,7 +12,7 @@ export default class RepUpcomingBills extends Component {
   }
 
   render() {
-    const { senate, house } = this.props;
+    const { senate, house, billsToShow } = this.props;
     // if on Senator, title, gets senate. else title gets House.
     const title;
     return (
@@ -22,7 +22,7 @@ export default class RepUpcomingBills extends Component {
         </div>
         <div className="col-md-4 col-md-offset-1">
           { title.length ? <div> <h3>Senate</h3> <BillList 
-            bills={title} /> </div> : <div><Spinner /></div> }
+            bills={title} billsToShow={billsToShow} /> </div> : <div><Spinner /></div> }
         </div>
       </div>
     )
