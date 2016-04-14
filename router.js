@@ -60,12 +60,10 @@ module.exports = function(app) {
         return next(err);
       }
       if (user) {
-        console.log(user);
         return res.json({
           userId: user._id,
         });
       } else {
-        console.log('no user');
         return res.status(401).json(info);
       }
     })(req, res, next);

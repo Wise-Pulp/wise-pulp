@@ -49,9 +49,12 @@ module.exports.signup = function(req, res, next) {
 
     user.save(function(err) {
       if (err) { return next(err); }
+      return res.json({
+          userId: user._id,
+        });
     });
 
     //respond to request indicating user was saved.
-    res.json({ token: tokenForUser(user) });
+   // res.json({ token: tokenForUser(user) });
   });
 }

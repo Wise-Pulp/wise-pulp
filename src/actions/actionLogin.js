@@ -47,8 +47,8 @@ export function userRegister(email, password) {
       })
     }).then(response => response.json())
       .then((res) => {
-      if (res.token) {
-        return dispatch(loginSuccess())
+      if (res.userId) {
+        return dispatch(loginSuccess(res.userId))
       } else {
         return dispatch(registrationError())
       }
@@ -83,11 +83,17 @@ export function userLogin(email, password) {
       })
     }).then(function(user) {
         if (user.status === 200) {
-          user = user.json()
-          return dispatch(loginSuccess(user.userId))
+          return user.json()
         } else {
-          return dispatch(loginError())
+          return false
         }
+      }).then(function(user) {
+        if (user) {
+          return dispatch(loginSuccess(user.userId))
+        }
+          return dispatch(loginError())
       })
   }
 }
+
+// /usersOpinions
