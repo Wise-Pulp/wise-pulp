@@ -45,13 +45,18 @@ export default function upcomingBills(state = {
           })
         }
       }
-      // for (let i = 0; i < state.house.length; i++) {
-      //   if (state.house[i]._id === action.payload._id) {
-      //     return Object.assign({}, state, 
-      //       state.house[i] = action.payload.bill
-      //     )
-      //   }
-      // }
+      for (let i = 0; i < state.senate.length; i++) {
+        if (state.senate[i]._id === action.payload._id) {
+          let before = state.senate.slice(0, i)
+          let after = state.senate.slice(i+1, state.senate.length - 1)
+          before.push(action.payload)
+          let newSenate = before.concat(after)
+
+          return Object.assign({}, state, {
+            senate: newSenate
+          })
+        }
+      }
     default:
       return state
   }
