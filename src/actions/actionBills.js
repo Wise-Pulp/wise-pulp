@@ -6,6 +6,8 @@ export const YES_VOTE = 'YES_VOTE'
 export const NO_VOTE = 'NO_VOTE'
 export const BILL_VOTE = 'BILL_VOTE'
 
+let houseBills, senateBills
+
 export function getRoleBills(role) {
   if( role === 'senator') {
     return dispatch => {
@@ -29,6 +31,7 @@ let senate = '/api/data/senate_bills';
 
 
 export function receiveSenateBillData(bill, anything) {
+  senateBills = bill
   if (anything) {
     return {
       type: GET_ROLE_BILLS,
@@ -54,6 +57,7 @@ let house = '/api/data/house_bills';
 
 
 export function receiveHouseBillData(bill, anything) {
+  houseBills = bill
   if (anything) {
     return {
       type: GET_ROLE_BILLS,
@@ -89,9 +93,12 @@ export function no(payload) {
 }
 
 export function billVote(bill, vote) {
+  var updatedBill = Object.assign({}, bill, {
+    vote
+  })
+  
   return {
     type: BILL_VOTE,
-    bill,
-    vote
+    payload: updatedBill
   }
 }

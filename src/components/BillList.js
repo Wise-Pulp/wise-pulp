@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { yes, no, billVote } from '../actions/actionBills'
+import Bill from './Bill'
 
 export default class BillList extends Component {
 
@@ -16,9 +17,9 @@ export default class BillList extends Component {
     e.preventDefault()
     const { dispatch, yes, no } = this.props
     if (bill === yes) {
-      this.props.dispatch(billVote(bill, true))
+      this.props.dispatch(billVote(bill, 'yes'))
     } else if (bill === no) {
-      this.props.dispatch(billVote(bill, false))
+      this.props.dispatch(billVote(bill, 'no'))
     }
   }
 
@@ -33,27 +34,16 @@ export default class BillList extends Component {
  render() {
   return (
     <div>
-     { this.props.bills.map( (bill, i)=> {
+     {this.props.bills.map( (bill, i)=> {
       while (i < this.props.billsToShow) {
-        return ( <div key={i}>
-          Bill Number: {bill.billNumber}<br />
-          Bill Name: {bill.billName}<br />
-          Current Status: {bill.statusDescription}<br />
-          Check Out The Full Text On Govtrack <a href={bill.fullTextLink} target="_blank">here</a> <br />
-           Sponsored By: {bill.sponsor}<br />
-          <h4>Vote!</h4>
-
-          <form key={i}className="user_vote" action="#" onSubmit={e => this.handleSubmit(bill, e)}>
-            Yes <input type="radio" name="vote" value="yea" onChange={e => this.onYesChange(bill)}/>
-             <br />
-            No  <input type="radio" name="vote" value="nay" onChange={e => this.onNoChange(bill)}/> 
-            <br />
-            <input type="submit" value='Vote!' className="btn btn-default" />
-          </form>
-          <hr />
-          </div> )
+        return <Bill bill={bill} 
+                     handleSubmit={this.handleSubmit}
+                     onYesChange={this.onYesChange}
+                     onNoChange={this.onNoChange} 
+                     key={i}/>
+       }
+      }) 
       }
-      }) }
      <button type="button" className="btn btn-default show_more_bills" onClick={e => this.props.showMoreBills()}>More</button>
     </div> 
   )
@@ -63,11 +53,9 @@ export default class BillList extends Component {
 function mapStateToProps(state) {
   const yes = state.UpcomingBills.yes
   const no = state.UpcomingBills.no
-
   return {
     yes,
-    no,
-    voted
+    no
   }
 }
 

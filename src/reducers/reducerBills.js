@@ -33,10 +33,25 @@ export default function upcomingBills(state = {
         yes: null
       })
     case BILL_VOTE:
-      return Object.assign({}, state, {
-        bill: action.bill,
-        vote: action.vote
-      })
+      for (let i = 0; i < state.house.length; i++) {
+        if (state.house[i]._id === action.payload._id) {
+          let before = state.house.slice(0, i)
+          let after = state.house.slice(i+1, state.house.length - 1)
+          before.push(action.payload)
+          let newHouse = before.concat(after)
+
+          return Object.assign({}, state, {
+            house: newHouse
+          })
+        }
+      }
+      // for (let i = 0; i < state.house.length; i++) {
+      //   if (state.house[i]._id === action.payload._id) {
+      //     return Object.assign({}, state, 
+      //       state.house[i] = action.payload.bill
+      //     )
+      //   }
+      // }
     default:
       return state
   }
