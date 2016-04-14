@@ -7,7 +7,6 @@ export default class LoginForm extends Component {
       this.login.value = ''
       this.password.value= ''
    }
-
    render () {
       return (
          <div>

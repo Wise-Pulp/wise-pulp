@@ -37,7 +37,8 @@ module.exports = function(app) {
   
 
 
-  app.post('/userOpinions', requireAuth, function(req, res) {
+  app.post('/userOpinions', requireSignin, function(req, res) {
+    console.log(req.body)
     var id = req.body.userId;
     var billNumber = req.body.billNumber;
     var opinion = req.body.opinion;
@@ -51,7 +52,24 @@ module.exports = function(app) {
 
   });
 
-  app.post('/signin', requireSignin, Authentication.signin);
+  app.post('/signin', function(req, res, next) {
+    if (!req.body.email || !req.body.password) {
+      return res.status(400).json({message: 'Please fill out all fields'});
+    }
+    passport.authenticate('local', function(err, user, info) {
+      if (err) {
+        return next(err);
+      }
+      if (user) {
+        return res.json({
+          userId: user._id,
+        });
+      } else {
+        return res.status(401).json(info);
+      }
+    })(req, res, next);
+  });
+
   app.post('/signup', Authentication.signup);
 
   //route to return the representative for the district based on the zipcode lookup
@@ -89,7 +107,7 @@ module.exports = function(app) {
   });
 
   app.get('/representatives/:id', function(req, res) {
-  res.sendFile(publicPath + '/index.html');
+    res.sendFile(publicPath + '/index.html');
   });
 
   app.get('/representatives', function(req, res) {
@@ -100,27 +118,30 @@ module.exports = function(app) {
     res.sendFile(publicPath + '/index.html');
   });
 
-  // app.post('/api/signup', function(req, res, next) {
-  //   if (!req.body.email || !req.body.password) {
-  //     console.log(req.params);
-  //     return res.status(400).json({ message: 'Please fill out all fields' });
-  //   }
-  //   // console.log('***************', Object.keys(req));
-  //   var user = new User();
-  //   user.password = req.body.password;
-  //   user.email = req.body.email;
-  //   console.log('this is the user', user);
+  app.get('/login', function(req, res) {
+    res.sendFile(publicPath + '/index.html');
+  })
 
-  //   user.save(function (err, success) {
-  //     if (err) {
-  //       return next(err);
-  //     }
-  //     return res.json({
-  //       'theSmellOfSuccess': true
-  //     });
-  //   });      
-  // });
+  app.post('/api/signup', function(req, res, next) {
+  if (!req.body.email || !req.body.password) {
+    console.log(req.params);
+    return res.status(400).json({ message: 'Please fill out all fields' });
+  }
+    // console.log('***************', Object.keys(req));
+  var user = new User();
+  user.password = req.body.password;
+  user.email = req.body.email;
+  console.log('this is the user', user);
 
+  user.save(function (err, success) {
+      if (err) {
+        return next(err);
+      }
+      return res.json({
+        'theSmellOfSuccess': true
+      });
+    });      
+});
 
 
 // senate bills
