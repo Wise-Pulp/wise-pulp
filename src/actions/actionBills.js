@@ -92,13 +92,28 @@ export function no(payload) {
   }
 }
 
-export function billVote(bill, vote) {
-  var updatedBill = Object.assign({}, bill, {
+export function billVote(bill, vote, user) {
+  let updatedBill = Object.assign({}, bill, {
     vote
   })
-  
   return {
     type: BILL_VOTE,
     payload: updatedBill
+  }
+}
+
+export function userVotes(bill, vote, user) {
+  return dispatcy => {
+    return fetch('/userOpinions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        userId: user,
+        billNumber: bill._id,
+        opinion: vote
+      })
+    })
   }
 }

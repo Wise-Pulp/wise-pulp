@@ -37,7 +37,8 @@ module.exports = function(app) {
   
 
 
-  app.post('/userOpinions', requireAuth, function(req, res) {
+  app.post('/userOpinions', requireSignin, function(req, res) {
+    console.log(req.body)
     var id = req.body.userId;
     var billNumber = req.body.billNumber;
     var opinion = req.body.opinion;

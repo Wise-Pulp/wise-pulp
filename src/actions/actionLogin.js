@@ -95,5 +95,3 @@ export function userLogin(email, password) {
       })
   }
 }
-
-// /usersOpinions

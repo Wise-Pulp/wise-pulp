@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
-import { yes, no, billVote } from '../actions/actionBills'
+import { yes, no, billVote, userVotes } from '../actions/actionBills'
 import Bill from './Bill'
 
 export default class BillList extends Component {
@@ -15,11 +15,15 @@ export default class BillList extends Component {
 
   handleSubmit(bill, e) {
     e.preventDefault()
-    const { dispatch, yes, no } = this.props
+    const { dispatch, yes, no, user } = this.props
     if (bill === yes) {
-      this.props.dispatch(billVote(bill, 'yes'))
+      dispatch(billVote(bill, 'yes'))
+      dispatch(userVotes(bill, 'yes', user))
+
     } else if (bill === no) {
-      this.props.dispatch(billVote(bill, 'no'))
+      dispatch(billVote(bill, 'no'))
+      dispatch(userVotes(bill, 'no', user))
+
     }
   }
 
@@ -53,6 +57,7 @@ export default class BillList extends Component {
 function mapStateToProps(state) {
   const yes = state.UpcomingBills.yes
   const no = state.UpcomingBills.no
+  const user = state.user.isLoggedIn
   return {
     yes,
     no
