@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux';
+import { connect } from 'react-redux'
 import { yes, no, billVote, userVotes } from '../actions/actionBills'
 import Bill from './Bill'
 
@@ -18,11 +18,11 @@ export default class BillList extends Component {
     const { dispatch, yes, no, user } = this.props
     if (bill === yes) {
       dispatch(billVote(bill, 'yes'))
-      dispatch(userVotes(bill, 'yes', user))
+      dispatch(userVotes(bill, true, user))
 
     } else if (bill === no) {
       dispatch(billVote(bill, 'no'))
-      dispatch(userVotes(bill, 'no', user))
+      dispatch(userVotes(bill, false, user))
 
     }
   }
@@ -60,7 +60,8 @@ function mapStateToProps(state) {
   const user = state.user.isLoggedIn
   return {
     yes,
-    no
+    no,
+    user
   }
 }
 

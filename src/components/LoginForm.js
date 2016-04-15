@@ -30,7 +30,7 @@ export default class LoginForm extends Component {
                   </dd>
                </d1>
                <br />
-               <input className='login-button' type='submit' value='Create an account' />
+               <input className='login-button' type='submit' value='Login' />
             </form>
          </div>
       )

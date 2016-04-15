@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-export default class LoginForm extends Component {
+export default class RegisterForm extends Component {
    handleSubmit(e) {
       e.preventDefault();
       this.props.onSubmit(this.login.value, this.password.value);

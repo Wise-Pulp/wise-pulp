@@ -29,7 +29,6 @@ let senate = '/api/data/senate_bills';
   }
 }
 
-
 export function receiveSenateBillData(bill, anything) {
   senateBills = bill
   if (anything) {
@@ -54,7 +53,6 @@ let house = '/api/data/house_bills';
       .then(json => dispatch(receiveHouseBillData(json, something))) 
   }
 }
-
 
 export function receiveHouseBillData(bill, anything) {
   houseBills = bill
@@ -107,10 +105,10 @@ export function userVotes(bill, vote, user) {
     return fetch('/userOpinions', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': user
       },
       body: JSON.stringify({
-        userId: user,
         billNumber: bill._id,
         opinion: vote
       })
