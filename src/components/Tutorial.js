@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router'
+import { connect } from 'react-redux'
 import Register from '../containers/Register'
 
-
 export default class Tutorial extends Component {
+
   render() {
     return (
       <div>
@@ -16,9 +17,6 @@ export default class Tutorial extends Component {
             <p className="tutorial_text">Empowering voters to take ownership of their democratic system through education, and data.</p>
           </div>
           <div className='getting-started-container'>
-           <Link to={'representatives'}>
-            <button className="btn btn-default getting_started">Get Started!</button></Link>
-            <h4 className="or">- or - </h4>
             <Register />
           </div>
         </div>

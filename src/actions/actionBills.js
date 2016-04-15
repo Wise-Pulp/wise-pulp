@@ -5,6 +5,7 @@ export const ADD_TO_BILLS = 'ADD_TO_BILLS'
 export const YES_VOTE = 'YES_VOTE'
 export const NO_VOTE = 'NO_VOTE'
 export const BILL_VOTE = 'BILL_VOTE'
+export const REP_VOTING_HISTORY = 'REP_VOTING_HISTORY'
 
 let houseBills, senateBills
 
@@ -28,7 +29,6 @@ let senate = '/api/data/senate_bills';
       .then(json => dispatch(receiveSenateBillData(json, something))) 
   }
 }
-
 
 export function receiveSenateBillData(bill, anything) {
   senateBills = bill
@@ -54,7 +54,6 @@ let house = '/api/data/house_bills';
       .then(json => dispatch(receiveHouseBillData(json, something))) 
   }
 }
-
 
 export function receiveHouseBillData(bill, anything) {
   houseBills = bill
@@ -107,13 +106,28 @@ export function userVotes(bill, vote, user) {
     return fetch('/userOpinions', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': user
       },
       body: JSON.stringify({
-        userId: user,
         billNumber: bill._id,
         opinion: vote
       })
     })
+  }
+}
+
+export function getVotingHistory(rep) {
+  return dispatch => {
+    return fetch('https://www.govtrack.us/api/v2/vote_voter?order_by=-created&person=' + rep)
+      .then(response => response.json())
+      .then(json => dispatch(receiveVotingHistory(json.objects)))
+  }
+}
+
+export function receiveVotingHistory(payload) {
+  return {
+    type: REP_VOTING_HISTORY,
+    payload
   }
 }

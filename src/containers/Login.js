@@ -10,14 +10,15 @@ export class Login extends Component {
 
    render () {
       const { processingLogin, isLoggedIn, loginError } = this.props
-      return <div className="login-background">
-            
+      return <div>
+         <div className='login-background'></div>
+         <div className='tutorial-container'>
             <div className='login-container'>
-            <LoginForm {...this.props}
-                    onSubmit={this.onSubmit.bind(this)} />
-            { processingLogin ? <div className='login-process'>Processing your login...</div> : null }
-            { loginError ? <div className='login-process'>Sorry, please try again.</div> : null}
-      </div>
+               <LoginForm onSubmit={this.onSubmit.bind(this)} />
+               { processingLogin ? <div className='login-process'>Processing your login...</div> : null }
+               { loginError ? <div className='login-process'>Sorry, please try again.</div> : null}
+            </div>
+         </div>   
       </div>
    }
 }

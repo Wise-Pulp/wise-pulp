@@ -47,8 +47,8 @@ export function userRegister(email, password) {
       })
     }).then(response => response.json())
       .then((res) => {
-      if (res.userId) {
-        return dispatch(loginSuccess(res.userId))
+      if (res) {
+        return dispatch(loginSuccess(res))
       } else {
         return dispatch(registrationError())
       }
@@ -89,7 +89,7 @@ export function userLogin(email, password) {
         }
       }).then(function(user) {
         if (user) {
-          return dispatch(loginSuccess(user.userId))
+          return dispatch(loginSuccess(user.token))
         }
           return dispatch(loginError())
       })

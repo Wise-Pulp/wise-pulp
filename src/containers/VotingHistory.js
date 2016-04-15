@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getRoleBills, getSenateBillData, getHouseBillData, addToBills } from '../actions/actionBills';
-import BillList from '../components/BillList'
+import { getVotingHistory, addToBills } from '../actions/actionBills';
+import VotingHistoryList from '../components/VotingHistoryList'
 import Spinner from '../components/Spinner'
 
-export default class UpcomingRepBills extends Component {
+export class VotingHistory extends Component {
 
   showMoreBills() {
     this.props.dispatch(addToBills());
@@ -14,7 +14,7 @@ export default class UpcomingRepBills extends Component {
     const { params, representatives, dispatch } = this.props
     representatives.map(function(rep) {
       if (rep.person.id === JSON.parse(params.id)) {
-        dispatch(getRoleBills(rep.role_type))
+        dispatch(getVotingHistory(rep.person.id))
       }
     }.bind(this))
   }
@@ -23,7 +23,7 @@ export default class UpcomingRepBills extends Component {
     const { bills, billsToShow } = this.props;
     return (
       <div>
-        { bills ? <BillList bills={bills} billsToShow={billsToShow} showMoreBills={this.showMoreBills.bind(this)}/> : <div><Spinner /></div> }
+        { bills ? <VotingHistoryList bills={bills} billsToShow={billsToShow} showMoreBills={this.showMoreBills.bind(this)}/> : <div><Spinner /></div> }
       </div>
     )
   }
@@ -32,8 +32,9 @@ export default class UpcomingRepBills extends Component {
 
 function mapStateToProps(state) {
   const representatives = state.Representatives.representatives
-  const bills = state.UpcomingBills.congress
+  const bills = state.UpcomingBills.votes
   var billsToShow = state.UpcomingBills.billsToShow
+  //console.log(state)
   return {
     representatives,
     bills,
@@ -41,4 +42,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps)(UpcomingRepBills);
+export default connect(mapStateToProps)(VotingHistory);

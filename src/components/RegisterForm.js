@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-export default class LoginForm extends Component {
+export default class RegisterForm extends Component {
    handleSubmit(e) {
       e.preventDefault();
       this.props.onSubmit(this.login.value, this.password.value);
@@ -11,7 +11,7 @@ export default class LoginForm extends Component {
    render () {
       return (
          <div>
-            <h1 className='login-header'>Register</h1>
+            <h1 className='register-header'>Register</h1>
             <form action="#" onSubmit={(e) => this.handleSubmit(e)}>
                <d1>
                   <dt>
@@ -19,7 +19,7 @@ export default class LoginForm extends Component {
                   </dt>
                   <dd>
                      <input className='input-field' placeholder='email@example.com' type='email' ref={node => { this.login = node }} />
-                     <p className='login-description'>This will be your username. We will not share your email with anyone.</p>
+                     <p className='register-description'>This will be your username. We will not share your email with anyone.</p>
                   </dd>
                </d1>
                <d1>
@@ -31,7 +31,7 @@ export default class LoginForm extends Component {
                   </dd>
                </d1>
                <br />
-               <input className='login-button' type='submit' value='Create an account' />
+               <input className='register-button' type='submit' value='Create an account' />
             </form>
          </div>
       )

@@ -8,6 +8,8 @@ import UpcomingBills from '../src/containers/UpcomingBills'
 import UpcomingRepBills from '../src/components/UpcomingRepBills'
 import CampaignContributions from '../src/components/ContributorVisualization'
 import Login from '../src/containers/Login'
+import VotingHistory from '../src/containers/VotingHistory'
+import RepWords from '../src/containers/RepWords'
 
 export default (
     <Route path='/' component={App}>
@@ -15,9 +17,11 @@ export default (
       <Route path='home' component={FrontPage} />
     	<Route path='representatives' component={Representatives} />
       <Route path='representatives/:id' component={RepresentativeInfo} >
-        <IndexRoute component={UpcomingRepBills} />
+        <IndexRoute component={VotingHistory} />
         <Route path='upcoming_rep_bills' component={UpcomingRepBills} />
         <Route path='campaign_contributions' component={CampaignContributions} />
+        <Route path='voting_history' component={VotingHistory} />
+        <Route path='words' component={RepWords} />
       </Route>
       <Route path='upcoming_bills' component={UpcomingBills} />
       <Route path='login' component={Login} />

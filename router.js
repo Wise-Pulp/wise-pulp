@@ -5,9 +5,11 @@ var path = require('path');
 var publicPath = path.resolve(__dirname, 'public');
 const requireAuth = passport.authenticate('jwt', { session: false });
 const requireSignin = passport.authenticate('local', { session: false });
-
+const jwt = require('jwt-simple');
 const congressBill = require('./data/db/UpcomingCongressionalVotes.model');
 const senateBill = require('./data/db/UpcomingSenateBills.model');
+const config = require('./config');
+var CronJob = require('cron').CronJob;
 
 
 ///////////////////////////////////////// Models
@@ -37,9 +39,9 @@ module.exports = function(app) {
   
 
 
-  app.post('/userOpinions', requireSignin, function(req, res) {
-    console.log(req.body)
-    var id = req.body.userId;
+  app.post('/userOpinions', requireAuth, function(req, res) {
+    var decode = jwt.decode(req.headers.authorization, config.secret)
+    var id = decode.sub;
     var billNumber = req.body.billNumber;
     var opinion = req.body.opinion;
     var votedAt = Date.parse(new Date());
@@ -52,24 +54,7 @@ module.exports = function(app) {
 
   });
 
-  app.post('/signin', function(req, res, next) {
-    if (!req.body.email || !req.body.password) {
-      return res.status(400).json({message: 'Please fill out all fields'});
-    }
-    passport.authenticate('local', function(err, user, info) {
-      if (err) {
-        return next(err);
-      }
-      if (user) {
-        return res.json({
-          userId: user._id,
-        });
-      } else {
-        return res.status(401).json(info);
-      }
-    })(req, res, next);
-  });
-
+  app.post('/signin', requireSignin, Authentication.signin);
   app.post('/signup', Authentication.signup);
 
   //route to return the representative for the district based on the zipcode lookup
@@ -263,4 +248,12 @@ module.exports = function(app) {
 
 };
 
+// cronjob runs every day at 9am Pacific Time
 
+new CronJob('00 00 09 * * *', () => {
+  // Collects bills to be debated before House and Senate and send them to the database
+  collectBills('https://www.govtrack.us/api/v2/bill?sort=-introduced_date&bill_type=house_bill', congressBill);
+  collectBills('https://www.govtrack.us/api/v2/bill?sort=-introduced_date&bill_type=senate_bill', senateBill);
+  // Add any other data collecting functions we want automated here
+
+}, true, 'America/Los_Angeles');

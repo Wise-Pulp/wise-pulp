@@ -12,7 +12,7 @@ export default class RepresentativeInfo extends Component {
 		return (
 			<div>
 				{representatives.map(function(representative, i) {
-					if (representative.id === JSON.parse(params.id)) {
+					if (representative.person.id === JSON.parse(params.id)) {
 						let image = 'https://www.govtrack.us/data/photos/' + representative.person.id + '-200px.jpeg'
 						return ( 
 							<RepresentativeIntermediary

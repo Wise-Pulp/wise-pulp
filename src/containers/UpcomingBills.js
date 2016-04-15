@@ -4,7 +4,7 @@ import { getSenateBillData, getHouseBillData, addToBills } from '../actions/acti
 import BillList from '../components/BillList'
 import Spinner from '../components/Spinner'
 
-export default class UpcomingBills extends Component {
+export class UpcomingBills extends Component {
 
   showMoreBills() {
     this.props.dispatch(addToBills());
