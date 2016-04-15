@@ -91,6 +91,12 @@ module.exports = function(app) {
     });  
   });
 
+  app.get('/api/zipcode/:lat/:long', function(req, res) {
+    fetch('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + req.params.lat + ',' + req.params.long + ' &result_type=postal_code&key=' + config.API_KEY)
+      .then(response => response.json())
+      .then(json => res.send(json))
+  })
+
   app.get('/representatives/:id', function(req, res) {
     res.sendFile(publicPath + '/index.html');
   });
