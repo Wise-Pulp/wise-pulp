@@ -23,7 +23,8 @@ export default class TopNavbar extends Component {
                           <Link className='item login-nav' to={'login'}>Login</Link> }
           <Link className='item' to={'upcoming_bills'}>Upcoming Bills</Link>
           <Link className='item' to={'representatives'}>Representatives</Link>
-          <Link className='home' to={'home'}>Home</Link>
+          <Link to={'home'}><div className="logo-container"></div></Link>
+          <Link to={'home'}><div className="polis_nav_bar"><h4>Polis</h4></div></Link>
       </div>
 
     )
