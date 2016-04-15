@@ -45,6 +45,16 @@ body {
   float: right;
 }
 
+.login-nav {
+  border-style: solid;
+  border-color: #343B4A;
+  border-radius: 5%;
+  text-align: center;
+  vertical-align: middle;
+  background-color: #343B4A;
+  margin: 0 5px 2px 5px;
+}
+
 .top-nav-bar .home {
   float: left;
 }
@@ -60,6 +70,10 @@ body {
 /* Change the link color to #111 (black) on hover */
 .top-nav-bar a:hover {
     background-color: #111;
+}
+.logo-pic {
+  position: relative;
+  max-height: 100px;
 }
 
 /********************************
@@ -152,7 +166,7 @@ body {
   background-size: 100%, 50%;
   background-repeat: no-repeat;
   background-position: 0, -10px;
-  opacity: 0.8;
+  opacity: 0.5;
 }
 .tutorial-container {
   position: absolute;
@@ -161,7 +175,6 @@ body {
   top: 8%;
   text-align: left;
   z-index: 1;
-  /*background-color: #e3e0cf;*/
 }
 .tutorial-left-text {
   position: absolute;
@@ -186,6 +199,7 @@ body {
 .tutorial_text {
   text-align: center;
 }
+
 .or {
   position: relative;
   display: block;

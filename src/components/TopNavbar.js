@@ -20,7 +20,7 @@ export default class TopNavbar extends Component {
     return (
         <div className='top-nav-bar'>
           { isLoggedIn ?  <a href='#' className='item' onClick={e => this.logout(e)}>Logout</a> : 
-                          <Link className='item' to={'login'}>Login</Link> }
+                          <Link className='item login-nav' to={'login'}>Login</Link> }
           <Link className='item' to={'upcoming_bills'}>Upcoming Bills</Link>
           <Link className='item' to={'representatives'}>Representatives</Link>
           <Link className='home' to={'home'}>Home</Link>

@@ -13,7 +13,7 @@ export default class Tutorial extends Component {
             <div className="title_line">
               <h1 className="title">Polis</h1>
             </div>
-            <p className="tutorial_text">Assisting voters in taking ownership of their democratic system through education, and data.</p>
+            <p className="tutorial_text">Empowering voters to take ownership of their democratic system through education, and data.</p>
           </div>
           <div className='getting-started-container'>
            <Link to={'representatives'}>
