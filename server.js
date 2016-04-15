@@ -793,7 +793,6 @@ var Contribution = require('./data/db/Contribution.model');
 
 var Xray = require('x-ray');
 var xray = Xray();
-var CronJob = require('cron').CronJob;
 var publicPath = path.resolve(__dirname, 'public');
 var districts = require(__dirname, '/districts.js');
 var fetch = require('isomorphic-fetch');
@@ -865,16 +864,6 @@ function collectBills(uri, model) {
     });
   });
 }
-// cronjob runs every day at 9am Pacific Time
-new CronJob('00 00 09 * * *', () => {
-  // Collects bills to be debated before House and Senate and send them to the database
-  collectBills('https://www.govtrack.us/api/v2/bill?sort=-introduced_date&bill_type=house_bill', congressBill);
-  collectBills('https://www.govtrack.us/api/v2/bill?sort=-introduced_date&bill_type=senate_bill', senateBill);
-  // Add any other data collecting functions we want automated here
-
-}, true, 'America/Los_Angeles');
-
-
 
 //if we're not in production, this proxies requests to localhost:3000 and sends them to our webpack server at localhost:8080
 if (!isProduction) {

@@ -9,6 +9,8 @@ const jwt = require('jwt-simple');
 const congressBill = require('./data/db/UpcomingCongressionalVotes.model');
 const senateBill = require('./data/db/UpcomingSenateBills.model');
 const config = require('./config');
+var CronJob = require('cron').CronJob;
+
 
 ///////////////////////////////////////// Models
 var User = require('./data/db/User.model');
@@ -246,4 +248,12 @@ module.exports = function(app) {
 
 };
 
+// cronjob runs every day at 9am Pacific Time
 
+new CronJob('00 00 09 * * *', () => {
+  // Collects bills to be debated before House and Senate and send them to the database
+  collectBills('https://www.govtrack.us/api/v2/bill?sort=-introduced_date&bill_type=house_bill', congressBill);
+  collectBills('https://www.govtrack.us/api/v2/bill?sort=-introduced_date&bill_type=senate_bill', senateBill);
+  // Add any other data collecting functions we want automated here
+
+}, true, 'America/Los_Angeles');
