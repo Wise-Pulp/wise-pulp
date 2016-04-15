@@ -49,7 +49,7 @@ export default class Representatives extends Component {
 
 
   render() {
-    const { representative, representatives, isFetching, progress } = this.props
+    const { representatives, isFetching, progress } = this.props
     return (
       <div>
         <h1 className='text-center'>Polis</h1>
@@ -57,7 +57,6 @@ export default class Representatives extends Component {
                                progress={progress} 
                                 /> :
         <RepresentativeList representatives={representatives}
-                            representative={representative}
                             selectRep={this.selectRep} 
                             /> }        
       </div>

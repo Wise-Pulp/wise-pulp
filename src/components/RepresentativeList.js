@@ -14,7 +14,7 @@ export default class RepresentativeList extends Component {
 					representatives.map(function(representative, i) {
 					let image = 'https://www.govtrack.us/data/photos/' + representative.person.id + '-200px.jpeg'
 					return <div key={i} className='col-md-4'>
-						<Link to={{ pathname: '/representatives/' + representative.id }}>
+						<Link to={{ pathname: '/representatives/' + representative.person.id }}>
 							<RepresentativePicture
 								key={representative.id}
 								image={image}
@@ -28,7 +28,7 @@ export default class RepresentativeList extends Component {
 				: representatives.map(function(representative, i) {
 					let image = 'https://www.govtrack.us/data/photos/' + representative.person.id + '-200px.jpeg'
 					return <div key={i} className='col-md-3'>
-							<Link to={{ pathname: '/representatives/' + representative.id }}>
+							<Link to={{ pathname: '/representatives/' + representative.person.id }}>
 								<RepresentativePicture
 									key={representative.id}
 									image={image}

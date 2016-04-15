@@ -14,8 +14,7 @@ export class Login extends Component {
          <div className='login-background'></div>
          <div className='tutorial-container'>
             <div className='login-container'>
-               <LoginForm {...this.props}
-                       onSubmit={this.onSubmit.bind(this)} />
+               <LoginForm onSubmit={this.onSubmit.bind(this)} />
                { processingLogin ? <div className='login-process'>Processing your login...</div> : null }
                { loginError ? <div className='login-process'>Sorry, please try again.</div> : null}
             </div>

@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { yes, no, billVote, userVotes } from '../actions/actionBills'
-import Bill from './Bill'
+import BillVotes from './BillVotes'
 
-export default class BillList extends Component {
+export default class VotingHistoryList extends Component {
 
   constructor(props) {
     super(props)
@@ -19,9 +19,11 @@ export default class BillList extends Component {
     if (bill === yes) {
       dispatch(billVote(bill, 'yes'))
       dispatch(userVotes(bill, true, user))
+
     } else if (bill === no) {
       dispatch(billVote(bill, 'no'))
       dispatch(userVotes(bill, false, user))
+
     }
   }
 
@@ -38,7 +40,7 @@ export default class BillList extends Component {
     <div>
      {this.props.bills.map( (bill, i)=> {
       while (i < this.props.billsToShow) {
-        return <Bill bill={bill} 
+        return <BillVotes bill={bill} 
                      handleSubmit={this.handleSubmit}
                      onYesChange={this.onYesChange}
                      onNoChange={this.onNoChange} 
@@ -63,4 +65,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps)(BillList);
+export default connect(mapStateToProps)(VotingHistoryList);

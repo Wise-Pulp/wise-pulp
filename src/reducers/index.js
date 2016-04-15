@@ -7,6 +7,7 @@ import ContributorVisualization from './reducerContributor'
 import HeatMap from './reducerHeatMap'
 import UpcomingBills from './reducerBills'
 import user from './reducerLogin'
+import RepWords from './reducerRepWords'
 
 const rootReducer = combineReducers({
   FrontPage,
@@ -16,7 +17,8 @@ const rootReducer = combineReducers({
   HeatMap,
   routing,
   UpcomingBills,
-  user
+  user,
+  RepWords
 })
 
 export default rootReducer

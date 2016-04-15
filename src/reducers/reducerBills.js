@@ -1,4 +1,4 @@
-import { GET_ROLE_BILLS, SENATE_BILL_DATA, HOUSE_BILL_DATA, ADD_TO_BILLS, YES_VOTE, NO_VOTE, BILL_VOTE } from '../actions/actionBills'
+import { GET_ROLE_BILLS, SENATE_BILL_DATA, HOUSE_BILL_DATA, ADD_TO_BILLS, YES_VOTE, NO_VOTE, BILL_VOTE, REP_VOTING_HISTORY } from '../actions/actionBills'
 
 export default function upcomingBills(state = { 
   billsToShow: 9,
@@ -17,6 +17,10 @@ export default function upcomingBills(state = {
     case GET_ROLE_BILLS:
       return Object.assign({}, state, {
         congress: action.bill
+      })
+    case REP_VOTING_HISTORY:
+      return Object.assign({}, state, {
+        votes: action.payload
       })
     case ADD_TO_BILLS:
       return Object.assign({}, state, {
@@ -45,6 +49,7 @@ export default function upcomingBills(state = {
           })
         }
       }
+
       for (let i = 0; i < state.senate.length; i++) {
         if (state.senate[i]._id === action.payload._id) {
           let before = state.senate.slice(0, i)
@@ -57,6 +62,7 @@ export default function upcomingBills(state = {
           })
         }
       }
+
     default:
       return state
   }

@@ -5,6 +5,7 @@ export const ADD_TO_BILLS = 'ADD_TO_BILLS'
 export const YES_VOTE = 'YES_VOTE'
 export const NO_VOTE = 'NO_VOTE'
 export const BILL_VOTE = 'BILL_VOTE'
+export const REP_VOTING_HISTORY = 'REP_VOTING_HISTORY'
 
 let houseBills, senateBills
 
@@ -113,5 +114,20 @@ export function userVotes(bill, vote, user) {
         opinion: vote
       })
     })
+  }
+}
+
+export function getVotingHistory(rep) {
+  return dispatch => {
+    return fetch('https://www.govtrack.us/api/v2/vote_voter?order_by=-created&person=' + rep)
+      .then(response => response.json())
+      .then(json => dispatch(receiveVotingHistory(json.objects)))
+  }
+}
+
+export function receiveVotingHistory(payload) {
+  return {
+    type: REP_VOTING_HISTORY,
+    payload
   }
 }
