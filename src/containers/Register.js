@@ -25,7 +25,7 @@ export class Register extends Component {
 
    render () {
       const { registrationError } = this.props
-      return <div className='login-container'>
+      return <div className='register-container'>
             <Zipcode zipcodeSubmit={this.zipcodeSubmit} />
             <RegisterForm onSubmit={this.onSubmit} />
             { registrationError ? <div className='registration-error'>Sorry, that email is already taken.</div> : null}

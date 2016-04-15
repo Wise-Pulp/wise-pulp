@@ -11,14 +11,14 @@ export default class LoginForm extends Component {
       return (
          <div>
             <h1 className='login-header'>Login</h1>
-            <form action="#" onSubmit={(e) => this.handleSubmit(e)}>
+            <form className='login-form' action="#" onSubmit={(e) => this.handleSubmit(e)}>
                <d1>
                   <dt>
                      <label>Email Address</label>
                   </dt>
                   <dd>
-                     <input className='input-field' placeholder='email@example.com' type='email' ref={node => { this.login = node }} />
-                     <p className='login-description'>This will be your username. We will not share your email with anyone.</p>
+                     <input className='login-input-field' placeholder='email@example.com' type='email' ref={node => { this.login = node }} />
+                     <p className='login-description'></p>
                   </dd>
                </d1>
                <d1>
@@ -26,11 +26,11 @@ export default class LoginForm extends Component {
                      <label>Password</label>
                   </dt>
                   <dd>
-                     <input className='input-field' placeholder='password' type='password' ref={node => { this.password = node }} />
+                     <input className='login-input-field' placeholder='password' type='password' ref={node => { this.password = node }} />
                   </dd>
                </d1>
                <br />
-               <input className='login-button' type='submit' value='Login' />
+               <input className='login-button' type='submit' value='Submit' />
             </form>
          </div>
       )

@@ -8,10 +8,11 @@ export default class Zipcode extends Component {
 
   render() {
     return <div>
-        <h1 className='login-header'>Find Your Representatives</h1>
+        <p className='zipcode-header'>Find Your Representatives</p>
         <form action="#" onSubmit={(e) => this.handleSubmit(e)}>
-          <input className='input-field' placeholder='zipcode' type='zipcode' ref={node => { this.zipcode = node }} />
-          <input className='login-button' type='submit' value='Submit' />
+          <input className='zipcode-field' placeholder='zipcode' type='zipcode' ref={node => { this.zipcode = node }} />
+          <br />
+          <input className='zipcode-button' type='submit' value='Submit' />
         </form>
         <p className='or-header'></p>
       </div>
