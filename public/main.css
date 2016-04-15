@@ -34,11 +34,13 @@ body {
       Top Navbar
 *********************************/
 .top-nav-bar {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    background-color: #333;
+  position: relative;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  height: 50px;
+  overflow: hidden;
+  background-color: #333;
 }
 
 .top-nav-bar .item {
@@ -52,7 +54,7 @@ body {
   text-align: center;
   vertical-align: middle;
   background-color: #343B4A;
-  margin: 0 5px 2px 5px;
+  margin: 0 5px 0 5px;
 }
 
 .top-nav-bar .home {
@@ -71,11 +73,31 @@ body {
 .top-nav-bar a:hover {
     background-color: #111;
 }
-.logo-pic {
-  position: relative;
-  max-height: 100px;
-}
 
+.logo-container {
+  position: relative;
+  height: 45px;
+  width: 45px;
+  top: 1px;
+  border-style: solid;
+  border-color: #333;
+  background-image: url("http://scan.lusu.co.uk/wp-content/uploads/2016/03/Vote.jpg");
+  background-size: 135%;
+  background-repeat: no-repeat;
+  background-position: center;
+  z-index: 9999;
+}
+.polis_nav_bar {
+  position: relative;
+  top: -70px;
+  left: 50px;
+  width: 50px;
+  height: 50px;
+  /*z-index: 199999;*/
+}
+h4 {
+  color: white;
+}
 /********************************
       Header
 *********************************/
@@ -200,14 +222,6 @@ body {
   text-align: center;
 }
 
-.or {
-  position: relative;
-  display: block;
-  top: 30%;
-  left: 42%;
-  font-weight: bold;
-  z-index: 900;
-}
 .track {
   position: relative;
   width: 40%;
