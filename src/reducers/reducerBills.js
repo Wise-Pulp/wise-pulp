@@ -37,29 +37,45 @@ export default function upcomingBills(state = {
         yes: null
       })
     case BILL_VOTE:
-      for (let i = 0; i < state.house.length; i++) {
-        if (state.house[i]._id === action.payload._id) {
-          let before = state.house.slice(0, i)
-          let after = state.house.slice(i+1, state.house.length - 1)
-          before.push(action.payload)
-          let newHouse = before.concat(after)
+      if (state.house) {
+        for (let i = 0; i < state.house.length; i++) {
+          if (state.house[i]._id === action.payload._id) {
+            let before = state.house.slice(0, i)
+            let after = state.house.slice(i+1, state.house.length - 1)
+            before.push(action.payload)
+            let newHouse = before.concat(after)
 
-          return Object.assign({}, state, {
-            house: newHouse
-          })
+            return Object.assign({}, state, {
+              house: newHouse
+            })
+          }
         }
       }
 
-      for (let i = 0; i < state.senate.length; i++) {
-        if (state.senate[i]._id === action.payload._id) {
-          let before = state.senate.slice(0, i)
-          let after = state.senate.slice(i+1, state.senate.length - 1)
-          before.push(action.payload)
-          let newSenate = before.concat(after)
+      if (state.senate) {
+        for (let i = 0; i < state.senate.length; i++) {
+          if (state.senate[i]._id === action.payload._id) {
+            let before = state.senate.slice(0, i)
+            let after = state.senate.slice(i+1, state.senate.length - 1)
+            before.push(action.payload)
+            let newSenate = before.concat(after)
 
-          return Object.assign({}, state, {
-            senate: newSenate
-          })
+            return Object.assign({}, state, {
+              senate: newSenate
+            })
+          }
+        }
+      } else {
+        for (let i = 0; i < state.votes.length; i++) {
+          if (state.votes[i].id === action.payload.id) {
+            let before = state.votes.slice(0, i)
+            let after = state.votes.slice(i+1, state.votes.length)
+            before.push(action.payload)
+            let newVotes = before.concat(after)
+            return Object.assign({}, state, {
+              votes: newVotes
+            })
+          }
         }
       }
 

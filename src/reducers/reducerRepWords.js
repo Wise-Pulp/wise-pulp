@@ -12,7 +12,7 @@ export default function repWords (state = {
     case MORE_REP_WORDS:
       return Object.assign({}, state, {
         words: action.words,
-        index: state.index + 10
+        index: state.index += 10
       })
     case LESS_REP_WORDS:
       return Object.assign({}, state, {

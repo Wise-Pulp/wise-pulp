@@ -39,8 +39,8 @@ export default class RepWords extends Component {
                       margin={{ top: 40, right: 40, bottom: 40, left: 50 }}
                       data={data}
                        /> 
-                <button onClick={this.moreWords}>Next 10 Words</button>
                 <button onClick={this.lessWords}>Previous 10 Words</button>
+                <button onClick={this.moreWords}>Next 10 Words</button>
                 </div>
                        : null }
 
