@@ -6,7 +6,7 @@ var publicPath = path.resolve(__dirname, 'public');
 const requireAuth = passport.authenticate('jwt', { session: false });
 const requireSignin = passport.authenticate('local', { session: false });
 const jwt = require('jwt-simple');
-const congressBill = require('./data/db/UpcomingCongressionalVotes.model');
+const congressBill = require('./data/db/upcomingCongressionalVotes.model');
 const senateBill = require('./data/db/UpcomingSenateBills.model');
 const config = require('./config');
 var CronJob = require('cron').CronJob;
@@ -90,6 +90,18 @@ module.exports = function(app) {
 
     });  
   });
+
+  app.get('/api/zipcode/:lat/:long', function(req, res) {
+    fetch('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + req.params.lat + ',' + req.params.long + ' &result_type=postal_code&key=' + config.GOOGLE_API_KEY)
+      .then(response => response.json())
+      .then(json => res.send(json))
+  })
+
+  app.get('/api/words/:rep', function(req, res) {
+    fetch('http://capitolwords.org/api/1/phrases.json?entity_type=legislator&entity_value=' + req.params.rep + '&sort=count+desc&apikey=' + config.CAPITOL_API_KEY)
+      .then(response => response.json())
+      .then(json => res.send(json))
+  })
 
   app.get('/representatives/:id', function(req, res) {
     res.sendFile(publicPath + '/index.html');

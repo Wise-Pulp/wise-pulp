@@ -16,7 +16,7 @@ const Bill = ({handleSubmit, bill, onNoChange, onYesChange}) => (
       <br />
       <input type="submit" value='Vote!' className="btn btn-default" />
     </form>
-      {bill.vote ? bill.vote === 'yes' ? <div>You voted yes!</div> : <div>You voted no!</div> : null}
+      {bill.voted ? bill.voted === 'yes' ? <div>You voted yes!</div> : <div>You voted no!</div> : null}
     <hr />
   </div> 
 )

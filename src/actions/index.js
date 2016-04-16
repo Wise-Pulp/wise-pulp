@@ -48,7 +48,7 @@ export function stopProgress() {
 
 export function getRepWords(rep) {
   return dispatch => {
-    return fetch('http://capitolwords.org/api/1/phrases.json?entity_type=legislator&entity_value=' + rep + '&sort=count+desc&apikey=22e19e45eb5e4582891e0d17b73f90c1')
+    return fetch('/api/words/' + rep)
       .then(response => response.json())
       .then(json => dispatch(receiveRepWords(json)))
   }
@@ -65,7 +65,7 @@ export function receiveRepWords(payload) {
 
 function makeWordsData(words, index) {
   let array = []
-
+  console.log(index)
   for (var i = index - 10; i <= index; i++) {
     let temp = {}
     temp.xValue = words[i].ngram

@@ -33,8 +33,8 @@ export class VotingHistory extends Component {
 function mapStateToProps(state) {
   const representatives = state.Representatives.representatives
   const bills = state.UpcomingBills.votes
-  var billsToShow = state.UpcomingBills.billsToShow
-  //console.log(state)
+  const billsToShow = state.UpcomingBills.billsToShow
+
   return {
     representatives,
     bills,

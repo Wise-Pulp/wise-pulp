@@ -5,8 +5,6 @@ import { getContributorData } from '../actions/actionContributor'
 import RepresentativeList from '../components/RepresentativeList'
 import Spinner from '../components/Spinner'
 
-const API_KEY = 'AIzaSyD2uEW__R9AOm1JrooaddNSZM1EdN6KhAc'
-
 
 export default class Representatives extends Component {
   constructor(props) {
@@ -38,7 +36,7 @@ export default class Representatives extends Component {
 
   componentWillMount() {
     window.navigator.geolocation.getCurrentPosition(function(pos){
-      fetch('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + pos.coords.latitude + ',' + pos.coords.longitude + ' &result_type=postal_code&key=' + API_KEY)
+      fetch('/api/zipcode/' + pos.coords.latitude + '/' + pos.coords.longitude)
         .then(response => response.json())
         .then(location => {
           this.props.dispatch(getRepresentatives(location.results[0].address_components[0].short_name))

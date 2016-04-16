@@ -91,9 +91,9 @@ export function no(payload) {
   }
 }
 
-export function billVote(bill, vote, user) {
+export function billVote(bill, voted, user) {
   let updatedBill = Object.assign({}, bill, {
-    vote
+    voted
   })
   return {
     type: BILL_VOTE,
