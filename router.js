@@ -10,6 +10,12 @@ const congressBill = require('./data/db/upcomingCongressionalVotes.model');
 const senateBill = require('./data/db/UpcomingSenateBills.model');
 const config = require('./config');
 var CronJob = require('cron').CronJob;
+var httpProxy = require('http-proxy');
+var proxy = httpProxy.createProxyServer({
+  changeOrigin: true
+});
+var isProduction = process.env.NODE_ENV === 'production';
+var port = isProduction ? process.env.PORT : 3500;
 
 
 ///////////////////////////////////////// Models
@@ -37,7 +43,9 @@ function validateNumber(aString) {
 
 module.exports = function(app) {
   
-
+  app.listen(port, function () {
+    console.log('Server running on port ' + port);
+  });
 
   app.post('/userOpinions', requireAuth, function(req, res) {
     var decode = jwt.decode(req.headers.authorization, config.secret)
@@ -101,22 +109,6 @@ module.exports = function(app) {
     fetch('http://capitolwords.org/api/1/phrases.json?entity_type=legislator&entity_value=' + req.params.rep + '&sort=count+desc&apikey=' + config.CAPITOL_API_KEY)
       .then(response => response.json())
       .then(json => res.send(json))
-  })
-
-  app.get('/representatives/:id', function(req, res) {
-    res.sendFile(publicPath + '/index.html');
-  });
-
-  app.get('/representatives', function(req, res) {
-    res.sendFile(publicPath + '/index.html')
-  });
-
-  app.get('/upcoming_bills', function(req, res) {
-    res.sendFile(publicPath + '/index.html');
-  });
-
-  app.get('/login', function(req, res) {
-    res.sendFile(publicPath + '/index.html');
   })
 
   app.post('/api/signup', function(req, res, next) {
@@ -258,7 +250,27 @@ module.exports = function(app) {
     }
   });
 
+  //if we're not in production, this proxies requests to localhost:3000 and sends them to our webpack server at localhost:8080
+  if (!isProduction) {
+    var bundle = require('./server/compiler.js');
+    bundle();
+    app.all('/build/*', function (req, res) {
+      proxy.web(req, res, {
+        target: 'http://localhost:8080'
+      });
+    });
+  }
+
+  proxy.on('error', function(e) {
+    console.log('Could not connect to proxy, please try again...');
+  });
+  //catch all other get requests, such as when refreshing
+  app.get('*', function(req, res) {
+    res.sendFile(publicPath + '/index.html');
+  });
+
 };
+
 
 // cronjob runs every day at 9am Pacific Time
 

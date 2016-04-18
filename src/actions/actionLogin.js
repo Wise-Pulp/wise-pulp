@@ -46,9 +46,9 @@ export function userRegister(email, password) {
         password
       })
     }).then(response => response.json())
-      .then((res) => {
-      if (res) {
-        return dispatch(loginSuccess(res))
+      .then((user) => {
+      if (user) {
+        return dispatch(loginSuccess(user.token))
       } else {
         return dispatch(registrationError())
       }

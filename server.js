@@ -1,6 +1,5 @@
 var express = require('express');
 var path = require('path');
-var httpProxy = require('http-proxy');
 var mongoose = require('mongoose');
 var fs = require('fs');
 var Promise = require('bluebird');
@@ -8,6 +7,7 @@ var bodyParser = require('body-parser');
 var morgan = require('morgan');
 var app = express();
 var router = require('./router');
+var publicPath = path.resolve(__dirname, 'public');
 
 var config = require('./config');
 var cleanData;
@@ -18,9 +18,9 @@ app.use(bodyParser());
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static(publicPath));
 
 router(app);
-
 //connect to heroku
 var db = config.dbURI2;
 
@@ -797,18 +797,8 @@ var publicPath = path.resolve(__dirname, 'public');
 var districts = require(__dirname, '/districts.js');
 var fetch = require('isomorphic-fetch');
 var polyfill = require('babel-polyfill');
-var isProduction = process.env.NODE_ENV === 'production';
-var port = isProduction ? process.env.PORT : 3500;
 
 // var zipcodes = require('./data/old_Data/zipcodes.js');
-
-
-var proxy = httpProxy.createProxyServer({
-  changeOrigin: true
-});
-
-
-app.use(express.static(publicPath));
 
 
 
@@ -865,24 +855,7 @@ function collectBills(uri, model) {
   });
 }
 
-//if we're not in production, this proxies requests to localhost:3000 and sends them to our webpack server at localhost:8080
-if (!isProduction) {
-  var bundle = require('./server/compiler.js');
-  bundle();
-  app.all('/build/*', function (req, res) {
-    proxy.web(req, res, {
-      target: 'http://localhost:8080'
-    });
-  });
-}
 
-proxy.on('error', function(e) {
-  console.log('Could not connect to proxy, please try again...');
-});
-
-app.listen(port, function () {
-  console.log('Server running on port ' + port);
-});
 
 
 

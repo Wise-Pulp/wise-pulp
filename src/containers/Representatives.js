@@ -35,14 +35,16 @@ export default class Representatives extends Component {
   }
 
   componentWillMount() {
-    window.navigator.geolocation.getCurrentPosition(function(pos){
-      fetch('/api/zipcode/' + pos.coords.latitude + '/' + pos.coords.longitude)
-        .then(response => response.json())
-        .then(location => {
-          this.props.dispatch(getRepresentatives(location.results[0].address_components[0].short_name))
-          this.props.dispatch(getContributorData(location.results[0].address_components[0].short_name))
-      })
-    }.bind(this))
+    if (!this.props.representatives.length) {
+      window.navigator.geolocation.getCurrentPosition(function(pos){
+        fetch('/api/zipcode/' + pos.coords.latitude + '/' + pos.coords.longitude)
+          .then(response => response.json())
+          .then(location => {
+            this.props.dispatch(getRepresentatives(location.results[0].address_components[0].short_name))
+            this.props.dispatch(getContributorData(location.results[0].address_components[0].short_name))
+        })
+      }.bind(this))
+    }
   }
 
 
