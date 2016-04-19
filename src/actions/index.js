@@ -65,7 +65,6 @@ export function receiveRepWords(payload) {
 
 function makeWordsData(words, index) {
   let array = []
-  console.log(index)
   for (var i = index - 10; i <= index; i++) {
     let temp = {}
     temp.xValue = words[i].ngram

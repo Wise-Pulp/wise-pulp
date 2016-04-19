@@ -6,8 +6,7 @@ export const YES_VOTE = 'YES_VOTE'
 export const NO_VOTE = 'NO_VOTE'
 export const BILL_VOTE = 'BILL_VOTE'
 export const REP_VOTING_HISTORY = 'REP_VOTING_HISTORY'
-
-let houseBills, senateBills
+export const BILL_DATA = 'BILL_DATA'
 
 export function getRoleBills(role) {
   if( role === 'senator') {
@@ -22,7 +21,7 @@ export function getRoleBills(role) {
 }
 
 export function getSenateBillData(something) {
-let senate = '/api/data/senate_bills';
+let senate = '/api/data/senate_bills'
   return dispatch => {
     return fetch(senate)
       .then(response => response.json())
@@ -30,23 +29,25 @@ let senate = '/api/data/senate_bills';
   }
 }
 
+export function addBillType(bills, type) {
+  let newBills = []
+  for (var i = 0; i < bills.length; i++) {
+    newBills.push(Object.assign({}, bills[i], {
+      [type]: true
+    }))
+  }
+  return newBills
+}
+
 export function receiveSenateBillData(bill, anything) {
-  senateBills = bill
-  if (anything) {
-    return {
-      type: GET_ROLE_BILLS,
-      bill
-    }
-  } else { 
-    return {
-      type: SENATE_BILL_DATA,
-      bill
-    } 
+  return {
+    type: BILL_DATA,
+    payload: addBillType(bill, 'senate')
   }
 }
 
 export function getHouseBillData(something) {
-let house = '/api/data/house_bills';
+let house = '/api/data/house_bills'
 
   return dispatch => {
     return fetch(house)
@@ -56,17 +57,9 @@ let house = '/api/data/house_bills';
 }
 
 export function receiveHouseBillData(bill, anything) {
-  houseBills = bill
-  if (anything) {
-    return {
-      type: GET_ROLE_BILLS,
-      bill
-    }
-  } else { 
-    return {
-      type: HOUSE_BILL_DATA,
-      bill
-    } 
+  return {
+    type: BILL_DATA,
+    payload: addBillType(bill, 'house')
   }
 }
 
@@ -129,5 +122,25 @@ export function receiveVotingHistory(payload) {
   return {
     type: REP_VOTING_HISTORY,
     payload
+  }
+}
+
+export function loginCheck(user, bill) {
+  if (user) {
+    let updatedBill = Object.assign({}, bill, {
+      login: true
+    })
+    return {
+      type: LOGIN_PASS,
+      updatedBill
+    }
+  } else {
+    let updatedBill = Object.assign({}, bill, {
+      login: false
+    })
+    return {
+      type: LOGIN_FAIL,
+      updatedBill
+    }
   }
 }

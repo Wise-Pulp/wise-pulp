@@ -16,19 +16,19 @@ export class UpcomingBills extends Component {
   }
 
   render() {
-    const { senate, house, billsToShow } = this.props;
+    const { bills, billsToShow } = this.props;
     return (
       <div className="col-md-10 col-md-offset-1 full-bill-list">
         <div className='col-md-6 col-md-offset-3'>
           <h2>Bills To Be Debated Before Congress</h2>
         </div>
         <div className="col-md-4 col-md-offset-1">
-          { senate ? <div> <h3>Senate</h3> <BillList 
-            bills={senate} billsToShow={billsToShow} showMoreBills={this.showMoreBills.bind(this)}/> </div> : <div><Spinner /></div> }
+          { bills ? <div> <h3>Senate</h3> <BillList 
+            bills={bills} billType={'senate'} billsToShow={billsToShow} showMoreBills={this.showMoreBills.bind(this)}/> </div> : <div><Spinner /></div> }
         </div>
         <div className="col-md-4 col-md-offset-1">
-          { house ? <div> <h3>House of Representatives</h3> <BillList 
-            bills={house} billsToShow={billsToShow} showMoreBills={this.showMoreBills.bind(this)}/> </div>: null }
+          { bills ? <div> <h3>House of Representatives</h3> <BillList 
+            bills={bills} billType={'house'} billsToShow={billsToShow} showMoreBills={this.showMoreBills.bind(this)}/> </div>: null }
         </div>
       </div>
     )
@@ -37,12 +37,11 @@ export class UpcomingBills extends Component {
 
 function mapStateToProps(state) {
   const billsToShow = state.UpcomingBills.billsToShow
-  const senate = state.UpcomingBills.senate || null;
-  const house = state.UpcomingBills.house || null;
+  const bills = state.UpcomingBills.bills
+  console.log(state)
 
   return {
-    senate,
-    house,
+    bills,
     billsToShow
   }
 }

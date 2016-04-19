@@ -34,15 +34,18 @@ export default class BillList extends Component {
   }
 
  render() {
+  const {dispatch, bills, billsToShow, billType} = this.props
   return (
     <div>
-     {this.props.bills.map( (bill, i)=> {
-      while (i < this.props.billsToShow) {
-        return <Bill bill={bill} 
-                     handleSubmit={this.handleSubmit}
-                     onYesChange={this.onYesChange}
-                     onNoChange={this.onNoChange} 
-                     key={i}/>
+     {bills.map( (bill, i)=> {
+      while (i < billsToShow) {
+        if (bill[billType]) {
+          return <Bill bill={bill} 
+                       handleSubmit={this.handleSubmit}
+                       onYesChange={this.onYesChange}
+                       onNoChange={this.onNoChange} 
+                       key={i}/>
+        }
        }
       }) 
       }

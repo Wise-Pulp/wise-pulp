@@ -1,18 +1,15 @@
-import { GET_ROLE_BILLS, SENATE_BILL_DATA, HOUSE_BILL_DATA, ADD_TO_BILLS, YES_VOTE, NO_VOTE, BILL_VOTE, REP_VOTING_HISTORY } from '../actions/actionBills'
+import { BILL_DATA, GET_ROLE_BILLS, SENATE_BILL_DATA, HOUSE_BILL_DATA, ADD_TO_BILLS, YES_VOTE, NO_VOTE, BILL_VOTE, REP_VOTING_HISTORY, LOGIN_PASS, LOGIN_FAIL } from '../actions/actionBills'
 
 export default function upcomingBills(state = { 
   billsToShow: 9,
   yes: null,
-  no: null
+  no: null,
+  bills: []
 }, action) {
   switch (action.type) {
-    case SENATE_BILL_DATA:
+    case BILL_DATA:
       return Object.assign({}, state, {
-        senate: action.bill
-      })
-    case HOUSE_BILL_DATA:
-      return Object.assign({}, state, {
-        house: action.bill
+        bills: state.bills.concat(action.payload)
       })
     case GET_ROLE_BILLS:
       return Object.assign({}, state, {
@@ -36,35 +33,37 @@ export default function upcomingBills(state = {
         no: action.payload,
         yes: null
       })
+    // case LOGIN_PASS:
+    //   for (let i = 0; i < state.votes.length; i++) {
+    //       if (state.votes[i].id === action.payload.id) {
+    //         let before = state.votes.slice(0, i)
+    //         let after = state.votes.slice(i+1, state.votes.length)
+    //         before.push(action.payload)
+    //         let newVotes = before.concat(after)
+    //         return Object.assign({}, state, {
+    //           loginCheck: true
+    //         })
+    //       }
+    //     }
+    // case LOGIN_FAIL:
+    //   for (let i = 0; i < state.votes.length; i++) {
+    //     if (state.votes[i].id === action.payload.id) {
+    //       let before = state.votes.slice(0, i)
+    //       let after = state.votes.slice(i+1, state.votes.length)
+    //       before.push(action.payload)
+    //       let newVotes = before.concat(after)
+    //       return Object.assign({}, state, {
+    //         votes: newVotes
+    //       })
+    //     }
+    //   }
     case BILL_VOTE:
       if (state.house) {
-        for (let i = 0; i < state.house.length; i++) {
-          if (state.house[i]._id === action.payload._id) {
-            let before = state.house.slice(0, i)
-            let after = state.house.slice(i+1, state.house.length - 1)
-            before.push(action.payload)
-            let newHouse = before.concat(after)
-
-            return Object.assign({}, state, {
-              house: newHouse
-            })
-          }
-        }
+        return changeBillProps(state, action.payload, 'house')
       }
 
       if (state.senate) {
-        for (let i = 0; i < state.senate.length; i++) {
-          if (state.senate[i]._id === action.payload._id) {
-            let before = state.senate.slice(0, i)
-            let after = state.senate.slice(i+1, state.senate.length - 1)
-            before.push(action.payload)
-            let newSenate = before.concat(after)
-
-            return Object.assign({}, state, {
-              senate: newSenate
-            })
-          }
-        }
+        return changeBillProps(state, action.payload, 'senate')
       } else {
         for (let i = 0; i < state.votes.length; i++) {
           if (state.votes[i].id === action.payload.id) {
@@ -81,5 +80,26 @@ export default function upcomingBills(state = {
 
     default:
       return state
+  }
+}
+
+//TODO: Refactor 
+export function changeBillProps(state, bill, type) {
+    console.log('thisi s bill', bill)
+    console.log('this is other bill', state[type][0])
+  for (let i = 0; i < state[type].length; i++) {
+    //console.log(bill._id === state[type][i]._id)
+    if (state[type][i]._id === bill._id) {
+      let before = state[type].slice(0, i)
+      let after = state[type].slice(i+1, state[type].length)
+      before.push(bill)
+      let newcongressType = before.concat(after)
+      // console.log(Object.assign({}, state, {
+      //   [type]: newcongressType
+      // }))
+      return Object.assign({}, state, {
+        [type]: newcongressType
+      })
+    }
   }
 }
