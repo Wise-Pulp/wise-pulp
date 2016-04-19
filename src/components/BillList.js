@@ -35,11 +35,13 @@ export default class BillList extends Component {
 
  render() {
   const {dispatch, bills, billsToShow, billType} = this.props
+  let count = 0
   return (
     <div>
      {bills.map( (bill, i)=> {
-      while (i < billsToShow) {
-        if (bill[billType]) {
+      if (bill[billType]) {
+        while (count < billsToShow) {
+          count++
           return <Bill bill={bill} 
                        handleSubmit={this.handleSubmit}
                        onYesChange={this.onYesChange}

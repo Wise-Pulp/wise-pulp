@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getVotingHistory, addToBills } from '../actions/actionBills';
-import VotingHistoryList from '../components/VotingHistoryList'
+import BillList from '../components/BillList'
 import Spinner from '../components/Spinner'
 
 export class VotingHistory extends Component {
@@ -23,7 +23,7 @@ export class VotingHistory extends Component {
     const { bills, billsToShow } = this.props;
     return (
       <div>
-        { bills ? <VotingHistoryList bills={bills} billsToShow={billsToShow} showMoreBills={this.showMoreBills.bind(this)}/> : <div><Spinner /></div> }
+        { bills ? <BillList bills={bills} billsToShow={billsToShow} showMoreBills={this.showMoreBills.bind(this)}/> : <div><Spinner /></div> }
       </div>
     )
   }
@@ -32,7 +32,7 @@ export class VotingHistory extends Component {
 
 function mapStateToProps(state) {
   const representatives = state.Representatives.representatives
-  const bills = state.UpcomingBills.votes
+  const bills = state.UpcomingBills.bills
   const billsToShow = state.UpcomingBills.billsToShow
 
   return {

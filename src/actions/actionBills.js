@@ -7,16 +7,13 @@ export const NO_VOTE = 'NO_VOTE'
 export const BILL_VOTE = 'BILL_VOTE'
 export const REP_VOTING_HISTORY = 'REP_VOTING_HISTORY'
 export const BILL_DATA = 'BILL_DATA'
+export const SET_REP_ROLE = 'SET_REP_ROLE'
+export const LOGIN_CHECK = 'LOGIN_CHECK'
 
 export function getRoleBills(role) {
-  if( role === 'senator') {
-    return dispatch => {
-      return dispatch(getSenateBillData(true));
-    } 
-  } else {
-    return dispatch => {
-      return dispatch(getHouseBillData(true));
-    }
+  return {
+    type: SET_REP_ROLE,
+    payload: role
   }
 }
 
@@ -59,7 +56,7 @@ let house = '/api/data/house_bills'
 export function receiveHouseBillData(bill, anything) {
   return {
     type: BILL_DATA,
-    payload: addBillType(bill, 'house')
+    payload: addBillType(bill, 'representative')
   }
 }
 
@@ -126,21 +123,19 @@ export function receiveVotingHistory(payload) {
 }
 
 export function loginCheck(user, bill) {
+  let updatedBill;
   if (user) {
-    let updatedBill = Object.assign({}, bill, {
+    updatedBill = Object.assign({}, bill, {
       login: true
     })
-    return {
-      type: LOGIN_PASS,
-      updatedBill
-    }
+    
   } else {
-    let updatedBill = Object.assign({}, bill, {
+    updatedBill = Object.assign({}, bill, {
       login: false
     })
-    return {
-      type: LOGIN_FAIL,
-      updatedBill
-    }
+  }
+  return {
+    type: LOGIN_CHECK,
+    updatedBill
   }
 }

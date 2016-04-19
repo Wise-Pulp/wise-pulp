@@ -10,8 +10,16 @@ export default class UpcomingRepBills extends Component {
     this.props.dispatch(addToBills());
   }
 
+  componentWillMount() {
+    const { dispatch, bills } = this.props
+    if (!bills.length) {
+      dispatch(getSenateBillData());
+      dispatch(getHouseBillData());
+    }
+  }
+
   componentDidMount() {
-    const { params, representatives, dispatch } = this.props
+    const { params, representatives, dispatch, bills } = this.props
     representatives.map(function(rep) {
       if (rep.person.id === JSON.parse(params.id)) {
         dispatch(getRoleBills(rep.role_type))
@@ -20,10 +28,10 @@ export default class UpcomingRepBills extends Component {
   }
 
   render() {
-    const { bills, billsToShow } = this.props;
+    const { bills, billsToShow, role } = this.props;
     return (
       <div>
-        { bills ? <BillList bills={bills} billsToShow={billsToShow} showMoreBills={this.showMoreBills.bind(this)}/> : <div><Spinner /></div> }
+        { bills.length ? <BillList bills={bills} billType={role} billsToShow={billsToShow} showMoreBills={this.showMoreBills.bind(this)}/> : <div><Spinner /></div> }
       </div>
     )
   }
@@ -32,12 +40,15 @@ export default class UpcomingRepBills extends Component {
 
 function mapStateToProps(state) {
   const representatives = state.Representatives.representatives
-  const bills = state.UpcomingBills.congress
-  var billsToShow = state.UpcomingBills.billsToShow
+  const bills = state.UpcomingBills.bills
+  const billsToShow = state.UpcomingBills.billsToShow
+  const role = state.UpcomingBills.role
+  console.log(state)
   return {
     representatives,
     bills,
-    billsToShow
+    billsToShow,
+    role
   }
 }
 
