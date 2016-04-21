@@ -1,7 +1,7 @@
-import { PROCESSING_LOGIN, USER_LOGIN_SUCCESS, USER_LOGIN_ERROR, USER_LOGOUT, USER_REGISTRATION_ERROR } from '../actions/actionLogin'
+import { PROCESSING_LOGIN, USER_LOGIN_SUCCESS, USER_LOGIN_ERROR, USER_LOGOUT, USER_REGISTRATION_ERROR, LOGIN_PASS, LOGIN_FAIL } from '../actions/actionLogin'
  
 export default function user(state = {
-  isLoggedIn: null,
+  isLoggedIn: false,
   loginError: false,
   processingLogin: false,
   registrationError: false
@@ -29,7 +29,7 @@ export default function user(state = {
       })
     case USER_LOGOUT:
       return Object.assign({}, state, {
-        isLoggedIn: false
+        isLoggedIn: false,
       })
     default:
       return state

@@ -6,67 +6,60 @@ export const YES_VOTE = 'YES_VOTE'
 export const NO_VOTE = 'NO_VOTE'
 export const BILL_VOTE = 'BILL_VOTE'
 export const REP_VOTING_HISTORY = 'REP_VOTING_HISTORY'
+export const BILL_DATA = 'BILL_DATA'
+export const SET_REP_ROLE = 'SET_REP_ROLE'
+export const LOGIN_CHECK = 'LOGIN_CHECK'
 
-let houseBills, senateBills
+
 
 export function getRoleBills(role) {
-  if( role === 'senator') {
-    return dispatch => {
-      return dispatch(getSenateBillData(true));
-    } 
+  if (role === 'representative') {
+    return getHouseBillData()
   } else {
-    return dispatch => {
-      return dispatch(getHouseBillData(true));
-    }
+    return getSenateBillData()
   }
 }
 
-export function getSenateBillData(something) {
-let senate = '/api/data/senate_bills';
+export function getSenateBillData() {
+let senate = '/api/data/senate_bills'
   return dispatch => {
     return fetch(senate)
       .then(response => response.json())
-      .then(json => dispatch(receiveSenateBillData(json, something))) 
+      .then(json => dispatch(receiveSenateBillData(json))) 
   }
 }
 
-export function receiveSenateBillData(bill, anything) {
-  senateBills = bill
-  if (anything) {
-    return {
-      type: GET_ROLE_BILLS,
-      bill
-    }
-  } else { 
-    return {
-      type: SENATE_BILL_DATA,
-      bill
-    } 
+export function addBillType(bills, type, prop) {
+  let newBills = []
+  for (var i = 0; i < bills.length; i++) {
+    newBills.push(Object.assign({}, bills[i], {
+      [type]: prop
+    }))
+  }
+  return newBills
+}
+
+export function receiveSenateBillData(bill) {
+  return {
+    type: BILL_DATA,
+    payload: addBillType(bill, 'senate', true)
   }
 }
 
-export function getHouseBillData(something) {
-let house = '/api/data/house_bills';
+export function getHouseBillData() {
+let house = '/api/data/house_bills'
 
   return dispatch => {
     return fetch(house)
       .then(response => response.json())
-      .then(json => dispatch(receiveHouseBillData(json, something))) 
+      .then(json => dispatch(receiveHouseBillData(json))) 
   }
 }
 
-export function receiveHouseBillData(bill, anything) {
-  houseBills = bill
-  if (anything) {
-    return {
-      type: GET_ROLE_BILLS,
-      bill
-    }
-  } else { 
-    return {
-      type: HOUSE_BILL_DATA,
-      bill
-    } 
+export function receiveHouseBillData(bill) {
+  return {
+    type: BILL_DATA,
+    payload: addBillType(bill, 'representative', true)
   }
 }
 
@@ -129,5 +122,23 @@ export function receiveVotingHistory(payload) {
   return {
     type: REP_VOTING_HISTORY,
     payload
+  }
+}
+
+export function loginCheck(user, bill) {
+  let updatedBill;
+  if (user) {
+    updatedBill = Object.assign({}, bill, {
+      login: true
+    })
+    
+  } else {
+    updatedBill = Object.assign({}, bill, {
+      login: false
+    })
+  }
+  return {
+    type: LOGIN_CHECK,
+    payload: updatedBill
   }
 }

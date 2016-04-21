@@ -6,9 +6,12 @@ export const USER_LOGOUT = 'USER_LOGOUT'
 export const PROCESSING_LOGIN = 'PROCESSING_LOGIN'
 export const PROCESSING_REGISTRATION = 'PROCESSING_REGISTRATION'
 export const USER_REGISTRATION_ERROR = 'USER_REGISTRATION_ERROR'
+export const LOGIN_PASS = 'LOGIN_PASS'
+export const LOGIN_FAIL = 'LOGIN_FAIL'
 
 export function loginSuccess(payload) {
   browserHistory.push('representatives')
+
   return {
     type: USER_LOGIN_SUCCESS,
     payload

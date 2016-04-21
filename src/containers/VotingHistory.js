@@ -10,7 +10,7 @@ export class VotingHistory extends Component {
     this.props.dispatch(addToBills());
   }
 
-  componentDidMount() {
+  componentWillMount() {
     const { params, representatives, dispatch } = this.props
     representatives.map(function(rep) {
       if (rep.person.id === JSON.parse(params.id)) {
@@ -20,10 +20,10 @@ export class VotingHistory extends Component {
   }
 
   render() {
-    const { bills, billsToShow } = this.props;
+    const { repVotes, repVotesToShow, billsToShow } = this.props;
     return (
       <div>
-        { bills ? <VotingHistoryList bills={bills} billsToShow={billsToShow} showMoreBills={this.showMoreBills.bind(this)}/> : <div><Spinner /></div> }
+        { repVotes.length ? <VotingHistoryList repVotes={repVotes} billsToShow={billsToShow} showMoreBills={this.showMoreBills.bind(this)}/> : <div><Spinner /></div> }
       </div>
     )
   }
@@ -32,12 +32,11 @@ export class VotingHistory extends Component {
 
 function mapStateToProps(state) {
   const representatives = state.Representatives.representatives
-  const bills = state.UpcomingBills.votes
+  const repVotes = state.UpcomingBills.repVotes
   const billsToShow = state.UpcomingBills.billsToShow
-
   return {
     representatives,
-    bills,
+    repVotes,
     billsToShow
   }
 }

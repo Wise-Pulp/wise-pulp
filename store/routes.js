@@ -27,5 +27,3 @@ export default (
       <Route path='login' component={Login} />
     </Route>
 );
-        // <IndexRoute path='voting_history' component={VotingHistory} />
-        // <Route path='words' component={Words} />
