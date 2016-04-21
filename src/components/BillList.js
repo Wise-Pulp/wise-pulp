@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { yes, no, billVote, userVotes } from '../actions/actionBills'
+import { yes, no, billVote, userVotes, loginCheck } from '../actions/actionBills'
 import Bill from './Bill'
 
 export default class BillList extends Component {
@@ -10,18 +10,25 @@ export default class BillList extends Component {
 
     this.onYesChange = this.onYesChange.bind(this)
     this.onNoChange = this.onNoChange.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleLoginCheck = this.handleLoginCheck.bind(this)
   }
 
-  handleSubmit(bill, e) {
-    e.preventDefault()
+  handleLoginCheck(e, bill) {
     const { dispatch, yes, no, user } = this.props
-    if (bill === yes) {
-      dispatch(billVote(bill, 'yes'))
-      dispatch(userVotes(bill, true, user))
-    } else if (bill === no) {
-      dispatch(billVote(bill, 'no'))
-      dispatch(userVotes(bill, false, user))
+    e.preventDefault()
+
+    if (user) {
+      if (bill === yes) {
+        dispatch(billVote(bill, 'yes'))
+        dispatch(userVotes(bill, true, user))
+
+      } else if (bill === no) {
+        dispatch(billVote(bill, 'no'))
+        dispatch(userVotes(bill, false, user))
+
+      }
+    } else {
+      dispatch(loginCheck(user, bill))
     }
   }
 
@@ -34,21 +41,32 @@ export default class BillList extends Component {
   }
 
  render() {
-  const {dispatch, bills, billsToShow, billType} = this.props
+  const {dispatch, bills, billsToShow, role} = this.props
   let count = 0
   return (
     <div>
      {bills.map( (bill, i)=> {
-      if (bill[billType]) {
-        while (count < billsToShow) {
-          count++
-          return <Bill bill={bill} 
-                       handleSubmit={this.handleSubmit}
-                       onYesChange={this.onYesChange}
-                       onNoChange={this.onNoChange} 
-                       key={i}/>
+      if (role) {
+        if (bill[role]) {
+          while (count < billsToShow) {
+            count++
+            return <Bill bill={bill} 
+                         handleLoginCheck={this.handleLoginCheck}
+                         onYesChange={this.onYesChange}
+                         onNoChange={this.onNoChange} 
+                         key={i}/>
+          }
+         }
+      } else {
+          while (count < billsToShow) {
+              count++
+              return <Bill bill={bill} 
+                           handleLoginCheck={this.handleLoginCheck}
+                           onYesChange={this.onYesChange}
+                           onNoChange={this.onNoChange} 
+                           key={i}/>
         }
-       }
+      }
       }) 
       }
      <button type="button" className="btn btn-default show_more_bills" onClick={e => this.props.showMoreBills()}>More</button>

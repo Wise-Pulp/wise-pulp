@@ -11,6 +11,7 @@ export const LOGIN_FAIL = 'LOGIN_FAIL'
 
 export function loginSuccess(payload) {
   browserHistory.push('representatives')
+
   return {
     type: USER_LOGIN_SUCCESS,
     payload

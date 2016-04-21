@@ -40,6 +40,8 @@ export default class RepresentativeList extends Component {
 						</div>
 					})
 				}
+			</div>
+			<div className='row rep-container'>
 				<h1 className='cong-reps'>Your Congressional Representatives</h1>
 			</div>
 		</div>

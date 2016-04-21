@@ -10,53 +10,56 @@ export const BILL_DATA = 'BILL_DATA'
 export const SET_REP_ROLE = 'SET_REP_ROLE'
 export const LOGIN_CHECK = 'LOGIN_CHECK'
 
+
+
 export function getRoleBills(role) {
-  return {
-    type: SET_REP_ROLE,
-    payload: role
+  if (role === 'representative') {
+    return getHouseBillData()
+  } else {
+    return getSenateBillData()
   }
 }
 
-export function getSenateBillData(something) {
+export function getSenateBillData() {
 let senate = '/api/data/senate_bills'
   return dispatch => {
     return fetch(senate)
       .then(response => response.json())
-      .then(json => dispatch(receiveSenateBillData(json, something))) 
+      .then(json => dispatch(receiveSenateBillData(json))) 
   }
 }
 
-export function addBillType(bills, type) {
+export function addBillType(bills, type, prop) {
   let newBills = []
   for (var i = 0; i < bills.length; i++) {
     newBills.push(Object.assign({}, bills[i], {
-      [type]: true
+      [type]: prop
     }))
   }
   return newBills
 }
 
-export function receiveSenateBillData(bill, anything) {
+export function receiveSenateBillData(bill) {
   return {
     type: BILL_DATA,
-    payload: addBillType(bill, 'senate')
+    payload: addBillType(bill, 'senate', true)
   }
 }
 
-export function getHouseBillData(something) {
+export function getHouseBillData() {
 let house = '/api/data/house_bills'
 
   return dispatch => {
     return fetch(house)
       .then(response => response.json())
-      .then(json => dispatch(receiveHouseBillData(json, something))) 
+      .then(json => dispatch(receiveHouseBillData(json))) 
   }
 }
 
-export function receiveHouseBillData(bill, anything) {
+export function receiveHouseBillData(bill) {
   return {
     type: BILL_DATA,
-    payload: addBillType(bill, 'representative')
+    payload: addBillType(bill, 'representative', true)
   }
 }
 
@@ -136,6 +139,6 @@ export function loginCheck(user, bill) {
   }
   return {
     type: LOGIN_CHECK,
-    updatedBill
+    payload: updatedBill
   }
 }

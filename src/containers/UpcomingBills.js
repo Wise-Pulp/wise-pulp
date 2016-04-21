@@ -24,11 +24,11 @@ export class UpcomingBills extends Component {
         </div>
         <div className="col-md-4 col-md-offset-1">
           { bills.length ? <div> <h3>Senate</h3> <BillList 
-            bills={bills} billType={'senate'} billsToShow={billsToShow} showMoreBills={this.showMoreBills.bind(this)}/> </div> : <div><Spinner /></div> }
+            bills={bills} role={'senate'} billsToShow={billsToShow} showMoreBills={this.showMoreBills.bind(this)}/> </div> : <div><Spinner /></div> }
         </div>
         <div className="col-md-4 col-md-offset-1">
           { bills.length ? <div> <h3>House of Representatives</h3> <BillList 
-            bills={bills} billType={'representative'} billsToShow={billsToShow} showMoreBills={this.showMoreBills.bind(this)}/> </div>: null }
+            bills={bills} role={'representative'} billsToShow={billsToShow} showMoreBills={this.showMoreBills.bind(this)}/> </div>: null }
         </div>
       </div>
     )
@@ -38,7 +38,7 @@ export class UpcomingBills extends Component {
 function mapStateToProps(state) {
   const billsToShow = state.UpcomingBills.billsToShow
   const bills = state.UpcomingBills.bills
-
+  console.log(bills)
   return {
     bills,
     billsToShow

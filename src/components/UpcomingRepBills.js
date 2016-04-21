@@ -11,14 +11,6 @@ export default class UpcomingRepBills extends Component {
   }
 
   componentWillMount() {
-    const { dispatch, bills } = this.props
-    if (!bills.length) {
-      dispatch(getSenateBillData());
-      dispatch(getHouseBillData());
-    }
-  }
-
-  componentDidMount() {
     const { params, representatives, dispatch, bills } = this.props
     representatives.map(function(rep) {
       if (rep.person.id === JSON.parse(params.id)) {
@@ -31,7 +23,7 @@ export default class UpcomingRepBills extends Component {
     const { bills, billsToShow, role } = this.props;
     return (
       <div>
-        { bills.length ? <BillList bills={bills} billType={role} billsToShow={billsToShow} showMoreBills={this.showMoreBills.bind(this)}/> : <div><Spinner /></div> }
+        { bills.length && bills[0].sponsor ? <BillList bills={bills} billsToShow={billsToShow} showMoreBills={this.showMoreBills.bind(this)}/> : <div><Spinner /></div> }
       </div>
     )
   }
@@ -43,7 +35,6 @@ function mapStateToProps(state) {
   const bills = state.UpcomingBills.bills
   const billsToShow = state.UpcomingBills.billsToShow
   const role = state.UpcomingBills.role
-  console.log(state)
   return {
     representatives,
     bills,

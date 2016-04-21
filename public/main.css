@@ -1,8 +1,8 @@
 body {
-  background-color: #e6e6e8;
   min-height: 800px;
   max-height: 1200px;
   width: 100%;
+  background-color: rgb(255, 255, 255);
 }
 /********************************
       Buttons
@@ -95,9 +95,7 @@ body {
   height: 50px;
   /*z-index: 199999;*/
 }
-h4 {
-  color: white;
-}
+
 /********************************
       Header
 *********************************/
@@ -329,7 +327,6 @@ div.tooltip {
       Representative Page
 *********************************/
 .cong-reps {
-  margin-top: 40%;
 }
 
 .rep-header {
@@ -579,11 +576,19 @@ div.tooltip {
 }
 
 
-/* user voting form */
+/********************************
+      Voting Forms
+*********************************/
 
 .user_vote {
   position: relative;
   width: 15%;
   height: 10%;
   margin-right: 0;
+}
+
+.vote-indicator {
+  color: red;
+  font-size: 1em;
+  padding-top: 1em;
 }

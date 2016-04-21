@@ -1,22 +1,23 @@
 import React, { Component } from 'react'
 
-const Bill = ({handleSubmit, bill, onNoChange, onYesChange}) => (
+const Bill = ({handleLoginCheck, bill, onNoChange, onYesChange}) => (
   <div>
-    Bill Number: {bill.billNumber}<br />
-    Bill Name: {bill.billName}<br />
-    Current Status: {bill.statusDescription}<br />
-    Check Out The Full Text On Govtrack <a href={bill.fullTextLink} target="_blank">here</a> <br />
-     Sponsored By: {bill.sponsor}<br />
-    <h4>Vote!</h4>
+    <b>Bill Number: </b>{bill.billNumber} <br />
+    <b>Bill Name: </b>{bill.billName} <br />
+    <b>Current Status: </b>{bill.statusDescription}<br />
+    <b>Full Text On Govtrack: </b> <a href={bill.fullTextLink} target="_blank">click here</a> <br />
+    <b>Sponsored By: </b>{bill.sponsor}<br />
+    <h4>Cast Your Vote!</h4>
 
-    <form className="user_vote" action="#" onSubmit={e => handleSubmit(bill, e)}>
-      Yes <input type="radio" name="vote" value="yea" onChange={e => onYesChange(bill)}/>
+    <form className="user_vote" action="#" onSubmit={e => handleLoginCheck(e, bill)}>
+      <input type="radio" name="vote" value="yea" onChange={e => onYesChange(bill)}/> Yes
        <br />
-      No  <input type="radio" name="vote" value="nay" onChange={e => onNoChange(bill)}/> 
+      <input type="radio" name="vote" value="nay" onChange={e => onNoChange(bill)}/> No
       <br />
       <input type="submit" value='Vote!' className="btn btn-default" />
     </form>
-      {bill.voted ? bill.voted === 'yes' ? <div>You voted yes!</div> : <div>You voted no!</div> : null}
+      {bill.login === false ? <div className='registration-error'>You must be logged in to vote</div> : null}
+      {bill.voted ? bill.voted === 'yes' ? <div className='vote-indicator'>You voted yes!</div> : <div>You voted no!</div> : null}
     <hr />
   </div> 
 )

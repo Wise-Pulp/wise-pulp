@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { yes, no, billVote, userVotes } from '../actions/actionBills'
-import { loginCheck } from '../actions/actionLogin'
-import BillList from './BillList'
+import { yes, no, billVote, userVotes, loginCheck } from '../actions/actionBills'
+import BillVotes from './BillVotes'
 
 export default class VotingHistoryList extends Component {
 
@@ -14,7 +13,7 @@ export default class VotingHistoryList extends Component {
     this.handleLoginCheck = this.handleLoginCheck.bind(this)
   }
 
-  handleLoginCheck(bill, e) {
+  handleLoginCheck(e, bill) {
     const { dispatch, yes, no, user } = this.props
     e.preventDefault()
 
@@ -29,7 +28,7 @@ export default class VotingHistoryList extends Component {
 
       }
     } else {
-      dispatch(loginCheck(user))
+      dispatch(loginCheck(user, bill))
     }
   }
 
@@ -42,12 +41,12 @@ export default class VotingHistoryList extends Component {
   }
 
  render() {
-  const {bills, billsToShow, loginCheck} = this.props
+  const {repVotes, billsToShow, loginCheck} = this.props
   return (
     <div>
-     {bills.map( (bill, i)=> {
+     {repVotes.map( (bill, i)=> {
       while (i < billsToShow) {
-        return <BillList bill={bill} 
+        return <BillVotes bill={bill} 
                      handleLoginCheck={this.handleLoginCheck}
                      onYesChange={this.onYesChange}
                      onNoChange={this.onNoChange} 
