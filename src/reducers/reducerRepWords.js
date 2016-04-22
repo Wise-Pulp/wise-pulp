@@ -2,12 +2,13 @@ import { RECEIVE_REP_WORDS, MORE_REP_WORDS, LESS_REP_WORDS } from '../actions/in
 
 export default function repWords (state = {
   words: null,
-  index: 10
+  index: null
 }, action) {
   switch (action.type) {
     case RECEIVE_REP_WORDS:
       return Object.assign({}, state, {
         words: action.words,
+        index: 20
       })
     case MORE_REP_WORDS:
       return Object.assign({}, state, {
@@ -17,7 +18,7 @@ export default function repWords (state = {
     case LESS_REP_WORDS:
       return Object.assign({}, state, {
           words: action.words,
-          index: state.index - 10 || 0
+          index: state.index - 10
       })
     default:
       return state

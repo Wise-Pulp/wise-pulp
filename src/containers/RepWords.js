@@ -12,13 +12,21 @@ export default class RepWords extends Component {
   }
 
   moreWords() {
-    const { dispatch, index } = this.props
-    dispatch(nextTenWords(index))
+    const { dispatch, index, words } = this.props
+    if (index + 10 > words.length ) {
+      dispatch(nextTenWords(words.length))
+    } else {
+      dispatch(nextTenWords(index))
+    }
   }
 
   lessWords() {
-    const { dispatch, index } = this.props
-    dispatch(previousTenWords(index))
+    const { dispatch, index, words } = this.props
+    if (index - 10 < 0) {
+      dispatch(previousTenWords(0))
+    } else {
+      dispatch(previousTenWords(index))
+    }
   }
 
   componentDidMount() {
@@ -30,7 +38,8 @@ export default class RepWords extends Component {
     }.bind(this))
   }
 
-  render() {    const { data } = this.props
+  render() {    
+    const { data } = this.props
     return <div>
       { data ? <div><Chart type={'bar'}
                       width={800}
@@ -52,6 +61,7 @@ function mapStateToProps(state) {
   const representatives = state.Representatives.representatives
   const data = state.RepWords.words
   const index = state.RepWords.index
+  console.log(index)
   return {
     representatives,
     data,

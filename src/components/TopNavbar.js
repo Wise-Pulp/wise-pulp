@@ -3,11 +3,6 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router';
 import { processLogout } from '../actions/actionLogin'
 
-
-//put a logo in next to the home button
-//Polis (get rid of home)
-//Make the login look like a button
-
 export default class TopNavbar extends Component {
 
   logout(e) {
@@ -20,11 +15,11 @@ export default class TopNavbar extends Component {
     return (
         <div className='top-nav-bar'>
           { isLoggedIn ?  <a href='#' className='item' onClick={e => this.logout(e)}>Logout</a> : 
-                          <Link className='item login-nav' to={'login'}>Login</Link> }
+                          <Link to={'login'}><button className='login-button'>Login</button></Link> }
           <Link className='item' to={'upcoming_bills'}>Upcoming Bills</Link>
           <Link className='item' to={'representatives'}>Representatives</Link>
-          <Link to={'home'}><div className="logo-container"></div></Link>
-          <Link to={'home'}><div className="polis_nav_bar"><h4>Polis</h4></div></Link>
+          <Link to={'home'}><div className="logo-container home"></div></Link>
+          <Link to={'home'}><div className="home"><h4>Polis</h4></div></Link>
       </div>
 
     )
