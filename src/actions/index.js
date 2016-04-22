@@ -64,6 +64,7 @@ export function receiveRepWords(payload) {
 }
 
 function makeWordsData(words, index) {
+  console.log(index)
   let array = []
   for (var i = index - 10; i <= index; i++) {
     let temp = {}

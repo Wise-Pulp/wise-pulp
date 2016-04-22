@@ -43,25 +43,19 @@ body {
   background-color: #333;
 }
 
-.top-nav-bar .item {
-  float: right;
-}
-
-.login-nav {
-  border-style: solid;
-  border-color: #343B4A;
-  border-radius: 5%;
-  text-align: center;
-  vertical-align: middle;
-  background-color: #343B4A;
-  margin: 0 5px 0 5px;
-}
 
 .top-nav-bar .home {
   float: left;
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 6px 16px;
+  text-decoration: none;
+
 }
 
-.top-nav-bar a {
+.top-nav-bar .item {
+  float: right;
   display: block;
   color: white;
   text-align: center;
@@ -69,6 +63,32 @@ body {
   text-decoration: none;
 }
 
+.top-nav-bar .login-button {
+  margin: 8px;
+  float: right;
+  border-radius: 10px;
+  background-color: #658999;
+  color: #FFF;
+  -moz-box-shadow:    inset 0 0 8px #000000;
+  -webkit-box-shadow: inset 0 0 8px #000000;
+  box-shadow:         inset 0 0 8px #000000;
+  font-size: 16px;
+  width: 80px;
+}
+
+.top-nav-bar .login-button:hover {
+  -moz-box-shadow:    inset 0 0 18px #000000;
+  -webkit-box-shadow: inset 0 0 18px #000000;
+  box-shadow:         inset 0 0 18px #000000;
+}
+
+.top-nav-bar .login-button:focus {
+  outline: none;
+}
+
+.login-nav a:hover {
+  background-color: white;
+}
 /* Change the link color to #111 (black) on hover */
 .top-nav-bar a:hover {
     background-color: #111;
@@ -85,8 +105,10 @@ body {
   background-size: 135%;
   background-repeat: no-repeat;
   background-position: center;
-  z-index: 9999;
+  margin-left: 5px;
 }
+
+
 .polis_nav_bar {
   position: relative;
   top: -70px;
