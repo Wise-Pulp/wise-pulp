@@ -15,18 +15,25 @@ export class ContributorVisualization extends Component {
       this.props.dispatch(setGraphType())
     }
 
-    create(data) {
+  create(data) {
     const chart  = c3.generate({
       bindto: '#contribution_chart',
       data: {
-        columns: ['rjaljflakjf', 1, 4, 52, 6, 7474],
+        columns: [
+          this.props.contributions[0],
+          this.props.contributions[1],
+          this.props.contributions[2],
+          this.props.contributions[3],
+          this.props.contributions[4],
+          this.props.contributions[5]
+        ],
         types: {
-          data1: 'bar',
-          data2: 'bar',
-          data3: 'bar',
-          data4: 'bar',
-          data5: 'bar',
-          data6: 'bar'
+          "individual > $200": 'bar',
+          "individual < $200": 'bar',
+          "other committee": 'bar',
+          "party committee": 'bar',
+          "total": 'bar',
+          "Net Gains": 'bar'
         }
       }
     });
