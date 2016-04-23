@@ -15,7 +15,7 @@ export default class Representatives extends Component {
     this.props.dispatch(stopProgress())
     setTimeout(()=>{
       clearInterval(this.interval);
-    }, 5000)
+    }, 55000)
   }
 
   tick() {
