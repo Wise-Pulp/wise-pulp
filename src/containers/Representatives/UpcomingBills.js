@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getSenateBillData, getHouseBillData, addToBills } from '../actions/actionBills';
-import BillList from '../components/BillList'
-import Spinner from '../components/Spinner'
+import { getSenateBillData, getHouseBillData, addToBills } from '../../actions/actionBills';
+import BillList from '../../components/Bills/BillList'
+import Spinner from '../../components/Spinner'
 
 export class UpcomingBills extends Component {
 

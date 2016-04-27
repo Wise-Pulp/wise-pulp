@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { yes, no, billVote, userVotes, loginCheck } from '../actions/actionBills'
-import Bill from './Bill'
+import { yes, no, billVote, userVotes, loginCheck } from '../../actions/actionBills'
+import BillVotes from './BillVotes'
 
-export default class BillList extends Component {
+export default class VotingHistoryList extends Component {
 
   constructor(props) {
     super(props)
@@ -41,32 +41,18 @@ export default class BillList extends Component {
   }
 
  render() {
-  const {dispatch, bills, billsToShow, role} = this.props
-  let count = 0
+  const {repVotes, billsToShow, loginCheck} = this.props
   return (
     <div>
-     {bills.map( (bill, i)=> {
-      if (role) {
-        if (bill[role]) {
-          while (count < billsToShow) {
-            count++
-            return <Bill bill={bill} 
-                         handleLoginCheck={this.handleLoginCheck}
-                         onYesChange={this.onYesChange}
-                         onNoChange={this.onNoChange} 
-                         key={i}/>
-          }
-         }
-      } else {
-          while (count < billsToShow) {
-              count++
-              return <Bill bill={bill} 
-                           handleLoginCheck={this.handleLoginCheck}
-                           onYesChange={this.onYesChange}
-                           onNoChange={this.onNoChange} 
-                           key={i}/>
-        }
-      }
+     {repVotes.map( (bill, i)=> {
+      while (i < billsToShow) {
+        return <BillVotes bill={bill} 
+                     handleLoginCheck={this.handleLoginCheck}
+                     onYesChange={this.onYesChange}
+                     onNoChange={this.onNoChange} 
+                     loginCheck={loginCheck}
+                     key={i}/>
+       }
       }) 
       }
      <button type="button" className="btn btn-default show_more_bills" onClick={e => this.props.showMoreBills()}>More</button>
@@ -79,11 +65,13 @@ function mapStateToProps(state) {
   const yes = state.UpcomingBills.yes
   const no = state.UpcomingBills.no
   const user = state.user.isLoggedIn
+  const loginCheck = state.user.loginCheck
   return {
     yes,
     no,
-    user
+    user,
+    loginCheck
   }
 }
 
-export default connect(mapStateToProps)(BillList);
+export default connect(mapStateToProps)(VotingHistoryList);

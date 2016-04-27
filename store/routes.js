@@ -1,15 +1,15 @@
 import React from 'react';
 import { Route, IndexRoute } from 'react-router';
-import  App from '../src/components/App';
-import FrontPage from '../src/containers/FrontPage'
-import Representatives from '../src/containers/Representatives'
-import RepresentativeInfo from '../src/containers/RepresentativeInfo'
-import UpcomingBills from '../src/containers/UpcomingBills'
-import UpcomingRepBills from '../src/components/UpcomingRepBills'
-import CampaignContributions from '../src/components/ContributorVisualization'
-import Login from '../src/containers/Login'
-import VotingHistory from '../src/containers/VotingHistory'
-import RepWords from '../src/containers/RepWords'
+import  App from '../src/components/App/App';
+import FrontPage from '../src/containers/FrontPage/FrontPage'
+import Representatives from '../src/containers/Representatives/Representatives'
+import RepresentativeInfo from '../src/containers/Representatives/RepresentativeInfo'
+import UpcomingBills from '../src/containers/Representatives/UpcomingBills'
+import UpcomingRepBills from '../src/components/Bills/UpcomingRepBills'
+import CampaignContributions from '../src/components/RepresentativeView/ContributorVisualization'
+import Login from '../src/containers/Login/Login'
+import VotingHistory from '../src/containers/Representatives/VotingHistory'
+import RepWords from '../src/containers/Representatives/RepWords'
 
 export default (
     <Route path='/' component={App}>

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { getSenateBillData } from '../actions/actionBills'
+import { getSenateBillData } from '../../actions/actionBills'
 
 export default class SenateUpcomingLegislation extends Component {
 
