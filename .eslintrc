@@ -1,5 +1,4 @@
 {
-  "extends": "eslint-config-hackreactor",
   "parser": "babel-eslint",
   "plugins": [ "react" ],
   "env": {
