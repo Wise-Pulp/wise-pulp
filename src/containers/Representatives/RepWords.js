@@ -2,7 +2,7 @@ import d3 from 'd3'
 import Chart from '../../../node_modules/d3act/lib/components/Chart'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { getRepWords, nextTenWords, previousTenWords } from '../../actions/index'
+import { getRepWords, nextTenWords, previousTenWords } from '../actions/actionRepWords'
 
 export default class RepWords extends Component {
   constructor(props) {

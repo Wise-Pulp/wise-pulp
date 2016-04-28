@@ -1,4 +1,4 @@
-import { INCREASE_PROGRESS, STOP_PROGRESS } from '../actions/index'
+import { INCREASE_PROGRESS, STOP_PROGRESS } from '../actions/actionRepresentatives'
 // reducer for loading spinner
 export default function updateSpinnerProgress(state = {progress: 0}, action) {
   switch (action.type) {

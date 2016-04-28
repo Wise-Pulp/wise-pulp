@@ -1,22 +1,52 @@
-import React from 'react';
+import React                        from 'react'
+import fetchMock                    from 'fetch-mock'
+import fetch                        from 'isomorphic-fetch'
 import {
   renderIntoDocument,
   findRenderedDOMComponentWithTag
-} from 'react-addons-test-utils';
-import nock from 'nock'
-import configureMockStore from 'redux-mock-store'
-import thunk from 'redux-thunk'
-import {expect} from 'chai';
-import { SELECT_REPRESENTATIVE,
+}                                   from 'react-addons-test-utils';
+import configureMockStore           from 'redux-mock-store'
+import thunk                        from 'redux-thunk'
+import { expect }                   from 'chai';
+import { RECEIVE_REPRESENTATIVES,
           GET_REP_INFO,
-          getRepInfo,
-          setRepresentative } from '../src/actions/index'
-import representativeList from '../src/reducers/reducerProfile'
+          IS_FETCHING,
+          getRepresentatives }      from '../src/actions/actionRepresentatives'
+import representativeList           from '../src/reducers/reducerRepresentatives'
+
+fetchMock.useNonGlobalFetch(fetch)
 
 const middlewares = [ thunk ]
 const mockStore = configureMockStore(middlewares)
 
-describe('Select Representative', () => {
+describe('Get Representatives', () => {
+
+  afterEach(() => {
+    fetchMock.restore();
+  });
+
+  it('creates RECEIVE_REPRESENTATIVES when fetching reps is done', () => {
+    fetchMock
+      .mock('/api/representatives', { objects:  [
+        {
+          id: 123456
+        }
+      ]
+    })
+      const expectedAction = { type: RECEIVE_REPRESENTATIVES, 
+                               payload: {
+                                id: 123456
+                             }}
+      const store = mockStore({ representatives: [] })
+
+      return store.dispatch(getRepresentatives())
+        .then(() => {
+          expect(store.getActions().to.deep.equal(expectedAction))
+        })
+  })
+})
+
+xdescribe('Select Representative', () => {
 
   it('should create an action to select a representative', () => {
     const rep = '12345'

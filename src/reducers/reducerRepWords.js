@@ -1,4 +1,4 @@
-import { RECEIVE_REP_WORDS, MORE_REP_WORDS, LESS_REP_WORDS } from '../actions/index'
+import { RECEIVE_REP_WORDS, MORE_REP_WORDS, LESS_REP_WORDS } from '../actions/actionRepWords'
 
 export default function repWords (state = {
   words: null,

@@ -1,4 +1,4 @@
-import { RECEIVE_REPRESENTATIVES, IS_FETCHING } from '../actions/index'
+import { RECEIVE_REPRESENTATIVES, IS_FETCHING } from '../actions/actionRepresentatives'
 import { ADD_TO_BILLS } from '../actions/actionBills'
 
 export default function representativesList(state = {
@@ -13,7 +13,7 @@ export default function representativesList(state = {
       })
     case RECEIVE_REPRESENTATIVES:
       return Object.assign({}, state, {
-        representatives: action.representatives,
+        representatives: action.payload,
         isFetching: false,
       })
     case ADD_TO_BILLS:
