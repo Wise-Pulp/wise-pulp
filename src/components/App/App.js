@@ -3,8 +3,8 @@ import fetch from 'isomorphic-fetch'
 import { connect } from 'react-redux'
 import TopNavbar from '../TopNavbar'
 import Footer from '../Footer'
-import { getRepresentatives } from '../../actions/index'
 import { getContributorData } from '../../actions/actionContributor'
+import { getRepresentatives } from '../actions/actionRepresentatives'
 
 export default class App extends Component {
 
