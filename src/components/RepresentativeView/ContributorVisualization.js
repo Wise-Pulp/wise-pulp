@@ -4,9 +4,9 @@ import React, { Component } from 'react'
 import { render } from 'react-dom'
 import { connect } from 'react-redux'
 
-import Chart from '../../node_modules/d3act/lib/components/Chart'
+import Chart from '../../../node_modules/d3act/lib/components/Chart'
 import Visualization from './Graph'
-import { setGraphType } from '../actions/actionContributor'
+import { setGraphType } from '../../actions/actionContributor'
 
 export class ContributorVisualization extends Component {
 

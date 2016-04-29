@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import RepresentativeIntermediary from '../components/RepresentativeIntermediary'
-import RepresentativeLeftNavBar from '../components/RepresentativeLeftNavBar'
-import ContributorVisualization from '../components/ContributorVisualization'
-import { getCurrentPosition, getRepresentatives } from '../actions/index'
+import RepresentativeIntermediary from '../../components/RepresentativeView/RepresentativeIntermediary'
+import RepresentativeLeftNavBar from '../../components/RepresentativeView/RepresentativeLeftNavBar'
+import ContributorVisualization from '../../components/RepresentativeView/ContributorVisualization'
+import { getCurrentPosition, getRepresentatives } from '../../actions/index'
 
 export default class RepresentativeInfo extends Component {
 

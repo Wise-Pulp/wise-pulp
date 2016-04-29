@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import RepresentativePicture from '../components/RepresentativePicture'
-import RepresentativeName from '../components/RepresentativeName'
-import RepresentativeDetails from '../components/RepresentativeDetails'
+import RepresentativePicture from './RepresentativePicture'
+import RepresentativeName from './RepresentativeName'
+import RepresentativeDetails from './RepresentativeDetails'
 
 const RepresentativeIntermediary = ({representative, image}) => (
 	<div>

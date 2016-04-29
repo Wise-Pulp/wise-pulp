@@ -27,7 +27,7 @@ module.exports = {
         exclude: '/node_modules'
       },
       //This converts our .css into JS
-      { test: /\.css$/, loader: 'style-loader!css-loader' },
+      { test: /\.s?css$/, loaders: ['style', 'css', 'sass?outputStyle=expanded'] },
       { test : /\.json$/, loader: 'json-loader'},
       { test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: 'file' },
       { test: /\.(woff|woff2)$/, loader:'url?prefix=font/&limit=5000' },
@@ -38,7 +38,7 @@ module.exports = {
   },
 
   resolve: {
-        extensions: ['', '.js', '.jsx', '.css', '.json'],
+        extensions: ['', '.js', '.jsx', '.css', '.scss', '.json'],
         modulesDirectories: [
           'node_modules'
         ]        
