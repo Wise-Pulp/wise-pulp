@@ -1,9 +1,6 @@
-import d3 from 'd3'
 import c3 from 'c3'
 import React, { Component } from 'react'
-import { render } from 'react-dom'
 import { connect } from 'react-redux'
-
 import Chart from '../../../node_modules/d3act/lib/components/Chart'
 import Visualization from './Graph'
 import { setGraphType } from '../../actions/actionContributor'
@@ -11,9 +8,9 @@ import { setGraphType } from '../../actions/actionContributor'
 export class ContributorVisualization extends Component {
 
 
-    handleChange(value) {
-      this.props.dispatch(setGraphType())
-    }
+  handleChange(value) {
+    this.props.dispatch(setGraphType())
+  }
 
   create(data) {
     const chart  = c3.generate({
@@ -36,7 +33,7 @@ export class ContributorVisualization extends Component {
           "Net Gains": 'bar'
         }
       }
-    });
+    })
     
   }
 
@@ -44,17 +41,17 @@ export class ContributorVisualization extends Component {
     this.create(this.props.contributions)
   }
 
-    render() {
-        const grouped = 'grouped'
-        const stacked = 'stacked'
-        const { contributions } = this.props
-        console.log('this.props from contributionVis', this.props)
-        return <div>
-      { this.props.contributions ? 
-        <div id="contribution_chart"></div>
-        : <div>Loading...</div> }
-      </div>
-    }
+  render() {
+    const grouped = 'grouped'
+    const stacked = 'stacked'
+    const { contributions } = this.props
+    console.log('this.props from contributionVis', this.props)
+    return <div>
+  { this.props.contributions ? 
+    <div id="contribution_chart"></div>
+    : <div>Loading...</div> }
+  </div>
+}
 }
 
 function mapStateToProps(state) {
