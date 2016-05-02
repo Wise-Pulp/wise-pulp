@@ -237,12 +237,12 @@ module.exports = function(app) {
             var canddiateTwo = { year_of_collection: '1451606400000', can_off_sta: 'CA', can_off_dis: '13' };
             console.log('candidateOne', candidateOne);
             console.log('canddiateTwo', canddiateTwo);
-            CandidateSummary.find(candidateOne)
+            CandidateSummary.find({ can_off_sta: 'CA'})
             .exec(function(err, documents) {
               if (err) { 
                 console.log('there was an error', err) 
               } else { 
-                console.log('these are the documents from one', documents)
+                console.log('these are the documents from can_off', documents)
                 res.json(documents) 
               }
 
