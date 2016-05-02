@@ -46,7 +46,7 @@ export class ContributorVisualization extends Component {
     return <div>
       { this.props.contributions ? 
         <div id="contribution_chart"></div>
-        : <div>Loading...</div> }
+        : <div>Working...</div> }
       </div>
   }
 }

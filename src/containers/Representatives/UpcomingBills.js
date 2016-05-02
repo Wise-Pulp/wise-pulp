@@ -1,22 +1,22 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { getSenateBillData, getHouseBillData, addToBills } from '../../actions/actionBills';
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { getSenateBillData, getHouseBillData, addToBills } from '../../actions/actionBills'
 import BillList from '../../components/Bills/BillList'
 import Spinner from '../../components/Spinner'
 
 export class UpcomingBills extends Component {
 
   showMoreBills() {
-    this.props.dispatch(addToBills());
+    this.props.dispatch(addToBills())
   }
 
   componentWillMount() {
-    this.props.dispatch(getSenateBillData());
-    this.props.dispatch(getHouseBillData());
+    this.props.dispatch(getSenateBillData())
+    this.props.dispatch(getHouseBillData())
   }
 
   render() {
-    const { bills, billsToShow } = this.props;
+    const { bills, billsToShow } = this.props
     return (
       <div className="col-md-10 col-md-offset-1 full-bill-list">
         <div className='col-md-6 col-md-offset-3'>
@@ -38,11 +38,10 @@ export class UpcomingBills extends Component {
 function mapStateToProps(state) {
   const billsToShow = state.UpcomingBills.billsToShow
   const bills = state.UpcomingBills.bills
-  console.log(bills)
   return {
     bills,
     billsToShow
   }
 }
 
-export default connect(mapStateToProps)(UpcomingBills);
+export default connect(mapStateToProps)(UpcomingBills)
