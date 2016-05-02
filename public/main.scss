@@ -1,8 +1,10 @@
+@import '../src/styles-config';
+
 body {
-  min-height: 800px;
-  max-height: 1200px;
+  /*min-height: 800px;
+  max-height: 1200px*/;
   width: 100%;
-  background-color: rgb(255, 255, 255);
+  background-color: $background;
 }
 /********************************
       Buttons
