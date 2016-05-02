@@ -42,31 +42,19 @@ export class ContributorVisualization extends Component {
   }
 
   render() {
-    const grouped = 'grouped'
-    const stacked = 'stacked'
     const { contributions } = this.props
-    console.log('this.props from contributionVis', this.props)
     return <div>
-  { this.props.contributions ? 
-    <div id="contribution_chart"></div>
-    : <div>Loading...</div> }
-  </div>
-}
+      { this.props.contributions ? 
+        <div id="contribution_chart"></div>
+        : <div>Loading...</div> }
+      </div>
+  }
 }
 
 function mapStateToProps(state) {
-  console.log('state from ContributorVisualization', state)
-  const m = state.ContributorVisualization.m
-  const n = state.ContributorVisualization.n
-  const layers = state.ContributorVisualization.layers
-  const grouped = state.ContributorVisualization.grouped
   const contributions = state.ContributorVisualization.contributions
-  console.log('this should be contributor data from contributorViz', contributions)
+  console.log(contributions)
   return {
-    m,
-    n,
-    layers,
-    grouped,
     contributions
   }
 }

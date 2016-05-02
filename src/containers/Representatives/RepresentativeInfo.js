@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import RepresentativeIntermediary from '../../components/RepresentativeView/RepresentativeIntermediary'
 import RepresentativeLeftNavBar from '../../components/RepresentativeView/RepresentativeLeftNavBar'
 import ContributorVisualization from '../../components/RepresentativeView/ContributorVisualization'
-import { getCurrentPosition, getRepresentatives } from '../actions/actionRepresentatives'
+import { getCurrentPosition, getRepresentatives } from '../../actions/actionRepresentatives'
 
 export default class RepresentativeInfo extends Component {
 

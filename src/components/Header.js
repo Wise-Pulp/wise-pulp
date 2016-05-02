@@ -1,16 +1,6 @@
 import React, { Component } from 'react'
 
-
-
-export default class Header extends Component {
-  
-
-  logCredentials(event) {
-    event.preventDefault();
-    console.log(
-      "this is this in the header", this
-      );
-  }
+export default class Header extends Component {  
 
   render() {
     return (
@@ -20,7 +10,7 @@ export default class Header extends Component {
             <h4 className="blurb">Inspiring increased voter participation.</h4>
         </header>
       </div>
-    );
+    )
   }
 }
 

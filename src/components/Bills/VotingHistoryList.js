@@ -55,7 +55,7 @@ export default class VotingHistoryList extends Component {
        }
       }) 
       }
-     <button type="button" className="btn btn-default show_more_bills" onClick={e => this.props.showMoreBills()}>More</button>
+     <button type="button" className="btn btn-default show_more_bills" onClick={() => this.props.showMoreBills()}>More</button>
     </div> 
   )
  } 
@@ -74,4 +74,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps)(VotingHistoryList);
+export default connect(mapStateToProps)(VotingHistoryList)

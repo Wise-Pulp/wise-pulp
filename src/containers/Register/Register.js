@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { browserHistory } from 'react-router'
-import { userRegister } from '../actions/actionLogin'
-import { getRepresentatives } from '../actions/actionRepresentatives'
-import RegisterForm from '../components/RegisterForm'
-import Zipcode from '../components/Zipcode'
+import { userRegister } from '../../actions/actionLogin'
+import { getRepresentatives } from '../../actions/actionRepresentatives'
+import RegisterForm from '../../components/RegisterForm'
+import Zipcode from '../../components/Zipcode'
 
 export class Register extends Component {
    constructor(props) {

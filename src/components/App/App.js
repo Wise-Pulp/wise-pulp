@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import TopNavbar from '../TopNavbar'
 import Footer from '../Footer'
 import { getContributorData } from '../../actions/actionContributor'
-import { getRepresentatives } from '../actions/actionRepresentatives'
+import { getRepresentatives } from '../../actions/actionRepresentatives'
 
 export default class App extends Component {
 
@@ -26,7 +26,7 @@ export default class App extends Component {
       	{children}
         <Footer />
       </div>
-    );
+    )
   }
 }
 
