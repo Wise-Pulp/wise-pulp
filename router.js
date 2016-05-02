@@ -234,8 +234,7 @@ module.exports = function(app) {
             console.log('this is zipObject.state:', zipObject[0].state);
             console.log('this is zipObject.district:', zipObject[0].district);
 
-            // CandidateSummary.find({ year_of_collection: theYear, can_off_sta: zipObject[0].state, can_off_dis: zipObject[0].district })
-            CandidateSummary.find({})
+            CandidateSummary.find({ year_of_collection: theYear, can_off_sta: zipObject[0].state, can_off_dis: zipObject[0].district })
             .exec(function(err, documents) {
               if (err) { 
                 console.log('there was an error', err) 
