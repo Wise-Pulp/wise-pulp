@@ -236,7 +236,12 @@ module.exports = function(app) {
 
             CandidateSummary.find({ year_of_collection: theYear, can_off_sta: zipObject[0].state, can_off_dis: zipObject[0].district })
             .exec(function(err, documents) {
-              if (err) { console.log('there was an error', err) } else { res.json(documents) }
+              if (err) { 
+                console.log('there was an error', err) 
+              } else { 
+                console.log(documents)
+                res.json(documents) 
+              }
 
             });
           } else {
