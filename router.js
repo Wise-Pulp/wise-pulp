@@ -233,14 +233,27 @@ module.exports = function(app) {
             console.log('this is theYear before entering Query #SingleObject:', theYear);
             console.log('this is zipObject.state:', zipObject[0].state);
             console.log('this is zipObject.district:', zipObject[0].district);
-
-            CandidateSummary.find({ year_of_collection: 1451606400000, can_off_sta: 'CA', can_off_dis: 13 })
+            var candidateOne = { year_of_collection: 1451606400000, can_off_sta: 'CA', can_off_dis: 13 };
+            var canddiateTwo = { year_of_collection: '1451606400000', can_off_sta: 'CA', can_off_dis: '13' };
+            console.log('candidateOne', candidateOne);
+            console.log('canddiateTwo', canddiateTwo);
+            CandidateSummary.find(candidateOne)
             .exec(function(err, documents) {
               if (err) { 
                 console.log('there was an error', err) 
               } else { 
-                console.log('these are the documents', documents)
+                console.log('these are the documents from one', documents)
                 res.json(documents) 
+              }
+
+            });
+            CandidateSummary.find(canddiateTwo)
+            .exec(function(err, documents) {
+              if (err) { 
+                console.log('there was an error', err) 
+              } else { 
+                console.log('these are the documents from two', documents)
+                //res.json(documents) 
               }
 
             });
