@@ -252,7 +252,7 @@ module.exports = function(app) {
             //     res.json(documents) 
             //   }
 
-            });
+            // });
           } else {
             res.status(404).send('Invalid query');
           }
