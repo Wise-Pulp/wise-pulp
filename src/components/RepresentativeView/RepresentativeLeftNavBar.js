@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { Link }from 'react-router'
 
+import './RepView.scss';
+
 export default class RepresentativeLeftNavBar extends Component {
 
 	render() {

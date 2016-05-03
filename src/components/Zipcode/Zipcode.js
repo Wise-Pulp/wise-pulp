@@ -1,4 +1,6 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+
+import './Zipcode.scss';
 
 export default class Zipcode extends Component {
   handleSubmit(e) {

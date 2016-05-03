@@ -1,7 +1,13 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router'
+
 import RepresentativePicture from './RepresentativePicture'
 import RepresentativeName from './RepresentativeName'
-import { Link } from 'react-router'
+import ContributorVisualization from './ContributorVisualization'
+import Header from '../Header/Header'
+
+
+import './RepView.scss';
 
 export default class RepresentativeList extends Component {
 		render() {

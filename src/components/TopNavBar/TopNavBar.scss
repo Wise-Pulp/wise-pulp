@@ -1,0 +1,58 @@
+@import '../../styles-config.scss';
+@import '../LoginForm/LoginForm.scss';
+
+.top-nav-bar {
+  position: relative;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  height: 50px;
+  overflow: hidden;
+  background-color: #333;
+
+  .home {
+    float: left;
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 6px 16px;
+    text-decoration: none;
+  }
+
+  .item {
+    float: right;
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+  }
+
+  .login-button {
+    margin: 8px;
+    float: right;
+    border-radius: 10px;
+    background-color: #658999;
+    color: #FFF;
+    -moz-box-shadow:    inset 0 0 8px #000000;
+    -webkit-box-shadow: inset 0 0 8px #000000;
+    box-shadow:         inset 0 0 8px #000000;
+    font-size: 16px;
+    width: 80px;
+  }
+
+}
+
+.logo-container {
+  position: relative;
+  height: 45px;
+  width: 45px;
+  top: 1px;
+  border-style: solid;
+  border-color: #333;
+  background-image: url("http://scan.lusu.co.uk/wp-content/uploads/2016/03/Vote.jpg");
+  background-size: 135%;
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-left: 5px;
+}

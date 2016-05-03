@@ -2,6 +2,8 @@ import d3 from 'd3'
 import React, { Component } from 'react'
 import { render } from 'react-dom'
 
+import './RepView.scss';
+
 export default class Visualization {
     constructor(el, props) {
       this.el = el;

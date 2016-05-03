@@ -3,6 +3,8 @@ import RepresentativePicture from './RepresentativePicture'
 import RepresentativeName from './RepresentativeName'
 import RepresentativeDetails from './RepresentativeDetails'
 
+import './RepView.scss'
+
 const RepresentativeIntermediary = ({representative, image}) => (
 	<div>
 		<div className='row rep-individual-header-container'>

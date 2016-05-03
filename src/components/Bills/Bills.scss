@@ -1,0 +1,21 @@
+@import '../../styles-config.scss';
+
+.user_vote {
+  position: relative;
+  width: 15%;
+  height: 10%;
+  margin-right: 0;
+}
+
+.registration-error {
+  color: red;
+  font-size: 1em;
+  padding-top: 1em;
+}
+
+
+.vote-indicator {
+  color: red;
+  font-size: 1em;
+  padding-top: 1em;
+}

@@ -1,5 +1,13 @@
 import React, { Component } from 'react'
-import Tutorial from '../../components/Tutorial'
+
+import Header from '../../components/Header/Header'
+import HeatMap from '../../components/HeatMap/HeatMap'
+import Tutorial from '../../components/Tutorial/Tutorial'
+import GettingStarted from '../../components/GettingStarted/GettingStarted'
+import TopNavbar from '../../components/TopNavBar/TopNavBar';
+
+import './FrontPage.scss';
+
 
 export default class FrontPage extends Component {
   render() {

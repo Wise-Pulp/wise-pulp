@@ -1,7 +1,9 @@
-import c3 from 'c3'
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { setGraphType } from '../../actions/actionContributor'
+import c3 from 'c3';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { setGraphType } from '../../actions/actionContributor';
+
+import './RepView.scss';
 
 export class ContributorVisualization extends Component {
 
@@ -36,8 +38,9 @@ export class ContributorVisualization extends Component {
   }
 
   componentDidMount() {
-    this.create(this.props.contributions)
+    this.create(this.props.contributions);
   }
+
 
   render() {
     const { contributions } = this.props
@@ -50,11 +53,12 @@ export class ContributorVisualization extends Component {
 }
 
 function mapStateToProps(state) {
-  const contributions = state.ContributorVisualization.contributions
-  console.log(contributions)
+  const contributions = state.ContributorVisualization.contributions;
+  console.log(contributions);
+
   return {
     contributions
   }
 }
 
-export default connect(mapStateToProps)(ContributorVisualization)
+export default connect(mapStateToProps)(ContributorVisualization);

@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { getRepresentatives, increaseProgress, stopProgress, getRepInfo } from '../../actions/actionRepresentatives'
 import { getContributorData } from '../../actions/actionContributor'
 import RepresentativeList from '../../components/RepresentativeView/RepresentativeList'
-import Spinner from '../../components/Spinner'
+import Spinner from '../../components/Spinner/Spinner'
 
 
 export default class Representatives extends Component {

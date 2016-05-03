@@ -1,7 +1,8 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { yes, no, billVote, userVotes, loginCheck } from '../../actions/actionBills'
-import Bill from './Bill'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { yes, no, billVote, userVotes, loginCheck } from '../../actions/actionBills';
+import Bill from './Bill';
+import './Bills.scss';
 
 export default class BillList extends Component {
 

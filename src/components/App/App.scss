@@ -1,0 +1,8 @@
+@import '../../styles-config.scss';
+
+.main {
+  min-height: 800px;
+  max-height: 1200px;
+  width: 100%;
+  background-color: $background;
+}

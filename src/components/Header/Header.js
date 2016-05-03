@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 
-export default class Header extends Component {  
+import './Header.scss';
+
+export default class Header extends Component {
 
   render() {
     return (

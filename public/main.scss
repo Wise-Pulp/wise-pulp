@@ -1,11 +1,5 @@
-@import '../src/styles-config';
+@import '../src/styles-config.scss';
 
-body {
-  /*min-height: 800px;
-  max-height: 1200px*/;
-  width: 100%;
-  background-color: $background;
-}
 /********************************
       Buttons
 *********************************/
@@ -22,61 +16,11 @@ body {
   border-radius: 6px;
   z-index: 1100;
 }
-.getting_started_large {
-  position: relative;
-  width: 300px;
-  height: 50%;
-  padding: 1%;
-  left: 5%;
-  background-color: rgb(168, 210, 220); 
-  border-radius: 6px;
-}
 
 /********************************
       Top Navbar
 *********************************/
-.top-nav-bar {
-  position: relative;
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  height: 50px;
-  overflow: hidden;
-  background-color: #333;
-}
 
-
-.top-nav-bar .home {
-  float: left;
-  display: block;
-  color: white;
-  text-align: center;
-  padding: 6px 16px;
-  text-decoration: none;
-
-}
-
-.top-nav-bar .item {
-  float: right;
-  display: block;
-  color: white;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-}
-
-.top-nav-bar .login-button {
-  margin: 8px;
-  float: right;
-  border-radius: 10px;
-  background-color: #658999;
-  color: #FFF;
-  -moz-box-shadow:    inset 0 0 8px #000000;
-  -webkit-box-shadow: inset 0 0 8px #000000;
-  box-shadow:         inset 0 0 8px #000000;
-  font-size: 16px;
-  width: 80px;
-}
 
 .top-nav-bar .login-button:hover {
   -moz-box-shadow:    inset 0 0 18px #000000;
@@ -96,20 +40,6 @@ body {
     background-color: #111;
 }
 
-.logo-container {
-  position: relative;
-  height: 45px;
-  width: 45px;
-  top: 1px;
-  border-style: solid;
-  border-color: #333;
-  background-image: url("http://scan.lusu.co.uk/wp-content/uploads/2016/03/Vote.jpg");
-  background-size: 135%;
-  background-repeat: no-repeat;
-  background-position: center;
-  margin-left: 5px;
-}
-
 
 .polis_nav_bar {
   position: relative;
@@ -123,30 +53,7 @@ body {
 /********************************
       Header
 *********************************/
-.header {
-  position: relative;
-  height: 30%;
-  margin-bottom: 3%;
-  border-bottom: 3px;
-  border-radius: 1%;
-  background-color: #c5d5cb;
-  background-position: inherit;
-  background-attachment: scroll;
-  background-repeat: no-repeat;
-  background-opacity: 0.9;
-  z-index: 150;
-  width: 100%;
-}
-.main_brand {
-  font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
-  font-weight: 50;
-  font-size: 80px;
-  text-align: center;
-}
-.blurb {
-  position: relative;
-  text-align: center;
-}
+
 .signup {
   position: relative;
   bottom: 10%;
@@ -155,10 +62,6 @@ body {
       Heat Map
 *********************************/
 
-.voter-turnout {
-  font-size: 48px;
-  padding: 4em;
-}
 
 .front_data {
   background-color: #c5d5cb;
@@ -186,80 +89,7 @@ body {
   top: 215px;
   right: 50%;
 }
-/********************************
-     Tutorial
-*********************************/
-.title {
-  font-size: 70px;
-}
-.title_line {
-  position: relative;
-  width: 45%;
-  left: 28%;
-  border-bottom: solid;
-  border-color: black;
-  border-width: 2px;
-  padding: 0;
-  margin-bottom: 2%;
-}
-.tutorial-background {
-  position: relative;
-  width: 100%;
-  height: 700px;
-  background-image: url("http://scan.lusu.co.uk/wp-content/uploads/2016/03/Vote.jpg");
-  background-size: 100%, 50%;
-  background-repeat: no-repeat;
-  background-position: 0, -10px;
-  opacity: 0.5;
-}
-.tutorial-container {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 8%;
-  text-align: left;
-  z-index: 1;
-}
-.tutorial-left-text {
-  position: absolute;
-  top: 40%;
-  right: 1%;
-  width: 40%;
-  height: 40%;
-  margin-top: 1%;
-  text-align: center;
-  font-size: 22px;
-  color: black;
-  z-index: 10;
-}
 
-.tutorial_pic {
-  display: inline-block;
-  position: relative;
-  margin-top: 15%;
-  width: 100%;
-  height: 100%;
-}
-.tutorial_text {
-  text-align: center;
-}
-
-.track {
-  position: relative;
-  width: 40%;
-  left: 5%;
-  margin: 10% 3%;
-  text-align: center;
-  font-size: 20px;
-}
-.future {
-  width: 40%;
-  position: relative;
-  left: 52%;
-  margin: 10% 3%;
-  text-align: center;
-  font-size: 20px;
-}
 
 /********************************
       Getting Started Section
@@ -270,16 +100,6 @@ body {
   height: 80%;
   bottom: 20%;
   right: 25%;
-}
-
-/********************************
-      Spinner
-********************************/
-
-.spinner {
-  position: absolute;
-  left: 40%;
-  top: 25%;
 }
 
 /********************************
@@ -335,284 +155,7 @@ div.tooltip {
 .q8-9 { fill:rgb(8,48,107); }
 
 
-/********************************
-      Footer
-*********************************/
-
-.footer {
-  position: relative;
-  font-size: 20px;
-  margin-top: 55%;
-  text-align: center;
-}
-
-
-/********************************
-      Representative Page
-*********************************/
-.cong-reps {
-}
-
-.rep-header {
-  margin: center;
-}
-
-.rep-img {
-  border-radius: 50%;
-  margin: 0 auto;
-  width: 75%;
-}
-
-.rep-img-container {
-  text-align: left;
-  position: relative;
-  padding: 20px;
-}
-
-.rep-name {
-  text-align: center;
-  position: relative;
-  font-size: 20px;
-}
-
-.rep-role {
-  text-align: center;
-  position: relative;
-  font-size: 16px;
-}
-
-.rep-name-container {
-  position: relative;
-  text-align: left;
-  width: 10%;
-  height: 100%;
-  margin: 4% auto 0 auto;
-}
-
-.rep-container {
-  width: 40%;
-  text-align: center;
-  padding: 20px;
-  margin: 0 auto;
-  border-radius: 10px;
-  position: relative;
-}
-
-.rep-info-container {
-  text-align: center;
-  width: 100%;
-  height: 10%;
-  border: 1px solid;
-  padding: 5px;
-  margin: 0 auto;
-  position: relative;
-}
-
-.rep-individual-header-container {
-  width: 80%;
-}
-
-.rep-info:hover {
-  background-color: rgba(114, 140, 154, .8);
-}
-
-.rep-left-navbar {
-  padding: 1em;
-  text-align: center;
-  height: 100%;
-}
-
-.rep-left-navbar .option {
-  position: relative;
-  padding: 1em;
-  font-size: 18px;
-  text-align: center;
-  height: 20%;
-  width: 100%;
-  height: 20%;
-}
-
-.option:hover {
-  background-color: rgba(114, 140, 154, .8);
-}
-
-/********************************
-      Zipcode
-*********************************/
-
-.zipcode-field {
-  height: 35px;
-  width: 300px;
-  border-radius: 6px;
-  border: none;
-  padding-left: 10px;
-  font-size: 16px;
-  margin-right: 10px;
-}
-
-.or-header {
-  font-size: 24px;
-  padding-top: 24px;
-}
-
-.zipcode-button {
-  color: white;
-  background-color: black;
-  border-radius: 6px;
-  border: none;
-  height: 35px;
-  font-size: 14px;
-  width: 65px;
-  margin-top: 18px;
-}
-
-.zipcode-header {
-  font-size: 24px;
-}
-
-/********************************
-      Login
-*********************************/
-
-.login-header {
-  font-size: 48px;
-  margin: 10% 0;
-  position: relative;
-  padding-top: 8%;
-  text-align: center;
-}
-
-.login-form {
-  margin: 0 15%;
-}
-
-.login-description {
-  font-size: 10px;
-  color: #7C9BCA;
-  padding: 3px;
-  font-weight: bold;
-}
-
-.login-button {
-  color: white;
-  background-color: black;
-  border-radius: 6px;
-  border: none;
-  height: 35px;
-  font-size: 20px;
-  width: 100px;
-}
-
-.login-container {
-  width: 30%;
-  height: 50%;
-  margin: 10% auto;
-  background-color: white;
-  position: relative;
-  border-radius: 50px;
-  background: rgba(245, 245, 245, 0.9);
-}
-
-.login-background {
-  position: relative;
-  width: 100%;
-  height: 700px;
-  background-image: url("http://scan.lusu.co.uk/wp-content/uploads/2016/03/Vote.jpg");
-  background-size: 100%, 50%;
-  background-repeat: no-repeat;
-  background-position: 0, -10px;
-}
-
-.login-input-field {
-  height: 35px;
-  width: 300px;
-  border-radius: 6px;
-  padding-left: 10px;
-  font-size: 16px;
-}
-
-.login-process {
-  color: red;
-  font-size: 1em;
-  padding-top: 1em;
-}
-
-
-/********************************
-      Register
-*********************************/
-.register-header {
-  font-size: 30px;
-}
-
-.register-description {
-  font-size: 10px;
-  color: #7C9BCA;
-  padding: 3px;
-  font-weight: bold;
-}
-
-.register-button {
-  color: white;
-  background-color: black;
-  border-radius: 6px;
-  border: none;
-  height: 35px;
-  font-size: 14px;
-}
-
-.register-container {
-  width: 30%;
-  height: 90%;
-  margin: 10% auto;
-}
-.register-background {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  /*margin-bottom: 200px;*/
-  background-image: url("http://scan.lusu.co.uk/wp-content/uploads/2016/03/Vote.jpg");
-  background-size: 100%, 50%;
-  background-repeat: no-repeat;
-  background-position: 0, -10px;
-  opacity: 0.8;
-}
-
-.input-field {
-  height: 35px;
-  width: 300px;
-  border-radius: 6px;
-  border: none;
-  padding-left: 10px;
-  font-size: 16px;
-}
-
-.register-process {
-  color: red;
-  font-size: 1em;
-  padding-top: 1em;
-}
-
-.registration-error {
-  color: red;
-  font-size: 1em;
-  padding-top: 1em;
-}
-
 
 /********************************
       Voting Forms
 *********************************/
-
-.user_vote {
-  position: relative;
-  width: 15%;
-  height: 10%;
-  margin-right: 0;
-}
-
-.vote-indicator {
-  color: red;
-  font-size: 1em;
-  padding-top: 1em;
-}

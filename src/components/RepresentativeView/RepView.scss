@@ -1,0 +1,85 @@
+@import '../../styles-config.scss';
+
+
+.rep-header {
+  margin: center;
+}
+
+.rep-img {
+  border-radius: 50%;
+  margin: 0 auto;
+  width: 75%;
+}
+
+.rep-img-container {
+  text-align: left;
+  position: relative;
+  padding: 20px;
+}
+
+.rep-name {
+  text-align: center;
+  position: relative;
+  font-size: 20px;
+}
+
+.rep-role {
+  text-align: center;
+  position: relative;
+  font-size: 16px;
+}
+
+.rep-name-container {
+  position: relative;
+  text-align: left;
+  width: 10%;
+  height: 100%;
+  margin: 4% auto 0 auto;
+}
+
+.rep-container {
+  width: 40%;
+  text-align: center;
+  padding: 20px;
+  margin: 0 auto;
+  border-radius: 10px;
+  position: relative;
+}
+
+.rep-info-container {
+  text-align: center;
+  width: 100%;
+  height: 10%;
+  border: 1px solid;
+  padding: 5px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.rep-individual-header-container {
+  width: 80%;
+}
+
+.rep-info:hover {
+  background-color: rgba(114, 140, 154, .8);
+}
+
+.rep-left-navbar {
+  padding: 1em;
+  text-align: center;
+  height: 100%;
+}
+
+.rep-left-navbar .option {
+  position: relative;
+  padding: 1em;
+  font-size: 18px;
+  text-align: center;
+  height: 20%;
+  width: 100%;
+  height: 20%;
+}
+
+.option:hover {
+  background-color: rgba(114, 140, 154, .8);
+}
