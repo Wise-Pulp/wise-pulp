@@ -233,7 +233,7 @@ module.exports = function(app) {
             console.log('this is theYear before entering Query #SingleObject:', theYear);
             console.log('this is zipObject.state:', zipObject[0].state);
             console.log('this is zipObject.district:', zipObject[0].district);
-            CandidateSummary.find({ can_off_dis: zipObject[0].district, can_off_sta: zipObject[0].state})
+            CandidateSummary.find({ year_of_collection: 1451635200000, can_off_dis: zipObject[0].district, can_off_sta: zipObject[0].state})
             .exec(function(err, documents) {
               if (err) { 
                 console.log('there was an error', err) 
