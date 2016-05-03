@@ -243,7 +243,7 @@ module.exports = function(app) {
             //   }
 
             // });
-            CandidateSummary.find({ year_of_collection: theYear })
+            CandidateSummary.find({ year_of_collection: 1451606400000 })
             .exec(function(err, documents) {
               if (err) { 
                 console.log('there was an error', err) 
