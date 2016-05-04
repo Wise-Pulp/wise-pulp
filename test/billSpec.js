@@ -16,7 +16,7 @@ describe('Get Representatives', () => {
   })
 
   it('creates RECEIVE_REPRESENTATIVES when fetching reps is done', () => {
-    nock('http://localhost:3500')
+    nock('https://localhost:3500')
       .get('/api/representatives/94709')
       .reply(200, { objects: { id: 123456 } } )
 
