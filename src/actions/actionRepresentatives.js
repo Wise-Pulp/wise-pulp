@@ -19,10 +19,14 @@ export function receiveRepresentatives(json) {
   }
 }
 
-export function getRepresentatives (zipcode) {
+export function getRepresentatives (zipcode, testing) {
+  let url = '/api/representatives/'
+  if (testing) {
+    url = 'https://localhost:3500/api/representatives/'
+  }
   return dispatch => {
     dispatch(changeFetching())
-  	return fetch('https://localhost:3500/api/representatives/' + zipcode)
+  	return fetch(url + zipcode)
   		.then(response => response.json())
   		.then(json => dispatch(receiveRepresentatives(json)))
   } 

@@ -16,7 +16,7 @@ describe('Get Representatives', () => {
   })
 
   it('creates RECEIVE_REPRESENTATIVES when fetching reps is done', () => {
-    nock('http://localhost:3500')
+    nock('https://localhost:3500')
       .get('/api/representatives/94709')
       .reply(200, { objects: { id: 123456 } } )
 
@@ -28,7 +28,7 @@ describe('Get Representatives', () => {
                              }] 
     const store = mockStore({ representatives: [] })
 
-    return store.dispatch(getRepresentatives(94709))
+    return store.dispatch(getRepresentatives(94709, true))
       .then(() => {
         expect(store.getActions()).to.deep.equal(expectedActions)
       })

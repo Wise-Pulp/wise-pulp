@@ -9,7 +9,7 @@ import { RECEIVE_REPRESENTATIVES,
 const middlewares = [ thunk ]
 const mockStore = configureMockStore(middlewares)
 
-describe('Get Representatives', () => {
+xdescribe('Get Representatives', () => {
 
   afterEach(() => {
     nock.cleanAll()
