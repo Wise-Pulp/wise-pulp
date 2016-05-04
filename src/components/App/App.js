@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import fetch from 'isomorphic-fetch'
 import { connect } from 'react-redux'
 import TopNavbar from '../TopNavbar'
 import Footer from '../Footer'

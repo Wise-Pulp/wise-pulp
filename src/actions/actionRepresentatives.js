@@ -1,5 +1,4 @@
-import 'whatwg-fetch'
-import  { getContributorData } from './actionContributor'
+import fetch from 'isomorphic-fetch'
 
 export const RECEIVE_REPRESENTATIVES = 'RECEIVE_REPRESENTATIVES'
 export const GET_REP_INFO = 'GET_REP_INFO'
@@ -23,7 +22,7 @@ export function receiveRepresentatives(json) {
 export function getRepresentatives (zipcode) {
   return dispatch => {
     dispatch(changeFetching())
-  	return fetch('/api/representatives/' + zipcode)
+  	return fetch('http://localhost:3500/api/representatives/' + zipcode)
   		.then(response => response.json())
   		.then(json => dispatch(receiveRepresentatives(json)))
   } 

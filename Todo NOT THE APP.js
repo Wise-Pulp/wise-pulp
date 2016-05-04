@@ -25,4 +25,6 @@
 //TODO: Page refresh for individual rep page
 //TODO: Limit HTTP request--data to the database
 //TODO: Why is our app so slow?
+//TODO: Make the froms all line up
+//TODO: Figure out Date.parse() issue with heroku (milliseconds convert to 12/31/2015)
 

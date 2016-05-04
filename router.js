@@ -32,6 +32,7 @@ var UserOpinion = require('./data/db/UserOpinion.model');
 
 function validateNumber(aString) {
   var results = aString.replace(/(\D)/g, '0');
+  console.log(results)
   return results;
 };
 
@@ -203,7 +204,7 @@ module.exports = function(app) {
 
             console.log('this is theYear before entering Query #MultipleObjects:', theYear);
 
-            CandidateSummary.find({ year_of_collection: theYear, can_off_sta: zipObject[i].state, can_off_dis: zipObject[i].district })
+            CandidateSummary.find({ year_of_collection: 1451635200000, can_off_sta: zipObject[i].state, can_off_dis: zipObject[i].district })
 
           .exec(function(err, docs) {
 
