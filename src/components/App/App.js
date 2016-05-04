@@ -1,13 +1,9 @@
 import React, { Component } from 'react'
-import fetch from 'isomorphic-fetch'
 import { connect } from 'react-redux'
-
-import FrontPage from '../../containers/FrontPage/FrontPage'
-import Representatives from '../../containers/Representatives/Representatives'
 import TopNavbar from '../TopNavbar'
 import Footer from '../Footer'
-import { getRepresentatives } from '../../actions/index'
 import { getContributorData } from '../../actions/actionContributor'
+import { getRepresentatives } from '../../actions/actionRepresentatives'
 
 export default class App extends Component {
 
@@ -29,7 +25,7 @@ export default class App extends Component {
       	{children}
         <Footer />
       </div>
-    );
+    )
   }
 }
 

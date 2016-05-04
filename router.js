@@ -32,6 +32,7 @@ var UserOpinion = require('./data/db/UserOpinion.model');
 
 function validateNumber(aString) {
   var results = aString.replace(/(\D)/g, '0');
+  console.log(results)
   return results;
 };
 
@@ -203,7 +204,7 @@ module.exports = function(app) {
 
             console.log('this is theYear before entering Query #MultipleObjects:', theYear);
 
-            CandidateSummary.find({ year_of_collection: theYear, can_off_sta: zipObject[i].state, can_off_dis: zipObject[i].district })
+            CandidateSummary.find({ year_of_collection: 1451635200000, can_off_sta: zipObject[i].state, can_off_dis: zipObject[i].district })
 
           .exec(function(err, docs) {
 
@@ -233,12 +234,26 @@ module.exports = function(app) {
             console.log('this is theYear before entering Query #SingleObject:', theYear);
             console.log('this is zipObject.state:', zipObject[0].state);
             console.log('this is zipObject.district:', zipObject[0].district);
-
-            CandidateSummary.find({ year_of_collection: theYear, can_off_sta: zipObject[0].state, can_off_dis: zipObject[0].district })
+            CandidateSummary.find({ year_of_collection: 1451635200000, can_off_dis: zipObject[0].district, can_off_sta: zipObject[0].state})
             .exec(function(err, documents) {
-              if (err) { console.log('there was an error', err) } else { res.json(documents) }
+              if (err) { 
+                console.log('there was an error', err) 
+              } else { 
+                console.log('these are the documents from can_off', documents)
+                res.json(documents) 
+              }
 
             });
+            // CandidateSummary.find({ year_of_collection: 1451606400000 })
+            // .exec(function(err, documents) {
+            //   if (err) { 
+            //     console.log('there was an error', err) 
+            //   } else { 
+            //     console.log('these are the documents from the_year', documents)
+            //     res.json(documents) 
+            //   }
+
+            // });
           } else {
             res.status(404).send('Invalid query');
           }
@@ -271,6 +286,38 @@ module.exports = function(app) {
 
 };
 
+
+function asyncLoop(iterations, func, callback) {
+var index = 0;
+var done = false;
+var loop = {
+    next: function() {
+        if (done) {
+            return;
+        }
+
+        if (index < iterations) {
+            index++;
+            func(loop);
+
+        } else {
+            done = true;
+            callback();
+        }
+    },
+
+    iteration: function() {
+        return index - 1;
+    },
+
+    break: function() {
+        done = true;
+        callback();
+    }
+};
+loop.next();
+return loop;
+}
 
 // cronjob runs every day at 9am Pacific Time
 

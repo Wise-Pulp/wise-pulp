@@ -1,6 +1,6 @@
-import React from 'react';
-import { Route, IndexRoute } from 'react-router';
-import  App from '../src/components/App/App';
+import React from 'react'
+import { Route, IndexRoute } from 'react-router'
+import App from '../src/components/App/App'
 import FrontPage from '../src/containers/FrontPage/FrontPage'
 import Representatives from '../src/containers/Representatives/Representatives'
 import RepresentativeInfo from '../src/containers/Representatives/RepresentativeInfo'
@@ -26,4 +26,4 @@ export default (
       <Route path='upcoming_bills' component={UpcomingBills} />
       <Route path='login' component={Login} />
     </Route>
-);
+)

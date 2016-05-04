@@ -1,27 +1,27 @@
-import React from 'react';
+import React                        from 'react'
 import {
   renderIntoDocument,
   findRenderedDOMComponentWithTag
-} from 'react-addons-test-utils';
-import nock from 'nock'
-import configureMockStore from 'redux-mock-store'
-import thunk from 'redux-thunk'
-import {expect} from 'chai';
+}                                   from 'react-addons-test-utils'
+import nock                         from 'nock'
+import configureMockStore           from 'redux-mock-store'
+import thunk                        from 'redux-thunk'
+import {expect}                     from 'chai'
 import { GET_CONTRIBUTOR_DATA,
          SET_GRAPH_TYPE,
          setContributorData,
-         setGraphType } from '../src/actions/actionContributor'
-import contributorData from '../src/reducers/reducerContributor'
+         setGraphType }             from '../src/actions/actionContributor'
+import contributorData              from '../src/reducers/reducerContributor'
 
 
-describe('Contributor Data Ecosystem', () => {
+xdescribe('Contributor Data Ecosystem', () => {
 
   it('should create an action to change the graph type', () => {
     const expectedAction = {
       type: SET_GRAPH_TYPE
     }
-    expect(setGraphType()).to.deep.equal(expectedAction);
-  });
+    expect(setGraphType()).to.deep.equal(expectedAction)
+  })
 
   it('should return the initial state', () => {
     expect(

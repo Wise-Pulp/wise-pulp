@@ -1,6 +1,4 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router'
-import { connect } from 'react-redux'
 import Register from '../containers/Register/Register'
 
 export default class Tutorial extends Component {
@@ -21,6 +19,6 @@ export default class Tutorial extends Component {
           </div>
         </div>
       </div>
-      );
+      )
   }
 }

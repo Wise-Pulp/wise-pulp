@@ -1,11 +1,6 @@
 import React, { Component } from 'react'
-import Header from '../../components/Header'
-import HeatMap from '../../components/HeatMap'
 import Tutorial from '../../components/Tutorial'
-import GettingStarted from '../../components/GettingStarted'
-import TopNavbar from '../../components/TopNavbar'
 
-//TODO: add gray background to the p tag
 export default class FrontPage extends Component {
   render() {
     return (
@@ -20,6 +15,6 @@ export default class FrontPage extends Component {
           <p>See Bills scheduled to be debated before the House and Senate. Vote on the Bills here, and then find out how your Representatives voted on those Bills.</p>
         </div>
       </div>
-    );
+    )
   }
 }

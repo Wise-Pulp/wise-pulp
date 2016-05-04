@@ -6,11 +6,11 @@ export default class Spinner extends Component {
 
   render() {
 
-      var textStyle = {
-        'fill': 'black',
-        'textAnchor': 'middle',
-        'fontSize': 20
-      };
+    let textStyle = {
+      'fill': 'black',
+      'textAnchor': 'middle',
+      'fontSize': 20
+    }
     return (
       <div className="spinner">
         <ProgressLabel
@@ -27,7 +27,7 @@ export default class Spinner extends Component {
           <text x='100' y='100' style={textStyle}>Loading</text>          
           </ProgressLabel>
       </div>
-    );
+    )
   }
 }
 

@@ -1,5 +1,4 @@
 {
-  "extends": "eslint-config-hackreactor",
   "parser": "babel-eslint",
   "plugins": [ "react" ],
   "env": {
@@ -38,6 +37,6 @@
     "react/jsx-no-undef": 1,
     "react/jsx-uses-react": 1,
     "react/jsx-uses-vars": 1,
-    "semi": 1
+    "semi": [2, "never"]
   }
 }

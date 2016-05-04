@@ -1,6 +1,6 @@
-import React, { Component } from 'react'
+import React from 'react'
 
-const BillVotes = ({handleLoginCheck, bill, onNoChange, onYesChange, loginCheck}) => (
+const BillVotes = ({handleLoginCheck, bill, onNoChange, onYesChange}) => (
   <div>
     Bill: {bill.vote.question}<br />
     Date: {bill.vote.created}<br />

@@ -1,17 +1,17 @@
-import React from 'react';
-import Map from 'immutable'
+import React                        from 'react'
+import Map                          from 'immutable'
 import {
   renderIntoDocument,
   scryRenderedDOMComponentsWithTag
-} from 'react-addons-test-utils';
-import nock from 'nock'
-import configureMockStore from 'redux-mock-store'
-import thunk from 'redux-thunk'
-import {expect} from 'chai';
-import { INCREASE_PROGRESS } from '../src/actions/index'
-import Spinner from '../src/components/Spinner'
-import updateSpinnerProgress from '../src/reducers/reducerSpinner'
-import Profile from '../src/containers/Profile'
+}                                   from 'react-addons-test-utils'
+import nock                         from 'nock'
+import configureMockStore           from 'redux-mock-store'
+import thunk                        from 'redux-thunk'
+import {expect}                     from 'chai'
+import { INCREASE_PROGRESS }        from '../src/actions/actionRepresentatives'
+import Spinner                      from '../src/components/Spinner'
+import updateSpinnerProgress        from '../src/reducers/reducerSpinner'
+//import Profile from '../src/containers/Profile'
 
 
 describe('Loading spinner', () => {
