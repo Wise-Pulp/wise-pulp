@@ -49,6 +49,11 @@ module.exports = function(app) {
   });
 
   app.post('/userOpinions', requireAuth, function(req, res) {
+    console.log(req.body)
+
+  //   var updatedBill = Object.assign({}, bill, {
+  //   voted
+  // })
     var decode = jwt.decode(req.headers.authorization, config.secret)
     var id = decode.sub;
     var billNumber = req.body.billNumber;
@@ -60,7 +65,13 @@ module.exports = function(app) {
     thisOpinion.billNumber = billNumber;
     thisOpinion.decision = JSON.parse(opinion);
     thisOpinion.votedAt = votedAt;
-
+    thisOpinion.save(function(err, success) {
+      if (err) {
+        res.json(err)
+      } else {
+        res.json(success)
+      }
+    })
   });
 
   app.post('/signin', requireSignin, Authentication.signin);

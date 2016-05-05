@@ -1,14 +1,14 @@
-export const SENATE_BILL_DATA = 'SENATE_BILL_DATA'
-export const HOUSE_BILL_DATA = 'HOUSE_BILL_DATA'
-export const GET_ROLE_BILLS = 'GET_ROLE_BILLS'
-export const ADD_TO_BILLS = 'ADD_TO_BILLS'
-export const YES_VOTE = 'YES_VOTE'
-export const NO_VOTE = 'NO_VOTE'
-export const BILL_VOTE = 'BILL_VOTE'
+export const SENATE_BILL_DATA   = 'SENATE_BILL_DATA'
+export const HOUSE_BILL_DATA    = 'HOUSE_BILL_DATA'
+export const GET_ROLE_BILLS     = 'GET_ROLE_BILLS'
+export const ADD_TO_BILLS       = 'ADD_TO_BILLS'
+export const YES_VOTE           = 'YES_VOTE'
+export const NO_VOTE            = 'NO_VOTE'
+export const BILL_VOTE          = 'BILL_VOTE'
 export const REP_VOTING_HISTORY = 'REP_VOTING_HISTORY'
-export const BILL_DATA = 'BILL_DATA'
-export const SET_REP_ROLE = 'SET_REP_ROLE'
-export const LOGIN_CHECK = 'LOGIN_CHECK'
+export const BILL_DATA          = 'BILL_DATA'
+export const SET_REP_ROLE       = 'SET_REP_ROLE'
+export const LOGIN_CHECK        = 'LOGIN_CHECK'
 
 
 
@@ -20,8 +20,11 @@ export function getRoleBills(role) {
   }
 }
 
-export function getSenateBillData() {
-let senate = '/api/data/senate_bills'
+export function getSenateBillData(testing) {
+  let senate = '/api/data/senate_bills'
+  if (testing) {
+    senate = 'https://localhost:3500/api/data/senate_bills'
+  }
   return dispatch => {
     return fetch(senate)
       .then(response => response.json())
@@ -39,15 +42,18 @@ export function addBillType(bills, type, prop) {
   return newBills
 }
 
-export function receiveSenateBillData(bill) {
+export function receiveSenateBillData(bills) {
   return {
     type: BILL_DATA,
-    payload: addBillType(bill, 'senate', true)
+    payload: addBillType(bills, 'senate', true)
   }
 }
 
-export function getHouseBillData() {
-let house = '/api/data/house_bills'
+export function getHouseBillData(testing) {
+  let house = '/api/data/house_bills'
+  if (testing) {
+    house = 'https://localhost:3500/api/data/house_bills'
+  }
 
   return dispatch => {
     return fetch(house)
@@ -56,10 +62,10 @@ let house = '/api/data/house_bills'
   }
 }
 
-export function receiveHouseBillData(bill) {
+export function receiveHouseBillData(bills) {
   return {
     type: BILL_DATA,
-    payload: addBillType(bill, 'representative', true)
+    payload: addBillType(bills, 'representative', true)
   }
 }
 
@@ -84,19 +90,25 @@ export function no(payload) {
   }
 }
 
-export function billVote(bill, voted, user) {
-  let updatedBill = Object.assign({}, bill, {
-    voted
-  })
+
+//TODO: billVote and userVotes I think should be the same function, i.e. post to the database, on success, change the vote
+//to reflect the voted upon status. userVotes should dispatch billVote
+//Updates the current state of the bill to reflect the voted status
+export function billVote(bill, voted, json) {
   return {
     type: BILL_VOTE,
-    payload: updatedBill
+    payload: json
   }
 }
 
-export function userVotes(bill, vote, user) {
-  return dispatcy => {
-    return fetch('/userOpinions', {
+//Posts the user vote to the server => database
+export function userVotes(bill, vote, user, testing) {
+  let url = '/userOpinions'
+  if (testing) {
+    url = 'https://localhost:3500/userOpinions'
+  }
+  return dispatch => {
+    return fetch(url, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -107,6 +119,8 @@ export function userVotes(bill, vote, user) {
         opinion: vote
       })
     })
+      .then(response => response.json())
+      .then(json => dispatch(billVote(bill, vote, json)))
   }
 }
 
@@ -126,7 +140,7 @@ export function receiveVotingHistory(payload) {
 }
 
 export function loginCheck(user, bill) {
-  let updatedBill;
+  let updatedBill
   if (user) {
     updatedBill = Object.assign({}, bill, {
       login: true
