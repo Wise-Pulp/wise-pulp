@@ -9,3 +9,9 @@ $tablet-small: 480px;
 $tablet-large: 768px;
 $screen-small: 1024px;
 $screen-large: 1280px;
+
+// mixins
+@mixin device-query($width, $height) {
+  width: $width;
+  height: $height * 2;
+}
