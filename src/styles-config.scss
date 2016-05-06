@@ -13,5 +13,5 @@ $screen-large: 1280px;
 // mixins
 @mixin device-query($width, $height) {
   width: $width;
-  height: $height * 2;
+  height: $height;
 }
