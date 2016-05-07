@@ -32,7 +32,7 @@ export default class RegisterForm extends Component {
                   </dd>
                </d1>
                <br />
-               <input className='register-button' type='submit' value='Create an account' />
+               <input className='button' type='submit' value='Create an account' />
             </form>
          </div>
       )

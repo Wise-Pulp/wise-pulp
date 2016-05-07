@@ -1,6 +1,14 @@
 // Colors
 $background: rgb(255, 255, 255);
 
+// default button
+.button {
+  height: 50px;
+  width: 110px;
+  border-radius: 10px;
+  background-color: #FFF - 20;
+}
+
 
 // media widths 
 $small: 240px;

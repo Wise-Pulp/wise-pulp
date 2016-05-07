@@ -1,12 +1,10 @@
 @import '../../styles-config.scss';
-//TODO: What's going on with the register form?
+
 .register-container {
-  // display: none;
   position: relative;
   width: 100%;
   left: 20%;
   bottom: 55%;
-  // background-color: rgba(255, 255, 255, 0.3);
   @include device-query(320px) {
     bottom: 100%;
     left: -5%;
@@ -29,6 +27,10 @@
   @include device-query(320px) {
     left: -10%;
   }
+}
+
+.register-button {
+  @extend .button;
 }
 
 .zipcode-field {
