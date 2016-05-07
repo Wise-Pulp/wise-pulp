@@ -6,10 +6,15 @@
 }
 
 .rep-img {
+  display: inline-block;
   border-radius: 50%;
   margin: 0 auto;
-  width: 75%;
+  width: 30%;
 }
+ .rep-container {
+  width: 100%;
+  text-align: center;
+ }
 
 .rep-img-container {
   text-align: left;
@@ -24,26 +29,40 @@
 }
 
 .rep-role {
-  text-align: center;
-  position: relative;
+  @extend .rep-name;
   font-size: 16px;
 }
 
 .rep-name-container {
   position: relative;
-  text-align: left;
+  text-align: center;
   width: 10%;
   height: 100%;
   margin: 4% auto 0 auto;
 }
 
 .rep-container {
-  width: 40%;
+  width: 100%;
   text-align: center;
   padding: 20px;
   margin: 0 auto;
   border-radius: 10px;
   position: relative;
+}
+
+.rep-pic {
+  width: 30%;
+  display: inline-block;
+  @include device-query (320px) {
+    display: block;
+    position: relative;
+    width: 80%;
+    left: 5%;
+  }
+}
+
+.text-center {
+  left: 50%;
 }
 
 .rep-info-container {

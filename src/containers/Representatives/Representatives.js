@@ -41,7 +41,7 @@ export default class Representatives extends Component {
   render() {
     const { representatives, isFetching, progress } = this.props
     return (
-      <div>
+      <div className='rep-container'>
         <h1 className='text-center'>Polis</h1>
         {isFetching ? <Spinner representatives={representatives} 
                                progress={progress} 

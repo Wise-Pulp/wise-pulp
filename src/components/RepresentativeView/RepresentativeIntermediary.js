@@ -6,13 +6,13 @@ import RepresentativeDetails from './RepresentativeDetails'
 import './RepView.scss'
 
 const RepresentativeIntermediary = ({representative, image}) => (
-	<div>
-		<div className='row rep-individual-header-container'>
-			<div className='rep-img-container col-lg-2'>
+	<div className='.rep-container'>
+		<div className='rep-individual-header-container'>
+			<div className='rep-img-container'>
 				<RepresentativePicture
 					image={image} />
 			</div>
-			<div className='rep-name-container col-lg-2'>
+			<div className='rep-name-container'>
 				<RepresentativeName
 					representative={representative} />
 			</div>	

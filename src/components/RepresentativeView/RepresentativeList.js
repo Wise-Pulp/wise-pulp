@@ -12,12 +12,12 @@ import './RepView.scss';
 export default class RepresentativeList extends Component {
 		render() {
 		const { representatives, selectRep } = this.props
-		return <div>
-			<div className='row rep-container'>
+		return <div className='rep-container'>
+			<h1 className='cong-reps'>Your Congressional Representatives</h1>
 				{representatives.length === 3 ? 
 					representatives.map(function(representative, i) {
 					let image = 'https://www.govtrack.us/data/photos/' + representative.person.id + '-200px.jpeg'
-					return <div key={i} className='col-md-4'>
+					return <div key={i} className='rep-pic'>
 						<Link to={{ pathname: '/representatives/' + representative.person.id }}>
 							<RepresentativePicture
 								key={representative.id}
@@ -32,7 +32,7 @@ export default class RepresentativeList extends Component {
 				: 
 			representatives.map(function(representative, i) {
 				let image = 'https://www.govtrack.us/data/photos/' + representative.person.id + '-200px.jpeg'
-				return <div key={i} className='col-md-3'>
+				return <div key={i} className='rep-container'>
 							<Link to={{ pathname: '/representatives/' + representative.person.id }}>
 								<RepresentativePicture
 									key={representative.id}
@@ -46,9 +46,5 @@ export default class RepresentativeList extends Component {
 					})
 				}
 			</div>
-			<div className='row rep-container'>
-				<h1 className='cong-reps'>Your Congressional Representatives</h1>
-			</div>
-		</div>
 	}
 }

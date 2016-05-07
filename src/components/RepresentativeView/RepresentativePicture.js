@@ -4,7 +4,7 @@ import './RepView.scss';
 
 const RepresentativePicture = ({image}) => (
 		<div>
-			<img src={image} className='img-responsive rep-img'/>
+			<img src={image} className='rep-img'/>
 		</div>
 )
 
