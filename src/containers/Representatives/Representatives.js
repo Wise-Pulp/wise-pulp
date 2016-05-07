@@ -5,6 +5,8 @@ import { getContributorData } from '../../actions/actionContributor'
 import RepresentativeList from '../../components/RepresentativeView/RepresentativeList'
 import Spinner from '../../components/Spinner/Spinner'
 
+import '../../components/RepresentativeView/RepView.scss';
+
 
 export default class Representatives extends Component {
   constructor(props) {
