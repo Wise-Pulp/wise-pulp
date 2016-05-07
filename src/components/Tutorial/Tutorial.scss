@@ -17,7 +17,7 @@
   position: relative;
   width: 100%;
   height: 700px;
-  background-image: url("http://scan.lusu.co.uk/wp-content/uploads/2016/03/Vote.jpg");
+  background-image: url("../../images/Vote.jpg");
   background-size: 100%, 50%;
   background-repeat: no-repeat;
   background-position: 0, -10px;
@@ -33,6 +33,7 @@
 }
 .tutorial-left-text {
   position: absolute;
+  display: inline-block;
   top: 40%;
   right: 1%;
   width: 40%;
@@ -42,8 +43,27 @@
   font-size: 22px;
   color: black;
   z-index: 10;
+  @include device-query(#{$mobile-large}) {
+    margin: 0;
+    top: 10%;
+    right: 5%;
+  }
 }
 
 .tutorial_text {
   text-align: center;
+}
+
+.getting-started-container {
+  position: absolute;
+  display: inline-block;
+  width: 50%;
+  height: 40%;
+  bottom: 20%;
+  right: 65%;
+  @include device-query(#{$mobile-large}) {
+    left: 10%;
+    top: 10%;
+    height: 10%;
+  }
 }

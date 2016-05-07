@@ -1,5 +1,13 @@
 @import '../../styles-config.scss';
 
+.zipcode-container {
+  position: relative;
+  left: 20%;
+  @include device-query(#{$mobile-large}) {
+    left: -5%;
+  }
+}
+
 .zipcode-field {
   height: 35px;
   width: 300px;
@@ -8,11 +16,6 @@
   padding-left: 10px;
   font-size: 16px;
   margin-right: 10px;
-}
-
-.or-header {
-  font-size: 24px;
-  padding-top: 24px;
 }
 
 .zipcode-button {

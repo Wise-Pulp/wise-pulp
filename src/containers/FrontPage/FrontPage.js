@@ -4,7 +4,7 @@ import Header from '../../components/Header/Header'
 import HeatMap from '../../components/HeatMap/HeatMap'
 import Tutorial from '../../components/Tutorial/Tutorial'
 import GettingStarted from '../../components/GettingStarted/GettingStarted'
-import TopNavbar from '../../components/TopNavBar/TopNavBar';
+import TopNavBarbar from '../../components/TopNavBar/TopNavBar';
 
 import './FrontPage.scss';
 
@@ -12,7 +12,7 @@ import './FrontPage.scss';
 export default class FrontPage extends Component {
   render() {
     return (
-      <div>        
+      <div className="front-page">        
         <Tutorial />
         <div className="track">
           <h2>Track Your Representatives</h2>

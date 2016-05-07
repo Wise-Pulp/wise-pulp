@@ -4,6 +4,8 @@ import { connect } from 'react-redux'
 
 import Register from '../../containers/Register/Register'
 
+import './Tutorial.scss'
+
 export default class Tutorial extends Component {
 
   render() {
