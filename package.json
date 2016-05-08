@@ -81,6 +81,7 @@
     "debug": "^2.2.0",
     "deep-equal": "^1.0.1",
     "deep-freeze": "0.0.1",
+    "enzyme": "^2.2.0",
     "eslint": "^2.4.0",
     "eslint-plugin-react": "^5.0.1",
     "expect": "^1.16.0",

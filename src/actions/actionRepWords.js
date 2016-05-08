@@ -1,50 +1,44 @@
 export const RECEIVE_REP_WORDS = 'RECEIVE_REP_WORDS'
-export const MORE_REP_WORDS = 'MORE_REP_WORDS'
-export const LESS_REP_WORDS = 'LESS_REP_WORDS'
+export const MORE_REP_WORDS    = 'MORE_REP_WORDS'
+export const LESS_REP_WORDS    = 'LESS_REP_WORDS'
+ 
 
-let allWords = []
-
-export function getRepWords(rep) {
+export function getRepWords(rep, testing) {
+  let url = '/api/words/'
+  if (testing) {
+    url = 'https://localhost:3500/api/words/'
+  }
   return dispatch => {
-    return fetch('/api/words/' + rep)
+    return fetch(url + rep)
       .then(response => response.json())
       .then(json => dispatch(receiveRepWords(json)))
   }
 }
 
 export function receiveRepWords(payload) {
-  allWords = payload
-  let words = makeWordsData(payload, 10)
   return {
     type: RECEIVE_REP_WORDS,
-    words
+    words: makeWordsData(payload)
   }
 }
 
-function makeWordsData(words, index) {
-  let array = []
-  for (var i = index - 10; i <= index; i++) {
+export function makeWordsData(words) {
+  return words.map((word) => {
     let temp = {}
-    temp.xValue = words[i].ngram
-    temp.yValue = words[i].count
-    array.push(temp)
-  }
-
-  return array
+    temp.xValue = word.ngram
+    temp.yValue = word.count
+    return temp
+  })
 }
 
-export function nextTenWords(index) {
-  let words = makeWordsData(allWords, index)
+export function nextTenWords() {
   return {
-    type: MORE_REP_WORDS,
-    words
+    type: MORE_REP_WORDS
   }
 }
 
-export function previousTenWords(index) {
-  let words = makeWordsData(allWords, index)
+export function previousTenWords() {
   return {
-    type: LESS_REP_WORDS,
-    words
+    type: LESS_REP_WORDS
   }
 }

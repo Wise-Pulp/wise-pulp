@@ -1,8 +1,8 @@
 //### FEATURES ####
-//TODO: Next 10 Words click twice
 //TODO: Reconcile user's votes with actual votes
 //TODO: Implement sessions for login
 //TODO: Error handling for all aspects
+  //Register with already used email
 
 
 //### TESTING ###
@@ -28,4 +28,3 @@
 //TODO: Why is our app so slow?
 //TODO: Make the froms all line up
 //TODO: Figure out Date.parse() issue with heroku (milliseconds convert to 12/31/2015)
-//TODO: Bill logic (check actionBills)

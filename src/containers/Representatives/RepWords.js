@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { getRepWords, nextTenWords, previousTenWords } from '../../actions/actionRepWords'
 
-export default class RepWords extends Component {
+export class RepWords extends Component {
   constructor(props) {
     super(props)
     this.moreWords = this.moreWords.bind(this)
@@ -12,21 +12,13 @@ export default class RepWords extends Component {
   }
 
   moreWords() {
-    const { dispatch, index, data } = this.props
-    if (index + 10 > data.length ) {
-      dispatch(nextTenWords(data.length))
-    } else {
-      dispatch(nextTenWords(index))
-    }
+    const { dispatch } = this.props
+    dispatch(nextTenWords())
   }
 
   lessWords() {
-    const { dispatch, index, data } = this.props
-    if (index - 10 < 0) {
-      dispatch(previousTenWords(0))
-    } else {
-      dispatch(previousTenWords(index))
-    }
+    const { dispatch } = this.props
+    dispatch(previousTenWords())
   }
 
   componentDidMount() {
@@ -40,6 +32,7 @@ export default class RepWords extends Component {
 
   render() {    
     const { data } = this.props
+    console.log(data)
     return <div>
       { data ? <div><Chart type={'bar'}
                       width={800}
@@ -48,8 +41,8 @@ export default class RepWords extends Component {
                       margin={{ top: 40, right: 40, bottom: 40, left: 50 }}
                       data={data}
                        /> 
-                <button onClick={this.lessWords}>Previous 10 Words</button>
-                <button onClick={this.moreWords}>Next 10 Words</button>
+                <button className='words-button moreWords' onClick={this.moreWords}>Next 10 Words</button>
+                <button className='words-button lessWords' onClick={this.lessWords}>Previous 10 Words</button>
                 </div>
                        : null }
 
@@ -59,7 +52,7 @@ export default class RepWords extends Component {
 
 function mapStateToProps(state) {
   const representatives = state.Representatives.representatives
-  const data = state.RepWords.words
+  const data = state.RepWords.display
   const index = state.RepWords.index
   return {
     representatives,

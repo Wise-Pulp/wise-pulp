@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { yes, no, billVote, userVotes, loginCheck } from '../../actions/actionBills';
-import Bill from './Bill';
-import './Bills.scss';
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { yes, no, userVotes, loginCheck } from '../../actions/actionBills'
+import Bill from './Bill'
+import './Bills.scss'
 
 export default class BillList extends Component {
 
@@ -20,11 +20,9 @@ export default class BillList extends Component {
 
     if (user) {
       if (bill === yes) {
-        dispatch(billVote(bill, 'yes'))
         dispatch(userVotes(bill, true, user))
 
       } else if (bill === no) {
-        dispatch(billVote(bill, 'no'))
         dispatch(userVotes(bill, false, user))
 
       }
@@ -87,4 +85,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps)(BillList);
+export default connect(mapStateToProps)(BillList)

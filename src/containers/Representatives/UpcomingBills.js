@@ -11,8 +11,11 @@ export class UpcomingBills extends Component {
   }
 
   componentWillMount() {
+    const { bills } = this.props
+    if (!bills.length) {
     this.props.dispatch(getSenateBillData())
     this.props.dispatch(getHouseBillData())
+    }
   }
 
   render() {

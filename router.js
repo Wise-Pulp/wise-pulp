@@ -49,29 +49,44 @@ module.exports = function(app) {
   });
 
   app.post('/userOpinions', requireAuth, function(req, res) {
-    console.log(req.body)
-
-  //   var updatedBill = Object.assign({}, bill, {
-  //   voted
-  // })
-    var decode = jwt.decode(req.headers.authorization, config.secret)
-    var id = decode.sub;
     var billNumber = req.body.billNumber;
     var opinion = req.body.opinion;
     var votedAt = Date.parse(new Date());
 
     var thisOpinion = new UserOpinion();
-    thisOpinion.userid = id;
     thisOpinion.billNumber = billNumber;
     thisOpinion.decision = JSON.parse(opinion);
     thisOpinion.votedAt = votedAt;
-    thisOpinion.save(function(err, success) {
+
+    var decode = jwt.decode(req.headers.authorization, config.secret);
+    var id = decode.sub;
+    User.findOne({_id: id}, function(err, user) {
       if (err) {
-        res.json(err)
+        res.json(err);
+      } 
+      if (user.bills.length) {
+      user.bills.forEach((bill) => {
+        if (bill.billNumber === billNumber) {
+          bill.decision = JSON.parse(opinion)
+        } else {
+          console.log('this is bill', bill)
+          user.bills.push(thisOpinion)
+        }
+      })
       } else {
-        res.json(success)
+        user.bills.push(thisOpinion)
       }
+      user.save(function(saveErr) {
+        if (err) {
+          console.log('this is a userOpinion user save err', saveErr)
+          res.json(saveErr)
+        }
+        console.log('this is a user with an opinion', user)
+        res.json(thisOpinion)
+      })
     })
+
+
   });
 
   app.post('/signin', requireSignin, Authentication.signin);

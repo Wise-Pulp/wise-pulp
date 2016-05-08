@@ -7,6 +7,10 @@ import deepFreeze                   from 'deep-freeze'
 import { BILL_VOTE,
          BILL_DATA,
          REP_VOTING_HISTORY,
+         LOGIN_CHECK,
+         ADD_TO_BILLS,
+         addBillType,
+         loginCheck,
          userVotes,
          getVotingHistory,
          getSenateBillData,
@@ -18,6 +22,9 @@ const mockStore = configureMockStore(middlewares)
 
 const dummyData = [{_id: 1234567}, {_id: 12345}, {_id: 1234}, {_id: 123456}]
 const dummyRepData = [{id: 1234567}, {id: 12345}, {id: 1234}, {id: 123456}]
+const bill = {_id: 123456}
+
+deepFreeze(bill)
 deepFreeze(dummyData)
 
 describe('User Voting', () => {
@@ -37,7 +44,7 @@ describe('User Voting', () => {
         billNumber: 123456,
         opinion: true
       }))
-      .reply(200, {_id: 123456, voted: true})
+      .reply(200, {_id: 123456, decision: true})
 
     const expectedActions = [{ type: BILL_VOTE, payload: {_id: 123456, voted: true}}]
 
@@ -84,6 +91,10 @@ describe('Upcoming Bills', () => {
         expect(store.getActions()).to.deep.equal(expectedActions)
       })
   })
+
+  it('should add a type property to each bill', () => {
+    expect(addBillType(dummyData, 'representative', true)).to.deep.equal([{_id: 1234567, representative: true}, {_id: 12345, representative: true}, {_id: 1234, representative: true}, {_id: 123456, representative: true}])
+  })
 })
 
 describe('Representatives Voting History', () => {
@@ -102,6 +113,21 @@ describe('Representatives Voting History', () => {
       .then(() => {
         expect(store.getActions()).to.deep.equal(expectedActions)
       })
+  })
+})
+
+describe('Login Checking', () => {
+  it('should check that the user is logged in and set the bill to true if so', () => {
+    
+    const expectedActions = { type: LOGIN_CHECK, payload: {_id: 123456, login: true} }
+
+    expect(loginCheck(true, bill)).to.deep.equal(expectedActions)
+  })
+
+  it('should check that the user is logged in and set the bill to false if so', () => {
+    const expectedActions = { type: LOGIN_CHECK, payload: {_id: 123456, login: false} }
+
+    expect(loginCheck(false, bill)).to.deep.equal(expectedActions)
   })
 })
 
@@ -143,6 +169,23 @@ describe('Bills Reducer', () => {
         type: REP_VOTING_HISTORY,
         payload: dummyRepData
       })).to.deep.equal({repVotes: dummyRepData})
+  })
+
+  it('should handle LOGIN_CHECK', () => {
+    expect(
+      bills({bills: dummyData}, {
+        type: LOGIN_CHECK,
+        payload: {
+          _id: 123456,
+          login: true
+        }
+      })).to.deep.equal({bills: [{_id: 1234567}, {_id: 12345}, {_id: 1234}, {_id: 123456, login: true}] })
+  })
+
+  it('should handle ADD_TO_BILLS', () => {
+    expect(
+      bills({billsToShow: 9}, {type: ADD_TO_BILLS}))
+        .to.deep.equal({billsToShow: 19})
   })
 })
 

@@ -3,8 +3,6 @@ var Schema = mongoose.Schema;
 
 // Basic User
 var UserOpinionSchema = new Schema({
-
-  userEmail: String,
   billNumber: String,
   decision: Boolean,
   votedAt: Number

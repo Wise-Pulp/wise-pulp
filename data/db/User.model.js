@@ -1,11 +1,13 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const bcrypt = require('bcrypt-nodejs');
+const UserOpinionSchema = require('./UserOpinion.model.js').schema
 
 //Define the model
 const userSchema = new Schema({
   email: { type: String, unique: true, lowercase: true},
-  password: String
+  password: String,
+  bills: [UserOpinionSchema]
 });
 //before saving a model, run this function
 userSchema.pre('save', function(next) {

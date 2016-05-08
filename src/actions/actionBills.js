@@ -1,5 +1,3 @@
-export const SENATE_BILL_DATA   = 'SENATE_BILL_DATA'
-export const HOUSE_BILL_DATA    = 'HOUSE_BILL_DATA'
 export const GET_ROLE_BILLS     = 'GET_ROLE_BILLS'
 export const ADD_TO_BILLS       = 'ADD_TO_BILLS'
 export const YES_VOTE           = 'YES_VOTE'
@@ -69,10 +67,9 @@ export function receiveHouseBillData(bills) {
   }
 }
 
-export function addToBills(bill) {
+export function addToBills() {
   return {
     type: ADD_TO_BILLS,
-    bill
   }
 }
 
@@ -94,10 +91,13 @@ export function no(payload) {
 //TODO: billVote and userVotes I think should be the same function, i.e. post to the database, on success, change the vote
 //to reflect the voted upon status. userVotes should dispatch billVote
 //Updates the current state of the bill to reflect the voted status
-export function billVote(bill, voted, json) {
+export function billVote(bill, json) {
+  let updatedBill = Object.assign({}, bill, { 
+    voted: json.decision 
+  })
   return {
     type: BILL_VOTE,
-    payload: json
+    payload: updatedBill
   }
 }
 
@@ -120,7 +120,7 @@ export function userVotes(bill, vote, user, testing) {
       })
     })
       .then(response => response.json())
-      .then(json => dispatch(billVote(bill, vote, json)))
+      .then(json => dispatch(billVote(bill, json)))
   }
 }
 
