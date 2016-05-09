@@ -3,8 +3,8 @@ const passportService = require('./services/passport');
 const passport = require('passport');
 var path = require('path');
 var publicPath = path.resolve(__dirname, 'public');
-const requireAuth = passport.authenticate('jwt', { session: false });
-const requireSignin = passport.authenticate('local', { session: false });
+const requireAuth = passport.authenticate('jwt');
+const requireSignin = passport.authenticate('local');
 const jwt = require('jwt-simple');
 const congressBill = require('./data/db/upcomingCongressionalVotes.model');
 const senateBill = require('./data/db/UpcomingSenateBills.model');
@@ -89,7 +89,26 @@ module.exports = function(app) {
 
   });
 
-  app.post('/signin', requireSignin, Authentication.signin);
+  app.post('/signin', function(req, res, next) {
+    console.log(req.body)
+    if (!req.body.email || !req.body.password) {
+      return res.status(400).json({message: 'Please fill out all fields'});
+    }
+    passport.authenticate('local', function(err, user, info) {
+      if (err) {
+        console.log(err)
+        return next(err);
+      }
+      if (user) {
+        console.log(tokenForUser(user))
+        res.send({ token: tokenForUser(user) });
+      } else {
+        console.log('no user');
+        console.log(info)
+        return res.status(401).json(info);
+      }
+    })(req, res, next);
+  });
   app.post('/signup', Authentication.signup);
 
   //route to return the representative for the district based on the zipcode lookup
@@ -292,7 +311,7 @@ module.exports = function(app) {
   });
 
   //if we're not in production, this proxies requests to localhost:3000 and sends them to our webpack server at localhost:8080
-  if (!isProduction) {
+  if (isProduction) {
     var bundle = require('./server/compiler.js');
     bundle();
     app.all('/build/*', function (req, res) {

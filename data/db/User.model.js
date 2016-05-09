@@ -5,7 +5,7 @@ const UserOpinionSchema = require('./UserOpinion.model.js').schema
 
 //Define the model
 const userSchema = new Schema({
-  email: { type: String, unique: true, lowercase: true},
+  username: { type: String, unique: true, lowercase: true},
   password: String,
   bills: [UserOpinionSchema]
 });

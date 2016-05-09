@@ -15,25 +15,18 @@ module.exports.signin = function(req, res, next) {
   res.send({ token: tokenForUser(req.user) });
 }
 module.exports.signup = function(req, res, next) {
-  console.log(req.body) ;
 
-  var logit = {
-    email: req.params.email,
-    password: req.params.password,
-    body: req.body
-  }
-
-  console.log('*********************', logit);
   const email = req.body.email;
   const password = req.body.password;
   
+  console.log(email) ;
 
   // if (!email || !password) {
   //  return res.status(422).send({"you must provide Email and Password"});
   // }
 
   //See if user with the given email exists
-  User.findOne({ email: email }, function(err, existingUser){
+  User.findOne({ username: email }, function(err, existingUser){
     
     if(err) { return next(err); }
 
@@ -43,7 +36,7 @@ module.exports.signup = function(req, res, next) {
   }
     //if a user with the email does NOT exist, create and save user record
     const user = new User ({
-      email: email,
+      username: email,
       password: password
     });
 
