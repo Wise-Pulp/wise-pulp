@@ -54,7 +54,6 @@ export class ContributorVisualization extends Component {
 
 function mapStateToProps(state) {
   const contributions = state.ContributorVisualization.contributions;
-  console.log(contributions);
 
   return {
     contributions
