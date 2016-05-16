@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 
-import Header from '../../components/Header/Header';
 import HeatMap from '../../components/HeatMap/HeatMap';
 import Tutorial from '../../components/Tutorial/Tutorial';
 import GettingStarted from '../../components/GettingStarted/GettingStarted';

@@ -1,10 +1,9 @@
-import React, { Component } from 'react'
-import { Link } from 'react-router'
+import React, { Component } from 'react';
+import { Link } from 'react-router';
 
-import RepresentativePicture from './RepresentativePicture'
-import RepresentativeName from './RepresentativeName'
-import ContributorVisualization from './ContributorVisualization'
-import Header from '../Header/Header'
+import RepresentativePicture from './RepresentativePicture';
+import RepresentativeName from './RepresentativeName';
+import ContributorVisualization from './ContributorVisualization';
 
 
 import './RepView.scss';
