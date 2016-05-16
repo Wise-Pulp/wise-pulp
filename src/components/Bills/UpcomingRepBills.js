@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getRoleBills, getSenateBillData, getHouseBillData, addToBills } from '../../actions/actionBills';
 import BillList from './BillList'
-import Spinner from '../Spinner'
+import Spinner from '../Spinner/Spinner'
 
 export default class UpcomingRepBills extends Component {
 

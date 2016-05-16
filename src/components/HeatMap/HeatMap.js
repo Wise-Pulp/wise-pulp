@@ -2,7 +2,9 @@ import React, { Component } from 'react'
 import d3 from 'd3'
 import { connect } from 'react-redux'
 
-import { GET_HEAT_MAP, getHeatMapData } from '../actions/actionHeatMap'
+import { GET_HEAT_MAP, getHeatMapData } from '../../actions/actionHeatMap'
+
+import './HeatMap.scss';
 
 
 var counties = {

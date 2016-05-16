@@ -1,5 +1,13 @@
 var path = require('path');
 var webpack = require('webpack');
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
+
+var sassLoaders = [
+    'css-loader',
+    'postcss-loader',
+    'sass-loader?indentedSyntax=sass&includePaths[]=' + path.resolve(__dirname, 'public', 'build')
+  ];
+
 
 module.exports = {
 
@@ -27,7 +35,7 @@ module.exports = {
         exclude: '/node_modules'
       },
       //This converts our .css into JS
-      { test: /\.s?css$/, loaders: ['style', 'css', 'sass?outputStyle=expanded'] },
+      { test: /\.scss$/, loaders: ['style', 'css', 'sass'] },
       { test : /\.json$/, loader: 'json-loader'},
       { test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: 'file' },
       { test: /\.(woff|woff2)$/, loader:'url?prefix=font/&limit=5000' },
@@ -47,5 +55,6 @@ module.exports = {
   //Hot Replacement plugin
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
+    new ExtractTextPlugin('[name].css')
   ]
 };

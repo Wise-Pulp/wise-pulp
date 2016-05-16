@@ -1,4 +1,6 @@
-import React from 'react'
+import React, { Component } from 'react';
+
+import './Bills.scss';
 
 const BillVotes = ({handleLoginCheck, bill, onNoChange, onYesChange}) => (
   <div>

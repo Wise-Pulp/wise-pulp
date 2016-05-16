@@ -3,7 +3,9 @@ import { connect } from 'react-redux'
 import { getRepresentatives, increaseProgress, stopProgress, getRepInfo } from '../../actions/actionRepresentatives'
 import { getContributorData } from '../../actions/actionContributor'
 import RepresentativeList from '../../components/RepresentativeView/RepresentativeList'
-import Spinner from '../../components/Spinner'
+import Spinner from '../../components/Spinner/Spinner'
+
+import '../../components/RepresentativeView/RepView.scss';
 
 
 export default class Representatives extends Component {
@@ -41,7 +43,7 @@ export default class Representatives extends Component {
   render() {
     const { representatives, isFetching, progress } = this.props
     return (
-      <div>
+      <div className='rep-container'>
         <h1 className='text-center'>Polis</h1>
         {isFetching ? <Spinner representatives={representatives} 
                                progress={progress} 

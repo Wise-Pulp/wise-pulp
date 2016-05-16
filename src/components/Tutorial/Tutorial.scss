@@ -1,0 +1,69 @@
+@import '../../styles-config.scss';
+
+.title {
+  font-size: 70px;
+}
+.title_line {
+  position: relative;
+  width: 45%;
+  left: 28%;
+  border-bottom: solid;
+  border-color: black;
+  border-width: 2px;
+  padding: 0;
+  margin-bottom: 2%;
+}
+.tutorial-background {
+  position: relative;
+  width: 100%;
+  height: 700px;
+  background-image: url("../../images/Vote.jpg");
+  background-size: 100%, 50%;
+  background-repeat: no-repeat;
+  background-position: 0, -10px;
+  opacity: 0.5;
+}
+.tutorial-container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 8%;
+  text-align: left;
+  z-index: 1;
+}
+.tutorial-left-text {
+  position: absolute;
+  display: inline-block;
+  top: 40%;
+  right: 1%;
+  width: 40%;
+  height: 40%;
+  margin-top: 1%;
+  text-align: center;
+  font-size: 22px;
+  color: black;
+  z-index: 10;
+  @include device-query(#{$mobile-large}) {
+    margin: 0;
+    top: 10%;
+    right: 5%;
+  }
+}
+
+.tutorial_text {
+  text-align: center;
+}
+
+.getting-started-container {
+  position: absolute;
+  display: inline-block;
+  width: 50%;
+  height: 40%;
+  bottom: 20%;
+  right: 65%;
+  @include device-query(#{$mobile-large}) {
+    left: 10%;
+    top: 10%;
+    height: 10%;
+  }
+}

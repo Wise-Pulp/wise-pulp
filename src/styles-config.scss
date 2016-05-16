@@ -1,0 +1,27 @@
+// Colors
+$background: rgb(255, 255, 255);
+
+// default button
+.button {
+  height: 50px;
+  width: 110px;
+  border-radius: 10px;
+  background-color: #000 + 20;
+  color: white;
+}
+
+
+// media widths 
+$small: 240px;
+$mobile-large: 320px;
+$tablet-small: 480px;
+$tablet-large: 768px;
+$screen-small: 1024px;
+$screen-large: 1280px;
+
+// mixins
+@mixin device-query($max-device-width) {
+  @media screen and (max-device-width: $max-device-width) {
+    @content;
+  }
+}

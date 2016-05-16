@@ -1,9 +1,14 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import TopNavbar from '../TopNavbar'
-import Footer from '../Footer'
+
+import FrontPage from '../../containers/FrontPage/FrontPage'
+import Representatives from '../../containers/Representatives/Representatives'
+import TopNavbar from '../TopNavBar/TopNavBar'
+import Footer from '../Footer/Footer'
 import { getContributorData } from '../../actions/actionContributor'
 import { getRepresentatives } from '../../actions/actionRepresentatives'
+
+import './App.scss';
 
 export default class App extends Component {
 
@@ -20,7 +25,7 @@ export default class App extends Component {
   render() {
 	  const { store, children } = this.props
     return (
-      <div>
+      <div className="main">
         <TopNavbar />
       	{children}
         <Footer />

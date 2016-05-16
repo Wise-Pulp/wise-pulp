@@ -1,0 +1,20 @@
+@import '../../styles-config.scss';
+
+
+.spinner {
+  position: relative;
+  left: 40%;
+  top: 25%;
+  margin-bottom: 30%;
+
+  @include device-query(#{$mobile-large}) {
+    left: 0;
+    top: 0;
+  }
+
+
+  @include device-query(#{$tablet-large}) {
+    left: 0;
+    top: 0;
+  }
+}

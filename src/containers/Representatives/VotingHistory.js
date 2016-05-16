@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { getVotingHistory, addToBills } from '../../actions/actionBills'
 import VotingHistoryList from '../../components/Bills/VotingHistoryList'
-import Spinner from '../../components/Spinner'
+import Spinner from '../../components/Spinner/Spinner'
 
 export class VotingHistory extends Component {
 

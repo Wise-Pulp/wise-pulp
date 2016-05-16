@@ -1,0 +1,34 @@
+@import '../../styles-config.scss';
+
+.zipcode-container {
+  position: relative;
+  left: 20%;
+  @include device-query(#{$mobile-large}) {
+    left: -5%;
+  }
+}
+
+.zipcode-field {
+  height: 35px;
+  width: 300px;
+  border-radius: 6px;
+  border: none;
+  padding-left: 10px;
+  font-size: 16px;
+  margin-right: 10px;
+}
+
+.zipcode-button {
+  color: white;
+  background-color: black;
+  border-radius: 6px;
+  border: none;
+  height: 35px;
+  font-size: 14px;
+  width: 65px;
+  margin-top: 18px;
+}
+
+.zipcode-header {
+  font-size: 24px;
+}

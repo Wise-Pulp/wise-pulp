@@ -122,7 +122,7 @@ function fixCandidateDates(BadlyFormattedDate) {
     // console.log(storage);
   } 
   results = storage[1] + '-' + storage[0] + '-' + storage[2];
-  // console.log(results)
+  console.log('results from fixCandidateDates', results)
   return results;
 }
 

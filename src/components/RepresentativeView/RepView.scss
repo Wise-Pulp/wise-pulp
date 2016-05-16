@@ -1,0 +1,119 @@
+@import '../../styles-config.scss';
+
+
+.rep-header {
+  margin: center;
+}
+
+.rep-img {
+  display: inline-block;
+  border-radius: 50%;
+  margin: 0 auto;
+  width: 30%;
+}
+ .rep-container {
+  width: 100%;
+  text-align: center;
+ }
+
+.rep-img-container {
+  text-align: left;
+  position: relative;
+  padding: 20px;
+}
+
+.rep-name {
+  text-align: center;
+  position: relative;
+  font-size: 20px;
+}
+
+.rep-role {
+  @extend .rep-name;
+  font-size: 16px;
+}
+
+.rep-name-container {
+  position: relative;
+  text-align: center;
+  width: 10%;
+  height: 100%;
+  margin: 4% auto 0 auto;
+}
+
+.rep-container {
+  position: relative;
+  width: 100%;
+  text-align: center;
+  padding: 20px;
+  margin: 0 auto;
+  border-radius: 10px;
+  position: relative;
+}
+
+.rep-pic {
+  width: 30%;
+  display: inline-block;
+  @include device-query (320px) {
+    display: block;
+    position: relative;
+    width: 80%;
+    left:8%;
+  }
+}
+
+.text-center {
+  left: 50%;
+}
+
+.rep-info-container {
+  text-align: center;
+  width: 100%;
+  height: 10%;
+  border: 1px solid;
+  padding: 5px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.rep-info-graph-container {
+  padding: 1em;
+  display: inline-block;
+  width: 70%;
+}
+
+.rep-individual-header-container {
+  width: 80%;
+}
+
+.rep-info:hover {
+  background-color: rgba(114, 140, 154, .8);
+}
+
+.rep-left-navbar {
+  position: relative;
+  display: inline-block;
+  // padding: 1em;
+  text-align: center;
+  top: 0;
+  height: 50%;
+  width: 20%;
+
+  @include device-query(320px) {
+    height: 100px;
+    width: 100%;
+  }
+
+  .option {
+    position: relative;
+    // padding: 1em;
+    font-size: 28px;
+    text-align: center;
+    height: 20%;
+    width: 100%;
+  }
+}
+
+.option:hover {
+  background-color: rgba(114, 140, 154, .8);
+}

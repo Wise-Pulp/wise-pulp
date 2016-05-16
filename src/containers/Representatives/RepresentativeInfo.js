@@ -5,6 +5,8 @@ import RepresentativeLeftNavBar from '../../components/RepresentativeView/Repres
 import ContributorVisualization from '../../components/RepresentativeView/ContributorVisualization'
 import { getCurrentPosition, getRepresentatives } from '../../actions/actionRepresentatives'
 
+import '../../components/RepresentativeView/RepView.scss';
+
 export default class RepresentativeInfo extends Component {
 
 	render() {
@@ -22,11 +24,11 @@ export default class RepresentativeInfo extends Component {
 						)
 					}
 				})}
-				<div className='row'>
-					<div className='col-md-3 rep-left-navbar'>
+				<div className='rep-container'>
+					<div className='rep-left-navbar'>
 						<RepresentativeLeftNavBar id={params.id}/>
 					</div>
-					<div className='col-md-7 rep-info-graph-container'>
+					<div className='rep-info-graph-container'>
 						{children }
 					</div>
 				</div>

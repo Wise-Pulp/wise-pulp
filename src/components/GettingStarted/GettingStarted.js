@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router'
 
-
+import './GettingStarted.scss';
 
 export default class GettingStarted extends Component {
   render() {

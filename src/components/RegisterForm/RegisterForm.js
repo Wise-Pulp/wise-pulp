@@ -1,5 +1,6 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 
+import './RegisterForm.scss';
 export default class RegisterForm extends Component {
    handleSubmit(e) {
       e.preventDefault();
@@ -10,7 +11,7 @@ export default class RegisterForm extends Component {
 
    render () {
       return (
-         <div>
+         <div className='register-container'>
             <h1 className='register-header'>Register</h1>
             <form action="#" onSubmit={(e) => this.handleSubmit(e)}>
                <d1>
@@ -31,7 +32,7 @@ export default class RegisterForm extends Component {
                   </dd>
                </d1>
                <br />
-               <input className='register-button' type='submit' value='Create an account' />
+               <input className='button' type='submit' value='Create an account' />
             </form>
          </div>
       )

@@ -1,0 +1,118 @@
+@import '../../styles-config.scss';
+
+.register-container {
+  position: relative;
+  width: 100%;
+  left: 20%;
+  bottom: 55%;
+  @include device-query(320px) {
+    bottom: 100%;
+    left: -5%;
+  }
+}
+
+.input-field {
+  @extend .zipcode-field;
+  position: relative;
+  right: 6%;
+  @include device-query(320px) {
+    left: -10%;
+  }
+}
+
+.register-description {
+  @extend .zipcode-field;
+  position: relative;
+  right: 7%;
+  @include device-query(320px) {
+    left: -10%;
+  }
+}
+
+.register-button {
+  @extend .button;
+}
+
+.zipcode-field {
+  height: 35px;
+  width: 300px;
+  border-radius: 6px;
+  border: none;
+  padding-left: 10px;
+  font-size: 16px;
+  margin-right: 10px;
+}
+
+.zipcode-button {
+  color: white;
+  background-color: black;
+  border-radius: 6px;
+  border: none;
+  height: 35px;
+  font-size: 14px;
+  width: 65px;
+  margin-top: 18px;
+}
+
+.login-header {
+  font-size: 48px;
+  margin: 10% 0;
+  position: relative;
+  padding-top: 8%;
+  text-align: center;
+}
+
+.login-form {
+  // margin: 0 15%;
+}
+
+.login-description {
+  font-size: 10px;
+  color: #7C9BCA;
+  padding: 3px;
+  font-weight: bold;
+}
+
+.login-button {
+  color: white;
+  background-color: black;
+  border-radius: 6px;
+  border: none;
+  height: 35px;
+  font-size: 20px;
+  width: 100px;
+}
+
+.login-container {
+  width: 30%;
+  height: 50%;
+  margin: 10% auto;
+  background-color: white;
+  position: relative;
+  border-radius: 50px;
+  background: rgba(245, 245, 245, 0.9);
+}
+
+.login-background {
+  position: relative;
+  width: 100%;
+  height: 700px;
+  background-image: url("http://scan.lusu.co.uk/wp-content/uploads/2016/03/Vote.jpg");
+  background-size: 100%, 50%;
+  background-repeat: no-repeat;
+  background-position: 0, -10px;
+}
+
+.login-input-field {
+  height: 35px;
+  width: 300px;
+  border-radius: 6px;
+  padding-left: 10px;
+  font-size: 16px;
+}
+
+.login-process {
+  color: red;
+  font-size: 1em;
+  padding-top: 1em;
+}
