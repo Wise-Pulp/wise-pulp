@@ -1,13 +1,13 @@
 <a href="polislife.herokuapp.com">www.polislife.herokuapp.com</a>
 
-<image src="./readme_images/splashPage.png" width="300px" />
+<image src="./readme_images/splashPage.png" width="500px" />
 
 #Polis
 
 Polis is a web app that assists voters in taking ownership of their democratic system through education. Polis tracks representative voting records, comparing them to user’s preferences on the same bills, and showing that and other pertinent data in a stimulating user-friendly way, as well as showing who representatives influence (through bills, committees, etc.) and who influences them (through campaign contributions)
 <hr />
 
-<img src="./readme_images/rep-list.png" width="300px" />
+<img src="./readme_images/rep-list.png" width="500px" />
 
 ##Using the App
 
