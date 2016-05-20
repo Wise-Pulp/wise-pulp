@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import './TopNavBar.scss';
+import './TopNavBar.scss'
 import { Link } from 'react-router'
 import { processLogout } from '../actions/actionLogin'
 
 export default class TopNavbar extends Component {
 
   logout(e) {
-    e.preventDefault();
+    e.preventDefault()
     this.props.dispatch(processLogout())
   }
 

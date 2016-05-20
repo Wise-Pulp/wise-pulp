@@ -9,7 +9,6 @@ export const SET_REP_ROLE       = 'SET_REP_ROLE'
 export const LOGIN_CHECK        = 'LOGIN_CHECK'
 
 
-
 export function getRoleBills(role) {
   if (role === 'representative') {
     return getHouseBillData()
@@ -37,7 +36,24 @@ export function addBillType(bills, type, prop) {
       [type]: prop
     }))
   }
-  return newBills
+  console.log(localStorage.getItem('bills') !== 'undefined')
+  return localStorage.getItem('bills') !== 'undefined' ? addUserBills(newBills) : newBills
+}
+
+export function addUserBills(bills) {
+  let userBills = JSON.parse(localStorage.getItem('bills'))
+  for (var i = 0; i < bills.length; i++) {
+    for (var j = 0; j < userBills.length; j++) {
+      if (userBills[j].billNumber === bills[i]._id || userBills[j].billNumber === bills[i].id) {
+        console.log(userBills[j])
+        console.log('this is user', userBills[j].billNumber)
+        console.log('this is bills', bills[i].id)
+        bills[i]['voted'] = userBills[j].decision
+      } 
+    }
+  }
+  console.log(bills)
+  return bills
 }
 
 export function receiveSenateBillData(bills) {
@@ -112,7 +128,7 @@ export function userVotes(bill, vote, user, testing) {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': user
+        'Authorization': localStorage.getItem('token')
       },
       body: JSON.stringify({
         billNumber: bill._id,
@@ -135,7 +151,7 @@ export function getVotingHistory(rep) {
 export function receiveVotingHistory(payload) {
   return {
     type: REP_VOTING_HISTORY,
-    payload
+    payload: localStorage.getItem('bills') === 'undefined' ? addUserBills(payload) : payload
   }
 }
 
@@ -154,5 +170,41 @@ export function loginCheck(user, bill) {
   return {
     type: LOGIN_CHECK,
     payload: updatedBill
+  }
+}
+
+export function updateLocalStorage() {
+  fetch('/userOpinions', {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': localStorage.getItem('token')
+    }
+  })
+  .then(response => response.json())
+  .then(json => {
+    localStorage.setItem('bills', undefined)
+    localStorage.setItem('bills', JSON.stringify(json))
+  })
+}
+export function userVotes(bill, vote, user, testing) {
+  let url = '/userOpinions'
+  if (testing) {
+    url = 'https://localhost:3500/userOpinions'
+  }
+  return dispatch => {
+    return fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': localStorage.getItem('token')
+      },
+      body: JSON.stringify({
+        billNumber: bill._id,
+        opinion: vote
+      })
+    })
+      .then(response => response.json())
+      .then(json => dispatch(billVote(bill, json)))
   }
 }

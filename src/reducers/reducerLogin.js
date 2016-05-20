@@ -13,7 +13,7 @@ export default function user(state = {
       })
     case USER_LOGIN_SUCCESS:
       return Object.assign({}, state, {
-        isLoggedIn: action.payload,
+        isLoggedIn: true,
         processingLogin: false,
         loginError: false,
         registrationError: false

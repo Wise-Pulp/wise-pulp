@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { getVotingHistory, addToBills } from '../../actions/actionBills'
+import { getVotingHistory, addToBills, updateLocalStorage } from '../../actions/actionBills'
 import VotingHistoryList from '../../components/Bills/VotingHistoryList'
 import Spinner from '../../components/Spinner/Spinner'
 
@@ -19,8 +19,12 @@ export class VotingHistory extends Component {
     }.bind(this))
   }
 
+  componentWillUnmount() {
+    updateLocalStorage()
+  }
+
   render() {
-    const { repVotes, repVotesToShow, billsToShow } = this.props
+    const { repVotes, billsToShow } = this.props
     return (
       <div>
         { repVotes.length ? <VotingHistoryList repVotes={repVotes} billsToShow={billsToShow} showMoreBills={this.showMoreBills.bind(this)}/> : <div><Spinner /></div> }

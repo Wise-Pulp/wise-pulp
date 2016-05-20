@@ -19,11 +19,9 @@ export default class VotingHistoryList extends Component {
 
     if (user) {
       if (bill === yes) {
-        dispatch(billVote(bill, 'yes'))
         dispatch(userVotes(bill, true, user))
 
       } else if (bill === no) {
-        dispatch(billVote(bill, 'no'))
         dispatch(userVotes(bill, false, user))
 
       }
@@ -39,6 +37,7 @@ export default class VotingHistoryList extends Component {
   onNoChange(bill) {
     this.props.dispatch(no(bill))
   }
+
 
  render() {
   const {repVotes, billsToShow, loginCheck} = this.props

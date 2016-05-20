@@ -1,9 +1,9 @@
 //### FEATURES ####
 //TODO: Reconcile user's votes with actual votes
-//TODO: Implement sessions for login
-//TODO: Error handling for all aspects
+//TODO: Error handling for all aspects - especially catch()
   //Register with already used email
-
+  //User login
+  //Get votes
 
 //### TESTING ###
 //TODO: 100% testing coverage

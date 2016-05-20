@@ -39,7 +39,6 @@ export default function upcomingBills(state = {
     case LOGIN_CHECK:
       return changeBillProps(state, action.payload)
     case BILL_VOTE:
-      console.log('BILL_VOTE payload', action.payload)
       return changeBillProps(state, action.payload)
     case USER_LOGIN_SUCCESS:
       return changeLoginToTrue(state, state.bills, 'bills')

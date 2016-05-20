@@ -1,10 +1,11 @@
+
 const Authentication = require('./data/db/controllers/authentication');
 const passportService = require('./services/passport');
 const passport = require('passport');
 var path = require('path');
 var publicPath = path.resolve(__dirname, 'public');
-const requireAuth = passport.authenticate('jwt');
-const requireSignin = passport.authenticate('local');
+const requireAuth = passport.authenticate('jwt', { session: false });
+const requireSignin = passport.authenticate('local', { session: false });
 const jwt = require('jwt-simple');
 const congressBill = require('./data/db/upcomingCongressionalVotes.model');
 const senateBill = require('./data/db/UpcomingSenateBills.model');
@@ -48,6 +49,18 @@ module.exports = function(app) {
     console.log('Server running on port ' + port);
   });
 
+  app.get('/userOpinions', requireAuth, function(req, res) {
+    var decode = jwt.decode(req.headers.authorization, config.secret);
+    var id = decode.sub;
+
+    User.findOne({_id: id}, function(err, user) {
+      if (err) {
+        res.json(err)
+      }
+      res.send(user.bills)
+    })
+  })
+
   app.post('/userOpinions', requireAuth, function(req, res) {
     var billNumber = req.body.billNumber;
     var opinion = req.body.opinion;
@@ -60,28 +73,28 @@ module.exports = function(app) {
 
     var decode = jwt.decode(req.headers.authorization, config.secret);
     var id = decode.sub;
+    var notFound = true;
     User.findOne({_id: id}, function(err, user) {
       if (err) {
         res.json(err);
       } 
       if (user.bills.length) {
-      user.bills.forEach((bill) => {
-        if (bill.billNumber === billNumber) {
-          bill.decision = JSON.parse(opinion)
-        } else {
-          console.log('this is bill', bill)
-          user.bills.push(thisOpinion)
-        }
-      })
-      } else {
+        user.bills.forEach((bill) => {
+          if (bill.billNumber === billNumber) {
+            bill.decision = JSON.parse(opinion)
+            notFound = false;
+          } 
+        })
+      } 
+      if (notFound){
         user.bills.push(thisOpinion)
       }
       user.save(function(saveErr) {
         if (err) {
-          console.log('this is a userOpinion user save err', saveErr)
           res.json(saveErr)
         }
-        console.log('this is a user with an opinion', user)
+        console.log('this is the user at the end', user)
+        notFound = true;
         res.json(thisOpinion)
       })
     })
@@ -89,26 +102,7 @@ module.exports = function(app) {
 
   });
 
-  app.post('/signin', function(req, res, next) {
-    console.log(req.body)
-    if (!req.body.email || !req.body.password) {
-      return res.status(400).json({message: 'Please fill out all fields'});
-    }
-    passport.authenticate('local', function(err, user, info) {
-      if (err) {
-        console.log(err)
-        return next(err);
-      }
-      if (user) {
-        console.log(tokenForUser(user))
-        res.send({ token: tokenForUser(user) });
-      } else {
-        console.log('no user');
-        console.log(info)
-        return res.status(401).json(info);
-      }
-    })(req, res, next);
-  });
+  app.post('/signin', requireSignin, Authentication.signin);
   app.post('/signup', Authentication.signup);
 
   //route to return the representative for the district based on the zipcode lookup
@@ -156,27 +150,6 @@ module.exports = function(app) {
       .then(response => response.json())
       .then(json => res.send(json))
   })
-
-  app.post('/api/signup', function(req, res, next) {
-  if (!req.body.email || !req.body.password) {
-    console.log(req.params);
-    return res.status(400).json({ message: 'Please fill out all fields' });
-  }
-    // console.log('***************', Object.keys(req));
-  var user = new User();
-  user.password = req.body.password;
-  user.email = req.body.email;
-  console.log('this is the user', user);
-
-  user.save(function (err, success) {
-      if (err) {
-        return next(err);
-      }
-      return res.json({
-        'theSmellOfSuccess': true
-      });
-    });      
-});
 
 
 // senate bills
@@ -309,9 +282,8 @@ module.exports = function(app) {
       res.status(404).send('Invalid Year or Zipcode Entered');
     }
   });
-
   //if we're not in production, this proxies requests to localhost:3000 and sends them to our webpack server at localhost:8080
-  if (isProduction) {
+  if (!isProduction) {
     var bundle = require('./server/compiler.js');
     bundle();
     app.all('/build/*', function (req, res) {
