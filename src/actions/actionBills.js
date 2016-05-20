@@ -36,7 +36,6 @@ export function addBillType(bills, type, prop) {
       [type]: prop
     }))
   }
-  console.log(localStorage.getItem('bills') !== 'undefined')
   return localStorage.getItem('bills') !== 'undefined' ? addUserBills(newBills) : newBills
 }
 
@@ -45,14 +44,10 @@ export function addUserBills(bills) {
   for (var i = 0; i < bills.length; i++) {
     for (var j = 0; j < userBills.length; j++) {
       if (userBills[j].billNumber === bills[i]._id || userBills[j].billNumber === bills[i].id) {
-        console.log(userBills[j])
-        console.log('this is user', userBills[j].billNumber)
-        console.log('this is bills', bills[i].id)
         bills[i]['voted'] = userBills[j].decision
       } 
     }
   }
-  console.log(bills)
   return bills
 }
 

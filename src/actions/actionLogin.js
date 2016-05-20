@@ -48,8 +48,8 @@ export function userRegister(email, password) {
     }).then(response => response.json())
       .then((user) => {
         if (user) {
-          handleUser(user.token)
-          return dispatch(loginSuccess(user.token))
+          handleUser(user)
+          return dispatch(loginSuccess())
         } else {
           return dispatch(registrationError())
         }
