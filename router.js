@@ -287,6 +287,7 @@ module.exports = function(app) {
     var bundle = require('./server/compiler.js');
     bundle();
     app.all('/build/*', function (req, res) {
+      console.log(req.body)
       proxy.web(req, res, {
         target: 'http://localhost:8080'
       });
