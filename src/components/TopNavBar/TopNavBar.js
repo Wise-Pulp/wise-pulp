@@ -1,14 +1,13 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Link } from 'react-router';
+import './TopNavBar.scss'
+import { Link } from 'react-router'
 import { processLogout } from '../../actions/actionLogin'
-
-import './TopNavBar.scss';
 
 export default class TopNavbar extends Component {
 
   logout(e) {
-    e.preventDefault();
+    e.preventDefault()
     this.props.dispatch(processLogout())
   }
 
@@ -16,7 +15,7 @@ export default class TopNavbar extends Component {
     const { isLoggedIn } = this.props
     return (
         <div className='top-nav-bar'>
-          { isLoggedIn ?  <a href='#' className='item' onClick={e => this.logout(e)}>Logout</a> : 
+          { isLoggedIn ?  <button className='login-button' onClick={e => this.logout(e)}>Logout</button> : 
                           <Link to={'login'}><button className='login-button'>Login</button></Link> }
           <Link className='item' to={'upcoming_bills'}>Upcoming Bills</Link>
           <Link className='item' to={'representatives'}>Representatives</Link>

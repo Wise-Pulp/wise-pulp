@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { getSenateBillData, getHouseBillData, addToBills } from '../../actions/actionBills'
+import { getSenateBillData, getHouseBillData, addToBills, updateLocalStorage } from '../../actions/actionBills'
 import BillList from '../../components/Bills/BillList'
 import Spinner from '../../components/Spinner/Spinner'
 
@@ -11,8 +11,15 @@ export class UpcomingBills extends Component {
   }
 
   componentWillMount() {
-    this.props.dispatch(getSenateBillData())
-    this.props.dispatch(getHouseBillData())
+    const { bills, dispatch } = this.props
+    if (!bills.length) {
+      dispatch(getSenateBillData())
+      dispatch(getHouseBillData())
+    }
+  }
+
+  componentWillUnmount() {
+    updateLocalStorage()
   }
 
   render() {

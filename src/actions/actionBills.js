@@ -1,15 +1,12 @@
-export const SENATE_BILL_DATA = 'SENATE_BILL_DATA'
-export const HOUSE_BILL_DATA = 'HOUSE_BILL_DATA'
-export const GET_ROLE_BILLS = 'GET_ROLE_BILLS'
-export const ADD_TO_BILLS = 'ADD_TO_BILLS'
-export const YES_VOTE = 'YES_VOTE'
-export const NO_VOTE = 'NO_VOTE'
-export const BILL_VOTE = 'BILL_VOTE'
+export const GET_ROLE_BILLS     = 'GET_ROLE_BILLS'
+export const ADD_TO_BILLS       = 'ADD_TO_BILLS'
+export const YES_VOTE           = 'YES_VOTE'
+export const NO_VOTE            = 'NO_VOTE'
+export const BILL_VOTE          = 'BILL_VOTE'
 export const REP_VOTING_HISTORY = 'REP_VOTING_HISTORY'
-export const BILL_DATA = 'BILL_DATA'
-export const SET_REP_ROLE = 'SET_REP_ROLE'
-export const LOGIN_CHECK = 'LOGIN_CHECK'
-
+export const BILL_DATA          = 'BILL_DATA'
+export const SET_REP_ROLE       = 'SET_REP_ROLE'
+export const LOGIN_CHECK        = 'LOGIN_CHECK'
 
 
 export function getRoleBills(role) {
@@ -20,8 +17,11 @@ export function getRoleBills(role) {
   }
 }
 
-export function getSenateBillData() {
-let senate = '/api/data/senate_bills'
+export function getSenateBillData(testing) {
+  let senate = '/api/data/senate_bills'
+  if (testing) {
+    senate = 'https://localhost:3500/api/data/senate_bills'
+  }
   return dispatch => {
     return fetch(senate)
       .then(response => response.json())
@@ -36,18 +36,33 @@ export function addBillType(bills, type, prop) {
       [type]: prop
     }))
   }
-  return newBills
+  return localStorage.getItem('bills') !== 'undefined' ? addUserBills(newBills) : newBills
 }
 
-export function receiveSenateBillData(bill) {
+export function addUserBills(bills) {
+  let userBills = JSON.parse(localStorage.getItem('bills'))
+  for (var i = 0; i < bills.length; i++) {
+    for (var j = 0; j < userBills.length; j++) {
+      if (userBills[j].billNumber === bills[i]._id || userBills[j].billNumber === bills[i].id) {
+        bills[i]['voted'] = userBills[j].decision
+      } 
+    }
+  }
+  return bills
+}
+
+export function receiveSenateBillData(bills) {
   return {
     type: BILL_DATA,
-    payload: addBillType(bill, 'senate', true)
+    payload: addBillType(bills, 'senate', true)
   }
 }
 
-export function getHouseBillData() {
-let house = '/api/data/house_bills'
+export function getHouseBillData(testing) {
+  let house = '/api/data/house_bills'
+  if (testing) {
+    house = 'https://localhost:3500/api/data/house_bills'
+  }
 
   return dispatch => {
     return fetch(house)
@@ -56,17 +71,16 @@ let house = '/api/data/house_bills'
   }
 }
 
-export function receiveHouseBillData(bill) {
+export function receiveHouseBillData(bills) {
   return {
     type: BILL_DATA,
-    payload: addBillType(bill, 'representative', true)
+    payload: addBillType(bills, 'representative', true)
   }
 }
 
-export function addToBills(bill) {
+export function addToBills() {
   return {
     type: ADD_TO_BILLS,
-    bill
   }
 }
 
@@ -84,9 +98,13 @@ export function no(payload) {
   }
 }
 
-export function billVote(bill, voted, user) {
-  let updatedBill = Object.assign({}, bill, {
-    voted
+
+//TODO: billVote and userVotes I think should be the same function, i.e. post to the database, on success, change the vote
+//to reflect the voted upon status. userVotes should dispatch billVote
+//Updates the current state of the bill to reflect the voted status
+export function billVote(bill, json) {
+  let updatedBill = Object.assign({}, bill, { 
+    voted: json.decision 
   })
   return {
     type: BILL_VOTE,
@@ -94,19 +112,26 @@ export function billVote(bill, voted, user) {
   }
 }
 
-export function userVotes(bill, vote, user) {
-  return dispatcy => {
-    return fetch('/userOpinions', {
+//Posts the user vote to the server => database
+export function userVotes(bill, vote, user, testing) {
+  let url = '/userOpinions'
+  if (testing) {
+    url = 'https://localhost:3500/userOpinions'
+  }
+  return dispatch => {
+    return fetch(url, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': user
+        'Authorization': localStorage.getItem('token')
       },
       body: JSON.stringify({
         billNumber: bill._id,
         opinion: vote
       })
     })
+      .then(response => response.json())
+      .then(json => dispatch(billVote(bill, json)))
   }
 }
 
@@ -121,12 +146,12 @@ export function getVotingHistory(rep) {
 export function receiveVotingHistory(payload) {
   return {
     type: REP_VOTING_HISTORY,
-    payload
+    payload: localStorage.getItem('bills') === 'undefined' ? addUserBills(payload) : payload
   }
 }
 
 export function loginCheck(user, bill) {
-  let updatedBill;
+  let updatedBill
   if (user) {
     updatedBill = Object.assign({}, bill, {
       login: true
@@ -140,5 +165,41 @@ export function loginCheck(user, bill) {
   return {
     type: LOGIN_CHECK,
     payload: updatedBill
+  }
+}
+
+export function updateLocalStorage() {
+  fetch('/userOpinions', {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': localStorage.getItem('token')
+    }
+  })
+  .then(response => response.json())
+  .then(json => {
+    localStorage.setItem('bills', undefined)
+    localStorage.setItem('bills', JSON.stringify(json))
+  })
+}
+export function userVotes(bill, vote, user, testing) {
+  let url = '/userOpinions'
+  if (testing) {
+    url = 'https://localhost:3500/userOpinions'
+  }
+  return dispatch => {
+    return fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': localStorage.getItem('token')
+      },
+      body: JSON.stringify({
+        billNumber: bill._id,
+        opinion: vote
+      })
+    })
+      .then(response => response.json())
+      .then(json => dispatch(billVote(bill, json)))
   }
 }

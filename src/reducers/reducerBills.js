@@ -1,4 +1,4 @@
-import { BILL_DATA, SET_REP_ROLE, SENATE_BILL_DATA, HOUSE_BILL_DATA, ADD_TO_BILLS, YES_VOTE, NO_VOTE, BILL_VOTE, REP_VOTING_HISTORY, LOGIN_CHECK } from '../actions/actionBills'
+import { BILL_DATA, SET_REP_ROLE, ADD_TO_BILLS, YES_VOTE, NO_VOTE, BILL_VOTE, REP_VOTING_HISTORY, LOGIN_CHECK } from '../actions/actionBills'
 import { USER_LOGIN_SUCCESS } from '../actions/actionLogin'
 
 export default function upcomingBills(state = { 
@@ -50,9 +50,10 @@ export default function upcomingBills(state = {
 export function changeBillProps(state, bill) {
   if (bill._id) {
     return idChecker(state, state.bills, bill, '_id', 'bills')
-  } else {
+  } 
+  else if(bill.id) {
     return idChecker(state, state.repVotes, bill, 'id', 'repVotes')
-  }
+  } 
 }
 
 export function idChecker(state, type, bill, id, prop) {
@@ -62,6 +63,7 @@ export function idChecker(state, type, bill, id, prop) {
       let after = type.slice(i + 1, type.length)
       before.push(bill)
       let newBills = before.concat(after)
+      console.log('these are hte new bills after vote', newBills)
       return Object.assign({}, state, {
         [prop]: newBills
       })

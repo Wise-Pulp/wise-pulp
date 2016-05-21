@@ -1,3 +1,4 @@
+
 const Authentication = require('./data/db/controllers/authentication');
 const passportService = require('./services/passport');
 const passport = require('passport');
@@ -48,18 +49,56 @@ module.exports = function(app) {
     console.log('Server running on port ' + port);
   });
 
-  app.post('/userOpinions', requireAuth, function(req, res) {
-    var decode = jwt.decode(req.headers.authorization, config.secret)
+  app.get('/userOpinions', requireAuth, function(req, res) {
+    var decode = jwt.decode(req.headers.authorization, config.secret);
     var id = decode.sub;
+
+    User.findOne({_id: id}, function(err, user) {
+      if (err) {
+        res.json(err)
+      }
+      res.send(user.bills)
+    })
+  })
+
+  app.post('/userOpinions', requireAuth, function(req, res) {
     var billNumber = req.body.billNumber;
     var opinion = req.body.opinion;
     var votedAt = Date.parse(new Date());
 
     var thisOpinion = new UserOpinion();
-    thisOpinion.userid = id;
     thisOpinion.billNumber = billNumber;
     thisOpinion.decision = JSON.parse(opinion);
     thisOpinion.votedAt = votedAt;
+
+    var decode = jwt.decode(req.headers.authorization, config.secret);
+    var id = decode.sub;
+    var notFound = true;
+    User.findOne({_id: id}, function(err, user) {
+      if (err) {
+        res.json(err);
+      } 
+      if (user.bills.length) {
+        user.bills.forEach((bill) => {
+          if (bill.billNumber === billNumber) {
+            bill.decision = JSON.parse(opinion)
+            notFound = false;
+          } 
+        })
+      } 
+      if (notFound){
+        user.bills.push(thisOpinion)
+      }
+      user.save(function(saveErr) {
+        if (err) {
+          res.json(saveErr)
+        }
+        console.log('this is the user at the end', user)
+        notFound = true;
+        res.json(thisOpinion)
+      })
+    })
+
 
   });
 
@@ -111,27 +150,6 @@ module.exports = function(app) {
       .then(response => response.json())
       .then(json => res.send(json))
   })
-
-  app.post('/api/signup', function(req, res, next) {
-  if (!req.body.email || !req.body.password) {
-    console.log(req.params);
-    return res.status(400).json({ message: 'Please fill out all fields' });
-  }
-    // console.log('***************', Object.keys(req));
-  var user = new User();
-  user.password = req.body.password;
-  user.email = req.body.email;
-  console.log('this is the user', user);
-
-  user.save(function (err, success) {
-      if (err) {
-        return next(err);
-      }
-      return res.json({
-        'theSmellOfSuccess': true
-      });
-    });      
-});
 
 
 // senate bills
@@ -264,12 +282,12 @@ module.exports = function(app) {
       res.status(404).send('Invalid Year or Zipcode Entered');
     }
   });
-
   //if we're not in production, this proxies requests to localhost:3000 and sends them to our webpack server at localhost:8080
   if (!isProduction) {
     var bundle = require('./server/compiler.js');
     bundle();
     app.all('/build/*', function (req, res) {
+      console.log(req.body)
       proxy.web(req, res, {
         target: 'http://localhost:8080'
       });

@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { yes, no, billVote, userVotes, loginCheck } from '../../actions/actionBills';
-import Bill from './Bill';
-import './Bills.scss';
+import React, { Component }               from 'react'
+import { connect }                        from 'react-redux'
+import { yes, no, userVotes, loginCheck } from '../../actions/actionBills'
+import Bill from './Bill'
+import './Bills.scss'
 
 export default class BillList extends Component {
 
@@ -20,11 +20,9 @@ export default class BillList extends Component {
 
     if (user) {
       if (bill === yes) {
-        dispatch(billVote(bill, 'yes'))
         dispatch(userVotes(bill, true, user))
 
       } else if (bill === no) {
-        dispatch(billVote(bill, 'no'))
         dispatch(userVotes(bill, false, user))
 
       }
@@ -41,39 +39,39 @@ export default class BillList extends Component {
     this.props.dispatch(no(bill))
   }
 
- render() {
-  const {dispatch, bills, billsToShow, role} = this.props
-  let count = 0
-  return (
-    <div>
-     {bills.map( (bill, i)=> {
-      if (role) {
-        if (bill[role]) {
-          while (count < billsToShow) {
-            count++
-            return <Bill bill={bill} 
-                         handleLoginCheck={this.handleLoginCheck}
-                         onYesChange={this.onYesChange}
-                         onNoChange={this.onNoChange} 
-                         key={i}/>
-          }
-         }
-      } else {
-          while (count < billsToShow) {
+  render() {
+    const { bills, billsToShow, role } = this.props
+    let count = 0
+    return (
+      <div>
+       {bills.map( (bill, i)=> {
+         if (role) {
+          if (bill[role]) {
+            while (count < billsToShow) {
               count++
               return <Bill bill={bill} 
                            handleLoginCheck={this.handleLoginCheck}
                            onYesChange={this.onYesChange}
                            onNoChange={this.onNoChange} 
                            key={i}/>
+            }
+           }
+        } else {
+           while (count < billsToShow) {
+                count++
+                return <Bill bill={bill} 
+                             handleLoginCheck={this.handleLoginCheck}
+                             onYesChange={this.onYesChange}
+                             onNoChange={this.onNoChange} 
+                             key={i}/>
+          }
         }
-      }
-      }) 
-      }
-     <button type="button" className="btn btn-default show_more_bills" onClick={e => this.props.showMoreBills()}>More</button>
-    </div> 
-  )
- } 
+        }) 
+        }
+       <button type="button" className="btn btn-default show_more_bills" onClick={e => this.props.showMoreBills()}>More</button>
+      </div> 
+    )
+  } 
 }
 
 function mapStateToProps(state) {
@@ -87,4 +85,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps)(BillList);
+export default connect(mapStateToProps)(BillList)

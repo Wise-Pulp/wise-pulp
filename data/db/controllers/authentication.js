@@ -5,27 +5,22 @@ const config = require('../../../config');
 
 function tokenForUser(user) {
   const timestamp = new Date().getTime();
-  return jwt.encode({ sub: user.id, iat: timestamp }, config.secret);
+  return jwt.encode({ sub: user._id, iat: timestamp }, config.secret);
 }
 
-module.exports.signin = function(req, res, next) {
+module.exports.signin = function(req, res) {
   //User has already supplied and verified their username and password
   //We need to give them a token.
-  console.log(tokenForUser(req.user))
-  res.send({ token: tokenForUser(req.user) });
+
+    console.log('this is success', req.user)
+    res.send({ token: tokenForUser(req.user), bills: req.user.bills });
 }
+
 module.exports.signup = function(req, res, next) {
-  console.log(req.body) ;
 
-  var logit = {
-    email: req.params.email,
-    password: req.params.password,
-    body: req.body
-  }
-
-  console.log('*********************', logit);
   const email = req.body.email;
   const password = req.body.password;
+  console.log(email) ;
   
 
   // if (!email || !password) {
@@ -35,24 +30,34 @@ module.exports.signup = function(req, res, next) {
   //See if user with the given email exists
   User.findOne({ email: email }, function(err, existingUser){
     
-    if(err) { return next(err); }
+    if(err) { 
+      console.log('this is user error', err)
+      return next(err); }
 
+  console.log('this is existing user', existingUser)
   //if email is used, return an error
   if(existingUser) {
     return res.status(422).send({ error: 'Email is in use'});
   }
-    //if a user with the email does NOT exist, create and save user record
+   // if a user with the email does NOT exist, create and save user record
     const user = new User ({
       email: email,
-      password: password
+      password: password,
+      bills: []
     });
 
-    user.save(function(err) {
-      if (err) { return next(err); }
-      res.json({ token: tokenForUser(user) });
-    });
+    user.setPassword(function() {
+      user.save(function(err) {
+        if (err) { return next(err); }
+        res.json({ token: tokenForUser(user) });
+      });
+    })
+
+    console.log('this is user', user)
+
+    
 
     //respond to request indicating user was saved.
-   // res.json({ token: tokenForUser(user) });
+   //res.json({ token: tokenForUser(user) });
   });
 }

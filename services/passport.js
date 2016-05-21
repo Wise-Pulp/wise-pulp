@@ -11,7 +11,10 @@ const LocalStrategy = require('passport-local');
 const localOptions = { usernameField: 'email' };
 const localLogin = new LocalStrategy(localOptions, function(email, password, done) {
   // Verify this username and password
+  console.log('this is email in passsport', email)
   User.findOne({ email: email }, function(err, user){
+    console.log('this is err in passport', err)
+    console.log('this is user in passport', user)
     if (err) { 
       console.log('user not found!');
       return done(err); }
@@ -19,7 +22,11 @@ const localLogin = new LocalStrategy(localOptions, function(email, password, don
 
     //compare passwords - is 'password' equal to user.password?
     user.comparePassword(password, function(err, isMatch) {
-      if (err) { return done(err); }
+      if (err) { 
+        console.log('this is err in comparePassword', err)
+        return done(err); 
+      }
+      console.log('this is match', isMatch)
       if(!isMatch) { return done(null, false) }
 
       return done(null, user);
