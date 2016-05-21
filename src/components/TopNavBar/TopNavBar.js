@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import './TopNavBar.scss'
 import { Link } from 'react-router'
-import { processLogout } from '../actions/actionLogin'
+import { processLogout } from '../../actions/actionLogin'
 
 export default class TopNavbar extends Component {
 
