@@ -1,5 +1,5 @@
 const passport = require('passport');
-const User = require('../data/db/User.model');
+const User = require('../db/User.model');
 const config = require('../config');
 const JwtStrategy = require('passport-jwt').Strategy;
 const ExtractJwt = require('passport-jwt').ExtractJwt;
@@ -11,10 +11,7 @@ const LocalStrategy = require('passport-local');
 const localOptions = { usernameField: 'email' };
 const localLogin = new LocalStrategy(localOptions, function(email, password, done) {
   // Verify this username and password
-  console.log('this is email in passsport', email)
   User.findOne({ email: email }, function(err, user){
-    console.log('this is err in passport', err)
-    console.log('this is user in passport', user)
     if (err) { 
       console.log('user not found!');
       return done(err); }
