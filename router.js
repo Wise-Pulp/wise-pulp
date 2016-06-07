@@ -1,5 +1,5 @@
 
-const Authentication = require('./data/db/controllers/authentication');
+const Authentication = require('./db/controllers/authentication');
 const passportService = require('./services/passport');
 const passport = require('passport');
 var path = require('path');
@@ -7,8 +7,8 @@ var publicPath = path.resolve(__dirname, 'public');
 const requireAuth = passport.authenticate('jwt', { session: false });
 const requireSignin = passport.authenticate('local', { session: false });
 const jwt = require('jwt-simple');
-const congressBill = require('./data/db/upcomingCongressionalVotes.model');
-const senateBill = require('./data/db/UpcomingSenateBills.model');
+const congressBill = require('./db/upcomingCongressionalVotes.model');
+const senateBill = require('./db/UpcomingSenateBills.model');
 const config = require('./config');
 var CronJob = require('cron').CronJob;
 var httpProxy = require('http-proxy');
@@ -20,14 +20,14 @@ var port = isProduction ? process.env.PORT : 3500;
 
 
 ///////////////////////////////////////// Models
-var User = require('./data/db/User.model');
-var Zipcode = require('./data/db/Zipcode.model');
-var CandidateSummary = require('./data/db/Candidate_Summary.model');
-var Contribution = require('./data/db/Contribution.model');
-var GE_Turnout = require('./data/db/Gen_Election_Voter_Turnout.model');
-var LDR_PAC_Sponsor = require('./data/db/LDR_PAC_Sponsor.model');
-var Administrative_Fine = require('./data/db/Administrative_Fine.model');
-var UserOpinion = require('./data/db/UserOpinion.model');
+var User = require('./db/User.model');
+var Zipcode = require('./db/Zipcode.model');
+var CandidateSummary = require('./db/Candidate_Summary.model');
+var Contribution = require('./db/Contribution.model');
+var GE_Turnout = require('./db/Gen_Election_Voter_Turnout.model');
+var LDR_PAC_Sponsor = require('./db/LDR_PAC_Sponsor.model');
+var Administrative_Fine = require('./db/Administrative_Fine.model');
+var UserOpinion = require('./db/UserOpinion.model');
 
 /////////////////////////////////////////// API helper functions
 
@@ -203,14 +203,11 @@ module.exports = function(app) {
         req.params.zipcode.length === 5
         ) {
 
-      console.log('req.params.collectionYear:', req.params.collectionYear);
-      console.log('req.params.zipcode:', req.params.zipcode);
       zipcode = req.params.zipcode;
 
       Zipcode.find({ zipcode: zipcode }).exec(function(error, zipObject) {
         if (error) { console.log('error retrieving zipcode', error); }
 
-        console.log('the Zip Object:', zipObject);
         var theYear = Date.parse('01/01/' + req.params.collectionYear);
 
         if (zipObject.length > 1) {
@@ -218,14 +215,8 @@ module.exports = function(app) {
           var iterations = zipObject.length;
           var i = 0;
           asyncLoop(iterations, function(loop) {
-
-
-            console.log('this is theYear before entering Query #MultipleObjects:', theYear);
-
             CandidateSummary.find({ year_of_collection: 1451635200000, can_off_sta: zipObject[i].state, can_off_dis: zipObject[i].district })
-
           .exec(function(err, docs) {
-
             if (err) {
               console.log(loop.iteration(), 'Candidate was skipped.', err);
               if (i < iterations) {
@@ -234,12 +225,10 @@ module.exports = function(app) {
               } else { 
                 loop.next(); 
               }
-
             } else {
               if (i < iterations) {
                 i++;
                 console.log(loop.iteration(), 'Candidate has been sent');
-
                 storage.push(docs);  
                 loop.next();
               }
@@ -248,10 +237,6 @@ module.exports = function(app) {
           }, function() { res.json(storage); });
         } else {
           if( zipObject[0] ){
-
-            console.log('this is theYear before entering Query #SingleObject:', theYear);
-            console.log('this is zipObject.state:', zipObject[0].state);
-            console.log('this is zipObject.district:', zipObject[0].district);
             CandidateSummary.find({ year_of_collection: 1451635200000, can_off_dis: zipObject[0].district, can_off_sta: zipObject[0].state})
             .exec(function(err, documents) {
               if (err) { 
@@ -287,7 +272,6 @@ module.exports = function(app) {
     var bundle = require('./server/compiler.js');
     bundle();
     app.all('/build/*', function (req, res) {
-      console.log(req.body)
       proxy.web(req, res, {
         target: 'http://localhost:8080'
       });

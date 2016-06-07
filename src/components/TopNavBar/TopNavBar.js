@@ -15,7 +15,7 @@ export default class TopNavbar extends Component {
     const { isLoggedIn } = this.props
     return (
         <div className='top-nav-bar'>
-          { isLoggedIn ?  <button className='login-button' onClick={e => this.logout(e)}>Logout</button> : 
+          { isLoggedIn ? <button className='login-button' onClick={e => this.logout(e)}>Logout</button> : 
                           <Link to={'login'}><button className='login-button'>Login</button></Link> }
           <Link className='item' to={'upcoming_bills'}>Upcoming Bills</Link>
           <Link className='item' to={'representatives'}>Representatives</Link>
